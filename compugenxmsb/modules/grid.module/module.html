@@ -1,0 +1,115 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .grid {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .grid {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+
+      @media (min-width: 768px) {
+        .grid__list {
+          grid-template-columns: repeat({{ module.styles.columns }}, 1fr);
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<section
+  class="
+    grid
+    grid--bg-{{ module.styles.background_color|escape_attr }}
+    grid--heading-{{ module.styles.heading_color|escape_attr }}
+  "
+>
+
+  <div class="grid__inner content-wrapper">
+
+    {% if module.show_heading and module.section_heading %}
+      <div class="grid__heading">
+        {{ module.section_heading|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.show_paragraph and module.section_paragraph %}
+      <div class="grid__paragraph">
+        {{ module.section_paragraph|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.items %}
+      <div class="grid__frame">
+        <div class="grid__list">
+          {% for item in module.items %}
+            <div class="grid__item{% if loop.last and module.vector_visible and module.vector.src %} grid__item--vector-host{% endif %}">
+
+              <div class="grid__item-content">
+
+                {% if item.show_media %}
+                  <div class="grid__icon">
+                    {% if item.icon_settings.icon_type == "icon" %}
+                      <div class="grid__icon-wrap grid__icon-wrap--{{ item.icon_settings.icon_color|escape_attr }}">
+                        {% icon
+                          extra_classes="grid__icon-svg",
+                          name="{{ item.icon_settings.icon_library.name }}",
+                          purpose="decorative",
+                          style="{{ item.icon_settings.icon_library.type }}",
+                          unicode="{{ item.icon_settings.icon_library.unicode }}"
+                        %}
+                      </div>
+                    {% else %}
+                      {% if item.icon_settings.icon_image.src %}
+                        <img
+                          class="grid__icon-img"
+                          src="{{ item.icon_settings.icon_image.src|escape_url }}"
+                          alt="{{ item.icon_settings.icon_image.alt|escape_attr }}"
+                          loading="lazy"
+                        >
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                {% endif %}
+
+                {% if item.title %}
+                  <div class="grid__title">
+                    {{ item.title|sanitize_html }}
+                  </div>
+                {% endif %}
+
+                {% if item.subtitle %}
+                  <div class="grid__subtitle">
+                    {{ item.subtitle|sanitize_html }}
+                  </div>
+                {% endif %}
+
+                {% if item.description %}
+                  <div class="grid__description">
+                    {{ item.description|sanitize_html }}
+                  </div>
+                {% endif %}
+
+              </div>
+
+              {% if loop.last and module.vector_visible and module.vector.src %}
+                <img
+                  class="grid__vector"
+                  src="{{ module.vector.src|escape_url }}"
+                  alt=""
+                  loading="lazy"
+                >
+              {% endif %}
+
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+  </div>
+
+</section>

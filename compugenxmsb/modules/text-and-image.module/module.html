@@ -1,0 +1,131 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .text-image {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .text-image {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<section
+  class="
+    text-image
+    text-image--{{ 'style-2' if module.style == 'style_2' else 'style-1' }}
+    text-image--pos-{{ module.image_position|escape_attr }}
+    text-image--bg-{{ module.styles.background_color|escape_attr }}
+    text-image--title-{{ module.styles.title_color|escape_attr }}
+    text-image--text-{{ module.styles.content_color|escape_attr }}
+  "
+>
+
+  <div class="text-image__inner content-wrapper">
+    <div class="text-image__row">
+
+      <div class="text-image__content">
+
+        <div class="text-image__text">
+
+          {% if module.title %}
+            <div class="text-image__title">
+              {{ module.title|sanitize_html }}
+            </div>
+          {% endif %}
+
+          {% if module.description %}
+            <div class="text-image__description">
+              {{ module.description|sanitize_html }}
+            </div>
+          {% endif %}
+
+        </div>
+
+        {% if module.ctas %}
+          <div class="text-image__ctas">
+            {% for cta_item in module.ctas %}
+              {% if cta_item.link_type == "cta" %}
+                {% if cta_item.cta %}
+                  <div class="btn-custom {{ cta_item.variant|escape_attr }}">
+                    {% cta guid=cta_item.cta %}
+                  </div>
+                {% endif %}
+              {% else %}
+                {% set href = cta_item.link.url.href %}
+                {% if href %}
+                  {% if cta_item.link.url.type == "EMAIL_ADDRESS" %}
+                    {% set href = "mailto:" + href %}
+                  {% endif %}
+                  {% set rel = [] %}
+                  {% if cta_item.link.no_follow %}
+                    {% do rel.append("nofollow") %}
+                  {% endif %}
+                  {% if cta_item.link.open_in_new_tab %}
+                    {% do rel.append("noopener") %}
+                  {% endif %}
+                  <div class="btn-custom {{ cta_item.variant|escape_attr }}">
+                    <a
+                      href="{{ href|escape_url }}"
+                      {% if cta_item.link.open_in_new_tab %}target="_blank"{% endif %}
+                      {% if rel %}rel="{{ rel|join(" ")|escape_attr }}"{% endif %}
+                    >
+                      {{ cta_item.text|escape_html }}
+                    </a>
+                  </div>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+
+      </div>
+
+      {% if module.image.src %}
+        <div class="text-image__image-wrap">
+          <div class="text-image__image">
+            <img
+              src="{{ module.image.src|escape_url }}"
+              alt="{{ module.image.alt|escape_attr }}"
+              loading="{{ module.image.loading|escape_attr }}"
+            >
+          </div>
+          {% if module.style == "style_2" %}
+            {% set style2_vectors = module.style2.pos_left if module.image_position == "left" else module.style2.pos_right %}
+            {% if style2_vectors.vector_left_visible and style2_vectors.vector_left.src %}
+              <img
+                class="text-image__vector text-image__vector--left"
+                src="{{ style2_vectors.vector_left.src|escape_url }}"
+                alt=""
+                loading="lazy"
+              >
+            {% endif %}
+            {% if style2_vectors.vector_right_visible and style2_vectors.vector_right.src %}
+              <img
+                class="text-image__vector text-image__vector--right"
+                src="{{ style2_vectors.vector_right.src|escape_url }}"
+                alt=""
+                loading="lazy"
+              >
+            {% endif %}
+          {% else %}
+            {% if module.vector_visible and module.vector.src %}
+              <img
+                class="text-image__vector"
+                src="{{ module.vector.src|escape_url }}"
+                alt=""
+                loading="lazy"
+              >
+            {% endif %}
+          {% endif %}
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+</section>

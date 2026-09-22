@@ -1,0 +1,207 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .custom-cards {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .custom-cards {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+
+      @media (min-width: 768px) {
+        .custom-cards__grid {
+          grid-template-columns: repeat({{ module.styles.columns }}, 1fr);
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<section
+  class="
+    custom-cards
+    custom-cards--bg-{{ module.styles.background_color|escape_attr }}
+    custom-cards--heading-{{ module.styles.heading_color|escape_attr }}
+  "
+>
+
+  <div class="custom-cards__inner content-wrapper">
+
+    {% if module.section_heading %}
+      <div class="custom-cards__heading">
+        {{ module.section_heading|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.section_paragraph %}
+      <div class="custom-cards__paragraph">
+        {{ module.section_paragraph|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.cards %}
+      <div class="custom-cards__grid">
+        {% for card in module.cards %}
+          {#
+            Show Point lives on two different, version-specific fields
+            (cards.default_icon.show_point / cards.cta_extras.show_point) rather
+            than one shared field with a multi-value Card Version condition -
+            see fields.json for why. Resolve whichever one is relevant for this
+            card's own version into one local variable before using it below.
+          #}
+          {% set card_show_point = true %}
+          {% if card.card_version == "default" %}
+            {% set card_show_point = card.default_icon.show_point %}
+          {% elif card.card_version == "cta" %}
+            {% set card_show_point = card.cta_extras.show_point %}
+          {% endif %}
+          <div class="custom-cards__card custom-cards__card--{{ card.card_version|escape_attr }}{% if not card_show_point %} custom-cards__card--no-point{% endif %}{% if module.styles.show_diagonal_cut %} custom-cards__card--diagonal-cut{% endif %}">
+
+            {% if card.card_version == "default" %}
+              {% if card.default_icon.show_media %}
+                <div class="custom-cards__icon">
+                  {% if card.default_icon.icon_settings.icon_type == "icon" %}
+                    <div class="custom-cards__icon-wrap custom-cards__icon-wrap--{{ card.default_icon.icon_settings.icon_color|escape_attr }}">
+                      {% icon
+                        extra_classes="custom-cards__icon-svg",
+                        name="{{ card.default_icon.icon_settings.icon_library.name }}",
+                        purpose="decorative",
+                        style="{{ card.default_icon.icon_settings.icon_library.type }}",
+                        unicode="{{ card.default_icon.icon_settings.icon_library.unicode }}"
+                      %}
+                    </div>
+                  {% else %}
+                    {% if card.default_icon.icon_settings.icon_image.src %}
+                      <img
+                        class="custom-cards__icon-img"
+                        src="{{ card.default_icon.icon_settings.icon_image.src|escape_url }}"
+                        alt="{{ card.default_icon.icon_settings.icon_image.alt|escape_attr }}"
+                        loading="lazy"
+                      >
+                    {% endif %}
+                  {% endif %}
+                </div>
+              {% endif %}
+              {% if card.default_vector.vector_visible and card.default_vector.vector.src %}
+                <img
+                  class="custom-cards__default-vector"
+                  src="{{ card.default_vector.vector.src|escape_url }}"
+                  alt=""
+                  loading="lazy"
+                >
+              {% endif %}
+            {% endif %}
+
+            {#
+              Show image and Show decorative vector are independently
+              controllable - the wrap renders whenever either one has
+              something to show, so the vector's absolute positioning
+              always has this wrap as its containing block.
+            #}
+            {% if card.card_version == "image" and (card.image_card.show_media or (card.image_card.vector_visible and card.image_card.vector.src)) %}
+              <div class="custom-cards__image-wrap">
+                {% if card.image_card.show_media %}
+                  {% if card.image_card.image.src %}
+                    <img
+                      src="{{ card.image_card.image.src|escape_url }}"
+                      alt="{{ card.image_card.image.alt|escape_attr }}"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    <div class="custom-cards__image-fallback"></div>
+                  {% endif %}
+                {% endif %}
+                {% if card.image_card.vector_visible and card.image_card.vector.src %}
+                  <img
+                    class="custom-cards__image-vector"
+                    src="{{ card.image_card.vector.src|escape_url }}"
+                    alt=""
+                    loading="lazy"
+                  >
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {#
+              Image Card's own padding wrapper. Title/description/CTA below are
+              shared markup rendered once for every card version; only the Image
+              Card needs them wrapped in a padded div, since only the Image Card
+              needs its own image to bleed to the card's full, unpadded width.
+              Opening and closing this div in two separate conditional blocks
+              around the shared content (rather than duplicating that content for
+              a wrapped vs. unwrapped copy) is safe here because card.card_version
+              does not change between the two checks within the same loop
+              iteration - this always produces valid, correctly nested HTML.
+            #}
+            {% if card.card_version == "image" %}<div class="custom-cards__content">{% endif %}
+
+            {% if card.title %}
+              <div class="custom-cards__title">
+                {{ card.title|sanitize_html }}
+              </div>
+            {% endif %}
+
+            {% if card.subtitle %}
+              <div class="custom-cards__subtitle">
+                {{ card.subtitle|sanitize_html }}
+              </div>
+            {% endif %}
+
+            {% if card.card_version == "list_price" and card.price_card.price %}
+              <div class="custom-cards__price">
+                {{ card.price_card.price|sanitize_html }}
+              </div>
+            {% endif %}
+
+            {% if card.description %}
+              <div class="custom-cards__description">
+                {{ card.description|sanitize_html }}
+              </div>
+            {% endif %}
+
+            {% if card.show_cta %}
+              {% if card.cta_settings.link_type == "cta" %}
+                {% if card.cta_settings.cta %}
+                  <div class="custom-cards__cta btn-custom {{ card.cta_settings.variant|escape_attr }}">
+                       {% cta guid="{{ card.cta_settings.cta }}" %}
+                  </div>
+                {% endif %}
+              {% else %}
+                {% set href = card.cta_settings.link.url.href %}
+                {% if href %}
+                  {% if card.cta_settings.link.url.type == "EMAIL_ADDRESS" %}
+                    {% set href = "mailto:" + href %}
+                  {% endif %}
+                  {% set rel = [] %}
+                  {% if card.cta_settings.link.no_follow %}
+                    {% do rel.append("nofollow") %}
+                  {% endif %}
+                  {% if card.cta_settings.link.open_in_new_tab %}
+                    {% do rel.append("noopener") %}
+                  {% endif %}
+                  <div class="custom-cards__cta btn-custom {{ card.cta_settings.variant|escape_attr }}">
+                    <a
+                      href="{{ href|escape_url }}"
+                      {% if card.cta_settings.link.open_in_new_tab %}target="_blank"{% endif %}
+                      {% if rel %}rel="{{ rel|join(" ")|escape_attr }}"{% endif %}
+                    >
+                      {{ card.cta_settings.text|escape_html }}
+                    </a>
+                  </div>
+                {% endif %}
+              {% endif %}
+            {% endif %}
+
+            {% if card.card_version == "image" %}</div>{% endif %}
+
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+
+</section>

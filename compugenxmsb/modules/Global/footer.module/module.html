@@ -1,0 +1,73 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .global-footer {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .global-footer {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<footer class="global-footer">
+
+  <div class="global-footer__accent" aria-hidden="true"></div>
+
+  <div class="global-footer__inner content-wrapper">
+    <div class="global-footer__row">
+
+      {% if module.logo.src %}
+        <a href="/" class="global-footer__logo" aria-label="{{ module.logo.alt|escape_attr }}">
+          <img
+            src="{{ module.logo.src|escape_url }}"
+            alt="{{ module.logo.alt|escape_attr }}"
+            loading="{{ module.logo.loading|escape_attr }}"
+          >
+        </a>
+      {% endif %}
+
+      <div class="global-footer__meta">
+
+        {% if module.copyright %}
+          <span class="global-footer__copyright">{{ module.copyright|escape_html }}</span>
+        {% endif %}
+
+        {% if content.translated_content.values()|selectattr("published")|length or is_listing_view and group.translations %}
+          <ul class="global-footer__lang no-list">
+            <li class="global-footer__lang-item global-footer__lang-item--current">
+              <span aria-current="true">{{ content.language.languageTag|upper }}</span>
+            </li>
+            {% for translation in content.translated_content.values() %}
+              {% if translation.published %}
+                <li class="global-footer__lang-item">
+                  <a href="{{ translation.absoluteUrl|escape_url }}">{{ translation.language|upper }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+      </div>
+
+      {% if module.form.form_id %}
+        <div class="global-footer__form">
+          {% form
+            form_to_use="{{ module.form.form_id }}"
+            response_response_type="{{ module.form.response_type }}"
+            response_message="{{ module.form.message }}"
+            response_redirect_id="{{ module.form.redirect_id }}"
+            response_redirect_url="{{ module.form.redirect_url }}"
+            gotowebinar_webinar_key="{{ module.form.gotowebinar_webinar_key }}"
+          %}
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+</footer>

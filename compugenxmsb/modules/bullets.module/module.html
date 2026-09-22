@@ -1,0 +1,74 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .bullets {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .bullets {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<section
+  class="
+    bullets
+    bullets--bg-{{ module.styles.background_color|escape_attr }}
+    bullets--title-{{ module.styles.title_color|escape_attr }}
+    bullets--text-{{ module.styles.content_color|escape_attr }}
+  "
+>
+
+  <div class="bullets__inner content-wrapper">
+
+    {% if module.title %}
+      <div class="bullets__title">
+        {{ module.title|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.items %}
+      <div class="bullets__row">
+        {% for item in module.items %}
+          <div class="bullets__item">
+
+            <div class="bullets__icon">
+              {% if item.icon_type == "icon" %}
+                <div class="bullets__icon-wrap bullets__icon-wrap--{{ item.icon_color|escape_attr }}">
+                  {% icon
+                    extra_classes="bullets__icon-svg",
+                    name="{{ item.icon_library.name }}",
+                    purpose="decorative",
+                    style="{{ item.icon_library.type }}",
+                    unicode="{{ item.icon_library.unicode }}"
+                  %}
+                </div>
+              {% else %}
+                {% if item.icon_image.src %}
+                  <img
+                    class="bullets__icon-img"
+                    src="{{ item.icon_image.src|escape_url }}"
+                    alt="{{ item.icon_image.alt|escape_attr }}"
+                    loading="lazy"
+                  >
+                {% endif %}
+              {% endif %}
+            </div>
+
+            {% if item.description %}
+              <div class="bullets__description">
+                {{ item.description|sanitize_html }}
+              </div>
+            {% endif %}
+
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+</section>

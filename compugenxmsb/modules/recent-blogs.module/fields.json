@@ -1,0 +1,96 @@
+[
+  {
+    "id": "section_heading",
+    "name": "section_heading",
+    "label": "Heading",
+    "help_text": "Optional - leave empty to hide. Same fixed treatment as the Table module's own heading: normal text is fixed Blue, Arial Regular; wrap text in Bold to render it Purple, Arial Black - regardless of any other setting. No separate color/typography choice exists for this field.",
+    "required": false,
+    "locked": false,
+    "enabled_features": [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+    "type": "richtext",
+    "display_width": null,
+    "default": "<h2><strong>Microsoft Assets</strong> for You</h2>"
+  },
+  {
+    "id": "blog_select",
+    "name": "blog_select",
+    "label": "Blog",
+    "help_text": "Optional. Pull posts from this specific blog. Leave empty to pull from every blog in the portal.",
+    "required": false,
+    "locked": false,
+    "type": "blog",
+    "display_width": null
+  },
+  {
+    "id": "tag_filter",
+    "name": "tag_filter",
+    "label": "Filter by tag",
+    "help_text": "Optional. Only show posts with this tag - checked against the blog's most recent 100 posts (in that blog, if Blog above is also set), so an older matching post can still appear even if it isn't among the 3 newest overall. Leave empty to show the most recent posts regardless of tag.",
+    "required": false,
+    "locked": false,
+    "type": "tag",
+    "display_width": null
+  },
+  {
+    "id": "styles",
+    "name": "styles",
+    "label": "Styles",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "id": "styles.spacing_desktop",
+        "name": "spacing_desktop",
+        "label": "Desktop spacing",
+        "help_text": "Top/bottom padding on desktop. Left/right are hidden - horizontal spacing comes from .content-wrapper.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 80, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 80, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.spacing_mobile",
+        "name": "spacing_mobile",
+        "label": "Mobile spacing",
+        "help_text": "Top/bottom padding at the theme's mobile breakpoint (max-width: 767px), independent of the desktop value above.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 40, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 40, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      }
+    ],
+    "tab": "STYLE",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  }
+]

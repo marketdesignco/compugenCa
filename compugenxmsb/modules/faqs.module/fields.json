@@ -1,0 +1,211 @@
+[ {
+  "id" : "section_heading",
+  "name" : "section_heading",
+  "label" : "Section heading",
+  "help_text" : "Optional - leave empty to hide. Normal text uses the Heading color setting below (default Purple). Wrap text in Bold to render it Purple 900, Arial Black, weight 900 - regardless of the Heading color selection. This treatment is scoped to this module's section heading only - it does not affect FAQ questions or global typography.",
+  "required" : false,
+  "locked" : false,
+  "enabled_features" : [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<h2>Frequently Asked <strong>Questions</strong></h2>"
+}, {
+  "id" : "items",
+  "name" : "items",
+  "label" : "FAQ items",
+  "help_text" : "Each item has a Question and an Answer. The first item is expanded by default; opening one item closes any other open item.",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 1,
+    "max" : 20,
+    "sorting_label_field" : null,
+    "default" : 2
+  },
+  "children" : [ {
+    "id" : "items.question",
+    "name" : "question",
+    "label" : "Question",
+    "help_text" : "Renders as Heading 5, Bold, inside the clickable row header, with no background. Black when closed, Purple on hover or while this item is open - both fixed, not affected by the Content color setting below.",
+    "required" : false,
+    "locked" : false,
+    "enabled_features" : [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+    "type" : "richtext",
+    "display_width" : null,
+    "default" : "<h5>Expanded Question Row</h5>"
+  }, {
+    "id" : "items.answer",
+    "name" : "answer",
+    "label" : "Answer",
+    "help_text" : "Revealed when this item is open. Uses the Content color setting below.",
+    "required" : false,
+    "locked" : false,
+    "enabled_features" : [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+    "type" : "richtext",
+    "display_width" : null,
+    "default" : "<p>Full answer copy room.</p>"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : true,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "question" : "<h5>Expanded Question Row</h5>",
+    "answer" : "<p>Full answer copy room.</p>"
+  }, {
+    "question" : "<h5>Collapsed Question Row</h5>",
+    "answer" : "<p>Full answer copy room.</p>"
+  } ]
+}, {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "styles.spacing_desktop",
+    "name" : "spacing_desktop",
+    "label" : "Desktop spacing",
+    "help_text" : "Top/bottom padding on desktop. Left/right are hidden - horizontal spacing comes from .content-wrapper.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null,
+      "hidden_subfields" : {
+        "margin" : true
+      }
+    },
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : {
+      "padding" : {
+        "top" : {
+          "value" : 80,
+          "units" : "px"
+        },
+        "right" : {
+          "value" : 0,
+          "units" : "px"
+        },
+        "bottom" : {
+          "value" : 80,
+          "units" : "px"
+        },
+        "left" : {
+          "value" : 0,
+          "units" : "px"
+        }
+      }
+    }
+  }, {
+    "id" : "styles.spacing_mobile",
+    "name" : "spacing_mobile",
+    "label" : "Mobile spacing",
+    "help_text" : "Top/bottom padding at the theme's mobile breakpoint (max-width: 767px), independent of the desktop value above.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null,
+      "hidden_subfields" : {
+        "margin" : true
+      }
+    },
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : {
+      "padding" : {
+        "top" : {
+          "value" : 40,
+          "units" : "px"
+        },
+        "right" : {
+          "value" : 0,
+          "units" : "px"
+        },
+        "bottom" : {
+          "value" : 40,
+          "units" : "px"
+        },
+        "left" : {
+          "value" : 0,
+          "units" : "px"
+        }
+      }
+    }
+  }, {
+    "id" : "styles.background_color",
+    "name" : "background_color",
+    "label" : "Background color",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "white", "White" ], [ "purple", "Purple" ], [ "green", "Green" ], [ "transparent", "Transparent" ], [ "purple_bg", "Purple BG (#FAF9FD)" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "white"
+  }, {
+    "id" : "styles.heading_align",
+    "name" : "heading_align",
+    "label" : "Section title alignment",
+    "help_text" : "Applies only to the section title/heading - not to FAQ questions or answers.",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "center"
+  }, {
+    "id" : "styles.heading_color",
+    "name" : "heading_color",
+    "label" : "Section heading color",
+    "help_text" : "Applies only to the section heading's non-Bold text - never to FAQ questions/answers. Bold text in the section heading always renders Purple 900 regardless of this selection.",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "purple", "Purple" ], [ "black", "Black" ], [ "green", "Green" ], [ "white", "White" ], [ "blue", "Blue (#009CE4)" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "purple"
+  }, {
+    "id" : "styles.content_color",
+    "name" : "content_color",
+    "label" : "Content color",
+    "help_text" : "Applies to the regular answer text only - not the section heading (see Heading color above) and not the question row, which has its own fixed open/closed color states.",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "black", "Black" ], [ "white", "White" ], [ "purple", "Purple" ], [ "green", "Green" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "black"
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+} ]

@@ -1,0 +1,69 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .custom-rich-text {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .custom-rich-text {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+
+      @media (min-width: 768px) {
+        .custom-rich-text__content {
+          max-width: {{ module.content_width }}%;
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<section
+  class="
+    custom-rich-text
+    custom-rich-text--{{ 'v2' if module.version == 'version_2' else 'v1' }}
+  "
+>
+
+  <div class="custom-rich-text__inner content-wrapper">
+
+    {% if module.version == "version_2" %}
+
+      <div class="custom-rich-text__columns">
+        {% if module.content_col_1 %}
+          <div class="custom-rich-text__column">
+            {{ module.content_col_1|sanitize_html }}
+          </div>
+        {% endif %}
+        {% if module.content_col_2 %}
+          <div class="custom-rich-text__column">
+            {{ module.content_col_2|sanitize_html }}
+          </div>
+        {% endif %}
+      </div>
+
+    {% else %}
+
+      {% if module.content or module.show_top_accent %}
+        <div class="custom-rich-text__content">
+
+          {% if module.show_top_accent %}
+            <div class="custom-rich-text__accent"></div>
+          {% endif %}
+
+          {% if module.content %}
+            <div class="custom-rich-text__body">
+              {{ module.content|sanitize_html }}
+            </div>
+          {% endif %}
+
+        </div>
+      {% endif %}
+
+    {% endif %}
+
+  </div>
+
+</section>

@@ -1,0 +1,338 @@
+.global-header {
+  width: 100%;
+}
+
+.global-header--sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.global-header--bg-purple {
+  background-color: var(--color-purple);
+}
+
+.global-header--bg-green {
+  background-color: var(--color-green);
+}
+
+.global-header--bg-white {
+  background-color: var(--color-white);
+}
+
+.global-header--bg-transparent {
+  background-color: transparent;
+}
+
+.global-header--bg-purple_bg {
+  background-color: var(--color-purple-bg);
+}
+
+.global-header--text-purple .global-header__menu-link,
+.global-header--text-purple .global-header__lang {
+  color: var(--color-purple);
+}
+
+.global-header--text-green .global-header__menu-link,
+.global-header--text-green .global-header__lang {
+  color: var(--color-green);
+}
+
+.global-header--text-white .global-header__menu-link,
+.global-header--text-white .global-header__lang {
+  color: var(--color-white);
+}
+
+.global-header--text-black .global-header__menu-link,
+.global-header--text-black .global-header__lang {
+  color: var(--color-black);
+}
+
+.global-header__skip {
+  height: 1px;
+  left: -1000px;
+  overflow: hidden;
+  position: absolute;
+  top: -1000px;
+  width: 1px;
+}
+
+.global-header__skip:hover,
+.global-header__skip:focus,
+.global-header__skip:active {
+  height: auto;
+  left: 1rem;
+  overflow: visible;
+  top: 1rem;
+  width: auto;
+  z-index: 1001;
+}
+
+.global-header__row {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.global-header__logo {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+}
+
+.global-header__logo img {
+  display: block;
+  height: 40px;
+  width: auto;
+}
+
+@media (max-width: 767px) {
+  .global-header__logo img {
+    height: 28px;
+  }
+}
+
+.global-header__toggle {
+  align-items: center;
+  cursor: pointer;
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.global-header__toggle-bar {
+  background-color: var(--color-purple);
+  border-radius: 1px;
+  display: block;
+  height: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  width: 22px;
+}
+
+.global-header__toggle[aria-expanded="true"] .global-header__toggle-bar {
+  background-color: var(--color-green);
+}
+
+.global-header__toggle[aria-expanded="true"] .global-header__toggle-bar:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.global-header__toggle[aria-expanded="true"] .global-header__toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.global-header__toggle[aria-expanded="true"] .global-header__toggle-bar:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+.global-header__panel {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  gap: 2rem;
+  justify-content: flex-end;
+}
+
+.global-header__nav {
+  flex-grow: 1;
+}
+
+.global-header__menu {
+  align-items: center;
+  display: flex;
+  gap: 1.75rem;
+}
+
+.global-header__menu-item {
+  position: relative;
+}
+
+.global-header__menu-link {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.global-header__menu-link--active,
+.global-header__menu-link--active-branch {
+  font-weight: 700;
+}
+
+.global-header__menu-toggle {
+  display: none;
+}
+
+.global-header__menu-item--has-submenu .global-header__menu-toggle {
+  align-items: center;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  margin-left: 0.35rem;
+}
+
+.global-header__menu-toggle-icon {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 6px solid currentColor;
+  display: block;
+  height: 0;
+  width: 0;
+}
+
+.global-header__submenu {
+  background-color: var(--color-white);
+  border-radius: 6px;
+  box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.2);
+  display: none;
+  left: 0;
+  min-width: 220px;
+  position: absolute;
+  top: 100%;
+  z-index: 1;
+}
+
+.global-header__menu-item--open > .global-header__submenu {
+  display: block;
+}
+
+.global-header__submenu .global-header__menu-item {
+  width: 100%;
+}
+
+.global-header__submenu .global-header__menu-link {
+  display: block;
+  padding: 0.6rem 1rem;
+  width: 100%;
+}
+
+.global-header__actions {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  gap: 1.25rem;
+}
+
+.global-header__lang {
+  align-items: center;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.global-header__lang-item::after {
+  content: "|";
+  margin-left: 0.4rem;
+}
+
+.global-header__lang-item:last-child::after {
+  content: none;
+}
+
+.global-header__lang-item a {
+  text-decoration: none;
+}
+
+.global-header__lang-item--current span {
+  font-weight: 700;
+}
+
+.global-header__buttons {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.75rem;
+}
+
+@media (max-width: 767px) {
+  .global-header__toggle {
+    display: flex;
+  }
+
+  .global-header__panel {
+    background-color: var(--color-white);
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 100%;
+  }
+
+  .global-header__panel.is-open {
+    display: flex;
+  }
+
+  .global-header__nav {
+    width: 100%;
+  }
+
+  .global-header__menu {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+  }
+
+  .global-header__menu-item {
+    border-bottom: 1px solid var(--color-purple-lines);
+    width: 100%;
+  }
+
+  .global-header__menu-link {
+    padding: 0.9rem 1.25rem;
+    width: 100%;
+  }
+
+  .global-header__menu-item--has-submenu {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .global-header__submenu {
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    left: auto;
+    min-width: 0;
+    position: static;
+    width: 100%;
+  }
+
+  .global-header__actions {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+  }
+
+  .global-header__lang {
+    border-bottom: 1px solid var(--color-purple-lines);
+    justify-content: flex-end;
+    padding: 0.9rem 1.25rem;
+  }
+
+  .global-header__buttons {
+    padding: 1.25rem;
+    width: 100%;
+  }
+
+  .global-header__buttons .btn-custom {
+    width: 100%;
+  }
+
+  .global-header__buttons .btn-custom a {
+    display: block;
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .global-header__menu-item--open > .global-header__menu-link,
+  .global-header__menu-item--open > .global-header__menu-toggle {
+    color: var(--color-green);
+  }
+}

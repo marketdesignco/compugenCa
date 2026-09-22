@@ -1,0 +1,153 @@
+.global-footer {
+  position: relative;
+  width: 100%;
+}
+
+/* Top decorative line - fixed, no editor setting per this module's brief.
+   Same Microsoft-quad token values already established in Features
+   Cards/Plan/Stats/Carousel Cards/CTA Bar (ds-system.md sections
+   19/22/24/27), plus the theme's own --color-purple, matched to the
+   reference screenshot's 5-color order and approximate proportions (a
+   visual estimate, not a measured value - see ds-system.md Open Items). */
+
+.global-footer__accent {
+  --quad-orange: #F25022;
+  --quad-green: var(--color-green);
+  --quad-blue: #00A4EF;
+  --quad-yellow: #FDB813;
+  background: linear-gradient(
+    to right,
+    var(--quad-orange) 0 18%,
+    var(--color-purple) 18% 32%,
+    var(--quad-green) 32% 48%,
+    var(--quad-blue) 48% 82%,
+    var(--quad-yellow) 82% 100%
+  );
+  height: 6px;
+  width: 100%;
+}
+
+.global-footer__inner {
+  position: relative;
+}
+
+.global-footer__row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: space-between;
+  padding-top: 24px;
+}
+
+.global-footer__logo {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+}
+
+.global-footer__logo img {
+  display: block;
+  height: 32px;
+  width: auto;
+}
+
+.global-footer__meta {
+  align-items: center;
+  color: var(--color-black);
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.global-footer__copyright {
+  color: var(--color-gray);
+  margin: 0;
+}
+
+.global-footer__copyright::after {
+  content: "\00b7";
+  margin-left: 0.5rem;
+}
+
+.global-footer__lang {
+  align-items: center;
+  color: var(--color-gray);
+  display: flex;
+  gap: 0.4rem;
+}
+
+.global-footer__lang-item::after {
+  content: "|";
+  margin-left: 0.4rem;
+}
+
+.global-footer__lang-item:last-child::after {
+  content: none;
+}
+
+.global-footer__lang-item a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.global-footer__lang-item--current span {
+  font-weight: 700;
+}
+
+.global-footer__form {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+/* Lays the form's single field and submit button inline, matching the
+   reference screenshot's compact "Work Email [Subscribe]" bar - the
+   visible field label/placeholder text itself comes from how the form is
+   configured in HubSpot's own Forms tool, not from this module. */
+
+.global-footer__form form,
+.global-footer__form fieldset {
+  align-items: flex-end;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  max-width: 100%;
+}
+
+.global-footer__form .hs-form-field {
+  flex: 1 1 220px;
+  margin-bottom: 0;
+  min-width: 0;
+}
+
+.global-footer__form .hs_submit,
+.global-footer__form .actions {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .global-footer__form {
+    width: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .global-footer__row {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .global-footer__meta {
+    justify-content: center;
+  }
+
+  .global-footer__form form,
+  .global-footer__form fieldset {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

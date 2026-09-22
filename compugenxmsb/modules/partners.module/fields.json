@@ -1,0 +1,152 @@
+[
+  {
+    "id": "logos",
+    "name": "logos",
+    "label": "Partner logos",
+    "help_text": "Each item is one logo. The editor can add, remove, reorder, and replace them.",
+    "required": false,
+    "locked": false,
+    "occurrence": {
+      "min": 1,
+      "max": 24,
+      "sorting_label_field": null,
+      "default": 4
+    },
+    "children": [
+      {
+        "id": "logos.logo",
+        "name": "logo",
+        "label": "Partner logo",
+        "help_text": "Displays at a consistent height, width scaling automatically to preserve its own aspect ratio - never stretched or distorted.",
+        "required": false,
+        "locked": false,
+        "responsive": false,
+        "resizable": false,
+        "show_loading": false,
+        "type": "image",
+        "display_width": null,
+        "default": {
+          "src": "https://www.compugen.com/hubfs/compugenMSB-2026/image%2024.png",
+          "alt": "",
+          "loading": "lazy"
+        }
+      }
+    ],
+    "tab": "CONTENT",
+    "expanded": true,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null,
+    "default": [
+      {
+        "logo": {
+          "src": "https://www.compugen.com/hubfs/compugenMSB-2026/image%2024.png",
+          "alt": "",
+          "loading": "lazy"
+        }
+      },
+      {
+        "logo": {
+          "src": "https://www.compugen.com/hubfs/compugenMSB-2026/icon-example.png",
+          "alt": "",
+          "loading": "lazy"
+        }
+      },
+      {
+        "logo": {
+          "src": "https://www.compugen.com/hubfs/compugenMSB-2026/image%2024.png",
+          "alt": "",
+          "loading": "lazy"
+        }
+      },
+      {
+        "logo": {
+          "src": "https://www.compugen.com/hubfs/compugenMSB-2026/icon-example.png",
+          "alt": "",
+          "loading": "lazy"
+        }
+      }
+    ]
+  },
+  {
+    "id": "styles",
+    "name": "styles",
+    "label": "Styles",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "id": "styles.spacing_desktop",
+        "name": "spacing_desktop",
+        "label": "Desktop spacing",
+        "help_text": "Top/bottom padding on desktop. Left/right are hidden - horizontal spacing comes from .content-wrapper.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 80, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 80, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.spacing_mobile",
+        "name": "spacing_mobile",
+        "label": "Mobile spacing",
+        "help_text": "Top/bottom padding at the theme's mobile breakpoint (max-width: 767px), independent of the desktop value above.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 40, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 40, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.columns",
+        "name": "columns",
+        "label": "Columns (desktop/tablet)",
+        "help_text": "Controls the logo grid's column count on desktop and tablet (>= 768px). Always 2 columns below that, regardless of this setting.",
+        "required": false,
+        "locked": false,
+        "display": "select",
+        "choices": [
+          [ "3", "3 columns" ],
+          [ "4", "4 columns" ],
+          [ "5", "5 columns" ],
+          [ "6", "6 columns" ]
+        ],
+        "type": "choice",
+        "display_width": null,
+        "default": "4",
+        "tab": "STYLE"
+      }
+    ],
+    "tab": "STYLE",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  }
+]

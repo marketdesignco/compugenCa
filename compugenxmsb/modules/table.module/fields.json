@@ -1,0 +1,290 @@
+[
+  {
+    "id": "section_heading",
+    "name": "section_heading",
+    "label": "Heading",
+    "help_text": "Optional - leave empty to hide. Normal text is fixed Blue, Arial Regular. Wrap text in Bold to render it Purple, Arial Black - regardless of any other setting. No separate color/typography choice exists for this field.",
+    "required": false,
+    "locked": false,
+    "enabled_features": [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+    "type": "richtext",
+    "display_width": null,
+    "default": "<h2><strong>What's Covered</strong> at Each Licensing Tier</h2>"
+  },
+  {
+    "id": "section_paragraph",
+    "name": "section_paragraph",
+    "label": "Paragraph",
+    "help_text": "Optional - leave empty to hide. Renders using the theme's global typography.",
+    "required": false,
+    "locked": false,
+    "enabled_features": [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+    "type": "richtext",
+    "display_width": null,
+    "default": "<p>Body copy slot above the table. Columns and rows are each independent repeaters, fully editable.</p>"
+  },
+  {
+    "id": "headers",
+    "name": "headers",
+    "label": "Column headers",
+    "help_text": "Each header becomes one column. Add, remove, or reorder headers to change the table's column count - the layout adapts automatically. When adding or removing a header, add or remove the matching cell in every row below (in the same position) so rows and columns stay aligned - HubSpot does not link the two repeaters automatically.",
+    "required": false,
+    "locked": false,
+    "occurrence": {
+      "min": 1,
+      "max": 8,
+      "sorting_label_field": "headers.column_label",
+      "default": 5
+    },
+    "children": [
+      {
+        "id": "headers.column_label",
+        "name": "column_label",
+        "label": "Header text",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": "Capability"
+      },
+      {
+        "id": "headers.highlight",
+        "name": "highlight",
+        "label": "Highlight this column",
+        "help_text": "Renders this header with a distinct darker background. Off by default.",
+        "required": false,
+        "locked": false,
+        "type": "boolean",
+        "display_width": null,
+        "default": false
+      }
+    ],
+    "tab": "CONTENT",
+    "expanded": true,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null,
+    "default": [
+      { "column_label": "Capability", "highlight": false },
+      { "column_label": "E3", "highlight": false },
+      { "column_label": "E5", "highlight": false },
+      { "column_label": "F5", "highlight": false },
+      { "column_label": "With CxMSB", "highlight": true }
+    ]
+  },
+  {
+    "id": "rows",
+    "name": "rows",
+    "label": "Table rows",
+    "help_text": "Each row is a repeater of cells - one cell per column header, in the same order. The editor can add, remove, and reorder rows, and add, remove, and reorder each row's own cells.",
+    "required": false,
+    "locked": false,
+    "occurrence": {
+      "min": 1,
+      "max": 20,
+      "sorting_label_field": null,
+      "default": 6
+    },
+    "children": [
+      {
+        "id": "rows.cells",
+        "name": "cells",
+        "label": "Cells",
+        "help_text": "One cell per column header, in the same left-to-right order. The Column label field is shown only on mobile, as this cell's own inline label - keep it matching the corresponding column header's text.",
+        "required": false,
+        "locked": false,
+        "occurrence": {
+          "min": 1,
+          "max": 8,
+          "sorting_label_field": null,
+          "default": 5
+        },
+        "children": [
+          {
+            "id": "rows.cells.column_label",
+            "name": "column_label",
+            "label": "Column label (mobile only)",
+            "help_text": "Shown only on mobile, as this cell's own inline label. Keep it matching the corresponding column header's text above.",
+            "required": false,
+            "locked": false,
+            "allow_new_line": false,
+            "type": "text",
+            "display_width": null,
+            "default": "Capability"
+          },
+          {
+            "id": "rows.cells.value",
+            "name": "value",
+            "label": "Value",
+            "help_text": "Free text - enter anything, including a checkmark (✓), a dash, or a word. Not a predefined choice - type whatever this cell needs.",
+            "required": false,
+            "locked": false,
+            "allow_new_line": false,
+            "type": "text",
+            "display_width": null,
+            "default": "Conditional Access + MFA Baseline"
+          },
+          {
+            "id": "rows.cells.check_color",
+            "name": "check_color",
+            "label": "Check/indicator color",
+            "help_text": "Applies only to this cell's own Value text above - never the cell background, the mobile label, or any other cell. Leave as None for plain text (e.g. a Capability description, a dash, or \"Partial\"); choose a color for a value that acts as a check/status indicator (e.g. a checkmark).",
+            "required": false,
+            "locked": false,
+            "display": "select",
+            "choices": [
+              [ "default", "None (default text color)" ],
+              [ "blue", "Blue" ],
+              [ "green", "Green" ],
+              [ "purple", "Purple" ],
+              [ "black", "Black" ]
+            ],
+            "type": "choice",
+            "display_width": null,
+            "default": "default"
+          },
+          {
+            "id": "rows.cells.highlight",
+            "name": "highlight",
+            "label": "Highlight this cell",
+            "help_text": "Renders this value Bold and Purple with a tinted background, matching a highlighted column. Off by default - turn on for cells in a column whose header also has Highlight this column on.",
+            "required": false,
+            "locked": false,
+            "type": "boolean",
+            "display_width": null,
+            "default": false
+          }
+        ],
+        "tab": "CONTENT",
+        "expanded": true,
+        "group_occurrence_meta": null,
+        "type": "group",
+        "display_width": null
+      }
+    ],
+    "tab": "CONTENT",
+    "expanded": true,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null,
+    "default": [
+      {
+        "cells": [
+          { "column_label": "Capability", "value": "Conditional Access + MFA Baseline", "check_color": "default", "highlight": false },
+          { "column_label": "E3", "value": "✓", "check_color": "blue", "highlight": false },
+          { "column_label": "E5", "value": "✓", "check_color": "blue", "highlight": false },
+          { "column_label": "F5", "value": "✓", "check_color": "blue", "highlight": false },
+          { "column_label": "With CxMSB", "value": "Configured", "check_color": "default", "highlight": true }
+        ]
+      },
+      {
+        "cells": [
+          { "column_label": "Capability", "value": "Defender Advanced Threat Hunting", "check_color": "default", "highlight": false },
+          { "column_label": "E3", "value": "–", "check_color": "default", "highlight": false },
+          { "column_label": "E5", "value": "✓", "check_color": "blue", "highlight": false },
+          { "column_label": "F5", "value": "✓", "check_color": "blue", "highlight": false },
+          { "column_label": "With CxMSB", "value": "Turned + Monitored", "check_color": "default", "highlight": true }
+        ]
+      },
+      {
+        "cells": [
+          { "column_label": "Capability", "value": "DLP + Sensitivity Labels", "check_color": "default", "highlight": false },
+          { "column_label": "E3", "value": "Partial", "check_color": "default", "highlight": false },
+          { "column_label": "E5", "value": "✓", "check_color": "blue", "highlight": false },
+          { "column_label": "F5", "value": "✓", "check_color": "blue", "highlight": false },
+          { "column_label": "With CxMSB", "value": "Mapped to Policy", "check_color": "default", "highlight": true }
+        ]
+      },
+      {
+        "cells": [
+          { "column_label": "Capability", "value": "Board-Ready Compliance Reporting", "check_color": "default", "highlight": false },
+          { "column_label": "E3", "value": "–", "check_color": "default", "highlight": false },
+          { "column_label": "E5", "value": "–", "check_color": "default", "highlight": false },
+          { "column_label": "F5", "value": "✓", "check_color": "blue", "highlight": false },
+          { "column_label": "With CxMSB", "value": "Quarterly", "check_color": "default", "highlight": true }
+        ]
+      },
+      {
+        "cells": [
+          { "column_label": "Capability", "value": "Privileged Identity Management (PIM) with Just-In-Time Access Reviews", "check_color": "default", "highlight": false },
+          { "column_label": "E3", "value": "–", "check_color": "default", "highlight": false },
+          { "column_label": "E5", "value": "Partial", "check_color": "default", "highlight": false },
+          { "column_label": "F5", "value": "✓", "check_color": "blue", "highlight": false },
+          { "column_label": "With CxMSB", "value": "Reviewed Monthly", "check_color": "default", "highlight": true }
+        ]
+      },
+      {
+        "cells": [
+          { "column_label": "Capability", "value": "SSO", "check_color": "default", "highlight": false },
+          { "column_label": "E3", "value": "✓", "check_color": "blue", "highlight": false },
+          { "column_label": "E5", "value": "✓", "check_color": "blue", "highlight": false },
+          { "column_label": "F5", "value": "✓", "check_color": "blue", "highlight": false },
+          { "column_label": "With CxMSB", "value": "Included", "check_color": "default", "highlight": true }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "styles",
+    "name": "styles",
+    "label": "Styles",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "id": "styles.spacing_desktop",
+        "name": "spacing_desktop",
+        "label": "Desktop spacing",
+        "help_text": "Top/bottom padding on desktop. Left/right are hidden - horizontal spacing comes from .content-wrapper.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 80, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 80, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.spacing_mobile",
+        "name": "spacing_mobile",
+        "label": "Mobile spacing",
+        "help_text": "Top/bottom padding at the theme's mobile breakpoint (max-width: 767px), independent of the desktop value above.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 40, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 40, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      }
+    ],
+    "tab": "STYLE",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  }
+]

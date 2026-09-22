@@ -1,0 +1,311 @@
+[ {
+  "id" : "logo",
+  "name" : "logo",
+  "label" : "Logo",
+  "help_text" : "Landing pages typically skip the full site header - this logo keeps brand recognition in the hero itself",
+  "required" : false,
+  "locked" : false,
+  "responsive" : true,
+  "resizable" : false,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/logo-MSB.svg",
+    "alt" : "Compugen x MSB - Compugen Integrated Microsoft Solutions Business",
+    "loading" : "eager"
+  }
+}, {
+  "id" : "title",
+  "name" : "title",
+  "label" : "Title",
+  "help_text" : "Keep as Heading 1 - this is the page's primary heading. Bold/strong text automatically renders in the design system's accent color.",
+  "required" : true,
+  "locked" : false,
+  "enabled_features" : [ "standard_emphasis", "block" ],
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<h1>Gated Offer Headline in Title Case</h1>"
+}, {
+  "id" : "description",
+  "name" : "description",
+  "label" : "Description",
+  "required" : false,
+  "locked" : false,
+  "enabled_features" : [ "lists", "standard_emphasis" ],
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<p>One promise, no exits - form owns the right.</p>"
+}, {
+  "id" : "form",
+  "name" : "form",
+  "label" : "Form",
+  "help_text" : "Select the HubSpot form to render in the card",
+  "required" : false,
+  "locked" : false,
+  "type" : "form",
+  "display_width" : null,
+  "default" : {
+    "response_type" : "inline",
+    "message" : "Thanks for submitting the form."
+  }
+}, {
+  "id" : "buttons",
+  "name" : "buttons",
+  "label" : "Buttons",
+  "help_text" : "Optional - not shown in the reference design, but available if this hero needs a CTA alongside the form",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 0,
+    "max" : 2,
+    "sorting_label_field" : "buttons.text",
+    "default" : 0
+  },
+  "children" : [ {
+    "id" : "buttons.link_type",
+    "name" : "link_type",
+    "label" : "Button type",
+    "help_text" : "Choose whether this button links to a HubSpot CTA or a regular link",
+    "required" : true,
+    "locked" : false,
+    "display" : "radio",
+    "choices" : [ [ "link", "Regular link" ], [ "cta", "HubSpot CTA" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "link"
+  }, {
+    "id" : "buttons.text",
+    "name" : "text",
+    "label" : "Button text",
+    "help_text" : "Only used for the Regular link type - a HubSpot CTA carries its own text",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "buttons.link_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "link",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Learn More"
+  }, {
+    "id" : "buttons.link",
+    "name" : "link",
+    "label" : "Button link",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "buttons.link_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "link",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS" ],
+    "show_advanced_rel_options" : true,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "href" : "#",
+        "type" : "EXTERNAL"
+      },
+      "no_follow" : false,
+      "open_in_new_tab" : false
+    }
+  }, {
+    "id" : "buttons.variant",
+    "name" : "variant",
+    "label" : "Button style",
+    "help_text" : "Applies to both a regular link and a HubSpot CTA",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "btn-primary-purple", "Primary - Purple" ], [ "btn-primary-green", "Primary - Green" ], [ "btn-secondary-purple", "Secondary - Purple" ], [ "btn-secondary-green", "Secondary - Green" ], [ "btn-secondary-white", "Secondary - White outline" ], [ "btn-tertiary-purple", "Tertiary - Purple" ], [ "btn-tertiary-green", "Tertiary - Green" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "btn-primary-green"
+  }, {
+    "id" : "buttons.cta",
+    "name" : "cta",
+    "label" : "HubSpot CTA",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "buttons.link_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "cta",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "cta",
+    "display_width" : null
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : true,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+}, {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "styles.spacing_desktop",
+    "name" : "spacing_desktop",
+    "label" : "Desktop spacing",
+    "help_text" : "Top/bottom padding on desktop. Left/right are hidden - horizontal spacing comes from .content-wrapper.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null,
+      "hidden_subfields" : {
+        "margin" : true
+      }
+    },
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : {
+      "padding" : {
+        "top" : {
+          "value" : 80,
+          "units" : "px"
+        },
+        "right" : {
+          "value" : 0,
+          "units" : "px"
+        },
+        "bottom" : {
+          "value" : 80,
+          "units" : "px"
+        },
+        "left" : {
+          "value" : 0,
+          "units" : "px"
+        }
+      }
+    }
+  }, {
+    "id" : "styles.spacing_mobile",
+    "name" : "spacing_mobile",
+    "label" : "Mobile spacing",
+    "help_text" : "Top/bottom padding at the theme's mobile breakpoint (max-width: 767px), independent of the desktop value above.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null,
+      "hidden_subfields" : {
+        "margin" : true
+      }
+    },
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : {
+      "padding" : {
+        "top" : {
+          "value" : 40,
+          "units" : "px"
+        },
+        "right" : {
+          "value" : 0,
+          "units" : "px"
+        },
+        "bottom" : {
+          "value" : 40,
+          "units" : "px"
+        },
+        "left" : {
+          "value" : 0,
+          "units" : "px"
+        }
+      }
+    }
+  }, {
+    "id" : "styles.background_color",
+    "name" : "background_color",
+    "label" : "Background color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "purple", "Purple" ], [ "green", "Green" ], [ "white", "White" ], [ "transparent", "Transparent" ], [ "purple_bg", "Purple BG (#FAF9FD)" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "purple"
+  }, {
+    "id" : "styles.background_vector_visible",
+    "name" : "background_vector_visible",
+    "label" : "Show bottom-left background vector",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "styles.background_vector",
+    "name" : "background_vector",
+    "label" : "Background vector",
+    "help_text" : "Decorative graphic anchored to the bottom-left corner when the toggle above is on",
+    "required" : false,
+    "locked" : false,
+    "responsive" : false,
+    "resizable" : false,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/vector-back.svg",
+      "alt" : "",
+      "loading" : "lazy"
+    }
+  }, {
+    "id" : "styles.content_color",
+    "name" : "content_color",
+    "label" : "Content color",
+    "help_text" : "Applies to the title and description text color, not the accent color inside bold/strong text",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "purple", "Purple" ], [ "green", "Green" ], [ "white", "White" ], [ "black", "Black" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "white"
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+} ]

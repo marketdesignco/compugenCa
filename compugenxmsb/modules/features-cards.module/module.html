@@ -1,0 +1,94 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .features-cards {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .features-cards {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+
+      @media (min-width: 768px) {
+        .features-cards__grid {
+          grid-template-columns: repeat({{ module.styles.columns }}, 1fr);
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<section
+  class="
+    features-cards
+    features-cards--bg-{{ module.styles.background_color|escape_attr }}
+    features-cards--heading-{{ module.styles.heading_color|escape_attr }}
+  "
+>
+
+  <div class="features-cards__inner content-wrapper">
+
+    {% if module.show_heading and module.section_heading %}
+      <div class="features-cards__heading">
+        {{ module.section_heading|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.show_paragraph and module.section_paragraph %}
+      <div class="features-cards__paragraph">
+        {{ module.section_paragraph|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.cards %}
+      <div class="features-cards__grid">
+        {% for card in module.cards %}
+          <div class="features-cards__card">
+
+            {% if card.show_media %}
+              <div class="features-cards__icon">
+                {% if card.icon_settings.icon_type == "icon" %}
+                  <div class="features-cards__icon-wrap features-cards__icon-wrap--{{ card.icon_settings.icon_color|escape_attr }}">
+                    {% icon
+                      extra_classes="features-cards__icon-svg",
+                      name="{{ card.icon_settings.icon_library.name }}",
+                      purpose="decorative",
+                      style="{{ card.icon_settings.icon_library.type }}",
+                      unicode="{{ card.icon_settings.icon_library.unicode }}"
+                    %}
+                  </div>
+                {% else %}
+                  {% if card.icon_settings.icon_image.src %}
+                    <img
+                      class="features-cards__icon-img"
+                      src="{{ card.icon_settings.icon_image.src|escape_url }}"
+                      alt="{{ card.icon_settings.icon_image.alt|escape_attr }}"
+                      loading="lazy"
+                    >
+                  {% endif %}
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% if card.title %}
+              <div class="features-cards__title">
+                {{ card.title|sanitize_html }}
+              </div>
+            {% endif %}
+
+            {% if card.description %}
+              <div class="features-cards__description">
+                {{ card.description|sanitize_html }}
+              </div>
+            {% endif %}
+
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+
+</section>

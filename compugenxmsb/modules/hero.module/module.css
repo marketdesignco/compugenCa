@@ -1,0 +1,169 @@
+.hero {
+  overflow: hidden;
+  position: relative;
+}
+
+.hero--bg-purple {
+  --strong-accent: var(--color-green);
+  background-color: var(--color-purple);
+}
+
+.hero--bg-green {
+  background-color: var(--color-green);
+}
+
+.hero--bg-white {
+  --strong-accent: var(--color-purple);
+  background-color: var(--color-white);
+}
+
+.hero--bg-transparent {
+  background-color: transparent;
+}
+
+.hero--bg-purple_bg {
+  background-color: var(--color-purple-bg);
+}
+
+.hero--text-purple .hero__text,
+.hero--text-purple .hero__text :not(strong) {
+  color: var(--color-purple);
+}
+
+.hero--text-green .hero__text,
+.hero--text-green .hero__text :not(strong) {
+  color: var(--color-green);
+}
+
+.hero--text-white .hero__text,
+.hero--text-white .hero__text :not(strong) {
+  color: var(--color-white);
+}
+
+.hero--text-black .hero__text,
+.hero--text-black .hero__text :not(strong) {
+  color: var(--color-black);
+}
+
+.hero__title strong {
+  color: var(--strong-accent, inherit);
+}
+
+.hero__vector-bg {
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.hero__inner {
+  padding-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.hero__content {
+  position: relative;
+}
+
+.hero__accent {
+  background: linear-gradient(
+    to right,
+    #F25022 0 25%,
+    #04D976 25% 50%,
+    #00A4EF 50% 75%,
+    #FDB813 75% 100%
+  );
+}
+
+.hero__accent--top {
+  height: 4px;
+  margin-bottom: 1.25rem;
+  width: 44px;
+}
+
+.hero__accent--bottom {
+  bottom: 0;
+  height: 6px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 3;
+}
+
+.hero__title {
+  margin-bottom: 1.5rem;
+}
+
+.hero__description {
+  margin-bottom: 2rem;
+}
+
+.hero__buttons {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.hero__image-wrap {
+  height: 260px;
+  position: relative;
+  width: 100%;
+}
+
+.hero__image {
+  clip-path: polygon(0 18%, 18% 0, 100% 0, 100% 100%, 0 100%);
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.hero__image img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.hero__vector-image {
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 40%;
+  z-index: 1;
+}
+
+@media (min-width: 992px) {
+  .hero__inner {
+    padding-bottom: 0;
+  }
+
+  .hero__content {
+    max-width: min(600px, 50%);
+  }
+
+  .hero__buttons {
+    flex-direction: row;
+  }
+
+  .hero__image-wrap {
+    bottom: 0;
+    height: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
+  }
+
+  .hero__image {
+    clip-path: polygon(0 25%, 25% 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .hero__vector-image {
+    width: 28%;
+  }
+}

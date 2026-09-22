@@ -1,0 +1,53 @@
+.custom-rich-text {
+  position: relative;
+}
+
+.custom-rich-text__inner {
+  position: relative;
+}
+
+/* Version 1 - Full Width. `.custom-rich-text__accent` and `.custom-rich-text__body`
+   are both children of `.custom-rich-text__content` (module.html) - the accent is
+   not positioned against the full-width `.content-wrapper`, it just sits in normal
+   flow inside the same width-constrained, centered box as the Rich Text body, so
+   Content Width (the max-width below) and centering apply to both together with
+   no separate accent-specific width logic needed. */
+
+.custom-rich-text__accent {
+  background: linear-gradient(
+    to right,
+    #F25022 0 25%,
+    #04D976 25% 50%,
+    #00A4EF 50% 75%,
+    #FDB813 75% 100%
+  );
+  height: 4px;
+  margin-bottom: 1.25rem;
+  width: 44px;
+}
+
+.custom-rich-text__content {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+/* Version 2 - Two Columns */
+
+.custom-rich-text__columns {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .custom-rich-text__columns {
+    flex-direction: row;
+    gap: 3rem;
+  }
+
+  .custom-rich-text__column {
+    flex: 1 1 50%;
+    min-width: 0;
+  }
+}

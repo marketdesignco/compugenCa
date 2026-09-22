@@ -1,0 +1,114 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .carousel-cards {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .carousel-cards {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+{% require_css %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+{% end_require_css %}
+
+{% require_js position="footer" %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+{% end_require_js %}
+
+{% require_js position="footer" %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+{% end_require_js %}
+
+<section class="carousel-cards">
+
+  <div class="carousel-cards__inner content-wrapper">
+
+    {% if module.cards %}
+      <div
+        class="carousel-cards__carousel"
+        data-carousel-cards
+        data-slides-desktop="{{ module.styles.slides_per_view|escape_attr }}"
+      >
+        <div class="carousel-cards__list" data-carousel-track>
+          {% for card in module.cards %}
+          <div>
+            <div class="carousel-cards__card">
+
+              {% if card.image.src %}
+                <div class="carousel-cards__image-wrap">
+                  <img
+                    src="{{ card.image.src|escape_url }}"
+                    alt="{{ card.image.alt|escape_attr }}"
+                    loading="lazy"
+                  >
+                </div>
+              {% endif %}
+
+              <div class="carousel-cards__content">
+
+                {% if card.title %}
+                  <div class="carousel-cards__title">
+                    {{ card.title|sanitize_html }}
+                  </div>
+                {% endif %}
+
+                {% if card.show_description and card.description %}
+                  <div class="carousel-cards__description">
+                    {{ card.description|sanitize_html }}
+                  </div>
+                {% endif %}
+
+                {% if card.show_cta %}
+                  {% if card.cta_settings.link_type == "cta" %}
+                    {% if card.cta_settings.cta %}
+                      <div class="btn-custom {{ card.cta_settings.variant|escape_attr }} carousel-cards__cta">
+                        {% cta guid=card.cta_settings.cta %}
+                      </div>
+                    {% endif %}
+                  {% else %}
+                    {% set href = card.cta_settings.link.url.href %}
+                    {% if href %}
+                      {% if card.cta_settings.link.url.type == "EMAIL_ADDRESS" %}
+                        {% set href = "mailto:" + href %}
+                      {% endif %}
+                      {% set rel = [] %}
+                      {% if card.cta_settings.link.no_follow %}
+                        {% do rel.append("nofollow") %}
+                      {% endif %}
+                      {% if card.cta_settings.link.open_in_new_tab %}
+                        {% do rel.append("noopener") %}
+                      {% endif %}
+                      <div class="btn-custom {{ card.cta_settings.variant|escape_attr }} carousel-cards__cta">
+                        <a
+                          href="{{ href|escape_url }}"
+                          {% if card.cta_settings.link.open_in_new_tab %}target="_blank"{% endif %}
+                          {% if rel %}rel="{{ rel|join(" ")|escape_attr }}"{% endif %}
+                        >
+                          {{ card.cta_settings.text|escape_html }}
+                        </a>
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                {% endif %}
+
+              </div>
+
+            </div>
+
+          </div>
+            
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+  </div>
+
+</section>

@@ -1,0 +1,87 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .strip {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .strip {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<section class="strip">
+
+  <div class="strip__inner content-wrapper">
+    <div class="strip__box">
+
+      {% if module.icon.src %}
+        <div class="strip__icon-wrap">
+          <img
+            src="{{ module.icon.src|escape_url }}"
+            alt="{{ module.icon.alt|escape_attr }}"
+            loading="lazy"
+          >
+        </div>
+      {% endif %}
+
+      {% if module.title %}
+        <div class="strip__title">
+          {{ module.title|sanitize_html }}
+        </div>
+      {% endif %}
+
+      {% if module.show_cta %}
+        <div class="strip__cta-area">
+
+          {% if module.cta_vector.src %}
+            <img
+              class="strip__cta-vector"
+              src="{{ module.cta_vector.src|escape_url }}"
+              alt=""
+              loading="lazy"
+            >
+          {% endif %}
+
+          {% if module.cta_settings.link_type == "cta" %}
+            {% if module.cta_settings.cta %}
+              <div class="btn-custom {{ module.cta_settings.variant|escape_attr }} strip__cta">
+                {% cta guid=module.cta_settings.cta %}
+              </div>
+            {% endif %}
+          {% else %}
+            {% set href = module.cta_settings.link.url.href %}
+            {% if href %}
+              {% if module.cta_settings.link.url.type == "EMAIL_ADDRESS" %}
+                {% set href = "mailto:" + href %}
+              {% endif %}
+              {% set rel = [] %}
+              {% if module.cta_settings.link.no_follow %}
+                {% do rel.append("nofollow") %}
+              {% endif %}
+              {% if module.cta_settings.link.open_in_new_tab %}
+                {% do rel.append("noopener") %}
+              {% endif %}
+              <div class="btn-custom {{ module.cta_settings.variant|escape_attr }} strip__cta">
+                <a
+                  href="{{ href|escape_url }}"
+                  {% if module.cta_settings.link.open_in_new_tab %}target="_blank"{% endif %}
+                  {% if rel %}rel="{{ rel|join(" ")|escape_attr }}"{% endif %}
+                >
+                  {{ module.cta_settings.text|escape_html }}
+                </a>
+              </div>
+            {% endif %}
+          {% endif %}
+
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+</section>

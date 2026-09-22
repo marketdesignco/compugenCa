@@ -1,0 +1,394 @@
+.custom-cards {
+  position: relative;
+}
+
+.custom-cards--bg-white {
+  background-color: var(--color-white);
+}
+
+.custom-cards--bg-purple {
+  background-color: var(--color-purple);
+}
+
+.custom-cards--bg-green {
+  background-color: var(--color-green);
+}
+
+.custom-cards--bg-transparent {
+  background-color: transparent;
+}
+
+.custom-cards--bg-purple_bg {
+  background-color: var(--color-purple-bg);
+}
+
+.custom-cards__inner {
+  position: relative;
+}
+
+/* Section heading color - scoped to .custom-cards__heading only, never
+   card titles/subtitles. Same proven pattern as Bullets' title_color
+   (ds-system.md section 15): explicit h1-h6/p selectors alongside
+   `:not(strong)`, deliberately redundant, so the rule reaches whatever tag
+   the Rich Text field outputs regardless of ambiguity about descendant
+   selectors reaching nested elements. */
+
+.custom-cards--heading-black .custom-cards__heading,
+.custom-cards--heading-black .custom-cards__heading :not(strong),
+.custom-cards--heading-black .custom-cards__heading h1,
+.custom-cards--heading-black .custom-cards__heading h2,
+.custom-cards--heading-black .custom-cards__heading h3,
+.custom-cards--heading-black .custom-cards__heading h4,
+.custom-cards--heading-black .custom-cards__heading h5,
+.custom-cards--heading-black .custom-cards__heading h6,
+.custom-cards--heading-black .custom-cards__heading p {
+  color: var(--color-black);
+}
+
+.custom-cards--heading-purple .custom-cards__heading,
+.custom-cards--heading-purple .custom-cards__heading :not(strong),
+.custom-cards--heading-purple .custom-cards__heading h1,
+.custom-cards--heading-purple .custom-cards__heading h2,
+.custom-cards--heading-purple .custom-cards__heading h3,
+.custom-cards--heading-purple .custom-cards__heading h4,
+.custom-cards--heading-purple .custom-cards__heading h5,
+.custom-cards--heading-purple .custom-cards__heading h6,
+.custom-cards--heading-purple .custom-cards__heading p {
+  color: var(--color-purple);
+}
+
+.custom-cards--heading-green .custom-cards__heading,
+.custom-cards--heading-green .custom-cards__heading :not(strong),
+.custom-cards--heading-green .custom-cards__heading h1,
+.custom-cards--heading-green .custom-cards__heading h2,
+.custom-cards--heading-green .custom-cards__heading h3,
+.custom-cards--heading-green .custom-cards__heading h4,
+.custom-cards--heading-green .custom-cards__heading h5,
+.custom-cards--heading-green .custom-cards__heading h6,
+.custom-cards--heading-green .custom-cards__heading p {
+  color: var(--color-green);
+}
+
+.custom-cards--heading-white .custom-cards__heading,
+.custom-cards--heading-white .custom-cards__heading :not(strong),
+.custom-cards--heading-white .custom-cards__heading h1,
+.custom-cards--heading-white .custom-cards__heading h2,
+.custom-cards--heading-white .custom-cards__heading h3,
+.custom-cards--heading-white .custom-cards__heading h4,
+.custom-cards--heading-white .custom-cards__heading h5,
+.custom-cards--heading-white .custom-cards__heading h6,
+.custom-cards--heading-white .custom-cards__heading p {
+  color: var(--color-white);
+}
+
+.custom-cards--heading-blue .custom-cards__heading,
+.custom-cards--heading-blue .custom-cards__heading :not(strong),
+.custom-cards--heading-blue .custom-cards__heading h1,
+.custom-cards--heading-blue .custom-cards__heading h2,
+.custom-cards--heading-blue .custom-cards__heading h3,
+.custom-cards--heading-blue .custom-cards__heading h4,
+.custom-cards--heading-blue .custom-cards__heading h5,
+.custom-cards--heading-blue .custom-cards__heading h6,
+.custom-cards--heading-blue .custom-cards__heading p {
+  color: var(--color-blue-accent);
+}
+
+/* Heading normal text: Arial/400, including whatever tag the Rich Text
+   field outputs - `*` reaches every descendant so the wrapper's own rule
+   alone isn't relied on to override the tag's own directly-matched global
+   font-family/weight (ds-system.md section 15's cascade lesson). */
+
+.custom-cards__heading,
+.custom-cards__heading :not(strong) {
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+}
+
+/* The only <strong> override in this module's section heading - always
+   Purple 900 / Arial Black / 900, regardless of the selected Heading
+   color. Card titles/subtitles/description/price/bullets never get this
+   rule. */
+
+.custom-cards__heading strong {
+  color: var(--color-purple);
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-weight: 900;
+}
+
+.custom-cards__heading {
+  margin-bottom: 0.75rem;
+}
+
+.custom-cards__paragraph {
+  margin-bottom: 2rem;
+}
+
+/* Grid - mobile-first 1 column (always, regardless of the selected desktop
+   Columns setting - cards simply stack, full width, no horizontal overflow
+   possible). The desktop column count (module.styles.columns) is set via
+   the require_css/scope_css block in module.html at the theme's existing
+   768px breakpoint, same mechanism as spacing (SKILL.md section 3.1/3.6)
+   rather than a bare inline style. Applies to every card version - the
+   grid container itself doesn't distinguish between them. */
+
+.custom-cards__grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
+}
+
+/* Card - border color is the theme's existing --color-purple-lines token
+   (its value is the exact #E3DDF3 specified), not a new variable. The
+   box-shadow's 8-digit hex-with-alpha (#5103C014 = brand Purple at ~8%
+   opacity) is used verbatim as given - valid CSS, no conversion needed.
+   overflow: hidden both clips content to the border-radius and safely
+   contains the Default/Image Card decorative vectors so they can never
+   overflow the card regardless of the asset's own dimensions. */
+
+.custom-cards__card {
+  background-color: var(--color-white);
+  border: 1.5px solid var(--color-purple-lines);
+  border-radius: 0px;
+  box-shadow: 0px 4px 20px 0px #5103C014;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 1.5rem;
+  position: relative;
+}
+
+/* Decorative point above the Default Card and CTA Card only - Blue is the
+   theme's sanctioned "markers" use (ds-system.md section 1), same token as
+   the global list-marker color. Image Card and List/Price Card never match
+   either selector, so they never get it (and never get the Show Point
+   toggle either - see cards.show_point in fields.json).
+   `:not(.custom-cards__card--no-point)` is how the Show Point toggle turns
+   this off per card - a pure ::before has no HTML element of its own to
+   conditionally render in module.html, so the toggle instead adds a
+   modifier class to the card itself, and this selector excludes it. When
+   excluded, the whole ::before (including its margin-bottom) simply never
+   matches, so no space is left behind - not just visually hidden. */
+
+.custom-cards__card--default:not(.custom-cards__card--no-point)::before,
+.custom-cards__card--cta:not(.custom-cards__card--no-point)::before {
+  background-color: var(--color-blue-accent);
+  border-radius: 50%;
+  content: '';
+  display: block;
+  flex-shrink: 0;
+  height: 8px;
+  margin-bottom: 26px;
+  width: 8px;
+}
+
+/* Diagonal cut, bottom-right corner - section-level toggle
+   (module.styles.show_diagonal_cut), not a per-card field, so one boolean
+   controls every card in the grid (all four versions) at once. The cut size
+   is a fixed px value, not a percentage, so it stays identical regardless of
+   the card's own height/content length; every polygon point stays within
+   0-100% of the card's own box, so this can never push the card wider than
+   its grid cell (no horizontal overflow). Existing padding/border/shadow/
+   vectors are untouched - clip-path only reshapes the card's own silhouette,
+   it doesn't remove or restyle anything else. When the modifier class isn't
+   present, the card renders exactly as before (no leftover artifact). */
+
+.custom-cards__card--diagonal-cut {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 28px),
+    calc(100% - 28px) 100%,
+    0 100%
+  );
+}
+
+/* Image Card only - the outer card has no padding of its own (the image
+   needs to reach the card's full, unpadded width and height), so a
+   separate content wrapper carries the card's usual padding instead. Both
+   the card and this wrapper stay flex columns so .custom-cards__cta's
+   margin-top: auto still pushes the CTA to the bottom of the card, not just
+   the bottom of its own content. */
+
+.custom-cards__card--image {
+  padding: 0;
+}
+
+.custom-cards__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  padding:0px 1.5rem;
+}
+
+/* Rich Text fields each carry the global h1-h6/p bottom margin - reset the
+   last child's margin inside each wrapper so this module's own
+   margin-bottom (below) is the single source of spacing between blocks,
+   not a stacked double-margin. Only `margin` is touched here, never
+   font-size/weight/family - not a typography override (SKILL.md section 4
+   protects those specifically, not spacing). */
+
+.custom-cards__description ul {
+  padding-inline-start: 20px;
+}
+
+.custom-cards__title > :last-child,
+.custom-cards__subtitle > :last-child,
+.custom-cards__description > :last-child,
+.custom-cards__price > :last-child {
+  margin-bottom: 0;
+}
+
+.custom-cards__icon {
+  align-items: center;
+  display: flex;
+  height: 40px;
+  margin-bottom: 1rem;
+  width: 40px;
+}
+
+.custom-cards__icon-img {
+  display: block;
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.custom-cards__icon-wrap {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.custom-cards__icon-svg svg {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.custom-cards__icon-wrap--purple .custom-cards__icon-svg svg {
+  fill: var(--color-purple);
+}
+
+.custom-cards__icon-wrap--green .custom-cards__icon-svg svg {
+  fill: var(--color-green);
+}
+
+.custom-cards__icon-wrap--white .custom-cards__icon-svg svg {
+  fill: var(--color-white);
+}
+
+.custom-cards__icon-wrap--black .custom-cards__icon-svg svg {
+  fill: var(--color-black);
+}
+
+/* Default Card decorative vector - bottom-right corner of the card. The
+   card itself is the positioning context (position: relative, above) and
+   safely contains this via its own overflow: hidden, so no separate
+   clipping wrapper is needed here. */
+
+.custom-cards__default-vector {
+  bottom: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  width: 35%;
+}
+
+/* Image Card - no border-radius of its own anymore; the image now sits
+   flush against the card's own edges (no card padding above it, see
+   .custom-cards__card--image), so the card's own border-radius +
+   overflow: hidden already rounds its top corners to match. */
+
+.custom-cards__image-wrap {
+  height: 84px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.custom-cards__image-wrap img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.custom-cards__image-fallback {
+  background-color: var(--color-purple);
+  height: 100%;
+  width: 100%;
+}
+
+.custom-cards__image-vector {
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto!important;
+}
+
+/* Image Card title is always Black - the only per-version title color
+   override in this module (every other version inherits the theme's own
+   default Heading 5 color, untouched). The section Heading color setting
+   never reaches card titles at all - separate elements, separate rules. */
+
+.custom-cards__card--image .custom-cards__title,
+.custom-cards__card--image .custom-cards__title * {
+  color: var(--color-black);
+}
+
+.custom-cards__title {
+  margin-bottom: 0.25rem;
+}
+
+/* The global h6 rule (theme-overrides.css) sets a letter-spacing - card
+   subtitles must not have it, per explicit instruction. `*` reaches the
+   actual <h6> tag inside the wrapper, not just the wrapper div, for the
+   same cascade reason documented throughout this module (a rule on only
+   the wrapper wouldn't override the h6 tag's own directly-matched global
+   rule). Only letter-spacing is touched - not a general typography
+   override of size/weight/family. */
+
+.custom-cards__subtitle,
+.custom-cards__subtitle * {
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.custom-cards__subtitle {
+  margin-bottom: 0.75rem;
+}
+
+.custom-cards__description {
+  margin-bottom: 1rem;
+}
+
+/* List / Price Card */
+
+.custom-cards__price,
+.custom-cards__price * {
+  color: var(--color-purple);
+  font-weight: 900;
+      font-family: Arial Black, sans-serif;
+}
+.custom-cards__description ul p,
+.custom-cards__description ol p{
+  margin:0px;
+}
+.custom-cards__price {
+  margin-bottom: 15px;
+}
+
+/* CTA - reuses the theme's global .btn-custom system unchanged (never
+   redefined here); `variant` is restricted at the field level to the
+   Tertiary (text-link) variants only, so no button chrome ever appears.
+   The chevron and its Green color are now a global theme-overrides.css
+   rule (2026-09, applies to every Tertiary CTA theme-wide) - no
+   module-local copy here anymore. */
+
+.custom-cards__cta {
+  margin-top: auto;
+  padding-top: 15px;
+}

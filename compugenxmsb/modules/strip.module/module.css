@@ -1,0 +1,120 @@
+.strip,
+.strip__inner {
+  position: relative;
+}
+
+
+/* Bordered white box - the same fixed white-background/Purple-border/
+   overflow: hidden pattern as Quote's `.quote__inner` (ds-system.md
+   section 25), reused here since it's what the reference screenshot
+   actually shows, even though CTA Bar (this module's named structural/
+   settings reference) uses a full-bleed Purple background instead - no
+   color choice fields exist for either treatment, so this is a fixed
+   rule, not a departure from "no unnecessary color choices." */
+
+.strip__box {
+  background-color: var(--color-white);
+  border: 2px solid var(--color-purple);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow: hidden;
+  padding: 40px 25px;
+  position: relative;
+}
+
+/* Left decorative image - a normal flex sibling, not absolutely
+   positioned, so it can never overlap the title/CTA by construction (no
+   z-index reasoning needed - unlike the CTA-area vector below, which is
+   explicitly meant to sit behind other content). Fixed small size,
+   matching this theme's established icon scale (Grid/Features Cards/
+   Plan, 40px). */
+
+.strip__icon-wrap {
+  flex-shrink: 0;
+  height: 40px;
+  width: 40px;
+}
+
+.strip__icon-wrap img {
+  display: block;
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+/* Title - a single Rich Text field whose own default value contains both
+   the Heading 5 (Arial Black, per the brief) and a second, smaller plain-
+   paragraph line beneath it (matching the reference screenshot's two-line
+   look) - not two separate fields. Only the h5 gets Arial Black/Black
+   color; the plain paragraph is left completely untouched, inheriting the
+   theme's normal body copy styling, so it reads visibly lighter than the
+   title exactly as shown. Black (not this theme's usual Heading 5 Purple
+   default) was forced here for the same reason already confirmed on
+   Carousel Cards' card title (ds-system.md section 26) - the reference
+   screenshot never showed Purple, and that discrepancy was already raised
+   and resolved once this session. */
+
+.strip__title {
+  flex: 1 1 auto;
+}
+
+.strip__title h5 {
+  color: var(--color-black);
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-weight: 900;
+  margin: 0 0 0.25rem;
+}
+
+.strip__title p {
+  margin: 0;
+}
+
+.strip__title > :last-child {
+  margin-bottom: 0;
+}
+
+/* CTA area - the decorative vector's own positioning context, scoped
+   narrowly to just this wrapper (not the whole module), matching the
+   brief's own framing ("a decorative vector behind the CTA area").
+   `z-index: 0` on the vector and `z-index: 1` on the actual CTA button -
+   the same structural stacking-order guarantee already used by every
+   other decorative vector in this theme (Grid/Plan/Stats/CTA Bar,
+   sections 20/22/24/27) - the CTA is always clickable/readable on top,
+   never a sizing estimate that merely tries to avoid overlap. */
+
+.strip__cta-area {
+  flex-shrink: 0;
+}
+
+.strip__cta-vector {
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 0;
+  height:100%;
+}
+
+.strip__cta {
+  position: relative;
+  z-index: 1;
+}
+@media(max-width:768px){
+  .strip__cta-vector{
+    bottom:0;
+    top:auto;
+    height:40%;
+  }
+  .strip__box{
+    padding:20px 17px;
+  }
+}
+
+@media (min-width: 768px) {
+  .strip__box {
+    align-items: center;
+    flex-direction: row;
+    gap: 1.5rem;
+  }
+}

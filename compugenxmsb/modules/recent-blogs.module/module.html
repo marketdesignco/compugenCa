@@ -1,0 +1,100 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .recent-blogs {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .recent-blogs {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+{% set post_limit = 3 %}
+{% set fetch_limit = 100 %}
+{% set blog_id = module.blog_select.id if module.blog_select else "all" %}
+
+{% if module.tag_filter %}
+  {% set tag_name = module.tag_filter.name|default(module.tag_filter) %}
+  {% set tag_slug = module.tag_filter.slug|default(module.tag_filter) %}
+  {% set tag_id = module.tag_filter.id|default(module.tag_filter) %}
+  {% set candidate_posts = blog_recent_posts(blog_id, true, fetch_limit) %}
+  {% set posts = [] %}
+  {% for candidate in candidate_posts %}
+    {% if candidate.tag_list and (
+        candidate.tag_list|selectattr('name', 'equalto', tag_name)|list
+        or candidate.tag_list|selectattr('slug', 'equalto', tag_slug)|list
+        or candidate.tag_list|selectattr('id', 'equalto', tag_id)|list
+      ) %}
+      {% do posts.append(candidate) %}
+    {% endif %}
+  {% endfor %}
+{% else %}
+  {% set posts = blog_recent_posts(blog_id, true, post_limit) %}
+{% endif %}
+
+{% set posts = posts[:post_limit] %}
+
+<section class="recent-blogs">
+
+  <div class="recent-blogs__inner content-wrapper">
+
+    {% if module.section_heading %}
+      <div class="recent-blogs__heading">
+        {{ module.section_heading|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if posts %}
+      <div class="recent-blogs__grid">
+        {% for post in posts %}
+          <div class="recent-blogs__card">
+
+            {% if post.featured_image %}
+              <div class="recent-blogs__image-wrap">
+                <img
+                  src="{{ post.featured_image|escape_url }}"
+                  alt="{{ post.featured_image_alt_text|escape_attr }}"
+                  loading="lazy"
+                >
+              </div>
+            {% endif %}
+
+            <div class="recent-blogs__content">
+
+              <div class="recent-blogs__meta">
+                {% if post.tag_list %}
+                  <span class="recent-blogs__tag">{{ post.tag_list[0].name|escape_html }}</span>
+                {% endif %}
+                {% if post.tag_list and post.publish_date %}
+                  <span class="recent-blogs__meta-divider" aria-hidden="true">&middot;</span>
+                {% endif %}
+                {% if post.publish_date %}
+                  <span class="recent-blogs__date">{{ post.publish_date|datetimeformat('%B %Y') }}</span>
+                {% endif %}
+              </div>
+
+              {% if post.name %}
+                <h5 class="recent-blogs__title">{{ post.name|escape_html }}</h5>
+              {% endif %}
+
+              {% if post.absolute_url %}
+                <div class="btn-custom btn-tertiary-purple recent-blogs__link">
+                  <a href="{{ post.absolute_url|escape_url }}">Learn More</a>
+                </div>
+              {% endif %}
+
+            </div>
+
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+
+</section>

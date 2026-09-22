@@ -1,0 +1,115 @@
+[ {
+  "id" : "quote",
+  "name" : "quote",
+  "label" : "Quote",
+  "help_text" : "Renders as Heading 3. Normal text is fixed Purple; wrap the quotation marks in Bold to render them Green, matching the reference screenshot exactly (the default value already does this).",
+  "required" : false,
+  "locked" : false,
+  "enabled_features" : [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<h3><strong>&ldquo;</strong>Client Quote &mdash; Two to Three Sentences, Specific About the Outcome.<strong>&rdquo;</strong></h3>"
+}, {
+  "id" : "name_role",
+  "name" : "name_role",
+  "label" : "Name and role",
+  "help_text" : "One field for both - wrap the person's name in Bold to render it Purple; the role text after it (not Bold) renders in a muted gray, matching the reference screenshot's visual hierarchy.",
+  "required" : false,
+  "locked" : false,
+  "enabled_features" : [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<p><strong>Name Surname</strong> &middot; IT Director, public-sector organization</p>"
+}, {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "styles.spacing_desktop",
+    "name" : "spacing_desktop",
+    "label" : "Desktop spacing",
+    "help_text" : "Top/bottom padding on desktop. Left/right are hidden - horizontal spacing comes from .content-wrapper.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null,
+      "hidden_subfields" : {
+        "margin" : true
+      }
+    },
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : {
+      "padding" : {
+        "top" : {
+          "value" : 80,
+          "units" : "px"
+        },
+        "right" : {
+          "value" : 0,
+          "units" : "px"
+        },
+        "bottom" : {
+          "value" : 80,
+          "units" : "px"
+        },
+        "left" : {
+          "value" : 0,
+          "units" : "px"
+        }
+      }
+    }
+  }, {
+    "id" : "styles.spacing_mobile",
+    "name" : "spacing_mobile",
+    "label" : "Mobile spacing",
+    "help_text" : "Top/bottom padding at the theme's mobile breakpoint (max-width: 767px), independent of the desktop value above.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null,
+      "hidden_subfields" : {
+        "margin" : true
+      }
+    },
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : {
+      "padding" : {
+        "top" : {
+          "value" : 40,
+          "units" : "px"
+        },
+        "right" : {
+          "value" : 0,
+          "units" : "px"
+        },
+        "bottom" : {
+          "value" : 40,
+          "units" : "px"
+        },
+        "left" : {
+          "value" : 0,
+          "units" : "px"
+        }
+      }
+    }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+} ]

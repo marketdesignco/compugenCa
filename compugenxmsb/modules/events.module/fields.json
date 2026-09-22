@@ -1,0 +1,319 @@
+[
+  {
+    "id": "section_heading",
+    "name": "section_heading",
+    "label": "Heading",
+    "help_text": "Optional - leave empty to hide. Same fixed treatment as the Table module's own heading: normal text is fixed Blue, Arial Regular; wrap text in Bold to render it Purple, Arial Black - regardless of any other setting. No separate color/typography choice exists for this field.",
+    "required": false,
+    "locked": false,
+    "enabled_features": [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+    "type": "richtext",
+    "display_width": null,
+    "default": "<h2><strong>Webinars, Workshops</strong> + Roundtables</h2>"
+  },
+  {
+    "id": "section_paragraph",
+    "name": "section_paragraph",
+    "label": "Paragraph",
+    "help_text": "Optional - leave empty to hide. Renders using the theme's global typography.",
+    "required": false,
+    "locked": false,
+    "enabled_features": [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+    "type": "richtext",
+    "display_width": null,
+    "default": "<p>Body copy slot. Each row: date, type, time, location, title, description, CTA &mdash; all repeatable fields.</p>"
+  },
+  {
+    "id": "events",
+    "name": "events",
+    "label": "Events",
+    "help_text": "Each event is fully editable. The editor can add, remove, and reorder events.",
+    "required": false,
+    "locked": false,
+    "occurrence": {
+      "min": 1,
+      "max": 20,
+      "sorting_label_field": null,
+      "default": 3
+    },
+    "children": [
+      {
+        "id": "events.disabled",
+        "name": "disabled",
+        "label": "Disabled",
+        "help_text": "Applies the past-event/disabled visual state to this entire event (badge, meta line, title, description, and CTA) without removing it from the layout or hiding its content. Off by default.",
+        "required": false,
+        "locked": false,
+        "type": "boolean",
+        "display_width": null,
+        "default": false
+      },
+      {
+        "id": "events.event_day",
+        "name": "event_day",
+        "label": "Day",
+        "help_text": "Short day number shown in the date badge, e.g. \"24\".",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": "24"
+      },
+      {
+        "id": "events.event_month",
+        "name": "event_month",
+        "label": "Month",
+        "help_text": "Short month abbreviation shown in the date badge, e.g. \"SEP\".",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": "SEP"
+      },
+      {
+        "id": "events.meta_line",
+        "name": "meta_line",
+        "label": "Meta line",
+        "help_text": "Free text - the line above the title, e.g. \"Webinar · 12:00 ET · Online\" or \"Past Event · On Demand\".",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": "Webinar · 12:00 ET · Online"
+      },
+      {
+        "id": "events.title",
+        "name": "title",
+        "label": "Title",
+        "help_text": "Renders as Heading 5, in Arial Black. Fixed Black text color - not tied to a module-level color choice.",
+        "required": false,
+        "locked": false,
+        "enabled_features": [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+        "type": "richtext",
+        "display_width": null,
+        "default": "<h5>The Pre-Audit Self-Check, Live: 10 Settings in 45 Minutes</h5>"
+      },
+      {
+        "id": "events.description",
+        "name": "description",
+        "label": "Description",
+        "help_text": "Renders using the theme's global typography.",
+        "required": false,
+        "locked": false,
+        "enabled_features": [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+        "type": "richtext",
+        "display_width": null,
+        "default": "<p>Walk the checklist on a demo tenant with a CxMSB specialist.</p>"
+      },
+      {
+        "id": "events.link_type",
+        "name": "link_type",
+        "label": "CTA type",
+        "help_text": "Choose whether this event's CTA links to a HubSpot CTA or a regular link. Leave the text/link below empty to omit the CTA entirely.",
+        "required": false,
+        "locked": false,
+        "display": "radio",
+        "choices": [
+          [ "link", "Regular link" ],
+          [ "cta", "HubSpot CTA" ]
+        ],
+        "type": "choice",
+        "display_width": null,
+        "default": "link"
+      },
+      {
+        "id": "events.text",
+        "name": "text",
+        "label": "CTA text",
+        "help_text": "Only used for the Regular link type - a HubSpot CTA carries its own text. Leave empty to omit the CTA. Not automatically changed by Disabled above - update it yourself (e.g. to \"Watch\") for a past event.",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "visibility": {
+          "controlling_field": "events.link_type",
+          "controlling_field_path": null,
+          "controlling_value_regex": "link",
+          "property": null,
+          "operator": "EQUAL",
+          "access": null
+        },
+        "type": "text",
+        "display_width": null,
+        "default": "Register"
+      },
+      {
+        "id": "events.link",
+        "name": "link",
+        "label": "CTA link",
+        "required": false,
+        "locked": false,
+        "supported_types": [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS" ],
+        "show_advanced_rel_options": true,
+        "visibility": {
+          "controlling_field": "events.link_type",
+          "controlling_field_path": null,
+          "controlling_value_regex": "link",
+          "property": null,
+          "operator": "EQUAL",
+          "access": null
+        },
+        "type": "link",
+        "display_width": null,
+        "default": {
+          "url": {
+            "href": "#",
+            "type": "EXTERNAL"
+          },
+          "no_follow": false,
+          "open_in_new_tab": false
+        }
+      },
+      {
+        "id": "events.variant",
+        "name": "variant",
+        "label": "CTA style",
+        "help_text": "Applies to both a regular link and a HubSpot CTA. When Disabled above is on, this event's CTA always renders in the muted disabled style shown in the reference screenshot regardless of this choice.",
+        "required": false,
+        "locked": false,
+        "display": "select",
+        "choices": [
+          [ "btn-primary-purple", "Primary - Purple" ],
+          [ "btn-primary-green", "Primary - Green" ],
+          [ "btn-secondary-purple", "Secondary - Purple" ],
+          [ "btn-secondary-green", "Secondary - Green" ],
+          [ "btn-secondary-white", "Secondary - White outline" ],
+          [ "btn-tertiary-purple", "Tertiary - Purple" ],
+          [ "btn-tertiary-green", "Tertiary - Green" ]
+        ],
+        "type": "choice",
+        "display_width": null,
+        "default": "btn-primary-green"
+      },
+      {
+        "id": "events.cta",
+        "name": "cta",
+        "label": "HubSpot CTA",
+        "required": false,
+        "locked": false,
+        "visibility": {
+          "controlling_field": "events.link_type",
+          "controlling_field_path": null,
+          "controlling_value_regex": "cta",
+          "property": null,
+          "operator": "EQUAL",
+          "access": null
+        },
+        "type": "cta",
+        "display_width": null
+      }
+    ],
+    "tab": "CONTENT",
+    "expanded": true,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null,
+    "default": [
+      {
+        "disabled": false,
+        "event_day": "24",
+        "event_month": "SEP",
+        "meta_line": "Webinar · 12:00 ET · Online",
+        "title": "<h5>The Pre-Audit Self-Check, Live: 10 Settings in 45 Minutes</h5>",
+        "description": "<p>Walk the checklist on a demo tenant with a CxMSB specialist.</p>",
+        "link_type": "link",
+        "text": "Register",
+        "link": { "url": { "href": "#", "type": "EXTERNAL" }, "no_follow": false, "open_in_new_tab": false },
+        "variant": "btn-primary-green"
+      },
+      {
+        "disabled": false,
+        "event_day": "08",
+        "event_month": "OCT",
+        "meta_line": "Workshop · Half Day · Toronto + Online",
+        "title": "<h5>Copilot Readiness Workshop: From Licensed to Loaded</h5>",
+        "description": "<p>Data, permissions and adoption planning for teams rolling out this fiscal year.</p>",
+        "link_type": "link",
+        "text": "Register",
+        "link": { "url": { "href": "#", "type": "EXTERNAL" }, "no_follow": false, "open_in_new_tab": false },
+        "variant": "btn-primary-green"
+      },
+      {
+        "disabled": true,
+        "event_day": "08",
+        "event_month": "OCT",
+        "meta_line": "Past Event · On Demand",
+        "title": "<h5>Compliance Mapping for Provincial Privacy Rules</h5>",
+        "description": "<p>Past-event state &mdash; row dims and the CTA switches to Watch.</p>",
+        "link_type": "link",
+        "text": "Watch",
+        "link": { "url": { "href": "#", "type": "EXTERNAL" }, "no_follow": false, "open_in_new_tab": false },
+        "variant": "btn-primary-green"
+      }
+    ]
+  },
+  {
+    "id": "styles",
+    "name": "styles",
+    "label": "Styles",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "id": "styles.spacing_desktop",
+        "name": "spacing_desktop",
+        "label": "Desktop spacing",
+        "help_text": "Top/bottom padding on desktop. Left/right are hidden - horizontal spacing comes from .content-wrapper.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 80, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 80, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.spacing_mobile",
+        "name": "spacing_mobile",
+        "label": "Mobile spacing",
+        "help_text": "Top/bottom padding at the theme's mobile breakpoint (max-width: 767px), independent of the desktop value above.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 40, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 40, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      }
+    ],
+    "tab": "STYLE",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  }
+]

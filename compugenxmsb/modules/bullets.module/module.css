@@ -1,0 +1,249 @@
+.bullets {
+  overflow: hidden;
+  position: relative;
+}
+
+.bullets--bg-white {
+  background-color: var(--color-white);
+}
+
+.bullets--bg-purple {
+  background-color: var(--color-purple);
+}
+
+.bullets--bg-green {
+  background-color: var(--color-green);
+}
+
+.bullets--bg-transparent {
+  background-color: transparent;
+}
+
+.bullets--bg-purple_bg {
+  background-color: var(--color-purple-bg);
+}
+
+/* Heading color (title_color) and Content color (content_color) are two
+   fully independent fields/selectors, on purpose - Heading color never
+   affects .bullets__description, and Content color never affects
+   .bullets__title. They use different modifier-class prefixes
+   (`bullets--title-*` vs `bullets--text-*`) precisely so neither selector
+   can accidentally match the other element, even though both are driven by
+   the same five color choices. The Heading's own <strong> is handled
+   separately, further below, and always renders Purple 900 regardless of
+   either selection. */
+
+/* Heading color - applies only to .bullets__title's non-Bold text.
+   `.bullets__title :not(strong)` (a descendant selector - it reaches every
+   non-strong element inside .bullets__title, including whatever heading tag
+   the Rich Text field's default/edited HTML uses) and explicit
+   `.bullets__title h1`.."h6"/`p` selectors are listed below, deliberately
+   redundant with each other. The explicit tags are the defensive, spelled-
+   out version of the same coverage `:not(strong)` already provides - added
+   so there is no ambiguity about which actual elements are targeted,
+   regardless of which heading level or paragraph the Rich Text field ends
+   up generating. */
+
+.bullets--title-black .bullets__title,
+.bullets--title-black .bullets__title :not(strong),
+.bullets--title-black .bullets__title h1,
+.bullets--title-black .bullets__title h2,
+.bullets--title-black .bullets__title h3,
+.bullets--title-black .bullets__title h4,
+.bullets--title-black .bullets__title h5,
+.bullets--title-black .bullets__title h6,
+.bullets--title-black .bullets__title p {
+  color: var(--color-black);
+}
+
+.bullets--title-purple .bullets__title,
+.bullets--title-purple .bullets__title :not(strong),
+.bullets--title-purple .bullets__title h1,
+.bullets--title-purple .bullets__title h2,
+.bullets--title-purple .bullets__title h3,
+.bullets--title-purple .bullets__title h4,
+.bullets--title-purple .bullets__title h5,
+.bullets--title-purple .bullets__title h6,
+.bullets--title-purple .bullets__title p {
+  color: var(--color-purple);
+}
+
+.bullets--title-green .bullets__title,
+.bullets--title-green .bullets__title :not(strong),
+.bullets--title-green .bullets__title h1,
+.bullets--title-green .bullets__title h2,
+.bullets--title-green .bullets__title h3,
+.bullets--title-green .bullets__title h4,
+.bullets--title-green .bullets__title h5,
+.bullets--title-green .bullets__title h6,
+.bullets--title-green .bullets__title p {
+  color: var(--color-green);
+}
+
+.bullets--title-white .bullets__title,
+.bullets--title-white .bullets__title :not(strong),
+.bullets--title-white .bullets__title h1,
+.bullets--title-white .bullets__title h2,
+.bullets--title-white .bullets__title h3,
+.bullets--title-white .bullets__title h4,
+.bullets--title-white .bullets__title h5,
+.bullets--title-white .bullets__title h6,
+.bullets--title-white .bullets__title p {
+  color: var(--color-white);
+}
+
+.bullets--title-blue .bullets__title,
+.bullets--title-blue .bullets__title :not(strong),
+.bullets--title-blue .bullets__title h1,
+.bullets--title-blue .bullets__title h2,
+.bullets--title-blue .bullets__title h3,
+.bullets--title-blue .bullets__title h4,
+.bullets--title-blue .bullets__title h5,
+.bullets--title-blue .bullets__title h6,
+.bullets--title-blue .bullets__title p {
+  color: var(--color-blue-accent);
+}
+
+/* Content color - applies only to .bullets__description (all text, Bold
+   included - descriptions have no special <strong> treatment). Never
+   touches .bullets__title. */
+
+.bullets--text-black .bullets__description,
+.bullets--text-black .bullets__description * {
+  color: var(--color-black);
+}
+
+.bullets--text-purple .bullets__description,
+.bullets--text-purple .bullets__description * {
+  color: var(--color-purple);
+}
+
+.bullets--text-green .bullets__description,
+.bullets--text-green .bullets__description * {
+  color: var(--color-green);
+}
+
+.bullets--text-white .bullets__description,
+.bullets--text-white .bullets__description * {
+  color: var(--color-white);
+}
+
+.bullets--text-blue .bullets__description,
+.bullets--text-blue .bullets__description * {
+  color: var(--color-blue-accent);
+}
+
+/* Heading typography split (2026-09) - supersedes the earlier "Regular
+   weight throughout, strong included" rule. Normal text and <strong> now
+   differ by font-family AND font-weight, not just color: normal text is
+   plain Arial/400, <strong> is Arial Black/900. `:not(strong)` is still
+   required, not optional - the wrapper's own rule alone would not reach the
+   actual <h2> inside it (the h2 tag has its own directly-matched global
+   font-family/font-weight from the theme's h2 rule, which wins over
+   anything only inherited from an ancestor). Size/line-height are left
+   untouched (still inherited from the global h2 rule). */
+
+.bullets__title,
+.bullets__title :not(strong) {
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+}
+
+/* The only <strong> color override in this module - the Heading's own
+   <strong>, always Purple 900 regardless of the selected Content color, and
+   always Arial Black/900 regardless of the normal text's family/weight
+   above. Bullet descriptions never get this rule; their <strong> is covered
+   by the uniform `.bullets__description *` rule instead, with no special
+   treatment at all. */
+
+.bullets__title strong {
+  color: var(--color-purple);
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-weight: 900;
+}
+
+.bullets__title {
+  margin-bottom: 2rem;
+}
+
+/* Bullet descriptions: explicit H5/700 weight, for the same reason as the
+   heading above - reaches the actual <h5> and any <strong> inside it, not
+   just the wrapper div. Size/family/line-height stay inherited from the
+   global h5 rule. */
+
+.bullets__description,
+.bullets__description * {
+  font-weight: 700;
+  font-family:Arial, sans-serif;
+}
+
+.bullets__inner {
+  position: relative;
+}
+
+.bullets__row {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.bullets__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.bullets__icon {
+  align-items: center;
+  display: flex;
+  height: 40px;
+  width: 40px;
+}
+
+.bullets__icon-img {
+  display: block;
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.bullets__icon-wrap {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.bullets__icon-svg svg {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.bullets__icon-wrap--purple .bullets__icon-svg svg {
+  fill: var(--color-purple);
+}
+
+.bullets__icon-wrap--green .bullets__icon-svg svg {
+  fill: var(--color-green);
+}
+
+.bullets__icon-wrap--white .bullets__icon-svg svg {
+  fill: var(--color-white);
+}
+
+.bullets__icon-wrap--black .bullets__icon-svg svg {
+  fill: var(--color-black);
+}
+
+@media (min-width: 768px) {
+  .bullets__row {
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .bullets__item {
+    flex: 1 1 200px;
+  }
+}

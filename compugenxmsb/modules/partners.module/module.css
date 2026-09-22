@@ -1,0 +1,46 @@
+.partners {
+  position: relative;
+}
+
+/* Grid - mobile-first 2 columns (logos are compact marks/wordmarks, so a
+   single mobile column would read sparse and waste horizontal space); the
+   desktop/tablet column count (module.styles.columns) is set via the
+   require_css/scope_css block in module.html, same mechanism as spacing
+   (SKILL.md section 3.1/3.6) and every other module's own editor-
+   configurable column count. Generous gap matches the reference
+   screenshot's own airy spacing between logos. */
+
+.partners__grid {
+  align-items: center;
+  column-gap: 3rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  row-gap: 2.5rem;
+}
+
+/* Item - each logo centers within its own grid cell regardless of its own
+   natural aspect ratio (a square mark vs. a wider wordmark, exactly as
+   shown in the reference screenshot, both need to sit visually balanced
+   next to each other). */
+
+.partners__item {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* A fixed max-height, width left to `auto`, is what preserves each logo's
+   own aspect ratio while keeping every logo visually consistent in scale
+   next to the others - `max-width: 100%` is the safety net against
+   overflow for a case where a logo's natural width at that height would
+   exceed its own grid cell on a narrow column count. */
+
+.partners__item img {
+  display: block;
+  height: auto;
+  max-height: 64px;
+  max-width: 100%;
+  width: auto;
+}

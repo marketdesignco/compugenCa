@@ -1,0 +1,198 @@
+.events {
+  position: relative;
+}
+
+/* Heading - the exact same fixed treatment as the Table module's own
+   heading (ds-system.md section 29), copied verbatim per this module's
+   own explicit brief ("use the same heading implementation/settings as
+   the existing Table module"): normal text fixed Blue, Bold text fixed
+   Purple/Arial Black, neither tied to a color/typography choice field.
+   Same explicit h1-h6/p + `:not(strong)` redundant-selector pattern used
+   by every heading treatment in this theme. */
+
+.events__heading,
+.events__heading :not(strong),
+.events__heading h1,
+.events__heading h2,
+.events__heading h3,
+.events__heading h4,
+.events__heading h5,
+.events__heading h6,
+.events__heading p {
+  color: var(--color-blue-accent);
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+}
+
+.events__heading strong {
+  color: var(--color-purple);
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-weight: 900;
+}
+
+.events__heading {
+  margin-bottom: 0.75rem;
+}
+
+.events__paragraph {
+  margin-bottom: 2rem;
+}
+
+.events__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Item - a bordered white card, matching this theme's established card
+   shadow/border tokens (Custom Cards/Carousel Cards, ds-system.md section
+   18/26) rather than inventing new ones. Disabled state (below) never
+   changes this outer box - only the badge/meta/title/description/CTA
+   colors - so the item's own space/layout stays exactly as it is when
+   active, per the brief's explicit "preserve its space/layout exactly."*/
+
+.events__item {
+  align-items: center;
+  background-color: var(--color-white);
+  border: 1.5px solid var(--color-purple-lines);
+  box-shadow: 0px 4px 20px 0px #5103C014;
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+}
+
+/* Date badge - fixed square, Purple by default. Disabled (below) swaps
+   this to --color-gray-disabled, this theme's own existing token for a
+   disabled UI state (already used for disabled buttons elsewhere) - not
+   a new color. Day/Month are real <h3>/<h6> tags (2026-09 - previously
+   plain <span>s): both class selectors below already carry higher
+   specificity than the bare `h3`/`h6` element selectors theme-overrides.css
+   targets, so color/size/weight/spacing here still win with no extra
+   override needed - only `margin` had no competing declaration here
+   before, so the theme's own global heading margin (1.4rem bottom) would
+   otherwise apply unopposed and break this compact badge's layout; reset
+   to 0 (Month keeps its own intentional top-only spacing). */
+
+.events__badge {
+  align-items: center;
+  background-color: var(--color-purple);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  height: 80px;
+  justify-content: center;
+  width: 80px;
+}
+
+.events__badge-day {
+  color: var(--color-white);
+  font-size: 1.75rem;
+  font-weight: 900;
+  line-height: 1;
+  margin: 0;
+}
+
+.events__badge-month {
+  color: var(--color-green);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  margin: 0.25rem 0 0;
+  text-transform: uppercase;
+}
+
+.events__content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.events__meta {
+  color: var(--color-purple);
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+/* Rich Text fields each carry the global h5/p bottom margin - reset the
+   last child's margin inside each wrapper so this module's own
+   margin-bottom (on the wrapper div) is the single source of spacing
+   between blocks, not a stacked double-margin. */
+
+.events__title > :last-child,
+.events__description > :last-child {
+  margin-bottom: 0;
+}
+
+.events__title {
+  margin-bottom: 0.25rem;
+}
+
+/* Title is a real <h5> (2026-09 - previously a plain, CSS-bolded <p>),
+   inheriting the theme's own global Heading 5 font-size entirely
+   untouched, per the brief's explicit "do not hardcode font size or font
+   family... only apply the requested heading level and weight." Only
+   `font-family`/`font-weight` (Arial Black, as requested) and `color`
+   are set here - color is fixed Black rather than left to the theme's
+   own H5 default (Purple), since the reference screenshot always showed
+   Black and switching to a real heading tag would otherwise silently
+   change it - the same reasoning already applied to Carousel Cards' and
+   Strip's own H5 titles (ds-system.md sections 26/28). Reaches the actual
+   `h5` tag directly (not just the `.events__title` wrapper div), since a
+   rule on only the wrapper wouldn't override the tag's own
+   directly-matched global heading rule. */
+
+.events__title h5 {
+  color: var(--color-black);
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-weight: 900;
+}
+
+.events__description {
+  margin-bottom: 0;
+}
+
+.events__cta {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* Disabled - applies to the whole item at once (badge, meta, title,
+   description, CTA), per the brief's explicit "must affect the complete
+   event item consistently." Reuses existing tokens throughout
+   (--color-gray-disabled, --color-gray) rather than inventing new ones.
+   The CTA itself needs no module-level override at all - module.html
+   adds the theme's own established `is-disabled` class to the
+   `.btn-custom` wrapper instead (theme-overrides.css's documented
+   convention: "Add class 'is-disabled' to the .btn-custom wrapper for
+   the disabled state"), which already has its own correct override for
+   every one of the 7 button variants, including making the link
+   non-interactive (`pointer-events: none`) - reusing the existing global
+   button system exactly as instructed, not a module-local reinvention of
+   it. */
+
+.events__item--disabled .events__badge {
+  background-color: var(--color-gray-disabled);
+}
+
+.events__item--disabled .events__badge-month {
+  color: var(--color-white);
+}
+
+.events__item--disabled .events__meta,
+.events__item--disabled .events__title,
+.events__item--disabled .events__description {
+  color: var(--color-gray);
+}
+
+@media (max-width: 767px) {
+  .events__item {
+    flex-wrap: wrap;
+  }
+
+  .events__cta {
+    flex: 1 0 100%;
+    margin-left: 0;
+    margin-top: 1rem;
+  }
+}

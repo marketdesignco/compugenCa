@@ -1,0 +1,219 @@
+.table-module {
+  position: relative;
+}
+
+.table-module__inner {
+  position: relative;
+}
+
+/* Heading - normal text fixed Blue/Arial Regular, Bold text fixed Purple/
+   Arial Black - both directions of this module's own explicit brief,
+   neither tied to a color/typography choice field. Same explicit
+   h1-h6/p + `:not(strong)` redundant-selector pattern used by every other
+   heading treatment in this theme, so the rule reliably reaches whatever
+   tag the Rich Text field outputs. */
+
+.table-module__heading,
+.table-module__heading :not(strong),
+.table-module__heading h1,
+.table-module__heading h2,
+.table-module__heading h3,
+.table-module__heading h4,
+.table-module__heading h5,
+.table-module__heading h6,
+.table-module__heading p {
+  color: var(--color-blue-accent);
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+}
+
+.table-module__heading strong {
+  color: var(--color-purple);
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-weight: 900;
+}
+
+.table-module__heading {
+  margin-bottom: 0.75rem;
+}
+
+.table-module__paragraph {
+  margin-bottom: 2.5rem;
+}
+
+/* Grid - each row (header row included) is its own `display: grid` with
+   the same column template, stacked as ordinary block children of
+   `.table-module__grid` - not one unified grid spanning every row, which
+   would need `display: contents` on each row (its own set of styling/
+   accessibility quirks) for no real benefit here, since no cell needs to
+   span across rows.
+
+   The column *count* is dynamic - `module.headers` is a repeater the
+   editor can add/remove/reorder items in, so a hardcoded N-column
+   template would break the moment it didn't match the current header
+   count. `grid-template-columns: repeat({{ module.headers|length }},
+   1fr)` is set in module.html's own `require_css`/`scope_css` block
+   instead (the same mechanism every other module in this theme uses for
+   an editor-configurable column count, e.g. Custom Cards/Grid/Stats'
+   `styles.columns`) - equal-width columns, since headers carry no
+   per-column width setting of their own. */
+
+.table-module__header-row,
+.table-module__row {
+  display: grid;
+}
+
+.table-module__header-cell {
+  background-color: var(--color-purple);
+  color: var(--color-white);
+  font-weight: 700;
+  padding: 1rem 1.25rem;
+}
+
+/* Highlighted column header - driven by this header's own `highlight`
+   boolean (superseded 2026-09: previously always the 4th/last column by
+   field structure; now any header, in any position, can be marked as the
+   highlighted one, since headers are a fully dynamic repeater). A darker
+   Purple, derived from the existing --color-purple token via color-mix()
+   rather than a freshly invented hex, with a plain fallback hex
+   immediately before it for browsers that don't support color-mix() (the
+   fallback is overridden by the color-mix() line wherever it's supported
+   - both estimated by eye against the reference screenshot, not a
+   measured source value). */
+
+.table-module__header-cell--highlight {
+  background-color: #3D0290;
+  background-color: color-mix(in srgb, var(--color-purple), black 25%);
+}
+
+/* Rows - alternating tint uses this theme's already-documented Purple @
+   6% tint token (ds-system.md section 1, "tint bands, callouts") rather
+   than a new color. The highlighted column keeps its own persistent,
+   slightly stronger tint on every row regardless of alternation - both
+   values are visual estimates against the reference screenshot, not
+   measured source values. */
+
+.table-module__row {
+  border-bottom: 1px solid var(--color-purple-lines);
+}
+
+.table-module__row--alt .table-module__cell:not(.table-module__cell--highlight) {
+  background-color: rgba(81, 3, 192, 0.04);
+}
+
+.table-module__cell {
+  padding: 0.85rem 1.25rem;
+}
+
+.table-module__cell--highlight {
+  background-color: rgba(81, 3, 192, 0.08);
+}
+
+.table-module__cell-label {
+  display: none;
+}
+
+/* Value - a plain, neutral color by default. A fixed 3-state choice field
+   (Yes/No/Partial) originally colored a "yes"/checkmark value Blue Accent
+   automatically; that was removed in favor of fully free text ("do not
+   force a predefined choice... allow the editor to enter custom text"),
+   which meant there was no longer any reliable way to auto-detect "this
+   free-typed value means a check, color it" - `rows.cells.check_color`
+   (2026-09) restores that capability explicitly instead of automatically:
+   an editable per-cell choice, defaulting to None (this plain neutral
+   color), so a Capability description or a plain dash/"Partial" stays
+   uncolored while a cell the editor is actually using as a check/status
+   indicator can be set to Blue (or Green/Purple/Black) deliberately.
+   Compound selectors (`.table-module__cell-value.table-module__cell-
+   value--blue`, etc.) give these rules the same specificity as the
+   highlighted-cell rule below, so if a cell somehow has both `highlight`
+   and an explicit `check_color` set, whichever rule is declared later in
+   this file (check_color) wins - the more specific, deliberate per-cell
+   choice, not the more general column-level one. */
+
+.table-module__cell-value {
+  color: var(--color-black);
+}
+
+.table-module__cell--highlight .table-module__cell-value {
+  color: var(--color-purple);
+  font-weight: 700;
+}
+
+.table-module__cell-value.table-module__cell-value--blue {
+  color: var(--color-blue-accent);
+}
+
+.table-module__cell-value.table-module__cell-value--green {
+  color: var(--color-green);
+}
+
+.table-module__cell-value.table-module__cell-value--purple {
+  color: var(--color-purple);
+}
+
+.table-module__cell-value.table-module__cell-value--black {
+  color: var(--color-black);
+}
+
+@media (max-width: 767px) {
+  /* Mobile - not a shrunk table. Each row becomes its own self-contained
+     stack of Label/Value pairs (the one-time header row above is hidden
+     entirely; `.table-module__cell-label` takes over as the per-value
+     label instead), matching the reference mobile screenshot's card-like
+     structure rather than a horizontally compressed grid.
+
+     Superseded (2026-09): the label used to be read from this module's
+     own fixed header fields (`module.header_capability` etc.) - now that
+     headers are a dynamic repeater with no guaranteed cross-reference to
+     a given cell's position (indexing into a second repeater by position
+     was avoided as an unverified HubL pattern - see ds-system.md), each
+     *cell* carries its own `label` field instead, entered once by the
+     editor and kept matching its column header's text manually. More
+     fields to fill in, but no assumption about repeater-to-repeater
+     indexing working correctly. */
+
+  .table-module__header-row {
+    display: none;
+  }
+
+  .table-module__row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem 0;
+  }
+
+  .table-module__row--alt .table-module__cell:not(.table-module__cell--highlight) {
+    background-color: transparent;
+  }
+
+  .table-module__cell {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0;
+  }
+
+  .table-module__cell--highlight {
+    background-color: transparent;
+  }
+
+  .table-module__cell-label {
+    background-color: var(--color-purple);
+    color: var(--color-white);
+    display: block;
+    font-weight: 700;
+    padding: 0.75rem 1rem;
+  }
+
+  .table-module__cell--highlight .table-module__cell-label {
+    background-color: #3D0290;
+    background-color: color-mix(in srgb, var(--color-purple), black 25%);
+  }
+
+  .table-module__cell-value {
+    padding: 0 1rem;
+  }
+}

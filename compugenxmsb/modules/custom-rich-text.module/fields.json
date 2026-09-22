@@ -1,0 +1,207 @@
+[ {
+  "id" : "version",
+  "name" : "version",
+  "label" : "Layout version",
+  "help_text" : "Version 1 shows the Rich text / Content max-width / Show top accent fields below. Version 2 shows the two column fields instead.",
+  "required" : true,
+  "locked" : false,
+  "display" : "radio",
+  "choices" : [ [ "version_1", "Version 1 - Full Width" ], [ "version_2", "Version 2 - Two Columns" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "version_1"
+}, {
+  "id" : "content",
+  "name" : "content",
+  "label" : "Rich text content",
+  "help_text" : "Version 1 (Full Width) only. Renders using the theme's global typography - no color settings on this module.",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : "version",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "version_1",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "enabled_features" : [ "lists", "standard_emphasis", "block", "alignment" ],
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<h2>One-Column Deep Dive Heading</h2><p>Lead paragraph at a larger size sets up the whole section - one framing thought before the sub-sections begin.</p><h3>First Sub-Head Carries an Argument</h3><p>Body copy runs as long as the subject needs. Heading and paragraph pairs repeat as needed; a quote, table, or CTA strip can drop between any pair.</p><h3>Second Sub-Head Continues the Thread</h3><p>Second block of running copy. Inline links sit in brand purple; emphasis is bold, never italic caps.</p>"
+}, {
+  "id" : "content_width",
+  "name" : "content_width",
+  "label" : "Content max-width (desktop)",
+  "help_text" : "Caps the Rich text content's width on desktop (>= 768px) without changing the shared .content-wrapper width - content stays centered. Always full width on mobile. Version 1 (Full Width) only.",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : "version",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "version_1",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "display" : "slider",
+  "min" : 40,
+  "max" : 100,
+  "step" : 5,
+  "suffix" : "%",
+  "type" : "number",
+  "display_width" : null,
+  "default" : 100
+}, {
+  "id" : "show_top_accent",
+  "name" : "show_top_accent",
+  "label" : "Show top accent line",
+  "help_text" : "Optional decorative color bar above the Rich text content, matching the Hero module's accent line. Version 1 (Full Width) only.",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : "version",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "version_1",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "content_col_1",
+  "name" : "content_col_1",
+  "label" : "Rich text - Column 1",
+  "help_text" : "Version 2 (Two Columns) only. Renders using the theme's global typography - no color settings on this module.",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : "version",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "version_2",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "enabled_features" : [ "lists", "standard_emphasis", "block", "alignment" ],
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<h2>Two-Column Heading Spans<br>Both Columns</h2><p>Shared intro paragraph under the H2, then the copy splits into two equal columns that each carry their own sub-heads.</p><h3>Column One Sub-Head</h3><p>Column copy with full room - paragraphs stack inside the column, and each column can hold multiple Heading + paragraph pairs.</p>"
+}, {
+  "id" : "content_col_2",
+  "name" : "content_col_2",
+  "label" : "Rich text - Column 2",
+  "help_text" : "Version 2 (Two Columns) only. Renders using the theme's global typography - no color settings on this module.",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : "version",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "version_2",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "enabled_features" : [ "lists", "standard_emphasis", "block", "alignment" ],
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<h3>Column Two Sub-Head</h3><p>Columns stay independent - never run one story across both. On mobile the second column stacks below the first.</p><h3>Second Sub-Head in Column Two</h3><p>Bulleted lists and inline links work inside columns exactly as in the Full Width version.</p>"
+}, {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "styles.spacing_desktop",
+    "name" : "spacing_desktop",
+    "label" : "Desktop spacing",
+    "help_text" : "Top/bottom padding on desktop. Left/right are hidden - horizontal spacing comes from .content-wrapper.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null,
+      "hidden_subfields" : {
+        "margin" : true
+      }
+    },
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : {
+      "padding" : {
+        "top" : {
+          "value" : 80,
+          "units" : "px"
+        },
+        "right" : {
+          "value" : 0,
+          "units" : "px"
+        },
+        "bottom" : {
+          "value" : 80,
+          "units" : "px"
+        },
+        "left" : {
+          "value" : 0,
+          "units" : "px"
+        }
+      }
+    }
+  }, {
+    "id" : "styles.spacing_mobile",
+    "name" : "spacing_mobile",
+    "label" : "Mobile spacing",
+    "help_text" : "Top/bottom padding at the theme's mobile breakpoint (max-width: 767px), independent of the desktop value above.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null,
+      "hidden_subfields" : {
+        "margin" : true
+      }
+    },
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : {
+      "padding" : {
+        "top" : {
+          "value" : 40,
+          "units" : "px"
+        },
+        "right" : {
+          "value" : 0,
+          "units" : "px"
+        },
+        "bottom" : {
+          "value" : 40,
+          "units" : "px"
+        },
+        "left" : {
+          "value" : 0,
+          "units" : "px"
+        }
+      }
+    }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+} ]

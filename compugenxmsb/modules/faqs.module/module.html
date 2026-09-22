@@ -1,0 +1,60 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .faqs {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .faqs {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<section
+  class="
+    faqs
+    faqs--bg-{{ module.styles.background_color|escape_attr }}
+    faqs--heading-{{ module.styles.heading_color|escape_attr }}
+    faqs--heading-align-{{ module.styles.heading_align|escape_attr }}
+    faqs--content-{{ module.styles.content_color|escape_attr }}
+  "
+>
+
+  <div class="faqs__inner content-wrapper">
+
+    {% if module.section_heading %}
+      <div class="faqs__heading">
+        {{ module.section_heading|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.items %}
+      <div class="faqs__list">
+        {% for item in module.items %}
+          <div class="faqs__item{% if loop.first %} faqs__item--open{% endif %}" data-faqs-item>
+            <button
+              class="faqs__question"
+              type="button"
+              aria-expanded="{{ 'true' if loop.first else 'false' }}"
+              data-faqs-button
+            >
+              <span class="faqs__question-text">
+                {{ item.question|sanitize_html }}
+              </span>
+              <span class="faqs__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faqs__answer" data-faqs-panel>
+              {{ item.answer|sanitize_html }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+
+</section>

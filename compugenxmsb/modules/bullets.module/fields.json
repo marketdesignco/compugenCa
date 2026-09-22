@@ -1,0 +1,299 @@
+[ {
+  "id" : "title",
+  "name" : "title",
+  "label" : "Heading",
+  "help_text" : "Normal text renders in Arial Regular, using the Heading color setting below (independent of the bullet descriptions' Content color). Wrap text in Bold to render it in Arial Black, weight 900, Purple 900 - regardless of the Heading color selection.",
+  "required" : false,
+  "locked" : false,
+  "enabled_features" : [ "standard_emphasis", "block" ],
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<h2><strong>Real Outcomes.</strong> Measurable Results.</h2>"
+}, {
+  "id" : "items",
+  "name" : "items",
+  "label" : "Bullets",
+  "help_text" : "Each bullet has an icon (image or HubSpot Icon Library) and a Rich Text description",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 1,
+    "max" : 8,
+    "sorting_label_field" : null,
+    "default" : 4
+  },
+  "children" : [ {
+    "id" : "items.icon_type",
+    "name" : "icon_type",
+    "label" : "Icon source",
+    "help_text" : "Choose whether this bullet's icon is an uploaded image or an icon from HubSpot's Icon Library",
+    "required" : true,
+    "locked" : false,
+    "display" : "radio",
+    "choices" : [ [ "image", "Image" ], [ "icon", "HubSpot Icon Library" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "image"
+  }, {
+    "id" : "items.icon_image",
+    "name" : "icon_image",
+    "label" : "Icon image",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "items.icon_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "image",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "responsive" : false,
+    "resizable" : false,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/icon-example.png",
+      "alt" : "",
+      "loading" : "lazy"
+    }
+  }, {
+    "id" : "items.icon_library",
+    "name" : "icon_library",
+    "label" : "Icon (HubSpot Icon Library)",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "items.icon_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "icon",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "icon_set" : "fontawesome-6.4.2",
+    "type" : "icon",
+    "display_width" : null,
+    "default" : {
+      "name" : "check",
+      "type" : "SOLID",
+      "unicode" : "f00c"
+    }
+  }, {
+    "id" : "items.icon_color",
+    "name" : "icon_color",
+    "label" : "Icon color",
+    "help_text" : "Only applies when Icon source above is set to HubSpot Icon Library",
+    "required" : true,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "items.icon_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "icon",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "purple", "Purple" ], [ "green", "Green" ], [ "white", "White" ], [ "black", "Black" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "purple"
+  }, {
+    "id" : "items.description",
+    "name" : "description",
+    "label" : "Description",
+    "help_text" : "Defaults to Heading 5 typography, weight 700. Uses the Content color setting below for all text - Bold has no special color or weight here (unlike the module Heading above).",
+    "required" : true,
+    "locked" : false,
+    "enabled_features" : [ "standard_emphasis" ],
+    "type" : "richtext",
+    "display_width" : null,
+    "default" : "<h5>Normal text highlighted text</h5>"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : true,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "icon_type" : "image",
+    "icon_image" : {
+      "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/icon-example.png",
+      "alt" : "",
+      "loading" : "lazy"
+    },
+    "icon_color" : "purple",
+    "description" : "<h5>Faster Modernization, Less Risk</h5>"
+  }, {
+    "icon_type" : "image",
+    "icon_image" : {
+      "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/icon-example.png",
+      "alt" : "",
+      "loading" : "lazy"
+    },
+    "icon_color" : "purple",
+    "description" : "<h5>A Single, Dedicated Microsoft-Aligned Partner</h5>"
+  }, {
+    "icon_type" : "image",
+    "icon_image" : {
+      "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/icon-example.png",
+      "alt" : "",
+      "loading" : "lazy"
+    },
+    "icon_color" : "purple",
+    "description" : "<h5>End-to-End Expertise from Licensing to Adoption</h5>"
+  }, {
+    "icon_type" : "image",
+    "icon_image" : {
+      "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/icon-example.png",
+      "alt" : "",
+      "loading" : "lazy"
+    },
+    "icon_color" : "purple",
+    "description" : "<h5>Clear ROI and Measurable Business Impact</h5>"
+  } ]
+}, {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "styles.spacing_desktop",
+    "name" : "spacing_desktop",
+    "label" : "Desktop spacing",
+    "help_text" : "Top/bottom padding on desktop. Left/right are hidden - horizontal spacing comes from .content-wrapper.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null,
+      "hidden_subfields" : {
+        "margin" : true
+      }
+    },
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : {
+      "padding" : {
+        "top" : {
+          "value" : 80,
+          "units" : "px"
+        },
+        "right" : {
+          "value" : 0,
+          "units" : "px"
+        },
+        "bottom" : {
+          "value" : 80,
+          "units" : "px"
+        },
+        "left" : {
+          "value" : 0,
+          "units" : "px"
+        }
+      }
+    }
+  }, {
+    "id" : "styles.spacing_mobile",
+    "name" : "spacing_mobile",
+    "label" : "Mobile spacing",
+    "help_text" : "Top/bottom padding at the theme's mobile breakpoint (max-width: 767px), independent of the desktop value above.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null,
+      "hidden_subfields" : {
+        "margin" : true
+      }
+    },
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : {
+      "padding" : {
+        "top" : {
+          "value" : 40,
+          "units" : "px"
+        },
+        "right" : {
+          "value" : 0,
+          "units" : "px"
+        },
+        "bottom" : {
+          "value" : 40,
+          "units" : "px"
+        },
+        "left" : {
+          "value" : 0,
+          "units" : "px"
+        }
+      }
+    }
+  }, {
+    "id" : "styles.background_color",
+    "name" : "background_color",
+    "label" : "Background color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "white", "White" ], [ "purple", "Purple" ], [ "green", "Green" ], [ "transparent", "Transparent" ], [ "purple_bg", "Purple BG (#FAF9FD)" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "white"
+  }, {
+    "id" : "styles.title_color",
+    "name" : "title_color",
+    "label" : "Heading color",
+    "help_text" : "Applies only to the module Heading's non-Bold text - never to the bullet descriptions. Bold text in the Heading always renders in Purple 900 regardless of this selection.",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "black", "Black" ], [ "purple", "Purple" ], [ "green", "Green" ], [ "white", "White" ], [ "blue", "Blue (#009CE4)" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "blue"
+  }, {
+    "id" : "styles.content_color",
+    "name" : "content_color",
+    "label" : "Content color",
+    "help_text" : "Applies only to the bullet descriptions (all text, Bold included, since descriptions have no special Bold treatment) - never to the module Heading, which has its own independent Heading color setting above.",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "black", "Black" ], [ "purple", "Purple" ], [ "green", "Green" ], [ "white", "White" ], [ "blue", "Blue (#009CE4)" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "black"
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+} ]

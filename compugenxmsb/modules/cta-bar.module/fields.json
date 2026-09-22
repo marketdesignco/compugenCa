@@ -1,0 +1,288 @@
+[
+  {
+    "id": "section_title",
+    "name": "section_title",
+    "label": "Title",
+    "help_text": "Renders as Heading 2, always in Arial Black - both the normal and Bold text. Normal text is fixed White; wrap text in Bold to render it Green. No separate color choice exists for this field.",
+    "required": false,
+    "locked": false,
+    "enabled_features": [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+    "type": "richtext",
+    "display_width": null,
+    "default": "<h2>What's Your Microsoft Roadmap for <strong>the Next 6 Months?</strong></h2>"
+  },
+  {
+    "id": "section_paragraph",
+    "name": "section_paragraph",
+    "label": "Paragraph",
+    "help_text": "Optional - leave empty to hide. Renders using the theme's global typography.",
+    "required": false,
+    "locked": false,
+    "enabled_features": [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+    "type": "richtext",
+    "display_width": null,
+    "default": "<p>Body copy slot. With the image hidden the band runs full width; with it shown this column narrows.</p>"
+  },
+  {
+    "id": "show_cta",
+    "name": "show_cta",
+    "label": "Show CTA",
+    "help_text": "Turns the CTA on/off without clearing its content. On by default.",
+    "required": false,
+    "locked": false,
+    "type": "boolean",
+    "display_width": null,
+    "default": true
+  },
+  {
+    "id": "cta_settings",
+    "name": "cta_settings",
+    "label": "CTA settings",
+    "help_text": "Hidden entirely when Show CTA above is off, so no CTA configuration fields are left visible with nothing to configure.",
+    "required": false,
+    "locked": false,
+    "visibility": {
+      "controlling_field": "show_cta",
+      "controlling_field_path": null,
+      "controlling_value_regex": "true",
+      "property": null,
+      "operator": "EQUAL",
+      "access": null
+    },
+    "children": [
+      {
+        "id": "cta_settings.link_type",
+        "name": "link_type",
+        "label": "CTA type",
+        "help_text": "Choose whether the CTA links to a HubSpot CTA or a regular link. Leave the text/link below empty to omit the CTA entirely.",
+        "required": false,
+        "locked": false,
+        "display": "radio",
+        "choices": [
+          [ "link", "Regular link" ],
+          [ "cta", "HubSpot CTA" ]
+        ],
+        "type": "choice",
+        "display_width": null,
+        "default": "link"
+      },
+      {
+        "id": "cta_settings.text",
+        "name": "text",
+        "label": "CTA text",
+        "help_text": "Only used for the Regular link type - a HubSpot CTA carries its own text. Leave empty to omit the CTA.",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "visibility": {
+          "controlling_field": "cta_settings.link_type",
+          "controlling_field_path": null,
+          "controlling_value_regex": "link",
+          "property": null,
+          "operator": "EQUAL",
+          "access": null
+        },
+        "type": "text",
+        "display_width": null,
+        "default": "Download the Guide"
+      },
+      {
+        "id": "cta_settings.link",
+        "name": "link",
+        "label": "CTA link",
+        "required": false,
+        "locked": false,
+        "supported_types": [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS" ],
+        "show_advanced_rel_options": true,
+        "visibility": {
+          "controlling_field": "cta_settings.link_type",
+          "controlling_field_path": null,
+          "controlling_value_regex": "link",
+          "property": null,
+          "operator": "EQUAL",
+          "access": null
+        },
+        "type": "link",
+        "display_width": null,
+        "default": {
+          "url": {
+            "href": "#",
+            "type": "EXTERNAL"
+          },
+          "no_follow": false,
+          "open_in_new_tab": false
+        }
+      },
+      {
+        "id": "cta_settings.variant",
+        "name": "variant",
+        "label": "CTA style",
+        "help_text": "Applies to both a regular link and a HubSpot CTA",
+        "required": false,
+        "locked": false,
+        "display": "select",
+        "choices": [
+          [ "btn-primary-purple", "Primary - Purple" ],
+          [ "btn-primary-green", "Primary - Green" ],
+          [ "btn-secondary-purple", "Secondary - Purple" ],
+          [ "btn-secondary-green", "Secondary - Green" ],
+          [ "btn-secondary-white", "Secondary - White outline" ],
+          [ "btn-tertiary-purple", "Tertiary - Purple" ],
+          [ "btn-tertiary-green", "Tertiary - Green" ]
+        ],
+        "type": "choice",
+        "display_width": null,
+        "default": "btn-primary-green"
+      },
+      {
+        "id": "cta_settings.cta",
+        "name": "cta",
+        "label": "HubSpot CTA",
+        "required": false,
+        "locked": false,
+        "visibility": {
+          "controlling_field": "cta_settings.link_type",
+          "controlling_field_path": null,
+          "controlling_value_regex": "cta",
+          "property": null,
+          "operator": "EQUAL",
+          "access": null
+        },
+        "type": "cta",
+        "display_width": null
+      }
+    ],
+    "tab": "CONTENT",
+    "expanded": true,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  },
+  {
+    "id": "show_image",
+    "name": "show_image",
+    "label": "Show image",
+    "help_text": "Turns the side image on/off without clearing its content. On by default. When off, the content column runs full width.",
+    "required": false,
+    "locked": false,
+    "type": "boolean",
+    "display_width": null,
+    "default": true
+  },
+  {
+    "id": "image",
+    "name": "image",
+    "label": "Image",
+    "help_text": "Hidden entirely when Show image above is off, so no empty image field is left visible with nothing to configure.",
+    "required": false,
+    "locked": false,
+    "responsive": true,
+    "resizable": false,
+    "show_loading": false,
+    "visibility": {
+      "controlling_field": "show_image",
+      "controlling_field_path": null,
+      "controlling_value_regex": "true",
+      "property": null,
+      "operator": "EQUAL",
+      "access": null
+    },
+    "type": "image",
+    "display_width": null,
+    "default": {
+      "src": "https://www.compugen.com/hubfs/compugenMSB-2026/guide.svg",
+      "alt": "",
+      "loading": "lazy"
+    }
+  },
+  {
+    "id": "vector_visible",
+    "name": "vector_visible",
+    "label": "Show decorative vector",
+    "help_text": "Optional decorative graphic in the bottom-left corner of the section. Purely a background accent - never covers the CTA content. On by default.",
+    "required": false,
+    "locked": false,
+    "type": "boolean",
+    "display_width": null,
+    "default": true
+  },
+  {
+    "id": "vector",
+    "name": "vector",
+    "label": "Decorative vector",
+    "required": false,
+    "locked": false,
+    "responsive": false,
+    "resizable": false,
+    "show_loading": false,
+    "type": "image",
+    "display_width": null,
+    "default": {
+      "src": "https://www.compugen.com/hubfs/compugenMSB-2026/vector-stats.png",
+      "alt": "",
+      "loading": "lazy"
+    }
+  },
+  {
+    "id": "styles",
+    "name": "styles",
+    "label": "Styles",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "id": "styles.spacing_desktop",
+        "name": "spacing_desktop",
+        "label": "Desktop spacing",
+        "help_text": "Top/bottom padding on desktop. Left/right are hidden - horizontal spacing comes from .content-wrapper.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 80, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 80, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.spacing_mobile",
+        "name": "spacing_mobile",
+        "label": "Mobile spacing",
+        "help_text": "Top/bottom padding at the theme's mobile breakpoint (max-width: 767px), independent of the desktop value above.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 40, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 40, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      }
+    ],
+    "tab": "STYLE",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  }
+]

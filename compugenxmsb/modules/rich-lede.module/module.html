@@ -1,0 +1,51 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .rich-lede {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .rich-lede {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<section class="rich-lede">
+
+  <div class="rich-lede__inner content-wrapper">
+    <div class="rich-lede__row">
+
+      <div class="rich-lede__rail">
+
+        {% if module.show_accent %}
+          <div class="rich-lede__accent"></div>
+        {% endif %}
+
+        {% if module.heading %}
+          <div class="rich-lede__heading">
+            {{ module.heading|sanitize_html }}
+          </div>
+        {% endif %}
+
+        {% if module.takeaway %}
+          <div class="rich-lede__takeaway">
+            {{ module.takeaway|sanitize_html }}
+          </div>
+        {% endif %}
+
+      </div>
+
+      {% if module.body_content %}
+        <div class="rich-lede__body">
+          {{ module.body_content|sanitize_html }}
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+</section>

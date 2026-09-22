@@ -1,0 +1,48 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .quote {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .quote {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<section class="quote">
+
+  <div class="quote__inner content-wrapper">
+    <div class="quote__body">
+
+      <div class="quote__lines" aria-hidden="true">
+        <span class="quote__line quote__line--1"></span>
+        <span class="quote__line quote__line--2"></span>
+        <span class="quote__line quote__line--3"></span>
+        <span class="quote__line quote__line--4"></span>
+      </div>
+
+      <div class="quote__content">
+
+        {% if module.quote %}
+          <div class="quote__text">
+            {{ module.quote|sanitize_html }}
+          </div>
+        {% endif %}
+
+        {% if module.name_role %}
+          <div class="quote__meta">
+            {{ module.name_role|sanitize_html }}
+          </div>
+        {% endif %}
+
+      </div>
+
+    </div>
+  </div>
+
+</section>

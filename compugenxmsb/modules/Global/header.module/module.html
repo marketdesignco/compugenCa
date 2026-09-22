@@ -1,0 +1,151 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .global-header {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .global-header {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+{% macro render_menu_item(link, depth, max_levels) %}
+  <li class="global-header__menu-item global-header__menu-item--depth-{{ depth|escape_attr }} {{ "global-header__menu-item--has-submenu" if link.children and depth < max_levels }}">
+    {% if link.url %}
+      <a
+        class="global-header__menu-link {{ "global-header__menu-link--active" if link.activeNode }} {{ "global-header__menu-link--active-branch" if link.activeBranch }}"
+        href="{{ link.url|escape_url }}"
+        {{ 'aria-haspopup="true" aria-expanded="false"' if link.children and depth < max_levels }}
+        {{ 'aria-current="page"' if link.activeNode }}
+        {{ 'target="_blank" rel="noopener"' if link.linkTarget }}
+      >
+        {{ link.label|escape_html }}
+      </a>
+    {% else %}
+      {% if link.children and depth < max_levels %}
+        <a class="global-header__menu-link global-header__menu-link--toggle" href="#" aria-haspopup="true" aria-expanded="false">{{ link.label|escape_html }}</a>
+      {% else %}
+        <span class="global-header__menu-link">{{ link.label|escape_html }}</span>
+      {% endif %}
+    {% endif %}
+    {% if link.children and depth < max_levels %}
+      {% set next_depth = depth + 1 %}
+      <button class="global-header__menu-toggle no-button" aria-expanded="false">
+        <span class="show-for-sr">Show submenu for {{ link.label|escape_html }}</span>
+        <span class="global-header__menu-toggle-icon"></span>
+      </button>
+      <ul class="global-header__submenu global-header__submenu--level-{{ next_depth|escape_attr }} no-list">
+        {% for sublink in link.children %}
+          {{ render_menu_item(sublink, next_depth, max_levels) }}
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </li>
+{% endmacro %}
+
+<header
+  class="
+    global-header
+    {{ "global-header--sticky" if module.styles.sticky }}
+    global-header--bg-{{ module.styles.background_color|escape_attr }}
+    global-header--text-{{ module.styles.content_color|escape_attr }}
+  "
+>
+  <a href="#main-content" class="global-header__skip">Skip to content</a>
+
+  <div class="global-header__inner content-wrapper">
+    <div class="global-header__row">
+
+      {% if module.logo.src %}
+        <a href="/" class="global-header__logo" aria-label="{{ module.logo.alt|escape_attr }}">
+          <img
+            src="{{ module.logo.src|escape_url }}"
+            alt="{{ module.logo.alt|escape_attr }}"
+            loading="{{ module.logo.loading|escape_attr }}"
+          >
+        </a>
+      {% endif %}
+
+      <button
+        class="global-header__toggle no-button"
+        type="button"
+        aria-expanded="false"
+        aria-controls="global-header-panel"
+        aria-label="Open menu"
+      >
+        <span class="global-header__toggle-bar"></span>
+        <span class="global-header__toggle-bar"></span>
+        <span class="global-header__toggle-bar"></span>
+      </button>
+
+      <div class="global-header__panel" id="global-header-panel">
+
+        {% if module.menu %}
+          <nav class="global-header__nav" aria-label="Main menu">
+            <ul class="global-header__menu no-list">
+              {% set menu_tree = menu(module.menu, "site_root").children %}
+              {% for link in menu_tree %}
+                {{ render_menu_item(link, 1, module.menu_max_levels) }}
+              {% endfor %}
+            </ul>
+          </nav>
+        {% endif %}
+
+        <div class="global-header__actions">
+
+          {% if content.translated_content.values()|selectattr("published")|length or is_listing_view and group.translations %}
+            <ul class="global-header__lang no-list">
+              <li class="global-header__lang-item global-header__lang-item--current">
+                <span aria-current="true">{{ content.language.languageTag|upper }}</span>
+              </li>
+              {% for translation in content.translated_content.values() %}
+                {% if translation.published %}
+                  <li class="global-header__lang-item">
+                    <a href="{{ translation.absoluteUrl|escape_url }}">{{ translation.language|upper }}</a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+          {% if module.buttons %}
+            <div class="global-header__buttons">
+              {% for button in module.buttons %}
+                {% set href = button.link.url.href %}
+                {% if href %}
+                  {% if button.link.url.type == "EMAIL_ADDRESS" %}
+                    {% set href = "mailto:" + href %}
+                  {% endif %}
+                  {% set rel = [] %}
+                  {% if button.link.no_follow %}
+                    {% do rel.append("nofollow") %}
+                  {% endif %}
+                  {% if button.link.open_in_new_tab %}
+                    {% do rel.append("noopener") %}
+                  {% endif %}
+                  <div class="btn-custom {{ button.variant|escape_attr }}">
+                    <a
+                      href="{{ href|escape_url }}"
+                      {% if button.link.open_in_new_tab %}target="_blank"{% endif %}
+                      {% if rel %}rel="{{ rel|join(" ")|escape_attr }}"{% endif %}
+                    >
+                      {{ button.text|escape_html }}
+                    </a>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</header>

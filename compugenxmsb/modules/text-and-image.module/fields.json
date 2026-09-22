@@ -1,0 +1,504 @@
+[ {
+  "id" : "title",
+  "name" : "title",
+  "label" : "Title",
+  "help_text" : "Bold/strong text automatically renders in the design system's accent color.",
+  "required" : true,
+  "locked" : false,
+  "enabled_features" : [ "standard_emphasis", "block" ],
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<h3>H3 Carries the Section Argument</h3>"
+}, {
+  "id" : "description",
+  "name" : "description",
+  "label" : "Description",
+  "help_text" : "Paragraph and, if needed, a bulleted list - both are supported in this one field",
+  "required" : false,
+  "locked" : false,
+  "enabled_features" : [ "lists", "standard_emphasis" ],
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<p>Framing paragraph, then the list. Photos sit beside text, never behind it.</p><ul><li>Verb-Led Bullet Fragment</li><li>Measurable Results and ROI Language</li><li>One Partner from Strategy to Support</li></ul>"
+}, {
+  "id" : "style",
+  "name" : "style",
+  "label" : "Layout style",
+  "help_text" : "Style 1 = single-corner diagonal cut with one decorative vector. Style 2 = parallelogram photo with two decorative vectors.",
+  "required" : true,
+  "locked" : false,
+  "display" : "radio",
+  "choices" : [ [ "style_1", "Style 1" ], [ "style_2", "Style 2" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "style_1"
+}, {
+  "id" : "image",
+  "name" : "image",
+  "label" : "Image",
+  "required" : false,
+  "locked" : false,
+  "responsive" : true,
+  "resizable" : false,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/image-ej.png",
+    "alt" : "",
+    "loading" : "lazy"
+  }
+}, {
+  "id" : "image_position",
+  "name" : "image_position",
+  "label" : "Image position",
+  "help_text" : "Also controls which corner the diagonal cut and decorative vector appear on",
+  "required" : true,
+  "locked" : false,
+  "display" : "radio",
+  "choices" : [ [ "right", "Right" ], [ "left", "Left" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "right"
+}, {
+  "id" : "vector_visible",
+  "name" : "vector_visible",
+  "label" : "Show decorative vector",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "vector",
+  "name" : "vector",
+  "label" : "Decorative vector",
+  "help_text" : "Renders on the same corner as the diagonal cut - follows the image position setting",
+  "required" : false,
+  "locked" : false,
+  "responsive" : false,
+  "resizable" : false,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/vector-image.svg",
+    "alt" : "",
+    "loading" : "lazy"
+  }
+}, {
+  "id" : "style2",
+  "name" : "style2",
+  "label" : "Style 2 vectors",
+  "help_text" : "Only used when Layout style above is set to Style 2. Two independent vectors, each with its own default image depending on Image position.",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : "style",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "style_2",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "children" : [ {
+    "id" : "style2.pos_left",
+    "name" : "pos_left",
+    "label" : "Vectors - when Image position is Left",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "style2.pos_left.vector_left_visible",
+      "name" : "vector_left_visible",
+      "label" : "Show left vector",
+      "required" : false,
+      "locked" : false,
+      "display" : "checkbox",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : true
+    }, {
+      "id" : "style2.pos_left.vector_left",
+      "name" : "vector_left",
+      "label" : "Left vector",
+      "required" : false,
+      "locked" : false,
+      "responsive" : false,
+      "resizable" : false,
+      "show_loading" : false,
+      "type" : "image",
+      "display_width" : null,
+      "default" : {
+        "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/vector-img-left.png",
+        "alt" : "",
+        "loading" : "lazy"
+      }
+    }, {
+      "id" : "style2.pos_left.vector_right_visible",
+      "name" : "vector_right_visible",
+      "label" : "Show right vector",
+      "required" : false,
+      "locked" : false,
+      "display" : "checkbox",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : true
+    }, {
+      "id" : "style2.pos_left.vector_right",
+      "name" : "vector_right",
+      "label" : "Right vector",
+      "required" : false,
+      "locked" : false,
+      "responsive" : false,
+      "resizable" : false,
+      "show_loading" : false,
+      "type" : "image",
+      "display_width" : null,
+      "default" : {
+        "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/vector-img-left2.png",
+        "alt" : "",
+        "loading" : "lazy"
+      }
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : true,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null
+  }, {
+    "id" : "style2.pos_right",
+    "name" : "pos_right",
+    "label" : "Vectors - when Image position is Right",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "style2.pos_right.vector_left_visible",
+      "name" : "vector_left_visible",
+      "label" : "Show left vector",
+      "required" : false,
+      "locked" : false,
+      "display" : "checkbox",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : true
+    }, {
+      "id" : "style2.pos_right.vector_left",
+      "name" : "vector_left",
+      "label" : "Left vector",
+      "required" : false,
+      "locked" : false,
+      "responsive" : false,
+      "resizable" : false,
+      "show_loading" : false,
+      "type" : "image",
+      "display_width" : null,
+      "default" : {
+        "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/vector-img-right2.png",
+        "alt" : "",
+        "loading" : "lazy"
+      }
+    }, {
+      "id" : "style2.pos_right.vector_right_visible",
+      "name" : "vector_right_visible",
+      "label" : "Show right vector",
+      "required" : false,
+      "locked" : false,
+      "display" : "checkbox",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : true
+    }, {
+      "id" : "style2.pos_right.vector_right",
+      "name" : "vector_right",
+      "label" : "Right vector",
+      "required" : false,
+      "locked" : false,
+      "responsive" : false,
+      "resizable" : false,
+      "show_loading" : false,
+      "type" : "image",
+      "display_width" : null,
+      "default" : {
+        "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/vector-img-right.png",
+        "alt" : "",
+        "loading" : "lazy"
+      }
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : true,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : true,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+}, {
+  "id" : "ctas",
+  "name" : "ctas",
+  "label" : "CTAs",
+  "help_text" : "Optional",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 0,
+    "max" : 2,
+    "sorting_label_field" : "ctas.text",
+    "default" : 1
+  },
+  "children" : [ {
+    "id" : "ctas.link_type",
+    "name" : "link_type",
+    "label" : "CTA type",
+    "help_text" : "Choose whether this button links to a HubSpot CTA or a regular link",
+    "required" : true,
+    "locked" : false,
+    "display" : "radio",
+    "choices" : [ [ "link", "Regular link" ], [ "cta", "HubSpot CTA" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "link"
+  }, {
+    "id" : "ctas.text",
+    "name" : "text",
+    "label" : "Button text",
+    "help_text" : "Only used for the Regular link type - a HubSpot CTA carries its own text",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "ctas.link_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "link",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Optional CTA"
+  }, {
+    "id" : "ctas.link",
+    "name" : "link",
+    "label" : "Button link",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "ctas.link_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "link",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS" ],
+    "show_advanced_rel_options" : true,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "href" : "#",
+        "type" : "EXTERNAL"
+      },
+      "no_follow" : false,
+      "open_in_new_tab" : false
+    }
+  }, {
+    "id" : "ctas.variant",
+    "name" : "variant",
+    "label" : "Button style",
+    "help_text" : "Applies to both a regular link and a HubSpot CTA",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "btn-primary-purple", "Primary - Purple" ], [ "btn-primary-green", "Primary - Green" ], [ "btn-secondary-purple", "Secondary - Purple" ], [ "btn-secondary-green", "Secondary - Green" ], [ "btn-secondary-white", "Secondary - White outline" ], [ "btn-tertiary-purple", "Tertiary - Purple" ], [ "btn-tertiary-green", "Tertiary - Green" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "btn-primary-green"
+  }, {
+    "id" : "ctas.cta",
+    "name" : "cta",
+    "label" : "HubSpot CTA",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "ctas.link_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "cta",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "cta",
+    "display_width" : null
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : true,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "link_type" : "link",
+    "text" : "Optional CTA",
+    "link" : {
+      "url" : {
+        "href" : "#",
+        "type" : "EXTERNAL"
+      },
+      "no_follow" : false,
+      "open_in_new_tab" : false
+    },
+    "variant" : "btn-primary-green"
+  } ]
+}, {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "styles.spacing_desktop",
+    "name" : "spacing_desktop",
+    "label" : "Desktop spacing",
+    "help_text" : "Top/bottom padding on desktop. Left/right are hidden - horizontal spacing comes from .content-wrapper.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null,
+      "hidden_subfields" : {
+        "margin" : true
+      }
+    },
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : {
+      "padding" : {
+        "top" : {
+          "value" : 80,
+          "units" : "px"
+        },
+        "right" : {
+          "value" : 0,
+          "units" : "px"
+        },
+        "bottom" : {
+          "value" : 80,
+          "units" : "px"
+        },
+        "left" : {
+          "value" : 0,
+          "units" : "px"
+        }
+      }
+    }
+  }, {
+    "id" : "styles.spacing_mobile",
+    "name" : "spacing_mobile",
+    "label" : "Mobile spacing",
+    "help_text" : "Top/bottom padding at the theme's mobile breakpoint (max-width: 767px), independent of the desktop value above.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null,
+      "hidden_subfields" : {
+        "margin" : true
+      }
+    },
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : {
+      "padding" : {
+        "top" : {
+          "value" : 40,
+          "units" : "px"
+        },
+        "right" : {
+          "value" : 0,
+          "units" : "px"
+        },
+        "bottom" : {
+          "value" : 40,
+          "units" : "px"
+        },
+        "left" : {
+          "value" : 0,
+          "units" : "px"
+        }
+      }
+    }
+  }, {
+    "id" : "styles.background_color",
+    "name" : "background_color",
+    "label" : "Background color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "white", "White" ], [ "purple", "Purple" ], [ "green", "Green" ], [ "transparent", "Transparent" ], [ "purple_bg", "Purple BG (#FAF9FD)" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "white"
+  }, {
+    "id" : "styles.title_color",
+    "name" : "title_color",
+    "label" : "Title color",
+    "help_text" : "Applies to the entire title - every element the Rich Text field can produce (headings, spans, links) - except bold/strong text, which always uses the design system's accent color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "purple", "Purple" ], [ "green", "Green" ], [ "white", "White" ], [ "black", "Black" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "purple"
+  }, {
+    "id" : "styles.content_color",
+    "name" : "content_color",
+    "label" : "Content color",
+    "help_text" : "Applies to the description and bullet text color (not the title, which has its own Title color setting above)",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "black", "Black" ], [ "purple", "Purple" ], [ "green", "Green" ], [ "white", "White" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "black"
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+} ]

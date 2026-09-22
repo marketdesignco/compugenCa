@@ -1,0 +1,161 @@
+.quote {
+  /* Same Microsoft-quad decorative token set already established in
+     Features Cards/Plan/Stats (ds-system.md sections 19/22/24), same hex
+     values - not new colors. Declared here (not centralized) per this
+     project's existing per-module convention for this token set. */
+  --quad-red: #F25022;
+  --quad-green: var(--color-green);
+  --quad-blue: #00A4EF;
+  --quad-yellow: #FDB813;
+  position: relative;
+}
+
+/* No background/content color choices exist for this module by design -
+   the white background and Purple border are fixed, matching the
+   reference screenshot exactly, not editor-configurable. overflow: hidden
+   is what actually contains the skewed decorative lines (desktop) and
+   guarantees no horizontal page overflow, regardless of their own
+   rendered size. */
+
+.quote__inner {
+  background-color: var(--color-white);
+  border: 2px solid var(--color-purple);
+  overflow: hidden;
+  position: relative;
+}
+
+.quote__body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Decorative lines - always visible, no toggle/color choice (per the
+   brief). Mobile-first: a horizontal band across the top, each line a
+   proportional-height row, straight (no skew). At desktop (below), the
+   same 4 elements become a vertical column of skewed, proportional-width
+   bars instead - one shared set of flex-basis proportions works for both
+   orientations, since flexbox sizes along whichever axis is current the
+   main axis; only `flex-direction`, the container's own dimensions, and
+   the skew transform change between breakpoints. `gap` between lines
+   reads as a thin straight white divider on mobile and a thin parallel
+   diagonal one on desktop (skewed together with the bars around it),
+   matching the reference screenshot's thin dividers in both orientations
+   without a separate rule for either. Widths/angle are a visual estimate
+   read from the screenshot, not a measured source value - see Open Items
+   (ds-system.md). */
+
+.quote__lines {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 3px;
+  height: 72px;
+  width: 100%;
+}
+
+.quote__line {
+  flex-shrink: 0;
+}
+
+.quote__line--1 {
+  background-color: var(--quad-red);
+  flex: 0 0 20%;
+}
+
+.quote__line--2 {
+  background-color: var(--quad-green);
+  flex: 0 0 20%;
+}
+
+.quote__line--3 {
+  background-color: var(--quad-blue);
+  flex: 0 0 20%;
+}
+
+.quote__line--4 {
+  background-color: var(--quad-yellow);
+  flex: 0 0 20%;
+}
+
+.quote__content {
+  padding: 80px 40px;
+}
+
+/* Quote - a real <h3> from the field's own Rich Text default (not a fixed
+   wrapper tag - the same "tag comes from the field's own content" pattern
+   used by every other Rich Text title field in this theme). Only color is
+   overridden here, never font-size/family/weight - those stay whatever
+   this theme's global H3 rule already sets, per the brief's explicit "do
+   not hardcode typography unless necessary to match the screenshot."
+   Normal text is fixed Purple; the quotation marks are wrapped in Bold in
+   the field's own default value and render Green - both fixed colors,
+   never an editor choice, matching this module's "no color customization
+   settings" brief. */
+
+.quote__text,
+.quote__text :not(strong) {
+  color: var(--color-purple);
+}
+
+.quote__text strong {
+  color: var(--color-green);
+}
+
+.quote__text > :last-child {
+  margin-bottom: 0;
+}
+
+/* Name and role - one field, two fixed colors. The Bold name renders
+   Purple; the plain role text after it renders in this theme's existing
+   --color-gray token (not a new color), matching the reference
+   screenshot's muted secondary-text treatment. */
+
+.quote__meta,
+.quote__meta :not(strong) {
+  color: var(--color-gray);
+  margin-top:20px;
+}
+
+.quote__meta strong {
+  color: var(--color-purple);
+  font-weight: 700;
+}
+
+.quote__meta > :last-child {
+  margin-bottom: 0;
+}
+
+@media(max-width:768px){
+  .quote .quote__inner{
+    padding:0px;
+  }
+  .quote__content{
+    padding:30px 24px;
+  }
+}
+@media (min-width: 768px) {
+  .quote__body {
+    flex-direction: row;
+  }
+
+  /* No explicit height here, and .quote__body keeps flexbox's default
+     `align-items: stretch` (never overridden) - that's what makes this
+     column automatically match .quote__content's own height (the taller
+     sibling) with no fixed/percentage value needed, so the diagonal
+     stripes always span the full height of the quote text next to them,
+     at any content length. */
+
+  .quote__lines {
+    flex-direction: row;
+    height: auto;
+    width: 240px;
+  }
+
+  .quote__line {
+    transform: skewX(-20deg);
+  }
+
+  .quote__content {
+    padding: 2.5rem;
+  }
+}

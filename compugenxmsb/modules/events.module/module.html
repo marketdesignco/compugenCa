@@ -1,0 +1,103 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .events {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .events {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<section class="events">
+
+  <div class="events__inner content-wrapper">
+
+    {% if module.section_heading %}
+      <div class="events__heading">
+        {{ module.section_heading|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.section_paragraph %}
+      <div class="events__paragraph">
+        {{ module.section_paragraph|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.events %}
+      <div class="events__list">
+        {% for event in module.events %}
+          <div class="events__item{% if event.disabled %} events__item--disabled{% endif %}">
+
+            <div class="events__badge">
+              <h3 class="events__badge-day">{{ event.event_day|escape_html }}</h3>
+              <h6 class="events__badge-month">{{ event.event_month|escape_html }}</h6>
+            </div>
+
+            <div class="events__content">
+
+              {% if event.meta_line %}
+                <div class="events__meta">
+                  {{ event.meta_line|escape_html }}
+                </div>
+              {% endif %}
+
+              {% if event.title %}
+                <div class="events__title">
+                  {{ event.title|sanitize_html }}
+                </div>
+              {% endif %}
+
+              {% if event.description %}
+                <div class="events__description">
+                  {{ event.description|sanitize_html }}
+                </div>
+              {% endif %}
+
+            </div>
+
+            {% if event.link_type == "cta" %}
+              {% if event.cta %}
+                <div class="btn-custom {{ event.variant|escape_attr }}{% if event.disabled %} is-disabled{% endif %} events__cta">
+                  {% cta guid=event.cta %}
+                </div>
+              {% endif %}
+            {% else %}
+              {% set href = event.link.url.href %}
+              {% if event.text and href %}
+                {% if event.link.url.type == "EMAIL_ADDRESS" %}
+                  {% set href = "mailto:" + href %}
+                {% endif %}
+                {% set rel = [] %}
+                {% if event.link.no_follow %}
+                  {% do rel.append("nofollow") %}
+                {% endif %}
+                {% if event.link.open_in_new_tab %}
+                  {% do rel.append("noopener") %}
+                {% endif %}
+                <div class="btn-custom {{ event.variant|escape_attr }}{% if event.disabled %} is-disabled{% endif %} events__cta">
+                  <a
+                    href="{{ href|escape_url }}"
+                    {% if event.link.open_in_new_tab %}target="_blank"{% endif %}
+                    {% if rel %}rel="{{ rel|join(" ")|escape_attr }}"{% endif %}
+                  >
+                    {{ event.text|escape_html }}
+                  </a>
+                </div>
+              {% endif %}
+            {% endif %}
+
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+
+</section>

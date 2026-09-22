@@ -1,0 +1,63 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .close {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .close {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<section class="close close--bg-{{ module.styles.background_color|escape_attr }}">
+
+  {% if module.styles.vector_visible and module.styles.vector.src %}
+    <img
+      class="close__vector"
+      src="{{ module.styles.vector.src|escape_url }}"
+      alt=""
+      loading="lazy"
+    >
+  {% endif %}
+
+  <div class="close__inner content-wrapper">
+    <div class="close__row">
+
+      <div class="close__content">
+
+        {% if module.title %}
+          <div class="close__title close__title--{{ module.styles.title_color|escape_attr }}">
+            {{ module.title|sanitize_html }}
+          </div>
+        {% endif %}
+
+        {% if module.description %}
+          <div class="close__description close__description--{{ module.styles.content_color|escape_attr }}">
+            {{ module.description|sanitize_html }}
+          </div>
+        {% endif %}
+
+      </div>
+
+      {% if module.form.form_id %}
+        <div class="close__form-card">
+          {% form
+            form_to_use="{{ module.form.form_id }}"
+            response_response_type="{{ module.form.response_type }}"
+            response_message="{{ module.form.message }}"
+            response_redirect_id="{{ module.form.redirect_id }}"
+            response_redirect_url="{{ module.form.redirect_url }}"
+            gotowebinar_webinar_key="{{ module.form.gotowebinar_webinar_key }}"
+          %}
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+</section>

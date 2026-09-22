@@ -1,0 +1,133 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .plan {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .plan {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<section
+  class="
+    plan
+    plan--bg-{{ module.styles.background_color|escape_attr }}
+    plan--heading-{{ module.styles.heading_color|escape_attr }}
+    plan--content-{{ module.styles.content_color|escape_attr }}
+  "
+>
+
+  {% if module.vector_visible and module.vector.src %}
+    <img
+      class="plan__vector"
+      src="{{ module.vector.src|escape_url }}"
+      alt=""
+      loading="lazy"
+    >
+  {% endif %}
+
+  <div class="plan__inner content-wrapper">
+
+    {% if module.show_heading and module.section_heading %}
+      <div class="plan__accent" aria-hidden="true"></div>
+      <div class="plan__heading">
+        {{ module.section_heading|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.show_paragraph and module.section_paragraph %}
+      <div class="plan__paragraph">
+        {{ module.section_paragraph|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.cards %}
+      <div class="plan__grid">
+        {% for card in module.cards %}
+          <div class="plan__card">
+            <div class="plan__card-bar"></div>
+
+            {% if card.show_media %}
+              <div class="plan__icon">
+                {% if card.icon_settings.icon_type == "icon" %}
+                  <div class="plan__icon-wrap plan__icon-wrap--{{ card.icon_settings.icon_color|escape_attr }}">
+                    {% icon
+                      extra_classes="plan__icon-svg",
+                      name="{{ card.icon_settings.icon_library.name }}",
+                      purpose="decorative",
+                      style="{{ card.icon_settings.icon_library.type }}",
+                      unicode="{{ card.icon_settings.icon_library.unicode }}"
+                    %}
+                  </div>
+                {% else %}
+                  {% if card.icon_settings.icon_image.src %}
+                    <img
+                      class="plan__icon-img"
+                      src="{{ card.icon_settings.icon_image.src|escape_url }}"
+                      alt="{{ card.icon_settings.icon_image.alt|escape_attr }}"
+                      loading="lazy"
+                    >
+                  {% endif %}
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% if card.title %}
+              <div class="plan__title">
+                {{ card.title|sanitize_html }}
+              </div>
+            {% endif %}
+
+            {% if card.description %}
+              <div class="plan__description">
+                {{ card.description|sanitize_html }}
+              </div>
+            {% endif %}
+
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if module.show_cta %}
+      {% if module.cta_settings.link_type == "cta" %}
+        {% if module.cta_settings.cta %}
+          <div class="btn-custom {{ module.cta_settings.variant|escape_attr }} plan__cta">
+            {% cta guid=module.cta_settings.cta %}
+          </div>
+        {% endif %}
+      {% else %}
+        {% set href = module.cta_settings.link.url.href %}
+        {% if href %}
+          {% if module.cta_settings.link.url.type == "EMAIL_ADDRESS" %}
+            {% set href = "mailto:" + href %}
+          {% endif %}
+          {% set rel = [] %}
+          {% if module.cta_settings.link.no_follow %}
+            {% do rel.append("nofollow") %}
+          {% endif %}
+          {% if module.cta_settings.link.open_in_new_tab %}
+            {% do rel.append("noopener") %}
+          {% endif %}
+          <div class="btn-custom {{ module.cta_settings.variant|escape_attr }} plan__cta">
+            <a
+              href="{{ href|escape_url }}"
+              {% if module.cta_settings.link.open_in_new_tab %}target="_blank"{% endif %}
+              {% if rel %}rel="{{ rel|join(" ")|escape_attr }}"{% endif %}
+            >
+              {{ module.cta_settings.text|escape_html }}
+            </a>
+          </div>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+
+  </div>
+
+</section>

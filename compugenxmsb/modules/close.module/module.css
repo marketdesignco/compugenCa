@@ -1,0 +1,129 @@
+.close {
+  overflow: hidden;
+  position: relative;
+}
+
+.close--bg-purple {
+  background-color: var(--color-purple);
+}
+
+.close--bg-green {
+  background-color: var(--color-green);
+}
+
+.close--bg-white {
+  background-color: var(--color-white);
+}
+
+.close--bg-transparent {
+  background-color: transparent;
+}
+
+.close--bg-purple_bg {
+  background-color: var(--color-purple-bg);
+}
+
+.close__vector {
+  height: 100%;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: auto;
+  z-index: 0;
+}
+
+.close__inner {
+  position: relative;
+  z-index: 2;
+}
+
+.close__row {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.close__content {
+  position: relative;
+}
+
+.close__title {
+  margin-bottom: 1.5rem;
+}
+
+.close__title strong {
+  color: var(--strong-accent, inherit);
+}
+
+.close__title--purple {
+  --strong-accent: var(--color-green);
+  color: var(--color-purple);
+}
+
+.close__title--black {
+  --strong-accent: var(--color-green);
+  color: var(--color-black);
+}
+
+.close__title--white {
+  --strong-accent: var(--color-green);
+  color: var(--color-white);
+}
+
+.close__title--green {
+  --strong-accent: var(--color-purple);
+  color: var(--color-green);
+}
+
+.close__description {
+  margin-bottom: 0;
+}
+
+.close__description--purple {
+  color: var(--color-purple);
+}
+
+.close__description--green {
+  color: var(--color-green);
+}
+
+.close__description--white {
+  color: var(--color-white);
+}
+
+.close__description--black {
+  color: var(--color-black);
+}
+
+.close__description ul {
+  margin: 1rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.close__form-card {
+  background-color: var(--color-white);
+  border: 1.5px solid var(--color-purple-lines);
+  box-shadow: 0px 4px 20px 0px #5103C014;
+  padding: 2rem;
+  position: relative;
+  width: 100%;
+  z-index: 2;
+}
+
+@media (min-width: 768px) {
+  .close__row {
+    flex-direction: row;
+  }
+
+  .close__content {
+    flex: 1 1 55%;
+  }
+
+  .close__form-card {
+    flex: 0 1 40%;
+    max-width: 420px;
+  }
+}

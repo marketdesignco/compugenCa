@@ -1,0 +1,235 @@
+.text-image {
+  overflow: hidden;
+  position: relative;
+}
+
+.text-image--bg-white {
+  --strong-accent: var(--color-purple);
+  background-color: var(--color-white);
+}
+
+.text-image--bg-purple {
+  --strong-accent: var(--color-green);
+  background-color: var(--color-purple);
+}
+
+.text-image--bg-green {
+  background-color: var(--color-green);
+}
+
+.text-image--bg-transparent {
+  background-color: transparent;
+}
+
+.text-image--bg-purple_bg {
+  background-color: var(--color-purple-bg);
+}
+
+/* Content color - applies to the description/bullets wrapper only.
+   Title has its own independent Title color, below. */
+
+.text-image--text-black .text-image__description,
+.text-image--text-black .text-image__description :not(strong) {
+  color: var(--color-black);
+}
+
+.text-image--text-purple .text-image__description,
+.text-image--text-purple .text-image__description :not(strong) {
+  color: var(--color-purple);
+}
+
+.text-image--text-green .text-image__description,
+.text-image--text-green .text-image__description :not(strong) {
+  color: var(--color-green);
+}
+
+.text-image--text-white .text-image__description,
+.text-image--text-white .text-image__description :not(strong) {
+  color: var(--color-white);
+}
+
+/* Title color - applies to the entire title wrapper and every element the
+   Rich Text field can produce inside it (headings, spans, links, etc.),
+   except <strong>, which always keeps the design system's accent color. */
+
+.text-image--title-purple .text-image__title,
+.text-image--title-purple .text-image__title :not(strong) {
+  color: var(--color-purple);
+}
+
+.text-image--title-green .text-image__title,
+.text-image--title-green .text-image__title :not(strong) {
+  color: var(--color-green);
+}
+
+.text-image--title-white .text-image__title,
+.text-image--title-white .text-image__title :not(strong) {
+  color: var(--color-white);
+}
+
+.text-image--title-black .text-image__title,
+.text-image--title-black .text-image__title :not(strong) {
+  color: var(--color-black);
+}
+
+.text-image__title strong {
+  color: var(--strong-accent, inherit);
+}
+
+.text-image__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.text-image__row {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.text-image__content {
+  position: relative;
+}
+
+.text-image__title {
+  margin-bottom: 1.25rem;
+}
+
+.text-image__description {
+  margin-bottom: 1.5rem;
+}
+
+.text-image__description ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+
+.text-image__ctas {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.text-image__image-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.text-image__image {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.text-image__image img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 90%;
+  margin:auto;
+}
+
+.text-image--pos-right .text-image__image {
+  clip-path: polygon(0 30%, 30% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.text-image--pos-left .text-image__image {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 30%),
+    calc(100% - 30%) 100%,
+    0 100%
+  );
+}
+
+.text-image__vector {
+  pointer-events: none;
+  position: absolute;
+  width: 32%;
+}
+
+.text-image--pos-right .text-image__vector {
+  left: 0;
+  top: 0;
+}
+
+.text-image--pos-left .text-image__vector {
+  bottom: 0;
+  right: -10px;
+}
+
+/* Style 2 - parallelogram photo with two decorative vectors.
+   Higher-specificity compound selectors below override Style 1's single-corner
+   clip-path and single-vector positioning for this style only; Style 1's own
+   rules above are untouched. */
+
+.text-image--style-2 .text-image__image {
+  clip-path: none;
+  margin: 0 auto;
+  overflow: visible;
+  position: relative;
+  width: 85%;
+  z-index: 2;
+}
+
+.text-image--style-2 .text-image__image img {
+  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+}
+
+.text-image--style-2.text-image--pos-right .text-image__image img {
+  clip-path: polygon(0 0, 90% 0, 100% 100%, 10% 100%);
+}
+
+.text-image--style-2 .text-image__vector {
+  width: 30%;
+  z-index: 1;
+}
+
+.text-image--style-2.text-image--pos-left .text-image__vector--right {
+  top: -5%;
+  bottom: auto;
+  right: auto;
+  left: -2%;
+}
+
+.text-image--style-2.text-image--pos-left .text-image__vector--left {
+  left: auto;
+  bottom: -6%;
+}
+
+.text-image--style-2.text-image--pos-right .text-image__vector--right {
+  left: auto;
+  top: 6%;
+  right: 0;
+}
+
+.text-image--style-2.text-image--pos-right .text-image__vector--left {
+  top: auto;
+  bottom: -10%;
+  left: 4%;
+}
+
+@media (min-width: 768px) {
+  .text-image__row {
+    flex-direction: row;
+  }
+
+  .text-image__content {
+    flex: 1 1 45%;
+  }
+
+  .text-image__ctas {
+    flex-direction: row;
+  }
+
+  .text-image__image-wrap {
+    flex: 1 1 50%;
+  }
+
+  .text-image--pos-left .text-image__image-wrap {
+    order: -1;
+  }
+}

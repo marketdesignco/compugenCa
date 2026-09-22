@@ -1,0 +1,115 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .tabs {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .tabs {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<section
+  class="
+    tabs
+    tabs--bg-{{ module.styles.background_color|escape_attr }}
+  "
+>
+
+  <div class="tabs__inner content-wrapper">
+    <div class="tabs__body">
+
+      <div class="tabs__nav" role="tablist" aria-label="Tabs">
+        {% for tab in module.tabs %}
+          <button
+            class="tabs__nav-item{% if loop.first %} tabs__nav-item--active{% endif %}"
+            role="tab"
+            aria-selected="{{ 'true' if loop.first else 'false' }}"
+            type="button"
+            data-tabs-tab
+          >
+            {{ tab.nav_label|escape_html }}
+          </button>
+        {% endfor %}
+      </div>
+
+      <div class="tabs__panels">
+        {% for tab in module.tabs %}
+          <div
+            class="tabs__panel"
+            role="tabpanel"
+            tabindex="0"
+            data-tabs-panel
+          >
+            <div class="tabs__panel-text">
+
+              {% if tab.title %}
+                <div class="tabs__title">
+                  {{ tab.title|sanitize_html }}
+                </div>
+              {% endif %}
+
+              {% if tab.description %}
+                <div class="tabs__description">
+                  {{ tab.description|sanitize_html }}
+                </div>
+              {% endif %}
+
+              {% if tab.show_cta %}
+                {% if tab.cta_settings.link_type == "cta" %}
+                  {% if tab.cta_settings.cta %}
+                    <div class="btn-custom {{ tab.cta_settings.variant|escape_attr }} tabs__cta">
+                      {% cta guid=tab.cta_settings.cta %}
+                    </div>
+                  {% endif %}
+                {% else %}
+                  {% set href = tab.cta_settings.link.url.href %}
+                  {% if href %}
+                    {% if tab.cta_settings.link.url.type == "EMAIL_ADDRESS" %}
+                      {% set href = "mailto:" + href %}
+                    {% endif %}
+                    {% set rel = [] %}
+                    {% if tab.cta_settings.link.no_follow %}
+                      {% do rel.append("nofollow") %}
+                    {% endif %}
+                    {% if tab.cta_settings.link.open_in_new_tab %}
+                      {% do rel.append("noopener") %}
+                    {% endif %}
+                    <div class="btn-custom {{ tab.cta_settings.variant|escape_attr }} tabs__cta">
+                      <a
+                        href="{{ href|escape_url }}"
+                        {% if tab.cta_settings.link.open_in_new_tab %}target="_blank"{% endif %}
+                        {% if rel %}rel="{{ rel|join(" ")|escape_attr }}"{% endif %}
+                      >
+                        {{ tab.cta_settings.text|escape_html }}
+                      </a>
+                    </div>
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+
+            </div>
+
+            {% if tab.image.src %}
+              <div class="tabs__panel-image{% if tab.diagonal_cut %} tabs__panel-image--cut{% endif %}">
+                <img
+                  src="{{ tab.image.src|escape_url }}"
+                  alt="{{ tab.image.alt|escape_attr }}"
+                  loading="lazy"
+                >
+              </div>
+            {% endif %}
+
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+
+</section>

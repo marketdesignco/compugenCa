@@ -1,0 +1,234 @@
+[ {
+  "id" : "logo",
+  "name" : "logo",
+  "label" : "Logo",
+  "required" : true,
+  "locked" : false,
+  "responsive" : true,
+  "resizable" : false,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/logo-MSB.svg",
+    "alt" : "Compugen x MSB - Compugen Integrated Microsoft Solutions Business",
+    "loading" : "eager"
+  }
+}, {
+  "id" : "menu",
+  "name" : "menu",
+  "label" : "Navigation menu",
+  "help_text" : "Select the menu to render. No menu is selected by default - choose one from your portal's menus after installing the theme.",
+  "required" : false,
+  "locked" : false,
+  "type" : "menu",
+  "display_width" : null
+}, {
+  "id" : "menu_max_levels",
+  "name" : "menu_max_levels",
+  "label" : "Menu depth",
+  "help_text" : "Number of nested dropdown levels to render",
+  "required" : true,
+  "locked" : false,
+  "display" : "text",
+  "min" : 1,
+  "max" : 3,
+  "step" : 1,
+  "type" : "number",
+  "display_width" : null,
+  "default" : 2
+}, {
+  "id" : "buttons",
+  "name" : "buttons",
+  "label" : "Buttons",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 0,
+    "max" : 2,
+    "sorting_label_field" : "buttons.text",
+    "default" : 0
+  },
+  "children" : [ {
+    "id" : "buttons.text",
+    "name" : "text",
+    "label" : "Button text",
+    "required" : true,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Book a Readiness Session"
+  }, {
+    "id" : "buttons.link",
+    "name" : "link",
+    "label" : "Button link",
+    "help_text" : "Choose an external/page/file/email link, or select \"Call-to-action\" to link to an existing HubSpot CTA",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "CALL_TO_ACTION" ],
+    "show_advanced_rel_options" : true,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "href" : "",
+        "type" : "EXTERNAL"
+      },
+      "no_follow" : false,
+      "open_in_new_tab" : false
+    }
+  }, {
+    "id" : "buttons.variant",
+    "name" : "variant",
+    "label" : "Button style",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "btn-primary-purple", "Primary - Purple" ], [ "btn-primary-green", "Primary - Green" ], [ "btn-secondary-purple", "Secondary - Purple" ], [ "btn-secondary-green", "Secondary - Green" ], [ "btn-tertiary-purple", "Tertiary - Purple" ], [ "btn-tertiary-green", "Tertiary - Green" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "btn-primary-green"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : true,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+}, {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "styles.spacing_desktop",
+    "name" : "spacing_desktop",
+    "label" : "Desktop spacing",
+    "help_text" : "Top/bottom padding on desktop. Left/right are hidden - this header should never carry horizontal padding of its own.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null,
+      "hidden_subfields" : {
+        "margin" : true
+      }
+    },
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : {
+      "padding" : {
+        "top" : {
+          "value" : 20,
+          "units" : "px"
+        },
+        "right" : {
+          "value" : 0,
+          "units" : "px"
+        },
+        "bottom" : {
+          "value" : 20,
+          "units" : "px"
+        },
+        "left" : {
+          "value" : 0,
+          "units" : "px"
+        }
+      }
+    }
+  }, {
+    "id" : "styles.spacing_mobile",
+    "name" : "spacing_mobile",
+    "label" : "Mobile spacing",
+    "help_text" : "Top/bottom padding at the theme's mobile breakpoint (max-width: 767px), independent of the desktop value above.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null,
+      "hidden_subfields" : {
+        "margin" : true
+      }
+    },
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : {
+      "padding" : {
+        "top" : {
+          "value" : 12,
+          "units" : "px"
+        },
+        "right" : {
+          "value" : 0,
+          "units" : "px"
+        },
+        "bottom" : {
+          "value" : 12,
+          "units" : "px"
+        },
+        "left" : {
+          "value" : 0,
+          "units" : "px"
+        }
+      }
+    }
+  }, {
+    "id" : "styles.sticky",
+    "name" : "sticky",
+    "label" : "Sticky header",
+    "help_text" : "Keep the header pinned to the top of the viewport while scrolling",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "styles.background_color",
+    "name" : "background_color",
+    "label" : "Background color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "purple", "Purple" ], [ "green", "Green" ], [ "white", "White" ], [ "transparent", "Transparent" ], [ "purple_bg", "Purple BG (#FAF9FD)" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "white"
+  }, {
+    "id" : "styles.content_color",
+    "name" : "content_color",
+    "label" : "Content color",
+    "help_text" : "Applies to navigation links and the language switcher, not the logo or buttons",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "purple", "Purple" ], [ "green", "Green" ], [ "white", "White" ], [ "black", "Black" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "black"
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+} ]

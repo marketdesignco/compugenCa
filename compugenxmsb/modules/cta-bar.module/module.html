@@ -1,0 +1,94 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .cta-bar {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .cta-bar {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<section class="cta-bar">
+
+  {% if module.vector_visible and module.vector.src %}
+    <img
+      class="cta-bar__vector"
+      src="{{ module.vector.src|escape_url }}"
+      alt=""
+      loading="lazy"
+    >
+  {% endif %}
+
+  <div class="cta-bar__inner content-wrapper">
+    <div class="cta-bar__body">
+
+      <div class="cta-bar__content">
+
+        {% if module.section_title %}
+          <div class="cta-bar__accent" aria-hidden="true"></div>
+          <div class="cta-bar__title">
+            {{ module.section_title|sanitize_html }}
+          </div>
+        {% endif %}
+
+        {% if module.section_paragraph %}
+          <div class="cta-bar__paragraph">
+            {{ module.section_paragraph|sanitize_html }}
+          </div>
+        {% endif %}
+
+        {% if module.show_cta %}
+          {% if module.cta_settings.link_type == "cta" %}
+            {% if module.cta_settings.cta %}
+              <div class="btn-custom {{ module.cta_settings.variant|escape_attr }} cta-bar__cta">
+                {% cta guid=module.cta_settings.cta %}
+              </div>
+            {% endif %}
+          {% else %}
+            {% set href = module.cta_settings.link.url.href %}
+            {% if href %}
+              {% if module.cta_settings.link.url.type == "EMAIL_ADDRESS" %}
+                {% set href = "mailto:" + href %}
+              {% endif %}
+              {% set rel = [] %}
+              {% if module.cta_settings.link.no_follow %}
+                {% do rel.append("nofollow") %}
+              {% endif %}
+              {% if module.cta_settings.link.open_in_new_tab %}
+                {% do rel.append("noopener") %}
+              {% endif %}
+              <div class="btn-custom {{ module.cta_settings.variant|escape_attr }} cta-bar__cta">
+                <a
+                  href="{{ href|escape_url }}"
+                  {% if module.cta_settings.link.open_in_new_tab %}target="_blank"{% endif %}
+                  {% if rel %}rel="{{ rel|join(" ")|escape_attr }}"{% endif %}
+                >
+                  {{ module.cta_settings.text|escape_html }}
+                </a>
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endif %}
+
+      </div>
+
+      {% if module.show_image and module.image.src %}
+        <div class="cta-bar__image-wrap">
+          <img
+            src="{{ module.image.src|escape_url }}"
+            alt="{{ module.image.alt|escape_attr }}"
+            loading="lazy"
+          >
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+</section>

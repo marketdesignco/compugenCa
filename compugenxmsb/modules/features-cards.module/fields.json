@@ -1,0 +1,391 @@
+[ {
+  "id" : "show_heading",
+  "name" : "show_heading",
+  "label" : "Show section heading",
+  "help_text" : "Turns the section heading below on/off without clearing its content.",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "section_heading",
+  "name" : "section_heading",
+  "label" : "Section heading",
+  "help_text" : "Normal text uses the Heading color setting below (default Blue). Wrap text in Bold to render it Purple 900, Arial Black, weight 900 - regardless of the Heading color selection. This treatment is scoped to this module's section heading only - it does not affect card titles or global typography.",
+  "required" : false,
+  "locked" : false,
+  "enabled_features" : [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<h2><strong>Feature Header</strong> with Subhead Option</h2>"
+}, {
+  "id" : "show_paragraph",
+  "name" : "show_paragraph",
+  "label" : "Show section paragraph",
+  "help_text" : "Turns the section paragraph below on/off without clearing its content.",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "section_paragraph",
+  "name" : "section_paragraph",
+  "label" : "Section paragraph",
+  "help_text" : "Renders using the theme's global typography.",
+  "required" : false,
+  "locked" : false,
+  "enabled_features" : [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<p>Lighter than the card grid - stacks under MSB-CARDS-4 as a second across layer for feature taglines.</p>"
+}, {
+  "id" : "cards",
+  "name" : "cards",
+  "label" : "Feature cards",
+  "help_text" : "Each card has an icon or image, a Title (Heading 5), and a Description. The top border color cycles Orange / Green / Light Blue / Yellow automatically by card position - it is not editable per card.",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 1,
+    "max" : 12,
+    "sorting_label_field" : null,
+    "default" : 4
+  },
+  "children" : [ {
+    "id" : "cards.show_media",
+    "name" : "show_media",
+    "label" : "Show media",
+    "help_text" : "Turns this card's icon/image on/off without clearing its content. On by default.",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "cards.icon_settings",
+    "name" : "icon_settings",
+    "label" : "Icon settings",
+    "help_text" : "Hidden entirely when Show media above is off, so no icon configuration fields are left visible with nothing to configure.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "cards.show_media",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "children" : [ {
+      "id" : "cards.icon_settings.icon_type",
+      "name" : "icon_type",
+      "label" : "Icon source",
+      "help_text" : "Choose whether this card's icon is an uploaded image or an icon from HubSpot's Icon Library",
+      "required" : false,
+      "locked" : false,
+      "display" : "radio",
+      "choices" : [ [ "image", "Image" ], [ "icon", "HubSpot Icon Library" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "image"
+    }, {
+      "id" : "cards.icon_settings.icon_image",
+      "name" : "icon_image",
+      "label" : "Icon image",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "cards.icon_settings.icon_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "image",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "responsive" : false,
+      "resizable" : false,
+      "show_loading" : false,
+      "type" : "image",
+      "display_width" : null,
+      "default" : {
+        "src" : "https://22217181-hs-sites-com.sandbox.hs-sites.com/hubfs/compugenMSB-2026/icon-example.png",
+        "alt" : "",
+        "loading" : "lazy"
+      }
+    }, {
+      "id" : "cards.icon_settings.icon_library",
+      "name" : "icon_library",
+      "label" : "Icon (HubSpot Icon Library)",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "cards.icon_settings.icon_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "icon",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "icon_set" : "fontawesome-6.4.2",
+      "type" : "icon",
+      "display_width" : null,
+      "default" : {
+        "name" : "check",
+        "type" : "SOLID",
+        "unicode" : "f00c"
+      }
+    }, {
+      "id" : "cards.icon_settings.icon_color",
+      "name" : "icon_color",
+      "label" : "Icon color",
+      "help_text" : "Only applies when Icon source above is set to HubSpot Icon Library. Independent of the section heading color.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "cards.icon_settings.icon_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "icon",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "purple", "Purple" ], [ "green", "Green" ], [ "white", "White" ], [ "black", "Black" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "purple"
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : true,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null
+  }, {
+    "id" : "cards.title",
+    "name" : "title",
+    "label" : "Title",
+    "help_text" : "Renders as Heading 5, inheriting the theme's default Heading 5 color - no module-level override.",
+    "required" : false,
+    "locked" : false,
+    "enabled_features" : [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+    "type" : "richtext",
+    "display_width" : null,
+    "default" : "<h5>Feature Headline</h5>"
+  }, {
+    "id" : "cards.description",
+    "name" : "description",
+    "label" : "Description",
+    "help_text" : "Renders using the theme's global typography - no color inherited from the section heading or the card title.",
+    "required" : false,
+    "locked" : false,
+    "enabled_features" : [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+    "type" : "richtext",
+    "display_width" : null,
+    "default" : "<p>One tagline sentence, no link.</p>"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : true,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "show_media" : true,
+    "icon_settings" : {
+      "icon_type" : "image",
+      "icon_image" : {
+        "src" : "https://22217181-hs-sites-com.sandbox.hs-sites.com/hubfs/compugenMSB-2026/icon-example.png",
+        "alt" : "",
+        "loading" : "lazy"
+      },
+      "icon_color" : "purple"
+    },
+    "title" : "<h5>Feature Headline</h5>",
+    "description" : "<p>One tagline sentence, no link.</p>"
+  }, {
+    "show_media" : true,
+    "icon_settings" : {
+      "icon_type" : "image",
+      "icon_image" : {
+        "src" : "https://22217181-hs-sites-com.sandbox.hs-sites.com/hubfs/compugenMSB-2026/icon-example.png",
+        "alt" : "",
+        "loading" : "lazy"
+      },
+      "icon_color" : "purple"
+    },
+    "title" : "<h5>Feature Headline</h5>",
+    "description" : "<p>Quad top rules rotate orange &rarr; green &rarr; blue &rarr; yellow.</p>"
+  }, {
+    "show_media" : true,
+    "icon_settings" : {
+      "icon_type" : "image",
+      "icon_image" : {
+        "src" : "https://22217181-hs-sites-com.sandbox.hs-sites.com/hubfs/compugenMSB-2026/icon-example.png",
+        "alt" : "",
+        "loading" : "lazy"
+      },
+      "icon_color" : "purple"
+    },
+    "title" : "<h5>Feature Headline</h5>",
+    "description" : "<p>No border, no shadow - open row, reads as one band.</p>"
+  }, {
+    "show_media" : true,
+    "icon_settings" : {
+      "icon_type" : "image",
+      "icon_image" : {
+        "src" : "https://22217181-hs-sites-com.sandbox.hs-sites.com/hubfs/compugenMSB-2026/icon-example.png",
+        "alt" : "",
+        "loading" : "lazy"
+      },
+      "icon_color" : "purple"
+    },
+    "title" : "<h5>Feature Headline</h5>",
+    "description" : "<p>Pairs with MSB-CARDS-4 above for a two-layer section.</p>"
+  } ]
+}, {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "styles.spacing_desktop",
+    "name" : "spacing_desktop",
+    "label" : "Desktop spacing",
+    "help_text" : "Top/bottom padding on desktop. Left/right are hidden - horizontal spacing comes from .content-wrapper.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null,
+      "hidden_subfields" : {
+        "margin" : true
+      }
+    },
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : {
+      "padding" : {
+        "top" : {
+          "value" : 80,
+          "units" : "px"
+        },
+        "right" : {
+          "value" : 0,
+          "units" : "px"
+        },
+        "bottom" : {
+          "value" : 80,
+          "units" : "px"
+        },
+        "left" : {
+          "value" : 0,
+          "units" : "px"
+        }
+      }
+    }
+  }, {
+    "id" : "styles.spacing_mobile",
+    "name" : "spacing_mobile",
+    "label" : "Mobile spacing",
+    "help_text" : "Top/bottom padding at the theme's mobile breakpoint (max-width: 767px), independent of the desktop value above.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null,
+      "hidden_subfields" : {
+        "margin" : true
+      }
+    },
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : {
+      "padding" : {
+        "top" : {
+          "value" : 40,
+          "units" : "px"
+        },
+        "right" : {
+          "value" : 0,
+          "units" : "px"
+        },
+        "bottom" : {
+          "value" : 40,
+          "units" : "px"
+        },
+        "left" : {
+          "value" : 0,
+          "units" : "px"
+        }
+      }
+    }
+  }, {
+    "id" : "styles.background_color",
+    "name" : "background_color",
+    "label" : "Background color",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "white", "White" ], [ "purple", "Purple" ], [ "green", "Green" ], [ "transparent", "Transparent" ], [ "purple_bg", "Purple BG (#FAF9FD)" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "white"
+  }, {
+    "id" : "styles.heading_color",
+    "name" : "heading_color",
+    "label" : "Section heading color",
+    "help_text" : "Applies only to the section heading's non-Bold text - never to card titles/descriptions. Bold text in the section heading always renders Purple 900 regardless of this selection.",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "blue", "Blue (#009CE4)" ], [ "black", "Black" ], [ "purple", "Purple" ], [ "green", "Green" ], [ "white", "White" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "blue"
+  }, {
+    "id" : "styles.columns",
+    "name" : "columns",
+    "label" : "Columns (desktop)",
+    "help_text" : "Controls the card grid's column count on desktop (>= 768px). Always 2 columns below that, regardless of this setting.",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "2", "2 columns" ], [ "3", "3 columns" ], [ "4", "4 columns" ], [ "5", "5 columns" ], [ "6", "6 columns" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "4"
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+} ]

@@ -1,0 +1,287 @@
+.faqs {
+  position: relative;
+}
+
+.faqs--bg-white {
+  background-color: var(--color-white);
+}
+
+.faqs--bg-purple {
+  background-color: var(--color-purple);
+}
+
+.faqs--bg-green {
+  background-color: var(--color-green);
+}
+
+.faqs--bg-transparent {
+  background-color: transparent;
+}
+
+.faqs--bg-purple_bg {
+  background-color: var(--color-purple-bg);
+}
+
+.faqs__inner {
+  position: relative;
+}
+
+/* Section heading color - scoped to .faqs__heading only, never FAQ
+   questions/answers (those use Content color, below, or the question row's
+   own fixed open/closed states). Same proven pattern as Custom Cards/
+   Features Cards/Grid/Plan (ds-system.md sections 18-22): explicit
+   h1-h6/p selectors alongside `:not(strong)`, deliberately redundant, so
+   the rule reliably reaches whatever tag the Rich Text field outputs. */
+
+.faqs--heading-black .faqs__heading,
+.faqs--heading-black .faqs__heading :not(strong),
+.faqs--heading-black .faqs__heading h1,
+.faqs--heading-black .faqs__heading h2,
+.faqs--heading-black .faqs__heading h3,
+.faqs--heading-black .faqs__heading h4,
+.faqs--heading-black .faqs__heading h5,
+.faqs--heading-black .faqs__heading h6,
+.faqs--heading-black .faqs__heading p {
+  color: var(--color-black);
+}
+
+.faqs--heading-purple .faqs__heading,
+.faqs--heading-purple .faqs__heading :not(strong),
+.faqs--heading-purple .faqs__heading h1,
+.faqs--heading-purple .faqs__heading h2,
+.faqs--heading-purple .faqs__heading h3,
+.faqs--heading-purple .faqs__heading h4,
+.faqs--heading-purple .faqs__heading h5,
+.faqs--heading-purple .faqs__heading h6,
+.faqs--heading-purple .faqs__heading p {
+  color: var(--color-purple);
+}
+
+.faqs--heading-green .faqs__heading,
+.faqs--heading-green .faqs__heading :not(strong),
+.faqs--heading-green .faqs__heading h1,
+.faqs--heading-green .faqs__heading h2,
+.faqs--heading-green .faqs__heading h3,
+.faqs--heading-green .faqs__heading h4,
+.faqs--heading-green .faqs__heading h5,
+.faqs--heading-green .faqs__heading h6,
+.faqs--heading-green .faqs__heading p {
+  color: var(--color-green);
+}
+
+.faqs--heading-white .faqs__heading,
+.faqs--heading-white .faqs__heading :not(strong),
+.faqs--heading-white .faqs__heading h1,
+.faqs--heading-white .faqs__heading h2,
+.faqs--heading-white .faqs__heading h3,
+.faqs--heading-white .faqs__heading h4,
+.faqs--heading-white .faqs__heading h5,
+.faqs--heading-white .faqs__heading h6,
+.faqs--heading-white .faqs__heading p {
+  color: var(--color-white);
+}
+
+.faqs--heading-blue .faqs__heading,
+.faqs--heading-blue .faqs__heading :not(strong),
+.faqs--heading-blue .faqs__heading h1,
+.faqs--heading-blue .faqs__heading h2,
+.faqs--heading-blue .faqs__heading h3,
+.faqs--heading-blue .faqs__heading h4,
+.faqs--heading-blue .faqs__heading h5,
+.faqs--heading-blue .faqs__heading h6,
+.faqs--heading-blue .faqs__heading p {
+  color: var(--color-blue-accent);
+}
+
+.faqs__heading,
+.faqs__heading :not(strong) {
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+}
+
+/* The only <strong> override in this module's section heading - always
+   Purple 900 / Arial Black / 900, regardless of the selected Heading
+   color. FAQ questions/answers never get this rule. */
+
+.faqs__heading strong {
+  color: var(--color-purple);
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-weight: 900;
+}
+
+.faqs__heading {
+  margin-bottom: 1rem;
+}
+
+/* Section title alignment - scoped to .faqs__heading only, never FAQ
+   questions/answers. */
+
+.faqs--heading-align-left .faqs__heading {
+  text-align: left;
+}
+
+.faqs--heading-align-center .faqs__heading {
+  text-align: center;
+}
+
+.faqs--heading-align-right .faqs__heading {
+  text-align: right;
+}
+
+/* Content color - scoped to the answer text only. The question row has its
+   own fixed Purple-open/Black-closed treatment, independent of this
+   setting - see .faqs__question below. */
+
+.faqs--content-black .faqs__answer,
+.faqs--content-black .faqs__answer :not(strong) {
+  color: var(--color-black);
+}
+
+.faqs--content-white .faqs__answer,
+.faqs--content-white .faqs__answer :not(strong) {
+  color: var(--color-white);
+}
+
+.faqs--content-purple .faqs__answer,
+.faqs--content-purple .faqs__answer :not(strong) {
+  color: var(--color-purple);
+}
+
+.faqs--content-green .faqs__answer,
+.faqs--content-green .faqs__answer :not(strong) {
+  color: var(--color-green);
+}
+
+/* List - a hairline divider (--color-purple-lines, this theme's existing
+   #E3DDF3 token) above the first item and below every item, matching the
+   reference screenshot exactly. Constrained to 900px and centered - the
+   "question/answer content container" lives entirely inside this element
+   (every item, question, and answer is a normal-flow descendant with no
+   width of its own), so one max-width + margin-inline here bounds both
+   the list and its content in a single rule rather than two separate
+   ones. Still 100% width (up to that cap) at any viewport, so it narrows
+   safely on tablet/mobile with no extra breakpoint needed and never
+   causes horizontal overflow. */
+
+.faqs__list {
+  border-top: 1px solid var(--color-purple-lines);
+  margin-inline: auto;
+  max-width: 900px;
+}
+
+.faqs__item {
+  border-bottom: 1px solid var(--color-purple-lines);
+}
+
+/* Question row - a plain, unstyled <button> reset to look like a row, not
+   a button. Purple when this item is open, Black when closed - a fixed
+   two-state treatment, not tied to the Content color setting (that only
+   controls the answer text, above). */
+
+.faqs__question {
+  align-items: center;
+  background: none;
+  border: 0;
+  color: var(--color-black);
+  cursor: pointer;
+  display: flex;
+  font-family: var(--font-body);
+  font-size: var(--body-font-size);
+  font-weight: 700;
+  gap: 1rem;
+  justify-content: space-between;
+  padding: 1.25rem 0;
+  text-align: left;
+  transition: color 0.2s ease;
+  width: 100%;
+}
+
+.faqs__question:hover,
+.faqs__item--open .faqs__question {
+  color: var(--color-purple);
+  background:none!important;
+}
+
+.faqs__question:focus-visible {
+  outline: 2px solid var(--color-focus-marker);
+  outline-offset: 2px;
+}
+
+/* The question title is a real <h5> (semantic requirement) inside the
+   button above, but its visual treatment must stay exactly what
+   `.faqs__question` already defines - theme-overrides.css's global
+   `h5, .h5` rule otherwise sets its own font-size/family/weight/color/
+   text-transform directly on the tag, silently overriding the button's
+   own styling regardless of source order (same cascade-origin lesson as
+   Tabs' nav-item label fix, ds-system.md section 21/23). `font: inherit`
+   and `color: inherit` pull the button's own bold/black-or-purple values
+   back in; margin/text-transform are reset since none were intended here.
+   No background-color is set anywhere in this chain, satisfying "the
+   question title must not have any background color" - there was never
+   one to remove. */
+
+.faqs__question-text h5 {
+  color: inherit;
+  margin: 0;
+  text-transform: none;
+}
+
+.faqs__question-text > :last-child {
+  margin-bottom: 0;
+}
+
+/* Plus/minus icon - two CSS-only bars, not an image/icon-font asset. The
+   horizontal bar (::before) is always present (the "-"); the vertical bar
+   (::after) is the same bar rotated 90deg, visible only while closed
+   (together they form the "+") and faded/rotated away when open, leaving
+   just the horizontal bar. Always Purple, regardless of the question's own
+   open/closed text color above - matches the reference screenshot, where
+   the icon never turns Black even when its row is collapsed. */
+
+.faqs__icon {
+  color: var(--color-purple);
+  flex-shrink: 0;
+  height: 16px;
+  position: relative;
+  width: 16px;
+}
+
+.faqs__icon::before,
+.faqs__icon::after {
+  background-color: currentColor;
+  content: '';
+  height: 2px;
+  left: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  width: 100%;
+}
+
+.faqs__icon::after {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.faqs__item--open .faqs__icon::after {
+  opacity: 0;
+  transform: translateY(-50%) rotate(0deg);
+}
+
+/* Answer - every panel renders in the DOM (no CSS-based hiding); module.js
+   is responsible for adding the `hidden` attribute to closed items once it
+   initializes. If JS fails to load, every answer stays visible and
+   readable instead of being silently hidden with no way to reveal it -
+   progressive enhancement, not a JS-required content gate (SKILL.md
+   section 11.1). Deliberately no `display` property here at all - an
+   explicit `display` on this element is what silently broke the native
+   `[hidden]` attribute on Tabs (ds-system.md section 21); a plain block
+   element needs no override to respect `[hidden]` correctly. */
+
+.faqs__answer {
+  padding: 0 0 1.25rem;
+}
+
+.faqs__answer > :last-child {
+  margin-bottom: 0;
+}

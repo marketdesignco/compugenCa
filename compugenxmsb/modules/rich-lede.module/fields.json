@@ -1,0 +1,137 @@
+[ {
+  "id" : "heading",
+  "name" : "heading",
+  "label" : "Rail heading",
+  "help_text" : "Renders using the theme's global typography - no color settings on this module.",
+  "required" : false,
+  "locked" : false,
+  "enabled_features" : [ "standard_emphasis", "block" ],
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<h2>Left Rail Holds the Heading and the Takeaway</h2>"
+}, {
+  "id" : "takeaway",
+  "name" : "takeaway",
+  "label" : "Rail takeaway sentence",
+  "help_text" : "The one bolded, Purple 900 summary sentence under the rail heading - always rendered bold and purple, regardless of formatting applied in the editor.",
+  "required" : false,
+  "locked" : false,
+  "enabled_features" : [ "standard_emphasis" ],
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<p>One bolded purple summary sentence the skimmer leaves with.</p>"
+}, {
+  "id" : "show_accent",
+  "name" : "show_accent",
+  "label" : "Show top accent line",
+  "help_text" : "Optional decorative color bar above the rail heading, matching the Hero module's accent line.",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "body_content",
+  "name" : "body_content",
+  "label" : "Running copy",
+  "help_text" : "The right column's full read - repeat Heading + paragraph pairs as needed. Renders using the theme's global typography - no color settings on this module. List markers use the theme's global blue-dot bullet color automatically.",
+  "required" : false,
+  "locked" : false,
+  "enabled_features" : [ "lists", "standard_emphasis", "block", "alignment" ],
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<h3>Sub-Head Opens the Running Copy</h3><p>The right column carries the full read. The rail stays fixed while this column scrolls - the pattern for methodology, compliance detail, and audit narrative.</p><h3>Sub-Heads Break Every Two to Three Paragraphs</h3><p>Keeps the wall of text scannable without cards or callouts. Blue-dot bullets allowed; imagery is not - this module is deliberately type-only.</p><p>Closing paragraph ends with the section's <a href=\"#\">one link</a></p>"
+}, {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "styles.spacing_desktop",
+    "name" : "spacing_desktop",
+    "label" : "Desktop spacing",
+    "help_text" : "Top/bottom padding on desktop. Left/right are hidden - horizontal spacing comes from .content-wrapper.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null,
+      "hidden_subfields" : {
+        "margin" : true
+      }
+    },
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : {
+      "padding" : {
+        "top" : {
+          "value" : 80,
+          "units" : "px"
+        },
+        "right" : {
+          "value" : 0,
+          "units" : "px"
+        },
+        "bottom" : {
+          "value" : 80,
+          "units" : "px"
+        },
+        "left" : {
+          "value" : 0,
+          "units" : "px"
+        }
+      }
+    }
+  }, {
+    "id" : "styles.spacing_mobile",
+    "name" : "spacing_mobile",
+    "label" : "Mobile spacing",
+    "help_text" : "Top/bottom padding at the theme's mobile breakpoint (max-width: 767px), independent of the desktop value above.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null,
+      "hidden_subfields" : {
+        "margin" : true
+      }
+    },
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : {
+      "padding" : {
+        "top" : {
+          "value" : 40,
+          "units" : "px"
+        },
+        "right" : {
+          "value" : 0,
+          "units" : "px"
+        },
+        "bottom" : {
+          "value" : 40,
+          "units" : "px"
+        },
+        "left" : {
+          "value" : 0,
+          "units" : "px"
+        }
+      }
+    }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+} ]

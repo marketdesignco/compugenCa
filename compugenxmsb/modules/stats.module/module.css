@@ -1,0 +1,300 @@
+.stats {
+  /* Number rotation reuses the Green/Blue/Yellow slice of this theme's
+     established Microsoft-quad decorative set (ds-system.md section 1,
+     same hex values as Hero/Features Cards/Plan) - Red is deliberately
+     left out here since it belongs to the Divider color choice below, not
+     this fixed rotation, and the two are independent by design (a
+     divider's color must never affect its own number's color, per this
+     module's brief). `--quad-red` is the exact same hex Microsoft
+     documents as this quad's "Red" - this project had only ever labeled
+     it "Orange" until this module's own explicit Red/Green/Blue divider
+     choice needed the literal name. */
+  --quad-red: #F25022;
+  --quad-green: var(--color-green);
+  --quad-blue: #00A4EF;
+  --quad-yellow: #FDB813;
+  overflow: hidden;
+  position: relative;
+}
+
+.stats--bg-white {
+  background-color: var(--color-white);
+}
+
+.stats--bg-purple {
+  background-color: var(--color-purple);
+}
+
+.stats--bg-green {
+  background-color: var(--color-green);
+}
+
+.stats--bg-transparent {
+  background-color: transparent;
+}
+
+.stats--bg-purple_bg {
+  background-color: var(--color-purple-bg);
+}
+
+/* Decorative vector - bottom-left corner, full-bleed against the section's
+   own edge. `z-index: 0` here and `z-index: 1` on `.stats__inner` (below)
+   is the same structural stacking-order guarantee already used by Grid and
+   Plan's own decorative vectors (ds-system.md sections 20/22) - content
+   always paints above it, not a sizing estimate that happens to avoid
+   overlap. `.stats`'s own overflow: hidden (above) prevents horizontal
+   page overflow regardless of the asset's natural size, at any
+   breakpoint. */
+
+.stats__vector {
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 22%;
+  z-index: 0;
+}
+
+.stats__inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* Section heading color - scoped to .stats__heading only, never stat
+   numbers/descriptions. Same proven pattern as Custom Cards/Features
+   Cards/Grid/Plan/FAQs (ds-system.md sections 18-23): explicit h1-h6/p
+   selectors alongside `:not(strong)`, deliberately redundant, so the rule
+   reliably reaches whatever tag the Rich Text field outputs. */
+
+.stats--heading-black .stats__heading,
+.stats--heading-black .stats__heading :not(strong),
+.stats--heading-black .stats__heading h1,
+.stats--heading-black .stats__heading h2,
+.stats--heading-black .stats__heading h3,
+.stats--heading-black .stats__heading h4,
+.stats--heading-black .stats__heading h5,
+.stats--heading-black .stats__heading h6,
+.stats--heading-black .stats__heading p {
+  color: var(--color-black);
+}
+
+.stats--heading-purple .stats__heading,
+.stats--heading-purple .stats__heading :not(strong),
+.stats--heading-purple .stats__heading h1,
+.stats--heading-purple .stats__heading h2,
+.stats--heading-purple .stats__heading h3,
+.stats--heading-purple .stats__heading h4,
+.stats--heading-purple .stats__heading h5,
+.stats--heading-purple .stats__heading h6,
+.stats--heading-purple .stats__heading p {
+  color: var(--color-purple);
+}
+
+.stats--heading-green .stats__heading,
+.stats--heading-green .stats__heading :not(strong),
+.stats--heading-green .stats__heading h1,
+.stats--heading-green .stats__heading h2,
+.stats--heading-green .stats__heading h3,
+.stats--heading-green .stats__heading h4,
+.stats--heading-green .stats__heading h5,
+.stats--heading-green .stats__heading h6,
+.stats--heading-green .stats__heading p {
+  color: var(--color-green);
+}
+
+.stats--heading-white .stats__heading,
+.stats--heading-white .stats__heading :not(strong),
+.stats--heading-white .stats__heading h1,
+.stats--heading-white .stats__heading h2,
+.stats--heading-white .stats__heading h3,
+.stats--heading-white .stats__heading h4,
+.stats--heading-white .stats__heading h5,
+.stats--heading-white .stats__heading h6,
+.stats--heading-white .stats__heading p {
+  color: var(--color-white);
+}
+
+.stats--heading-blue .stats__heading,
+.stats--heading-blue .stats__heading :not(strong),
+.stats--heading-blue .stats__heading h1,
+.stats--heading-blue .stats__heading h2,
+.stats--heading-blue .stats__heading h3,
+.stats--heading-blue .stats__heading h4,
+.stats--heading-blue .stats__heading h5,
+.stats--heading-blue .stats__heading h6,
+.stats--heading-blue .stats__heading p {
+  color: var(--color-blue-accent);
+}
+
+
+/* The only <strong> override in this module's section heading - always
+   Green / Arial Black / 900, regardless of the selected Heading color.
+   Stat numbers/descriptions never get this rule. */
+
+.stats__heading strong {
+  color: var(--color-green);
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-weight: 900;
+}
+
+.stats__heading {
+  margin-bottom: 0.75rem;
+}
+
+/* Content color - scoped to the section paragraph and every stat's
+   description, never the section heading (above), the stat number (its
+   own fixed position-based rotation, below), or the divider (each item's
+   own independent Divider color choice). */
+
+.stats--content-black .stats__paragraph,
+.stats--content-black .stats__paragraph :not(strong),
+.stats--content-black .stats__description,
+.stats--content-black .stats__description :not(strong) {
+  color: var(--color-black);
+}
+
+.stats--content-white .stats__paragraph,
+.stats--content-white .stats__paragraph :not(strong),
+.stats--content-white .stats__description,
+.stats--content-white .stats__description :not(strong) {
+  color: var(--color-white);
+}
+
+.stats--content-purple .stats__paragraph,
+.stats--content-purple .stats__paragraph :not(strong),
+.stats--content-purple .stats__description,
+.stats--content-purple .stats__description :not(strong) {
+  color: var(--color-purple);
+}
+
+.stats--content-green .stats__paragraph,
+.stats--content-green .stats__paragraph :not(strong),
+.stats--content-green .stats__description,
+.stats--content-green .stats__description :not(strong) {
+  color: var(--color-green);
+}
+
+.stats__paragraph {
+  margin-bottom: 3rem;
+}
+
+/* Grid - mobile-first 1 column; the desktop column count
+   (module.styles.columns) is set via the require_css/scope_css block in
+   module.html, same mechanism as spacing (SKILL.md section 3.1/3.6). */
+
+.stats__grid {
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: 1fr;
+}
+
+/* Item - the divider border switches axis by breakpoint, never both at
+   once: a right-hand border between columns on desktop/tablet (>= 768px,
+   where there's more than one column to divide), a bottom border between
+   stacked items on mobile (< 768px, always 1 column, so there's nothing
+   to the right to divide). Exact value as specified, not a token -
+   #FFFFFF99 is a one-off translucent white for this divider only, not
+   part of the palette. */
+
+.stats__item {
+  border-bottom: 1px solid #FFFFFF99;
+  border-right: none;
+  text-align:center;
+}
+
+/* The truly last item never gets a divider border, on any axis, at any
+   breakpoint - only one of border-bottom (mobile) / border-right (desktop/
+   tablet) is ever actually active at a time (see below), so removing both
+   here is safe and correct regardless of which one currently applies. */
+
+.stats__item:last-child {
+  border-bottom: none;
+  border-right: none;
+}
+
+@media (min-width: 768px) {
+  .stats__item {
+    border-bottom: none;
+    border-right: 1px solid #FFFFFF99;
+  }
+
+  /* The truly last item never gets a border, regardless of column count -
+     covers the case where the item count doesn't evenly divide the column
+     count (a partial last row), which the dynamic nth-child rule in
+     module.html (removing the border from the last item of every FULLY
+     packed row) cannot express on its own. */
+  .stats__item:last-child {
+    border-right: none;
+  }
+}
+
+/* Number - plain text, not Rich Text (module.html uses |escape_html, not
+   |sanitize_html). Only font-size is customized per the brief's explicit
+   "do not modify other typography settings inherited from the design
+   system" - weight/family/line-height are deliberately left untouched,
+   not hardcoded to match any other module's numeral treatment. Color
+   rotates Green / Blue / Yellow by position, fixed, not editable per item
+   - independent of this item's own Divider color choice (below). */
+
+.stats__number {
+  font-size: 70px;
+  font-family: Arial Black, sans-serif;
+  line-height:100%;
+}
+
+.stats__item:nth-child(3n+1) .stats__number {
+  color: var(--quad-green);
+}
+
+.stats__item:nth-child(3n+2) .stats__number {
+  color: var(--quad-blue);
+}
+
+.stats__item:nth-child(3n) .stats__number {
+  color: var(--quad-yellow);
+}
+
+@media (max-width: 767px) {
+  .stats__number {
+    font-size: 60px;
+  }
+  .stats__item{
+    padding-bottom:20px;
+  }
+}
+
+/* Divider - a short colored line below the number, independently
+   selectable per item via the Divider color field. Never affects, and is
+   never affected by, the number's own color (above) or the description's
+   Content color. */
+
+.stats__divider {
+  height: 5px;
+  margin: 15px auto;
+  width: 24px;
+}
+
+.stats__divider--red {
+  background-color: var(--quad-red);
+}
+
+.stats__divider--green {
+  background-color: var(--color-green);
+}
+
+.stats__divider--blue {
+  background-color: var(--quad-blue);
+}
+
+.stats__description > :last-child {
+  margin-bottom: 0;
+}
+
+/* CTA - reuses the theme's global .btn-custom system unchanged, rendered
+   once below the entire stats grid (outside the repeater), same pattern
+   as Plan's own module-level CTA (ds-system.md section 22). Full 7-variant
+   button list, no new button styling added here. */
+
+.stats__cta {
+  margin-top: 2.5rem;
+}

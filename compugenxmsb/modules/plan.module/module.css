@@ -1,0 +1,327 @@
+.plan {
+  /* Microsoft-quad decorative colors (ds-system.md section 1), same exact
+     hex values already used identically in Hero/Custom Rich Text/Rich
+     Lede's accent-line gradients and Features Cards' card top border - not
+     new colors, just not yet centralized. Light Blue is the Microsoft-quad
+     Blue normally reserved for markers/focus only - used here as a
+     decorative border color only because this module's own reference
+     screenshot shows it in this exact rotation, the same explicitly-
+     requested exception already established for Features Cards. */
+  --quad-orange: #F25022;
+  --quad-green: var(--color-green);
+  --quad-blue: #00A4EF;
+  --quad-yellow: #FDB813;
+  overflow: hidden;
+  position: relative;
+}
+
+.plan--bg-white {
+  background-color: var(--color-white);
+}
+
+.plan--bg-purple {
+  background-color: var(--color-purple);
+}
+
+.plan--bg-green {
+  background-color: var(--color-green);
+}
+
+.plan--bg-transparent {
+  background-color: transparent;
+}
+
+.plan--bg-purple_bg {
+  background-color: var(--color-purple-bg);
+}
+
+/* Decorative vector - right side of the section, vertically centered,
+   full-bleed against the section's own edge (not the narrower
+   content-wrapper). `z-index: 0` here and `z-index: 1` on `.plan__inner`
+   (below) is what actually guarantees it can never cover card/heading/CTA
+   content - not a sizing estimate that happens to avoid overlap, a
+   structural stacking-order guarantee, same technique as Grid's own
+   decorative-vector fix (ds-system.md section 20). `.plan`'s own
+   overflow: hidden (above) keeps it from ever causing horizontal page
+   overflow regardless of the asset's natural size. */
+
+.plan__vector {
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22%;
+  z-index: 0;
+}
+
+.plan__inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* Small quad accent bar above the heading - copied verbatim from Hero's
+   own `.hero__accent--top` values (ds-system.md section 12), not
+   refactored into a shared class, matching this theme's established
+   per-module reuse convention for this element. */
+
+.plan__accent {
+  background: linear-gradient(
+    to right,
+    var(--quad-orange) 0 25%,
+    var(--quad-green) 25% 50%,
+    var(--quad-blue) 50% 75%,
+    var(--quad-yellow) 75% 100%
+  );
+  height: 4px;
+  margin-bottom: 1.25rem;
+  width: 70px;
+}
+
+/* Section heading color - scoped to .plan__heading only, never card
+   titles/descriptions (those use Content color, below). Same proven
+   pattern as Custom Cards/Features Cards/Grid (ds-system.md sections
+   18-20): explicit h1-h6/p selectors alongside `:not(strong)`,
+   deliberately redundant, so the rule reliably reaches whatever tag the
+   Rich Text field outputs. */
+
+.plan--heading-black .plan__heading,
+.plan--heading-black .plan__heading :not(strong),
+.plan--heading-black .plan__heading h1,
+.plan--heading-black .plan__heading h2,
+.plan--heading-black .plan__heading h3,
+.plan--heading-black .plan__heading h4,
+.plan--heading-black .plan__heading h5,
+.plan--heading-black .plan__heading h6,
+.plan--heading-black .plan__heading p {
+  color: var(--color-black);
+}
+
+.plan--heading-purple .plan__heading,
+.plan--heading-purple .plan__heading :not(strong),
+.plan--heading-purple .plan__heading h1,
+.plan--heading-purple .plan__heading h2,
+.plan--heading-purple .plan__heading h3,
+.plan--heading-purple .plan__heading h4,
+.plan--heading-purple .plan__heading h5,
+.plan--heading-purple .plan__heading h6,
+.plan--heading-purple .plan__heading p {
+  color: var(--color-purple);
+}
+
+.plan--heading-green .plan__heading,
+.plan--heading-green .plan__heading :not(strong),
+.plan--heading-green .plan__heading h1,
+.plan--heading-green .plan__heading h2,
+.plan--heading-green .plan__heading h3,
+.plan--heading-green .plan__heading h4,
+.plan--heading-green .plan__heading h5,
+.plan--heading-green .plan__heading h6,
+.plan--heading-green .plan__heading p {
+  color: var(--color-green);
+}
+
+.plan--heading-white .plan__heading,
+.plan--heading-white .plan__heading :not(strong),
+.plan--heading-white .plan__heading h1,
+.plan--heading-white .plan__heading h2,
+.plan--heading-white .plan__heading h3,
+.plan--heading-white .plan__heading h4,
+.plan--heading-white .plan__heading h5,
+.plan--heading-white .plan__heading h6,
+.plan--heading-white .plan__heading p {
+  color: var(--color-white);
+}
+
+.plan--heading-blue .plan__heading,
+.plan--heading-blue .plan__heading :not(strong),
+.plan--heading-blue .plan__heading h1,
+.plan--heading-blue .plan__heading h2,
+.plan--heading-blue .plan__heading h3,
+.plan--heading-blue .plan__heading h4,
+.plan--heading-blue .plan__heading h5,
+.plan--heading-blue .plan__heading h6,
+.plan--heading-blue .plan__heading p {
+  color: var(--color-blue-accent);
+}
+
+.plan__heading,
+.plan__heading :not(strong) {
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+}
+
+/* The only <strong> override in this module's section heading - always
+   Green / Arial Black / 900, regardless of the selected Heading color.
+   Card titles/descriptions never get this rule. */
+
+.plan__heading strong {
+  color: var(--color-green);
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-weight: 900;
+}
+
+.plan__heading {
+  margin-bottom: 0.75rem;
+}
+
+/* Content color - scoped to the section paragraph and every card's
+   title/description, never the section heading (above) or its green
+   Bold accent. Same explicit-selector redundancy pattern as heading
+   color, applied across three different wrapper classes at once. */
+
+.plan--content-black .plan__paragraph,
+.plan--content-black .plan__paragraph :not(strong),
+.plan--content-black .plan__title,
+.plan--content-black .plan__title :not(strong),
+.plan--content-black .plan__description,
+.plan--content-black .plan__description :not(strong) {
+  color: var(--color-black);
+}
+
+.plan--content-purple .plan__paragraph,
+.plan--content-purple .plan__paragraph :not(strong),
+.plan--content-purple .plan__title,
+.plan--content-purple .plan__title :not(strong),
+.plan--content-purple .plan__description,
+.plan--content-purple .plan__description :not(strong) {
+  color: var(--color-purple);
+}
+
+.plan--content-green .plan__paragraph,
+.plan--content-green .plan__paragraph :not(strong),
+.plan--content-green .plan__title,
+.plan--content-green .plan__title :not(strong),
+.plan--content-green .plan__description,
+.plan--content-green .plan__description :not(strong) {
+  color: var(--color-green);
+}
+
+.plan--content-white .plan__paragraph,
+.plan--content-white .plan__paragraph :not(strong),
+.plan--content-white .plan__title,
+.plan--content-white .plan__title :not(strong),
+.plan--content-white .plan__description,
+.plan--content-white .plan__description :not(strong) {
+  color: var(--color-white);
+}
+
+.plan__paragraph {
+  margin-bottom: 2.5rem;
+}
+
+/* Grid - fixed 3 columns on desktop, matching the reference screenshot;
+   this module has no editor-facing Columns setting (not requested). Mobile
+   stacks to 1 column, same pattern as every other card grid in this
+   theme. */
+
+.plan__grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .plan__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Card - deliberately unboxed (no background, border, shadow, or radius),
+   matching Features Cards' "open row" treatment - only the colored top bar
+   separates each card. A real block element (not a `border-top`, unlike
+   Features Cards) because the third position in this module's own 3-color
+   rotation is a gradient, which a plain `border-top-color` can't express.
+   Position-based alternation via `nth-child`, not editable per card. */
+
+.plan__card-bar {
+  height: 4px;
+  margin-bottom: 1.25rem;
+  width: 100%;
+}
+
+.plan__card:nth-child(3n+1) .plan__card-bar {
+  background: var(--quad-green);
+}
+
+.plan__card:nth-child(3n+2) .plan__card-bar {
+  background: var(--quad-blue);
+}
+
+.plan__card:nth-child(3n) .plan__card-bar {
+  background: var(--quad-yellow);
+}
+
+/* Rich Text fields each carry the global h5/p bottom margin - reset the
+   last child's margin inside each wrapper so this module's own
+   margin-bottom (below) is the single source of spacing between blocks,
+   not a stacked double-margin. Only `margin` is touched, never
+   font-size/weight/family. */
+
+.plan__title > :last-child,
+.plan__description > :last-child {
+  margin-bottom: 0;
+}
+
+.plan__icon {
+  align-items: center;
+  display: flex;
+  height: 40px;
+  margin-bottom: 1rem;
+  width: 40px;
+}
+
+.plan__icon-img {
+  display: block;
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.plan__icon-wrap {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.plan__icon-svg svg {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.plan__icon-wrap--purple .plan__icon-svg svg {
+  fill: var(--color-purple);
+}
+
+.plan__icon-wrap--green .plan__icon-svg svg {
+  fill: var(--color-green);
+}
+
+.plan__icon-wrap--white .plan__icon-svg svg {
+  fill: var(--color-white);
+}
+
+.plan__icon-wrap--black .plan__icon-svg svg {
+  fill: var(--color-black);
+}
+
+.plan__title {
+  margin-bottom: 0.5rem;
+}
+
+/* CTA - reuses the theme's global .btn-custom system unchanged, rendered
+   once below the entire grid (not per card). `variant` exposes the same
+   full set of established button styles used elsewhere (Tabs, ds-system.md
+   section 21), not a restricted subset. */
+
+.plan__cta {
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 767px) {
+  .plan__vector {
+    width: 15%;
+  }
+}

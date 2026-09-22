@@ -1,0 +1,401 @@
+[ {
+  "id" : "cards",
+  "name" : "cards",
+  "label" : "Carousel cards",
+  "help_text" : "Each card has an Image, a Title (Heading 5), an optional Description, and an optional CTA. The editor can add, remove, and reorder cards.",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 1,
+    "max" : 20,
+    "sorting_label_field" : null,
+    "default" : 4
+  },
+  "children" : [ {
+    "id" : "cards.image",
+    "name" : "image",
+    "label" : "Image",
+    "help_text" : "Displays at a fixed 85px height, full card width. Cropped (never stretched/distorted) to fill that space if its own proportions differ.",
+    "required" : false,
+    "locked" : false,
+    "responsive" : true,
+    "resizable" : false,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/icon-example.png",
+      "alt" : "",
+      "loading" : "lazy"
+    }
+  }, {
+    "id" : "cards.title",
+    "name" : "title",
+    "label" : "Title",
+    "help_text" : "Renders as Heading 5, inheriting the theme's default Heading 5 color - no module-level override.",
+    "required" : false,
+    "locked" : false,
+    "enabled_features" : [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+    "type" : "richtext",
+    "display_width" : null,
+    "default" : "<h5>Carousel Card</h5>"
+  }, {
+    "id" : "cards.show_description",
+    "name" : "show_description",
+    "label" : "Show description",
+    "help_text" : "Turns this card's description on/off without clearing its content. Off by default.",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "cards.description",
+    "name" : "description",
+    "label" : "Description",
+    "help_text" : "Hidden entirely when Show description above is off, so no empty description field is left visible with nothing to configure.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "cards.show_description",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "enabled_features" : [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+    "type" : "richtext",
+    "display_width" : null,
+    "default" : "<p>One line of supporting copy.</p>"
+  }, {
+    "id" : "cards.show_cta",
+    "name" : "show_cta",
+    "label" : "Show CTA",
+    "help_text" : "Turns this card's CTA on/off without clearing its content. On by default.",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "cards.cta_settings",
+    "name" : "cta_settings",
+    "label" : "CTA settings",
+    "help_text" : "Hidden entirely when Show CTA above is off, so no CTA configuration fields are left visible with nothing to configure.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "cards.show_cta",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "children" : [ {
+      "id" : "cards.cta_settings.link_type",
+      "name" : "link_type",
+      "label" : "CTA type",
+      "help_text" : "Choose whether this card's CTA links to a HubSpot CTA or a regular link. Leave the text/link below empty to omit the CTA - it is fully optional.",
+      "required" : false,
+      "locked" : false,
+      "display" : "radio",
+      "choices" : [ [ "link", "Regular link" ], [ "cta", "HubSpot CTA" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "link"
+    }, {
+      "id" : "cards.cta_settings.text",
+      "name" : "text",
+      "label" : "CTA text",
+      "help_text" : "Only used for the Regular link type - a HubSpot CTA carries its own text. Leave empty to omit the CTA.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "cards.cta_settings.link_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "link",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Learn More"
+    }, {
+      "id" : "cards.cta_settings.link",
+      "name" : "link",
+      "label" : "CTA link",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "cards.cta_settings.link_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "link",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS" ],
+      "show_advanced_rel_options" : true,
+      "type" : "link",
+      "display_width" : null,
+      "default" : {
+        "url" : {
+          "href" : "#",
+          "type" : "EXTERNAL"
+        },
+        "no_follow" : false,
+        "open_in_new_tab" : false
+      }
+    }, {
+      "id" : "cards.cta_settings.variant",
+      "name" : "variant",
+      "label" : "CTA style",
+      "help_text" : "Applies to both a regular link and a HubSpot CTA",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "btn-primary-purple", "Primary - Purple" ], [ "btn-primary-green", "Primary - Green" ], [ "btn-secondary-purple", "Secondary - Purple" ], [ "btn-secondary-green", "Secondary - Green" ], [ "btn-secondary-white", "Secondary - White outline" ], [ "btn-tertiary-purple", "Tertiary - Purple" ], [ "btn-tertiary-green", "Tertiary - Green" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "btn-tertiary-purple"
+    }, {
+      "id" : "cards.cta_settings.cta",
+      "name" : "cta",
+      "label" : "HubSpot CTA",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "cards.cta_settings.link_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "cta",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "cta",
+      "display_width" : null
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : true,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : true,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "image" : {
+      "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/icon-example.png",
+      "alt" : "",
+      "loading" : "lazy"
+    },
+    "title" : "<h5>Carousel Card</h5>",
+    "show_description" : false,
+    "description" : "<p>One line of supporting copy.</p>",
+    "show_cta" : true,
+    "cta_settings" : {
+      "link_type" : "link",
+      "text" : "Learn More",
+      "link" : {
+        "url" : {
+          "href" : "#",
+          "type" : "EXTERNAL"
+        },
+        "no_follow" : false,
+        "open_in_new_tab" : false
+      },
+      "variant" : "btn-tertiary-purple"
+    }
+  }, {
+    "image" : {
+      "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/icon-example.png",
+      "alt" : "",
+      "loading" : "lazy"
+    },
+    "title" : "<h5>Carousel Card</h5>",
+    "show_description" : false,
+    "description" : "<p>One line of supporting copy.</p>",
+    "show_cta" : true,
+    "cta_settings" : {
+      "link_type" : "link",
+      "text" : "Learn More",
+      "link" : {
+        "url" : {
+          "href" : "#",
+          "type" : "EXTERNAL"
+        },
+        "no_follow" : false,
+        "open_in_new_tab" : false
+      },
+      "variant" : "btn-tertiary-purple"
+    }
+  }, {
+    "image" : {
+      "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/icon-example.png",
+      "alt" : "",
+      "loading" : "lazy"
+    },
+    "title" : "<h5>Carousel Card</h5>",
+    "show_description" : false,
+    "description" : "<p>One line of supporting copy.</p>",
+    "show_cta" : true,
+    "cta_settings" : {
+      "link_type" : "link",
+      "text" : "Learn More",
+      "link" : {
+        "url" : {
+          "href" : "#",
+          "type" : "EXTERNAL"
+        },
+        "no_follow" : false,
+        "open_in_new_tab" : false
+      },
+      "variant" : "btn-tertiary-purple"
+    }
+  }, {
+    "image" : {
+      "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/icon-example.png",
+      "alt" : "",
+      "loading" : "lazy"
+    },
+    "title" : "<h5>Carousel Card</h5>",
+    "show_description" : false,
+    "description" : "<p>One line of supporting copy.</p>",
+    "show_cta" : true,
+    "cta_settings" : {
+      "link_type" : "link",
+      "text" : "Learn More",
+      "link" : {
+        "url" : {
+          "href" : "#",
+          "type" : "EXTERNAL"
+        },
+        "no_follow" : false,
+        "open_in_new_tab" : false
+      },
+      "variant" : "btn-tertiary-purple"
+    }
+  } ]
+}, {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "styles.spacing_desktop",
+    "name" : "spacing_desktop",
+    "label" : "Desktop spacing",
+    "help_text" : "Top/bottom padding on desktop. Left/right are hidden - horizontal spacing comes from .content-wrapper.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null,
+      "hidden_subfields" : {
+        "margin" : true
+      }
+    },
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : {
+      "padding" : {
+        "top" : {
+          "value" : 80,
+          "units" : "px"
+        },
+        "right" : {
+          "value" : 0,
+          "units" : "px"
+        },
+        "bottom" : {
+          "value" : 80,
+          "units" : "px"
+        },
+        "left" : {
+          "value" : 0,
+          "units" : "px"
+        }
+      }
+    }
+  }, {
+    "id" : "styles.spacing_mobile",
+    "name" : "spacing_mobile",
+    "label" : "Mobile spacing",
+    "help_text" : "Top/bottom padding at the theme's mobile breakpoint (max-width: 767px), independent of the desktop value above.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null,
+      "hidden_subfields" : {
+        "margin" : true
+      }
+    },
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : {
+      "padding" : {
+        "top" : {
+          "value" : 40,
+          "units" : "px"
+        },
+        "right" : {
+          "value" : 0,
+          "units" : "px"
+        },
+        "bottom" : {
+          "value" : 40,
+          "units" : "px"
+        },
+        "left" : {
+          "value" : 0,
+          "units" : "px"
+        }
+      }
+    }
+  }, {
+    "id" : "styles.slides_per_view",
+    "name" : "slides_per_view",
+    "label" : "Slides per view (desktop)",
+    "help_text" : "Controls how many cards are visible at once on desktop (>= 1200px). Steps down automatically at narrower widths (3 at tablet, 2 at small tablet, 1 on mobile), regardless of this setting.",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "2", "2 slides" ], [ "3", "3 slides" ], [ "4", "4 slides" ], [ "5", "5 slides" ], [ "6", "6 slides" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "4"
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+} ]

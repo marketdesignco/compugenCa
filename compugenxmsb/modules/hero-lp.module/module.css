@@ -1,0 +1,123 @@
+.hero-lp {
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-lp--bg-purple {
+  --strong-accent: var(--color-green);
+  background-color: var(--color-purple);
+}
+
+.hero-lp--bg-green {
+  background-color: var(--color-green);
+}
+
+.hero-lp--bg-white {
+  --strong-accent: var(--color-purple);
+  background-color: var(--color-white);
+}
+
+.hero-lp--bg-transparent {
+  background-color: transparent;
+}
+
+.hero-lp--bg-purple_bg {
+  background-color: var(--color-purple-bg);
+}
+
+.hero-lp--text-purple .hero-lp__text,
+.hero-lp--text-purple .hero-lp__text :not(strong) {
+  color: var(--color-purple);
+}
+
+.hero-lp--text-green .hero-lp__text,
+.hero-lp--text-green .hero-lp__text :not(strong) {
+  color: var(--color-green);
+}
+
+.hero-lp--text-white .hero-lp__text,
+.hero-lp--text-white .hero-lp__text :not(strong) {
+  color: var(--color-white);
+}
+
+.hero-lp--text-black .hero-lp__text,
+.hero-lp--text-black .hero-lp__text :not(strong) {
+  color: var(--color-black);
+}
+
+.hero-lp__title strong {
+  color: var(--strong-accent, inherit);
+}
+
+.hero-lp__vector-bg {
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.hero-lp__inner {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-lp__row {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.hero-lp__content {
+  position: relative;
+}
+
+.hero-lp__logo {
+  display: block;
+  height: 40px;
+  margin-bottom: 1.75rem;
+  width: auto;
+}
+
+.hero-lp__title {
+  margin-bottom: 1.5rem;
+}
+
+.hero-lp__description {
+  margin-bottom: 1.5rem;
+}
+
+.hero-lp__buttons {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.hero-lp__form-card {
+  background-color: var(--color-white);
+  padding: 2rem;
+  position: relative;
+  width: 100%;
+  z-index: 2;
+}
+
+@media (min-width: 768px) {
+  .hero-lp__row {
+    flex-direction: row;
+  }
+
+  .hero-lp__content {
+    flex: 1 1 55%;
+  }
+
+  .hero-lp__buttons {
+    flex-direction: row;
+  }
+
+  .hero-lp__form-card {
+    flex: 0 1 40%;
+    max-width: 420px;
+  }
+}

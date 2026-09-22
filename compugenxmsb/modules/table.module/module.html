@@ -1,0 +1,67 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .table-module {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .table-module {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+
+      .table-module__header-row,
+      .table-module__row {
+        grid-template-columns: repeat({{ module.headers|length }}, 1fr);
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<section class="table-module">
+
+  <div class="table-module__inner content-wrapper">
+
+    {% if module.section_heading %}
+      <div class="table-module__heading">
+        {{ module.section_heading|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.section_paragraph %}
+      <div class="table-module__paragraph">
+        {{ module.section_paragraph|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.headers and module.rows %}
+      <div class="table-module__grid">
+
+        <div class="table-module__header-row">
+          {% for header in module.headers %}
+            <div class="table-module__header-cell{% if header.highlight %} table-module__header-cell--highlight{% endif %}">
+              {{ header.column_label|escape_html }}
+            </div>
+          {% endfor %}
+        </div>
+
+        {% for row in module.rows %}
+          <div class="table-module__row{% if loop.index is odd %} table-module__row--alt{% endif %}">
+            {% for cell in row.cells %}
+              {% if loop.index <= module.headers|length %}
+                <div class="table-module__cell{% if cell.highlight %} table-module__cell--highlight{% endif %}">
+                  <span class="table-module__cell-label">{{ cell.column_label|escape_html }}</span>
+                  <span class="table-module__cell-value{% if cell.check_color != "default" %} table-module__cell-value--{{ cell.check_color|escape_attr }}{% endif %}">{{ cell.value|escape_html }}</span>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endfor %}
+
+      </div>
+    {% endif %}
+
+  </div>
+
+</section>

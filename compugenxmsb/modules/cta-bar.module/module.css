@@ -1,0 +1,153 @@
+.cta-bar {
+  /* Same Microsoft-quad decorative token set already established in
+     Features Cards/Plan/Stats/Carousel Cards (ds-system.md sections
+     19/22/24), same hex values - not new colors. Fixed Purple background,
+     no editor choice - "do not add unnecessary color choices" per this
+     module's own brief. */
+  --quad-orange: #F25022;
+  --quad-green: var(--color-green);
+  --quad-blue: #00A4EF;
+  --quad-yellow: #FDB813;
+  background-color: var(--color-purple);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Decorative vector - bottom-left corner, full-bleed against the
+   section's own edge. `z-index: 0` here and `z-index: 1` on
+   `.cta-bar__inner` (below) is the same structural stacking-order
+   guarantee already used by Grid/Plan/Stats (ds-system.md sections
+   20/22/24) - content always paints above it, not a sizing estimate that
+   happens to avoid overlap. This module's own `overflow: hidden` (above)
+   prevents horizontal page overflow regardless of the asset's natural
+   size, at any breakpoint. */
+
+.cta-bar__vector {
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 22%;
+  z-index: 0;
+}
+
+.cta-bar__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.cta-bar__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.cta-bar__content {
+  flex: 1 1 auto;
+}
+
+/* Small quad accent bar above the title - copied verbatim from Hero's own
+   `.hero__accent--top` values (ds-system.md section 12), reapplied
+   unchanged (same as Plan/Stats, sections 22/24), not refactored into a
+   shared class per this theme's established per-module reuse
+   convention. */
+
+.cta-bar__accent {
+  background: linear-gradient(
+    to right,
+    var(--quad-orange) 0 25%,
+    var(--quad-green) 25% 50%,
+    var(--quad-blue) 50% 75%,
+    var(--quad-yellow) 75% 100%
+  );
+  height: 4px;
+  margin-bottom: 1.25rem;
+  width: 44px;
+}
+
+/* Title - unlike every other section heading in this theme (Custom
+   Cards/Features Cards/Grid/Plan/Stats/FAQs/Quote, where only the Bold
+   accent gets Arial Black and the normal text stays the theme's regular
+   Arial/400), this module's brief explicitly asks for Arial Black on the
+   *entire* title, normal text included - not just the Bold portion. Font-
+   size is left untouched (inherits the theme's global Heading 2 size),
+   per the brief's "do not hardcode font sizes... unless required to
+   reproduce the design" - only family/weight/color are set. No separate
+   color choice field exists for this title, per the brief. */
+
+.cta-bar__title,
+.cta-bar__title :not(strong) {
+  color: var(--color-white);
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-weight: 900;
+}
+
+.cta-bar__title strong {
+  color: var(--color-green);
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-weight: 900;
+}
+
+.cta-bar__title > :last-child {
+  margin-bottom: 0;
+}
+
+/* Paragraph - White @ 85% opacity, the documented body-copy-on-purple
+   rule (ds-system.md section 6) applied for the first time in this
+   theme's actual CSS: every earlier module with this option had a
+   configurable background_color choice, so the rule was documented but
+   not implemented (it only applies specifically to a full purple
+   background, ds-system.md section 12/13's Hero note). This module's own
+   background is unconditionally, permanently Purple - the one case where
+   applying it directly and unconditionally is actually correct. */
+
+.cta-bar__paragraph,
+.cta-bar__paragraph :not(strong) {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.cta-bar__paragraph {
+  margin-bottom: 2rem;
+}
+
+.cta-bar__paragraph > :last-child {
+  margin-bottom: 0;
+}
+
+/* CTA - reuses the theme's global .btn-custom system unchanged; `variant`
+   exposes the same full set of established button styles used elsewhere
+   (Plan/Stats/Carousel Cards), defaulting to the Primary Green solid
+   button shown in the reference screenshot. */
+
+.cta-bar__cta {
+  margin-top: 0.5rem;
+}
+
+/* Side image - a plain responsive image, no forced aspect ratio/crop
+   (unlike Custom Cards'/Carousel Cards' card images) - the reference
+   asset is a flat resource-cover graphic meant to display at its own
+   natural proportions, not get cropped to fit a fixed box. Capped at a
+   comfortable fixed width on desktop, shrinking safely below that on
+   narrower widths via `max-width: 100%` rather than overflowing its
+   column. */
+
+.cta-bar__image-wrap {
+  flex: 0 1 260px;
+  max-width: 100%;
+}
+
+.cta-bar__image-wrap img {
+  box-shadow: 0px 4px 30px 0px #00000080;
+  display: block;
+  height: auto;
+  max-width: 100%;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .cta-bar__body {
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

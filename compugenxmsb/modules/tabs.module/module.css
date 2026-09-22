@@ -1,0 +1,172 @@
+.tabs {
+  position: relative;
+}
+
+.tabs--bg-white {
+  background-color: var(--color-white);
+}
+
+.tabs--bg-purple {
+  background-color: var(--color-purple);
+}
+
+.tabs--bg-green {
+  background-color: var(--color-green);
+}
+
+.tabs--bg-transparent {
+  background-color: transparent;
+}
+
+.tabs--bg-purple_bg {
+  background-color: var(--color-purple-bg);
+}
+
+.tabs__inner {
+  position: relative;
+}
+
+/* Body - nav above panels on mobile, side by side on desktop, both columns
+   starting at the same top edge (align-items: flex-start, not stretch). */
+
+.tabs__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Nav */
+
+.tabs__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tabs__nav-item {
+  background-color: var(--color-white);
+  border: 2px solid var(--color-purple);
+  color: var(--color-purple);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: var(--body-font-size);
+  font-weight: 700;
+  padding: 1rem 1.5rem;
+  text-align: left;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.tabs__nav-item:hover,
+.tabs__nav-item--active {
+  background-color: var(--color-purple);
+  color: var(--color-white);
+}
+
+.tabs__nav-item:focus-visible {
+  outline: 2px solid var(--color-focus-marker);
+  outline-offset: 2px;
+}
+
+/* Panels - every panel renders in the DOM (no CSS-based hiding); module.js
+   is responsible for adding the `hidden` attribute to inactive panels once
+   it initializes. If JS fails to load, every panel's content stays
+   visible and readable instead of being silently hidden by CSS with no
+   way to reveal it - progressive enhancement, not a JS-required content
+   gate. */
+
+.tabs__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* The native `[hidden]` attribute is normally `display: none` via the
+   browser's own UA stylesheet, but `.tabs__panel`'s own `display: flex`
+   above is an author-origin rule, so it wins regardless of selector
+   specificity - the browser always ranks author styles above UA styles at
+   the same importance level. Without this explicit override, module.js
+   correctly setting/removing `hidden` on inactive panels has no visible
+   effect at all, since `.tabs__panel { display: flex; }` keeps painting
+   them anyway - this is what made every panel appear visible at once. */
+
+.tabs__panel[hidden] {
+  display: none;
+}
+
+/* Rich Text fields each carry the global h4/p bottom margin - reset the
+   last child's margin inside each wrapper so this module's own
+   margin-bottom (below) is the single source of spacing between blocks,
+   not a stacked double-margin. Only `margin` is touched, never
+   font-size/weight/family. */
+
+.tabs__title > :last-child,
+.tabs__description > :last-child {
+  margin-bottom: 0;
+}
+
+.tabs__title {
+  margin-bottom: 0.75rem;
+}
+
+.tabs__description {
+  margin-bottom: 0;
+}
+
+.tabs__cta {
+  margin-top: 1.5rem;
+}
+
+/* Image - the entire right edge slants from top to bottom (a trapezoid -
+   the top edge is the full, wider side; the right edge angles inward as it
+   descends, so the bottom edge is shorter than the top), not a small
+   corner cut. Percentage-based clip-path points scale with the element's
+   own size, so this stays correct at any width/height, desktop or mobile,
+   with no separate media query needed - same technique already used
+   elsewhere in this theme. Off by default only when the editor disables
+   the Diagonal image cut toggle. */
+
+.tabs__panel-image {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.tabs__panel-image img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.tabs__panel-image--cut {
+  clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+}
+
+@media (min-width: 768px) {
+  .tabs__body {
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 2rem;
+  }
+
+  .tabs__nav {
+    flex: 0 0 30%;
+  }
+
+  .tabs__panels {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .tabs__panel {
+    flex-direction: row;
+  }
+
+  .tabs__panel-text {
+    flex: 1 1 45%;
+  }
+
+  .tabs__panel-image {
+    flex: 1 1 45%;
+  }
+}

@@ -1,0 +1,45 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .partners {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .partners {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+
+      @media (min-width: 768px) {
+        .partners__grid {
+          grid-template-columns: repeat({{ module.styles.columns }}, 1fr);
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<section class="partners">
+
+  <div class="partners__inner content-wrapper">
+
+    {% if module.logos %}
+      <div class="partners__grid">
+        {% for item in module.logos %}
+          {% if item.logo.src %}
+            <div class="partners__item">
+              <img
+                src="{{ item.logo.src|escape_url }}"
+                alt="{{ item.logo.alt|escape_attr }}"
+                loading="lazy"
+              >
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+
+</section>

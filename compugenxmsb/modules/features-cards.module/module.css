@@ -1,0 +1,240 @@
+.features-cards {
+  /* Microsoft-quad decorative colors (ds-system.md section 1) for the
+     alternating card top borders below - module-scoped, not global theme
+     tokens (out of scope to add those this round). Green reuses the
+     existing --color-green (same exact hex, already a real token); Orange
+     and Yellow have none yet, so they're declared here, matching the exact
+     hex values already used identically in Hero/Custom Rich Text/Rich
+     Lede's own accent-line gradients - not new colors, just not yet
+     centralized. Light Blue is the Microsoft-quad Blue normally reserved
+     for markers/focus only (ds-system.md section 1) - used here as a
+     decorative border color only because this module's brief explicitly
+     calls for it in this exact rotation, the same way Hero's own accent
+     gradient already uses this same blue decoratively as one of the same
+     four quad stripes. Not a general exception to the marker/focus rule,
+     just this one explicitly-requested decorative use. */
+  --quad-orange: #F25022;
+  --quad-green: var(--color-green);
+  --quad-blue: #00A4EF;
+  --quad-yellow: #FDB813;
+  position: relative;
+}
+
+.features-cards--bg-white {
+  background-color: var(--color-white);
+}
+
+.features-cards--bg-purple {
+  background-color: var(--color-purple);
+}
+
+.features-cards--bg-green {
+  background-color: var(--color-green);
+}
+
+.features-cards--bg-transparent {
+  background-color: transparent;
+}
+
+.features-cards--bg-purple_bg {
+  background-color: var(--color-purple-bg);
+}
+
+.features-cards__inner {
+  position: relative;
+}
+
+/* Section heading color - scoped to .features-cards__heading only, never
+   card titles/descriptions. Same proven pattern as Custom Cards' heading
+   color (ds-system.md section 18), itself reapplying Bullets' original
+   title_color pattern (section 15): explicit h1-h6/p selectors alongside
+   `:not(strong)`, deliberately redundant, so the rule reliably reaches
+   whatever tag the Rich Text field outputs. */
+
+.features-cards--heading-black .features-cards__heading,
+.features-cards--heading-black .features-cards__heading :not(strong),
+.features-cards--heading-black .features-cards__heading h1,
+.features-cards--heading-black .features-cards__heading h2,
+.features-cards--heading-black .features-cards__heading h3,
+.features-cards--heading-black .features-cards__heading h4,
+.features-cards--heading-black .features-cards__heading h5,
+.features-cards--heading-black .features-cards__heading h6,
+.features-cards--heading-black .features-cards__heading p {
+  color: var(--color-black);
+}
+
+.features-cards--heading-purple .features-cards__heading,
+.features-cards--heading-purple .features-cards__heading :not(strong),
+.features-cards--heading-purple .features-cards__heading h1,
+.features-cards--heading-purple .features-cards__heading h2,
+.features-cards--heading-purple .features-cards__heading h3,
+.features-cards--heading-purple .features-cards__heading h4,
+.features-cards--heading-purple .features-cards__heading h5,
+.features-cards--heading-purple .features-cards__heading h6,
+.features-cards--heading-purple .features-cards__heading p {
+  color: var(--color-purple);
+}
+
+.features-cards--heading-green .features-cards__heading,
+.features-cards--heading-green .features-cards__heading :not(strong),
+.features-cards--heading-green .features-cards__heading h1,
+.features-cards--heading-green .features-cards__heading h2,
+.features-cards--heading-green .features-cards__heading h3,
+.features-cards--heading-green .features-cards__heading h4,
+.features-cards--heading-green .features-cards__heading h5,
+.features-cards--heading-green .features-cards__heading h6,
+.features-cards--heading-green .features-cards__heading p {
+  color: var(--color-green);
+}
+
+.features-cards--heading-white .features-cards__heading,
+.features-cards--heading-white .features-cards__heading :not(strong),
+.features-cards--heading-white .features-cards__heading h1,
+.features-cards--heading-white .features-cards__heading h2,
+.features-cards--heading-white .features-cards__heading h3,
+.features-cards--heading-white .features-cards__heading h4,
+.features-cards--heading-white .features-cards__heading h5,
+.features-cards--heading-white .features-cards__heading h6,
+.features-cards--heading-white .features-cards__heading p {
+  color: var(--color-white);
+}
+
+.features-cards--heading-blue .features-cards__heading,
+.features-cards--heading-blue .features-cards__heading :not(strong),
+.features-cards--heading-blue .features-cards__heading h1,
+.features-cards--heading-blue .features-cards__heading h2,
+.features-cards--heading-blue .features-cards__heading h3,
+.features-cards--heading-blue .features-cards__heading h4,
+.features-cards--heading-blue .features-cards__heading h5,
+.features-cards--heading-blue .features-cards__heading h6,
+.features-cards--heading-blue .features-cards__heading p {
+  color: var(--color-blue-accent);
+}
+
+.features-cards__heading,
+.features-cards__heading :not(strong) {
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+}
+
+/* The only <strong> override in this module's section heading - always
+   Purple 900 / Arial Black / 900, regardless of the selected Heading
+   color. Card titles/descriptions never get this rule. */
+
+.features-cards__heading strong {
+  color: var(--color-purple);
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-weight: 900;
+}
+
+.features-cards__heading {
+  margin-bottom: 0.75rem;
+}
+
+.features-cards__paragraph {
+  margin-bottom: 2rem;
+}
+
+/* Grid - mobile-first 2 columns; the desktop column count
+   (module.styles.columns) is set via the require_css/scope_css block in
+   module.html, same mechanism as spacing (SKILL.md section 3.1/3.6). */
+
+.features-cards__grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* Card - deliberately unboxed (no background, border, shadow, or radius)
+   per the reference screenshot's own "No border, no shadow - open row,
+   reads as one band" description - only the colored top rule separates
+   each card. Position-based alternation, not editable per card, per the
+   brief - cycles every 4 cards regardless of the selected column count,
+   since nth-child counts DOM/repeater order, not visual row/column
+   position. */
+
+.features-cards__card {
+  border-top: 4px solid transparent;
+  padding-top: 1.25rem;
+}
+
+.features-cards__card:nth-child(4n+1) {
+  border-top-color: var(--quad-orange);
+}
+
+.features-cards__card:nth-child(4n+2) {
+  border-top-color: var(--quad-green);
+}
+
+.features-cards__card:nth-child(4n+3) {
+  border-top-color: var(--quad-blue);
+}
+
+.features-cards__card:nth-child(4n) {
+  border-top-color: var(--quad-yellow);
+}
+
+/* Rich Text fields each carry the global h5/p bottom margin - reset the
+   last child's margin inside each wrapper so this module's own
+   margin-bottom (below) is the single source of spacing between blocks,
+   not a stacked double-margin. Only `margin` is touched, never
+   font-size/weight/family. */
+
+.features-cards__title > :last-child,
+.features-cards__description > :last-child {
+  margin-bottom: 0;
+}
+
+.features-cards__icon {
+  align-items: center;
+  display: flex;
+  height: 40px;
+  margin-bottom: 1rem;
+  width: 40px;
+}
+
+.features-cards__icon-img {
+  display: block;
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.features-cards__icon-wrap {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.features-cards__icon-svg svg {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.features-cards__icon-wrap--purple .features-cards__icon-svg svg {
+  fill: var(--color-purple);
+}
+
+.features-cards__icon-wrap--green .features-cards__icon-svg svg {
+  fill: var(--color-green);
+}
+
+.features-cards__icon-wrap--white .features-cards__icon-svg svg {
+  fill: var(--color-white);
+}
+
+.features-cards__icon-wrap--black .features-cards__icon-svg svg {
+  fill: var(--color-black);
+}
+
+.features-cards__title {
+  margin-bottom: 0.5rem;
+}
+
+@media(max-width:768px){
+  .features-cards__grid{
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

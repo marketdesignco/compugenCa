@@ -1,0 +1,118 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .stats {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .stats {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+
+      @media (min-width: 768px) {
+        .stats__grid {
+          grid-template-columns: repeat({{ module.styles.columns }}, 1fr);
+        }
+
+        .stats__item:nth-child({{ module.styles.columns }}n) {
+          border-right: none;
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<section
+  class="
+    stats
+    stats--bg-{{ module.styles.background_color|escape_attr }}
+    stats--heading-{{ module.styles.heading_color|escape_attr }}
+    stats--content-{{ module.styles.content_color|escape_attr }}
+  "
+>
+
+  {% if module.vector_visible and module.vector.src %}
+    <img
+      class="stats__vector"
+      src="{{ module.vector.src|escape_url }}"
+      alt=""
+      loading="lazy"
+    >
+  {% endif %}
+
+  <div class="stats__inner content-wrapper">
+
+    {% if module.show_heading and module.section_heading %}
+      <div class="stats__heading">
+        {{ module.section_heading|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.show_paragraph and module.section_paragraph %}
+      <div class="stats__paragraph">
+        {{ module.section_paragraph|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.items %}
+      <div class="stats__grid">
+        {% for item in module.items %}
+          <div class="stats__item">
+
+            {% if item.number %}
+              <div class="stats__number">
+                {{ item.number|escape_html }}
+              </div>
+            {% endif %}
+
+            <div class="stats__divider stats__divider--{{ item.divider_color|escape_attr }}"></div>
+
+            {% if item.description %}
+              <div class="stats__description">
+                {{ item.description|sanitize_html }}
+              </div>
+            {% endif %}
+
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if module.show_cta %}
+      {% if module.cta_settings.link_type == "cta" %}
+        {% if module.cta_settings.cta %}
+          <div class="btn-custom {{ module.cta_settings.variant|escape_attr }} stats__cta">
+            {% cta guid=module.cta_settings.cta %}
+          </div>
+        {% endif %}
+      {% else %}
+        {% set href = module.cta_settings.link.url.href %}
+        {% if href %}
+          {% if module.cta_settings.link.url.type == "EMAIL_ADDRESS" %}
+            {% set href = "mailto:" + href %}
+          {% endif %}
+          {% set rel = [] %}
+          {% if module.cta_settings.link.no_follow %}
+            {% do rel.append("nofollow") %}
+          {% endif %}
+          {% if module.cta_settings.link.open_in_new_tab %}
+            {% do rel.append("noopener") %}
+          {% endif %}
+          <div class="btn-custom {{ module.cta_settings.variant|escape_attr }} stats__cta">
+            <a
+              href="{{ href|escape_url }}"
+              {% if module.cta_settings.link.open_in_new_tab %}target="_blank"{% endif %}
+              {% if rel %}rel="{{ rel|join(" ")|escape_attr }}"{% endif %}
+            >
+              {{ module.cta_settings.text|escape_html }}
+            </a>
+          </div>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+
+  </div>
+
+</section>

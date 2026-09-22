@@ -1,0 +1,264 @@
+.grid {
+  position: relative;
+}
+
+.grid--bg-white {
+  background-color: var(--color-white);
+}
+
+.grid--bg-purple {
+  background-color: var(--color-purple);
+}
+
+.grid--bg-green {
+  background-color: var(--color-green);
+}
+
+.grid--bg-transparent {
+  background-color: transparent;
+}
+
+.grid--bg-purple_bg {
+  background-color: var(--color-purple-bg);
+}
+
+.grid__inner {
+  position: relative;
+}
+
+/* Section heading color - scoped to .grid__heading only, never grid item
+   text. Same proven pattern as Custom Cards/Features Cards (ds-system.md
+   sections 18-19), itself reapplying Bullets' original title_color pattern
+   (section 15): explicit h1-h6/p selectors alongside `:not(strong)`,
+   deliberately redundant, so the rule reliably reaches whatever tag the
+   Rich Text field outputs. */
+
+.grid--heading-black .grid__heading,
+.grid--heading-black .grid__heading :not(strong),
+.grid--heading-black .grid__heading h1,
+.grid--heading-black .grid__heading h2,
+.grid--heading-black .grid__heading h3,
+.grid--heading-black .grid__heading h4,
+.grid--heading-black .grid__heading h5,
+.grid--heading-black .grid__heading h6,
+.grid--heading-black .grid__heading p {
+  color: var(--color-black);
+}
+
+.grid--heading-purple .grid__heading,
+.grid--heading-purple .grid__heading :not(strong),
+.grid--heading-purple .grid__heading h1,
+.grid--heading-purple .grid__heading h2,
+.grid--heading-purple .grid__heading h3,
+.grid--heading-purple .grid__heading h4,
+.grid--heading-purple .grid__heading h5,
+.grid--heading-purple .grid__heading h6,
+.grid--heading-purple .grid__heading p {
+  color: var(--color-purple);
+}
+
+.grid--heading-green .grid__heading,
+.grid--heading-green .grid__heading :not(strong),
+.grid--heading-green .grid__heading h1,
+.grid--heading-green .grid__heading h2,
+.grid--heading-green .grid__heading h3,
+.grid--heading-green .grid__heading h4,
+.grid--heading-green .grid__heading h5,
+.grid--heading-green .grid__heading h6,
+.grid--heading-green .grid__heading p {
+  color: var(--color-green);
+}
+
+.grid--heading-white .grid__heading,
+.grid--heading-white .grid__heading :not(strong),
+.grid--heading-white .grid__heading h1,
+.grid--heading-white .grid__heading h2,
+.grid--heading-white .grid__heading h3,
+.grid--heading-white .grid__heading h4,
+.grid--heading-white .grid__heading h5,
+.grid--heading-white .grid__heading h6,
+.grid--heading-white .grid__heading p {
+  color: var(--color-white);
+}
+
+.grid--heading-blue .grid__heading,
+.grid--heading-blue .grid__heading :not(strong),
+.grid--heading-blue .grid__heading h1,
+.grid--heading-blue .grid__heading h2,
+.grid--heading-blue .grid__heading h3,
+.grid--heading-blue .grid__heading h4,
+.grid--heading-blue .grid__heading h5,
+.grid--heading-blue .grid__heading h6,
+.grid--heading-blue .grid__heading p {
+  color: var(--color-blue-accent);
+}
+
+.grid__heading,
+.grid__heading :not(strong) {
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+}
+
+/* The only <strong> override in this module's section heading - always
+   Purple 900 / Arial Black / 900, regardless of the selected Heading
+   color. Grid item text never gets this rule. */
+
+.grid__heading strong {
+  color: var(--color-purple);
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-weight: 900;
+}
+
+.grid__heading {
+  margin-bottom: 0.75rem;
+}
+
+.grid__paragraph {
+  margin-bottom: 2rem;
+}
+
+/* Frame - the single 2px purple border wrapping the whole grid (never the
+   outer <section>, per the brief). `overflow: hidden` both keeps the
+   frame's own sharp corners clean and safely contains the decorative
+   vector (below) so it can never cause horizontal page overflow, even
+   though the reference screenshot shows it bleeding slightly past the
+   border - a deliberate safety-over-exact-fidelity tradeoff given the
+   brief's explicit "must not create horizontal overflow" requirement. */
+
+.grid__frame {
+  border: 2px solid var(--color-purple);
+  overflow: hidden;
+  position: relative;
+}
+
+/* List - hairline dividers between items via CSS Grid's own `gap`, not
+   per-item borders with nth-child last-row/last-column logic. The grid's
+   own background shows through the 1px gap as the divider color
+   (--color-purple-lines, the theme's existing #E3DDF3 token - reused, not
+   invented); each item's own white background covers everything else, so
+   no divider color ever appears on the frame's outer edge, only between
+   items. This is column-count-agnostic by construction - it is correct
+   for 2, 3, or 4 columns (or any row of any length) with zero extra
+   logic, unlike a border+nth-child approach which would need to know the
+   current column count to decide which edges get a border. */
+
+.grid__list {
+  background-color: var(--color-purple-lines);
+  display: grid;
+  gap: 1px;
+  grid-template-columns: 1fr;
+}
+
+.grid__item {
+  background-color: var(--color-white);
+  padding: 2rem;
+  position: relative;
+}
+
+/* The item hosting the decorative vector (always the last item, so the
+   vector still reads as "bottom-right of the grid" in the module's default
+   2x2 use) gets a hard overflow boundary of its own, so the vector can
+   never bleed into a sibling item or past the page regardless of the
+   vector asset's natural size or this item's own height. */
+
+.grid__item--vector-host {
+  overflow: hidden;
+}
+
+/* Text content gets its own stacking context, explicitly above the vector
+   (below) - not just "usually doesn't overlap because of sizing". Even if
+   this item's own description is long enough to reach into the corner the
+   vector occupies, the text still paints on top and stays fully legible;
+   only the vector's own empty background area can ever be covered, never
+   the reverse. This is what actually guarantees "must never overlap or
+   cover the description text," for any amount of copy or any item height -
+   not a sizing estimate that could still fail for a longer description. */
+
+.grid__item-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Rich Text fields each carry the global h4/h6/p bottom margin - reset the
+   last child's margin inside each wrapper so this module's own
+   margin-bottom (below) is the single source of spacing between blocks,
+   not a stacked double-margin. Only `margin` is touched, never
+   font-size/weight/family. */
+
+.grid__title > :last-child,
+.grid__subtitle > :last-child,
+.grid__description > :last-child {
+  margin-bottom: 0;
+}
+
+.grid__icon {
+  align-items: center;
+  display: flex;
+  height: 40px;
+  margin-bottom: 1rem;
+  width: 40px;
+}
+
+.grid__icon-img {
+  display: block;
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.grid__icon-wrap {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.grid__icon-svg svg {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.grid__icon-wrap--purple .grid__icon-svg svg {
+  fill: var(--color-purple);
+}
+
+.grid__icon-wrap--green .grid__icon-svg svg {
+  fill: var(--color-green);
+}
+
+.grid__icon-wrap--white .grid__icon-svg svg {
+  fill: var(--color-white);
+}
+
+.grid__icon-wrap--black .grid__icon-svg svg {
+  fill: var(--color-black);
+}
+
+.grid__title {
+  margin-bottom: 0.25rem;
+}
+
+.grid__subtitle {
+  margin-bottom: 0.75rem;
+}
+
+/* Decorative vector - rendered inside the last grid item only (see
+   module.html), not spanning the whole frame, so it can never reach into a
+   different item's own box - that was the root cause of it covering
+   another item's description text (it used to be positioned relative to
+   the entire multi-row frame and was tall enough to bleed into the row
+   above). `.grid__item--vector-host`'s own overflow: hidden (above) is the
+   hard boundary against escaping this one item or the page; `z-index: 1`
+   on `.grid__item-content` (above) is what actually guarantees it can
+   never visually cover this item's own text either. Sized as a percentage
+   of the host item, not the whole frame - the same value now reads
+   smaller than before, since an item is a fraction of the frame's width. */
+
+.grid__vector {
+  bottom: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  width: 30%;
+}

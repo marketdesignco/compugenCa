@@ -1,0 +1,87 @@
+.rich-lede {
+  position: relative;
+}
+
+.rich-lede__inner {
+  position: relative;
+}
+
+.rich-lede__row {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Rail - accent, heading, takeaway. Accent values copied verbatim from
+   Hero's .hero__accent/.hero__accent--top (same gradient, same 4px/44px/
+   1.25rem dimensions) rather than refactored into a shared global class -
+   same reasoning as Custom Rich Text's own accent (ds-system.md section 16):
+   promoting it would mean editing Hero's own files, against "don't modify
+   other modules." Hero's accent CSS is untouched. */
+
+.rich-lede__accent {
+  background: linear-gradient(
+    to right,
+    #F25022 0 25%,
+    #04D976 25% 50%,
+    #00A4EF 50% 75%,
+    #FDB813 75% 100%
+  );
+  height: 4px;
+  margin-bottom: 1.25rem;
+  width: 44px;
+}
+
+.rich-lede__heading {
+  margin-bottom: 1rem;
+}
+
+/* Takeaway sentence - always Purple 900 and always bold, regardless of any
+   Bold formatting applied in the editor (unlike Bullets' heading, there is
+   no separate "normal vs Bold" split here - the whole sentence is one
+   uniform accent-styled callout). `*` reaches the actual <p> (or whatever
+   tag) inside the wrapper div, not just the wrapper itself - the wrapper's
+   own rule alone would not override the tag's own directly-matched global
+   color/weight. */
+
+.rich-lede__takeaway,
+.rich-lede__takeaway * {
+  color: var(--color-purple);
+  font-weight: 700;
+}
+
+/* Body - the running copy. Links get the theme's Green token plus a small
+   CSS-only chevron (no icon/image, matching this module's type-only
+   design) instead of the theme's default link color. List markers need no
+   module-specific rule at all - the global
+   `.hs_cos_wrapper_type_rich_text ul li::marker` rule (theme-overrides.css)
+   already colors every Rich Text field's bullets theme-wide. */
+
+.rich-lede__body a {
+  color: var(--color-purple);
+}
+
+.rich-lede__body a::after {
+  content: '\203A';
+  display: inline-block;
+  margin-left: 0.25em;
+}
+
+@media (min-width: 768px) {
+  .rich-lede__row {
+    align-items: center;
+    flex-direction: row;
+    gap: 4rem;
+  }
+
+  .rich-lede__rail {
+    flex: 0 0 45%;
+    position: sticky;
+    top: 2rem;
+  }
+
+  .rich-lede__body {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+}

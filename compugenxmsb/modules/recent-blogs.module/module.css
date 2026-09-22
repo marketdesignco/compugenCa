@@ -1,0 +1,147 @@
+.recent-blogs {
+  position: relative;
+}
+
+/* Heading - the exact same fixed treatment as the Table module's own
+   heading (ds-system.md section 29), copied verbatim per this module's
+   own explicit brief ("follow the same heading implementation/settings
+   used in the existing Table module"): normal text fixed Blue, Bold text
+   fixed Purple/Arial Black, neither tied to a color/typography choice
+   field. Same explicit h1-h6/p + `:not(strong)` redundant-selector
+   pattern used by every heading treatment in this theme. */
+
+.recent-blogs__heading,
+.recent-blogs__heading :not(strong),
+.recent-blogs__heading h1,
+.recent-blogs__heading h2,
+.recent-blogs__heading h3,
+.recent-blogs__heading h4,
+.recent-blogs__heading h5,
+.recent-blogs__heading h6,
+.recent-blogs__heading p {
+  color: var(--color-blue-accent);
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+}
+
+.recent-blogs__heading strong {
+  color: var(--color-purple);
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-weight: 900;
+}
+
+.recent-blogs__heading {
+  margin-bottom: 2rem;
+}
+
+/* Grid - mobile-first 1 column, 3 columns at desktop. This module has no
+   editor-facing Columns setting - it always shows exactly 3 posts
+   (module.html's own hard `post_limit` slice), so a fixed 3-column
+   desktop template matches the actual content count exactly, unlike
+   Custom Cards/Features Cards/Grid/Stats' own editor-configurable column
+   counts (those modules can hold a variable number of repeater items;
+   this one never holds more than 3). */
+
+.recent-blogs__grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .recent-blogs__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Card - box-shadow used verbatim as specified (an 8-digit hex-with-alpha
+   - brand Purple at ~8% opacity - not converted to rgba()), same exact
+   value and technique already established for Custom Cards/Carousel
+   Cards (ds-system.md sections 18/26). Border reuses the theme's existing
+   --color-purple-lines token, matching those same modules' card
+   treatment, not a new value. */
+
+.recent-blogs__card {
+  background-color: var(--color-white);
+  border: 1.5px solid var(--color-purple-lines);
+  box-shadow: 0px 4px 20px 0px #5103C014;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Image - fixed 85px height, full card width, object-fit: cover so it
+   crops (never stretches/distorts) to fill that space regardless of the
+   featured image's own natural proportions - same technique as Custom
+   Cards'/Carousel Cards' own card images (sections 18/26), reused here
+   for a dynamically-pulled blog featured image rather than an editable
+   image field. */
+
+.recent-blogs__image-wrap {
+  height: 145px;
+  width: 100%;
+}
+
+.recent-blogs__image-wrap img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.recent-blogs__content {
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.recent-blogs__meta {
+  align-items: center;
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+/* Tag/date - explicit 14px per the brief (an exception to this theme's
+   usual "never hardcode a font-size" rule, since 14px was given as an
+   exact, named requirement, not left to inherit). Tag reuses the existing
+   --color-purple token; date reuses the existing --color-gray token -
+   neither is a new color. */
+
+.recent-blogs__tag {
+  color: var(--color-purple);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.recent-blogs__meta-divider {
+  color: var(--color-gray);
+  font-size: 14px;
+  margin: 0 0.35em;
+}
+
+.recent-blogs__date {
+  color: var(--color-gray);
+  font-size: 14px;
+}
+
+/* Title - a real <h5> (module.html renders the post's own name directly
+   in an <h5> tag, not via a Rich Text field - the title is dynamic blog
+   content, not editor-entered text). Only `color` is overridden here,
+   never font-size/family, per the brief's explicit "do not hardcode font
+   family or font size if inherited from theme-overrides.css." Forced
+   Black rather than left to the theme's Heading 5 default (Purple),
+   since the reference screenshot always showed Black - the same
+   reasoning already applied to Carousel Cards/Strip/Events' own H5
+   titles (ds-system.md sections 26/28/30). */
+
+.recent-blogs__title {
+  color: var(--color-black);
+  margin-bottom: 0.75rem;
+}
+
+/* Link - reuses the theme's existing global Tertiary Purple text-link
+   style unchanged (ds-system.md section 3), including its global Green
+   chevron - not a new bespoke link style, matching the brief's explicit
+   "reuse the existing global link styles where applicable." */
+
+.recent-blogs__link {
+  margin-top: auto;
+}

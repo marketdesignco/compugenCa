@@ -1,0 +1,236 @@
+/* No overflow: hidden here (removed 2026-09) - the mobile arrows are
+   deliberately positioned outside this module's own normal content box
+   (bottom: -150px, see the mobile arrow rules below), and an ancestor's
+   overflow: hidden would clip them out of view entirely regardless of
+   their own explicit position. Horizontal slide-clipping (the actual
+   overflow risk a carousel has) is still handled - Slick's own core CSS
+   already sets overflow: hidden on `.slick-list` itself, scoped to just
+   the sliding track, not this whole module. */
+
+.carousel-cards {
+  position: relative;
+}
+
+.carousel-cards__carousel {
+  position: relative;
+}
+
+/* .carousel-cards__list is the element module.js calls Slick on - it
+   becomes Slick's own `.slick-slider` root once initialized, gaining a
+   further `.slick-list` > `.slick-track` (Slick's own, distinct from this
+   file's naming) > `.slick-slide` structure inside it, wrapping each
+   `.carousel-cards__card` untouched. Before Slick runs (or if it never
+   does - CDN blocked/slow), the cards render as a plain stacked block
+   list - visible and readable, not hidden pending JS, same principle as
+   this theme's other module.js files (SKILL.md section 11.1). */
+
+.carousel-cards .slick-track {
+  display: flex;
+}
+
+.carousel-cards .slick-slide {
+  height: auto;
+  padding: 0 1rem;
+}
+
+.carousel-cards .slick-list {
+  margin: 0 -1rem;
+}
+
+.carousel-cards__card {
+  background-color: var(--color-white);
+  border: 1.5px solid var(--color-purple-lines);
+  box-shadow: 0px 4px 20px 0px #5103C014;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Image - fixed 85px height, full card width, object-fit: cover so it
+   crops (never stretches/distorts) to fill that space regardless of its
+   own natural proportions. Same technique as Custom Cards' Image Card
+   (ds-system.md section 18), 85px here instead of 84px per this module's
+   own spec. */
+
+.carousel-cards__image-wrap {
+  height: 85px;
+  width: 100%;
+}
+
+.carousel-cards__image-wrap img {
+  display: block;
+  height: 85px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.carousel-cards__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  padding: 1.25rem 1.5rem;
+}
+
+/* Rich Text fields each carry the global h5/p bottom margin - reset the
+   last child's margin inside each wrapper so this module's own
+   margin-bottom (below) is the single source of spacing between blocks,
+   not a stacked double-margin. Only `margin` is touched, never
+   font-size/weight/family - the title is intentionally left to inherit
+   the theme's global Heading 5 color/typography entirely, per this
+   module's brief ("do not hardcode colors/typography unless necessary"). */
+
+.carousel-cards__title > :last-child,
+.carousel-cards__description > :last-child {
+  margin-bottom: 0;
+}
+
+/* Card title - forced Black (this theme's existing --color-black token,
+   not a new value) rather than left to inherit the theme's global
+   Heading 5 default (Purple), which the reference screenshot never
+   actually showed - confirmed and resolved a flagged open item
+   (ds-system.md section 26/27) rather than left as an inference. No new
+   color choice field was added - this is a fixed rule, per the explicit
+   instruction not to introduce one. */
+
+.carousel-cards__title,
+.carousel-cards__title :not(strong) {
+  color: var(--color-black);
+}
+
+.carousel-cards__title {
+  margin-bottom: 0.5rem;
+}
+
+.carousel-cards__description {
+  margin-bottom: 1rem;
+}
+
+/* CTA - reuses the theme's global .btn-custom system unchanged; `variant`
+   exposes the same full set of established button styles used elsewhere
+   (Custom Cards/Tabs/Plan/Stats), defaulting to the Tertiary Purple
+   text-link style shown in the reference screenshot. */
+
+.carousel-cards__cta {
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+/* Arrows - custom markup supplied to Slick's prevArrow/nextArrow options
+   (module.js), not Slick's own default icon-font theme (slick-theme.css
+   is deliberately not loaded - only slick.min.css's core layout styles
+   are).
+
+   Superseded (2026-09): arrows were previously positioned at `left: 0`/
+   `right: 0` of `.carousel-cards__list` itself, which put them flush
+   against - and therefore overlapping - the first/last card, since the
+   card row filled that entire box. Fixed by giving `.carousel-cards__
+   carousel` its own reserved side padding on desktop/tablet (below) -
+   `.carousel-cards__list` (which becomes Slick's own `.slick-slider`,
+   `position: relative` from Slick's core CSS) is then inset within that
+   padding as a normal-flow child, so `left: 0`/`right: 0` on the arrows
+   (still positioned relative to that now-inset list) lands in the
+   reserved gutter, never on top of any card - and never past
+   `.carousel-cards__carousel`'s own box either, so this can't cause
+   horizontal overflow the way pushing arrows into the page's outer
+   margin (this module's very first approach) risked. */
+
+.carousel-cards__arrow {
+  background: none;
+  border: 0;
+  color: var(--color-purple);
+  cursor: pointer;
+  font-size: 2rem;
+  line-height: 1;
+  padding: 0.5rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.carousel-cards__arrow:focus-visible {
+  outline: 2px solid var(--color-focus-marker);
+  outline-offset: 2px;
+}
+
+.carousel-cards__arrow--prev {
+  left: 0;
+}
+
+.carousel-cards__arrow--next {
+  right: 0;
+}
+.carousel-cards__arrow:hover{
+  background:none!important;
+}
+
+@media (min-width: 768px) {
+  /* `.carousel-cards__list` itself sits flush at 0/0 within the gutter
+     `.carousel-cards__carousel`'s own padding reserves (below) - a plain
+     `left: 0`/`right: 0` (above) would still put the arrow at the list's
+     own edge, overlapping the first/last card. A negative offset the
+     same width as that gutter is what actually pushes the arrow out of
+     the list's box and into the reserved space instead, landing inside
+     `.carousel-cards__carousel`'s own bounds, never past it. */
+
+  .carousel-cards__arrow--prev {
+    left: -56px;
+  }
+
+  .carousel-cards__arrow--next {
+    right: -56px;
+  }
+}
+
+.carousel-cards .slick-disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+@media (min-width: 768px) {
+  /* The reserved gutter that keeps the arrows outside the card row - see
+     the note on .carousel-cards__arrow above. 56px comfortably fits the
+     arrow's own click target with visible breathing room on each side,
+     satisfying "enough spacing so the cards remain fully visible and
+     unobstructed" without relying on space outside this module's own
+     box. */
+
+  .carousel-cards__carousel {
+    padding: 0 56px;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Mobile (2026-09 - supersedes the earlier in-flow/flex-wrap approach):
+     arrows use position: absolute, `bottom: -150px` exactly as specified,
+     sitting as a centered pair well below the card row rather than
+     immediately beneath it. They resolve against `.carousel-cards__list`
+     (Slick's own `.slick-slider` root, `position: relative` from Slick's
+     core CSS) rather than `.carousel-cards__carousel` directly, since
+     overriding Slick's own positioned element would risk its internal
+     layout - the two are the same width/edges at this breakpoint (no
+     side padding is added to `.carousel-cards__carousel` below 768px),
+     so the visible result matches "the carousel/module container" either
+     way. Horizontal centering as one group (not each arrow centered on
+     its own) uses `left: 50%` on both, then `transform: translateX()`
+     shifts each one half the gap in the opposite direction - the
+     standard technique for centering a pair of absolutely positioned
+     siblings around one shared midpoint, so the spacing between them
+     stays exactly the same as the module's own overall width changes. */
+
+  .carousel-cards__arrow {
+    bottom: -50px;
+    left: 35%;
+    position: absolute;
+    top: auto;
+  }
+
+  .carousel-cards__arrow--prev {
+    transform: translateX(calc(-100% - 6px));
+  }
+
+  .carousel-cards__arrow--next {
+    transform: translateX(6px);
+  }
+}
