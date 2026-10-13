@@ -1,0 +1,234 @@
+[
+  {
+    "id": "title",
+    "name": "title",
+    "label": "Title",
+    "help_text": "Mantener como Heading 3. El texto en negrita (strong) se muestra con el acento de color/gradiente.",
+    "required": false,
+    "locked": false,
+    "enabled_features": [ "standard_emphasis", "block" ],
+    "type": "richtext",
+    "display_width": null,
+    "default": "<h3>Add-Ons: Extend Your Reach</h3>"
+  },
+  {
+    "id": "intro",
+    "name": "intro",
+    "label": "Intro",
+    "help_text": "Texto de apoyo bajo el título (navy, estilo Body). Ancho máximo ~600px: el salto de línea lo da el ancho, no uses saltos manuales.",
+    "required": false,
+    "locked": false,
+    "enabled_features": [ "standard_emphasis", "block", "lists", "link" ],
+    "type": "richtext",
+    "display_width": null,
+    "default": "<p>Pair any package with high-traffic moments that keep your brand in mind and in conversation.</p>"
+  },
+  {
+    "id": "items",
+    "name": "items",
+    "label": "Add-on cards",
+    "help_text": "Una card por add-on. Grid de 3 columnas en desktop, 2 en tablet (1024px o menos) y 1 en mobile (767px o menos).",
+    "required": false,
+    "locked": false,
+    "occurrence": {
+      "min": 1,
+      "max": 6,
+      "sorting_label_field": "items.title",
+      "default": 6
+    },
+    "children": [
+      {
+        "id": "items.title",
+        "name": "title",
+        "label": "Title",
+        "help_text": "Nombre del add-on. Texto en negrita navy (no es un encabezado).",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": ""
+      },
+      {
+        "id": "items.description",
+        "name": "description",
+        "label": "Description",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": ""
+      },
+      {
+        "id": "items.price",
+        "name": "price",
+        "label": "Price",
+        "help_text": "Se muestra al pie de la card, en negrita navy. Ej.: \"$3,000 Investment\".",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": ""
+      },
+      {
+        "id": "items.cta",
+        "name": "cta",
+        "label": "CTA (optional)",
+        "help_text": "HubSpot CTA opcional (se configura en Marketing > CTAs). El Figma no muestra CTA en estas cards: déjalo vacío y no se renderiza nada.",
+        "required": false,
+        "locked": false,
+        "type": "cta",
+        "display_width": null,
+        "default": null
+      },
+      {
+        "id": "items.cta_style",
+        "name": "cta_style",
+        "label": "CTA style",
+        "help_text": "Aplica a CTAs legacy. Los CTAs actuales conservan el diseño configurado en HubSpot.",
+        "required": true,
+        "locked": false,
+        "display": "select",
+        "choices": [ [ "btn-primary-green", "Green" ], [ "btn-primary-navy", "Navy" ] ],
+        "multiple": false,
+        "reordering_enabled": true,
+        "preset": null,
+        "type": "choice",
+        "display_width": null,
+        "default": "btn-primary-navy"
+      }
+    ],
+    "tab": "CONTENT",
+    "expanded": true,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null,
+    "default": [
+      {
+        "title": "Lounge Bar Sponsor",
+        "description": "Host the bar where the best evening conversations happen, with your logo on signage.",
+        "price": "$3,000 Investment",
+        "cta_style": "btn-primary-navy"
+      },
+      {
+        "title": "Tote Sponsor",
+        "description": "Your logo on the tote every attendee receives at check-in and keeps to carry well beyond the event.",
+        "price": "$3,000 Investment",
+        "cta_style": "btn-primary-navy"
+      },
+      {
+        "title": "First Sip Sponsor",
+        "description": "Fuel the morning. Your brand is the first thing sellers see as each day begins at coffee stations.",
+        "price": "$1,500 Investment",
+        "cta_style": "btn-primary-navy"
+      },
+      {
+        "title": "Food Station Sponsor",
+        "description": "Branded signage where attendees naturally gather, an easy place to start a conversation.",
+        "price": "$1,000 Investment per station",
+        "cta_style": "btn-primary-navy"
+      },
+      {
+        "title": "Lanyards",
+        "description": "Your logo on every name badge lanyard, present in every session, photo, and conversation.",
+        "price": "$1,000 Investment",
+        "cta_style": "btn-primary-navy"
+      },
+      {
+        "title": "Charging Station",
+        "description": "Keep everyone powered up. Attendees return all day, giving your team built-in time to engage and start a new conversation.",
+        "price": "$4,000 Investment",
+        "cta_style": "btn-primary-navy"
+      }
+    ]
+  },
+  {
+    "id": "anchor_id",
+    "name": "anchor_id",
+    "label": "Anchor ID",
+    "help_text": "Opcional. ID de la sección para enlazar desde un CTA (ej. \"add-ons\" para #add-ons). Sin # ni espacios. Vacío = sin id.",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "type": "text",
+    "display_width": null,
+    "default": ""
+  },
+  {
+    "id": "styles",
+    "name": "styles",
+    "label": "Styles",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "id": "styles.spacing_desktop",
+        "name": "spacing_desktop",
+        "label": "Desktop spacing",
+        "help_text": "Padding superior/inferior en desktop. Izquierda/derecha ocultos: el espaciado horizontal lo da .content-wrapper.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 104, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 104, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.spacing_mobile",
+        "name": "spacing_mobile",
+        "label": "Mobile spacing",
+        "help_text": "Padding superior/inferior en mobile (max-width: 767px), independiente del valor de desktop.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 40, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 40, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.show_icons",
+        "name": "show_icons",
+        "label": "Show \"+\" icons",
+        "help_text": "Muestra el círculo decorativo con el signo + arriba a la derecha de cada card.",
+        "required": false,
+        "locked": false,
+        "display": "checkbox",
+        "type": "boolean",
+        "display_width": null,
+        "default": true,
+        "tab": "STYLE"
+      }
+    ],
+    "tab": "STYLE",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  }
+]

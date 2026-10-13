@@ -1,0 +1,235 @@
+/*
+  Benefits (Add-Ons: Extend Your Reach) - Partner Sponsorship 2027 landing.
+  Tokens come from css/templates/sponsorship-landing.css.
+  Figma: Onahau section, H3 title + intro, 3-column grid of white add-on cards
+  (title + "+" icon, description, price at the bottom).
+*/
+
+.benefits {
+  background-color: var(--color-onahau);
+  position: relative;
+}
+
+/* Header ------------------------------------------------------------------ */
+
+.benefits__header {
+  margin-bottom: 3rem;
+}
+
+.benefits__title h3 {
+  color: var(--color-port-gore);
+  font-size: var(--type-h3-size);
+  font-weight: var(--weight-black);
+  line-height: var(--type-h3-lh);
+  margin: 0;
+}
+
+/* Accent: as in the Figma, the gradient spans the whole title box and each
+   <strong> shows its own slice of it. The heading paints the gradient as
+   clipped text under its navy fill; <strong> drops the fill. */
+.benefits__title > * {
+  background-image: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: var(--color-port-gore);
+}
+
+.benefits__title strong {
+  font-weight: inherit;
+  -webkit-text-fill-color: transparent;
+}
+
+.benefits__intro {
+  color: var(--color-port-gore);
+  font-size: var(--type-body-size);
+  font-weight: var(--weight-regular);
+  line-height: var(--type-body-lh);
+  margin-top: 0.75rem;
+  max-width: 600px;
+}
+
+.benefits__intro p,
+.benefits__intro ul,
+.benefits__intro ol {
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0 0 0.75rem;
+}
+
+.benefits__intro > :last-child {
+  margin-bottom: 0;
+}
+
+.benefits__intro a {
+  color: var(--color-purple-brand);
+  text-decoration: underline;
+}
+
+.benefits__intro ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.benefits__intro ul li {
+  padding-left: 18px;
+  position: relative;
+}
+
+.benefits__intro ul li::before {
+  background-color: var(--color-port-gore);
+  border-radius: 50%;
+  content: "";
+  height: 6px;
+  left: 2px;
+  position: absolute;
+  top: calc(var(--type-body-lh) / 2 - 3px);
+  width: 6px;
+}
+
+/* Grid -------------------------------------------------------------------- */
+
+.benefits__grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Card -------------------------------------------------------------------- */
+
+.benefits__card {
+  background-color: var(--color-neutral-white);
+  border-radius: 12px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 28px; /* Figma: ~28px between title row, description and price */
+  height: 100%;
+  margin: 0;
+  min-width: 0;
+  padding: 24px;
+}
+
+.benefits__item-head {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+}
+
+/* The add-on title is bold body text, not a heading style. */
+.benefits__item-title {
+  color: var(--color-port-gore);
+  font-size: var(--type-body-size);
+  font-weight: var(--weight-heavy);
+  line-height: var(--type-body-lh);
+  margin: 0;
+  min-width: 0;
+}
+
+/* Decorative "+" in an Onahau circle, drawn in CSS (aria-hidden in markup) */
+.benefits__item-icon {
+  background-color: var(--color-onahau);
+  border-radius: 50%;
+  flex: 0 0 36px;
+  height: 36px;
+  margin-left: auto;
+  position: relative;
+  width: 36px;
+}
+
+.benefits__item-icon::before,
+.benefits__item-icon::after {
+  background-color: var(--color-port-gore);
+  border-radius: 1px;
+  content: "";
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+}
+
+.benefits__item-icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+/* Figma uses auto spacing: the description sits centered between the title
+   row and the price, and the price is pinned to the bottom of the card so
+   prices line up across each row. */
+/* Figma: Body style (18/23) */
+.benefits__item-description {
+  color: var(--color-neutral-gray);
+  font-size: var(--type-body-size);
+  font-weight: var(--weight-regular);
+  line-height: var(--type-body-lh);
+  margin: auto 0;
+}
+
+.benefits__item-footer {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+.benefits__item-description + .benefits__item-footer {
+  margin-top: 0;
+}
+
+/* Figma: 18px black */
+.benefits__item-price {
+  color: var(--color-port-gore);
+  font-size: var(--type-body-size);
+  font-weight: var(--weight-black);
+  line-height: var(--type-body-lh);
+  margin: 0;
+}
+
+.benefits__cta {
+  margin: 0;
+}
+
+/* Tablet ------------------------------------------------------------------ */
+
+@media (max-width: 1024px) {
+  .benefits__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobile ------------------------------------------------------------------ */
+
+@media (max-width: 767px) {
+  .benefits__header {
+    margin-bottom: 2rem;
+  }
+
+  .benefits__grid {
+    gap: 1rem;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .benefits__item-description {
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .benefits__item-footer {
+    align-items: stretch;
+  }
+
+  /* Full-width CTA: the theme sets `.btn-custom a { width: 100% }` on mobile,
+     the wrappers need to be full width too for that to take effect. */
+  .benefits__cta,
+  .benefits__cta.btn-custom .hs-cta-wrapper,
+  .benefits__cta.btn-custom .hs-cta-node {
+    display: block;
+    width: 100%;
+  }
+}

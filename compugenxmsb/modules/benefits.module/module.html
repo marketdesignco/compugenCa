@@ -1,0 +1,83 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .benefits {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .benefits {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<section
+  class="benefits"
+  {% if module.anchor_id %}id="{{ module.anchor_id|escape_attr }}"{% endif %}
+>
+  <div class="benefits__inner content-wrapper">
+
+    {% if module.title or module.intro %}
+      <div class="benefits__header">
+
+        {% if module.title %}
+          <div class="benefits__title">
+            {{ module.title|sanitize_html }}
+          </div>
+        {% endif %}
+
+        {% if module.intro %}
+          <div class="benefits__intro">
+            {{ module.intro|sanitize_html }}
+          </div>
+        {% endif %}
+
+      </div>
+    {% endif %}
+
+    {% if module.items %}
+      <ul class="benefits__grid" role="list">
+        {% for item in module.items %}
+          <li class="benefits__card">
+
+            {% if item.title or module.styles.show_icons %}
+              <div class="benefits__item-head">
+                {% if item.title %}
+                  <p class="benefits__item-title">{{ item.title|escape_html }}</p>
+                {% endif %}
+                {% if module.styles.show_icons %}
+                  <span class="benefits__item-icon" aria-hidden="true"></span>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% if item.description %}
+              <p class="benefits__item-description">{{ item.description|escape_html }}</p>
+            {% endif %}
+
+            {% if item.price or item.cta %}
+              <div class="benefits__item-footer">
+                {% if item.price %}
+                  <p class="benefits__item-price">{{ item.price|escape_html }}</p>
+                {% endif %}
+                {% if item.cta %}
+                  {% set benefit_cta_markup %}
+                    {% cta guid="{{ item.cta }}" %}
+                  {% endset %}
+                  <div class="benefits__cta{% if not (benefit_cta_markup is string_containing "hs-cta-embed") %} btn-custom {{ item.cta_style|escape_attr }}{% endif %}">
+                    {{ benefit_cta_markup }}
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+  </div>
+</section>
