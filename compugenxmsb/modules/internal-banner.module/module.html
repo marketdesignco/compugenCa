@@ -1,0 +1,141 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .internal-banner {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .internal-banner {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+{# An empty Image field falls back to Compugen's hosted Toronto skyline asset. #}
+{% set image_src = module.image.src %}
+{% set image_alt = module.image.alt %}
+{% set image_width = module.image.width %}
+{% set image_height = module.image.height %}
+{% if not image_src %}
+  {% set image_src = "https://compugen.com/hubfs/Toronto%20Skyline.png" %}
+  {% set image_alt = "Toronto skyline" %}
+  {% set image_width = 1000 %}
+  {% set image_height = 500 %}
+{% endif %}
+
+<section
+  class="internal-banner{% if module.styles.show_decorations %} internal-banner--decorated{% endif %}"
+  {% if module.anchor_id %}id="{{ module.anchor_id|escape_attr }}"{% endif %}
+>
+
+  {% if module.styles.show_decorations %}
+    <img
+      class="internal-banner__ring"
+      src="https://compugen.com/hubfs/2023%20NEW%20Compugen%20Brand%20Graphic%20Elements/graphic-o-gradient-green%20to%20purple-full%20circle.png"
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      width="333"
+      height="321"
+    >
+  {% endif %}
+
+  <div class="internal-banner__inner content-wrapper">
+    <div class="internal-banner__row">
+
+      <div class="internal-banner__content">
+
+        {% if module.eyebrow %}
+          <p class="internal-banner__eyebrow">{{ module.eyebrow|escape_html }}</p>
+        {% endif %}
+
+        {% if module.title %}
+          <div class="internal-banner__title">
+            {{ module.title|sanitize_html }}
+          </div>
+        {% endif %}
+
+        {% if module.description %}
+          <div class="internal-banner__description">
+            {{ module.description|sanitize_html }}
+          </div>
+        {% endif %}
+
+        {% if module.pills %}
+          <ul class="internal-banner__pills" role="list">
+            {% for pill in module.pills %}
+              {% if pill.text %}
+                {% set pill_href = pill.link.href %}
+                <li class="internal-banner__pill-item">
+                  {% if pill_href %}
+                    {#
+                      External/file URLs open in a new tab; links to HubSpot
+                      pages (type CONTENT) and in-page anchors stay in this tab.
+                    #}
+                    {% set pill_new_tab = false %}
+                    {% if pill.link.type != "CONTENT" and pill_href is string_startingwith "http" %}
+                      {% set pill_new_tab = true %}
+                    {% endif %}
+                    <a
+                      class="internal-banner__pill internal-banner__pill--link"
+                      href="{{ pill_href|escape_url }}"
+                      {% if pill_new_tab %}target="_blank" rel="noopener"{% endif %}
+                    >
+                      <span class="internal-banner__pill-text">{{ pill.text|escape_html }}</span>
+                      {% if pill_new_tab %}
+                        <span class="internal-banner__sr-only"> (opens in a new tab)</span>
+                      {% endif %}
+                    </a>
+                  {% else %}
+                    <span class="internal-banner__pill">
+                      <span class="internal-banner__pill-text">{{ pill.text|escape_html }}</span>
+                    </span>
+                  {% endif %}
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        {% if module.cta %}
+          {% set banner_cta_markup %}
+            {% cta guid="{{ module.cta }}" %}
+          {% endset %}
+          <div class="internal-banner__cta{% if not (banner_cta_markup is string_containing "hs-cta-embed") %} btn-custom {{ module.cta_style|escape_attr }}{% endif %}">
+            {{ banner_cta_markup }}
+          </div>
+        {% endif %}
+
+      </div>
+
+      <div class="internal-banner__media">
+        <div class="internal-banner__frame">
+          <img
+            class="internal-banner__image"
+            src="{{ image_src|escape_url }}"
+            alt="{{ image_alt|escape_attr }}"
+            {% if image_width and image_height %}width="{{ image_width|escape_attr }}" height="{{ image_height|escape_attr }}"{% endif %}
+            loading="eager"
+          >
+        </div>
+
+        {% if module.styles.show_decorations %}
+          <img
+            class="internal-banner__slashes"
+            src="https://compugen.com/hubfs/2023%20NEW%20Compugen%20Brand%20Graphic%20Elements/graphic-e-green-%20opacity100.png"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            width="573"
+            height="1261"
+          >
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+
+</section>

@@ -1,0 +1,360 @@
+/*
+  Internal Banner - Partner Sponsorship 2027 landing, module 1 (page H1).
+
+  Tokens (colors, gradients, type scale, shadows) come from
+  css/templates/sponsorship-landing.css. CTA look comes from the theme's
+  .btn-custom system - only layout is set here.
+  Breakpoints: tablet (max-width: 1024px), mobile (max-width: 767px).
+*/
+
+.internal-banner {
+  background: var(--gradient-hero);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Decorative ring - bottom-left of the section, clipped by overflow */
+
+.internal-banner__ring {
+  bottom: -360px;
+  height: auto;
+  left: -140px;
+  max-width: none;
+  opacity: 0.55;
+  pointer-events: none;
+  position: absolute;
+  width: 620px;
+  z-index: 0;
+}
+
+.internal-banner__inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* Two columns: text ~52% / image ~48% (Figma: 607px / 571px at 1240px) */
+
+.internal-banner__row {
+  align-items: center;
+  display: grid;
+  gap: 4rem;
+  grid-template-columns: minmax(0, 52fr) minmax(0, 48fr);
+}
+
+.internal-banner__content {
+  min-width: 0;
+}
+
+/* Eyebrow - Caribbean Green, heavy, no forced uppercase. Measured in the
+   Figma at 22px (H6 size), not the 19px Subtitle size. */
+
+.internal-banner__eyebrow {
+  color: var(--color-caribbean-green);
+  font-family: var(--font-avenir);
+  font-size: var(--type-h6-size);
+  font-weight: var(--weight-heavy);
+  line-height: var(--type-h6-lh);
+  margin: 0 0 1.25rem;
+  text-transform: none;
+}
+
+/* Title - H1, white; <strong> = light gradient text. max-width reproduces
+   the Figma line breaks (Connect With / the Sales Team / Powering / ...). */
+
+.internal-banner__title {
+  max-width: 560px;
+}
+
+.internal-banner__title > * {
+  margin: 0;
+}
+
+.internal-banner__title h1 {
+  color: var(--color-neutral-white);
+  font-size: var(--type-h1-size);
+  font-weight: var(--weight-black);
+  line-height: var(--type-h1-lh);
+}
+
+/* Accent: as in the Figma, the gradient spans the whole title box and each
+   <strong> line shows its own slice of it (not a full gradient per line).
+   The heading paints the gradient as clipped text under its own white fill;
+   <strong> drops the fill so the gradient shows through. */
+.internal-banner__title > * {
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: var(--gradient-text-light);
+  -webkit-text-fill-color: var(--color-neutral-white);
+}
+
+.internal-banner__title strong {
+  font-weight: inherit;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Description - Body, Onahau */
+
+.internal-banner__description {
+  margin-top: 1.25rem;
+  max-width: 530px;
+}
+
+.internal-banner__description p,
+.internal-banner__description li {
+  color: var(--color-onahau);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-lh);
+}
+
+.internal-banner__description p,
+.internal-banner__description ul,
+.internal-banner__description ol {
+  margin: 0 0 1rem;
+}
+
+.internal-banner__description > :last-child {
+  margin-bottom: 0;
+}
+
+.internal-banner__description strong {
+  color: var(--color-neutral-white);
+}
+
+.internal-banner__description a {
+  color: var(--color-caribbean-green);
+  text-decoration: underline;
+}
+
+.internal-banner__description a:hover,
+.internal-banner__description a:focus {
+  color: var(--color-neutral-white);
+}
+
+.internal-banner__description ul {
+  list-style: none;
+  padding: 0;
+}
+
+.internal-banner__description ul li {
+  padding-left: 18px;
+  position: relative;
+}
+
+.internal-banner__description ul li::before {
+  background: var(--color-caribbean-green);
+  border-radius: 50%;
+  content: "";
+  height: 6px;
+  left: 0;
+  position: absolute;
+  top: calc((var(--type-body-lh) - 6px) / 2);
+  width: 6px;
+}
+
+/* Pills - event facts, not buttons. Stacked, each hugging its text.
+   Figma text is 22px heavy (H6 size); pill height 52px. */
+
+.internal-banner__pills {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+}
+
+.internal-banner__pill-item {
+  margin: 0;
+  max-width: 100%;
+  padding: 0;
+}
+
+.internal-banner__pill {
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(204, 232, 255, 0.3);
+  border-radius: 100px;
+  box-sizing: border-box;
+  color: var(--color-neutral-white);
+  display: inline-flex;
+  gap: 10px;
+  max-width: 100%;
+  padding: 12px 20px;
+  text-decoration: none;
+}
+
+/* Outrank the theme's a:hover/a:focus/a:active font declarations so linked
+   event facts retain the same typography and line breaks in every state. */
+.internal-banner .internal-banner__pill {
+  font-family: var(--font-avenir);
+  font-size: var(--type-h6-size);
+  font-style: normal;
+  font-weight: var(--weight-heavy);
+  letter-spacing: normal;
+  line-height: var(--type-h6-lh);
+  text-transform: none;
+}
+
+/* Green dot, aligned with the first line when the text wraps */
+
+.internal-banner__pill::before {
+  background: var(--color-caribbean-green);
+  border-radius: 50%;
+  content: "";
+  flex: 0 0 8px;
+  height: 8px;
+  margin-top: calc((var(--type-h6-lh) - 8px) / 2);
+  width: 8px;
+}
+
+.internal-banner__pill-text {
+  min-width: 0;
+}
+
+.internal-banner__pill--link {
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.internal-banner__pill--link:hover,
+.internal-banner__pill--link:focus,
+.internal-banner__pill--link:active {
+  border-color: var(--color-caribbean-green);
+  color: var(--color-caribbean-green);
+  text-decoration: none;
+}
+
+.internal-banner__pill--link:focus-visible {
+  outline: 2px solid var(--color-caribbean-green);
+  outline-offset: 3px;
+}
+
+.internal-banner__sr-only {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+/* CTA - layout only */
+
+.internal-banner__cta {
+  margin-top: 2.25rem;
+}
+
+/* Image - D-shaped frame (straight left edge, semicircle right) */
+
+.internal-banner__media {
+  min-width: 0;
+  position: relative;
+}
+
+.internal-banner__frame {
+  border-radius: 0 220px 220px 0;
+  box-shadow: var(--shadow-float);
+  height: 440px;
+  overflow: hidden;
+  position: relative;
+}
+
+.internal-banner__frame::after {
+  background: linear-gradient(90deg, rgba(81, 3, 192, 0.55), rgba(4, 217, 118, 0) 70%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.internal-banner__image {
+  display: block;
+  height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
+
+/* Green slashes - overlap the frame's bottom-left corner and stick out */
+
+.internal-banner__slashes {
+  bottom: -30px;
+  height: auto;
+  left: -38px;
+  max-width: none;
+  pointer-events: none;
+  position: absolute;
+  width: 180px;
+  z-index: 1;
+}
+
+/* Tablet - one column, image below the CTA */
+
+@media (max-width: 1024px) {
+  .internal-banner__row {
+    gap: 3rem;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .internal-banner__media {
+    max-width: 571px;
+  }
+
+  .internal-banner--decorated .internal-banner__media {
+    margin-left: 38px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+  .internal-banner__ring {
+    bottom: -90px;
+    left: -170px;
+    width: 440px;
+  }
+
+  .internal-banner__pills {
+    align-items: stretch;
+  }
+
+  .internal-banner__pill {
+    border-radius: 24px;
+    display: flex;
+    width: 100%;
+  }
+
+  /* CTA: full width on mobile comes from the shared sponsorship-landing.css */
+
+  .internal-banner__media {
+    max-width: none;
+  }
+
+  .internal-banner__frame {
+    border-radius: 0 110px 110px 0;
+    height: 220px;
+  }
+
+  .internal-banner--decorated .internal-banner__media {
+    margin-bottom: 4rem;
+    margin-left: 26px;
+  }
+
+  /* Figma mobile: slashes stick out ~63px below the image, ~41px above the
+     section bottom (image bottom to section bottom = 4rem + 48px padding) */
+  .internal-banner__slashes {
+    bottom: -63px;
+    left: -26px;
+    width: 110px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .internal-banner__pill--link {
+    transition: none;
+  }
+}

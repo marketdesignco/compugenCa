@@ -1,0 +1,239 @@
+[
+  {
+    "id": "eyebrow",
+    "name": "eyebrow",
+    "label": "Eyebrow",
+    "help_text": "Texto corto sobre el título (verde, heavy, 22px como en el Figma). Se muestra tal cual se escribe, sin mayúsculas forzadas.",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "show_emoji_picker": false,
+    "type": "text",
+    "display_width": null,
+    "default": "Partner Sponsorship · Customer Growth + Expand 2027"
+  },
+  {
+    "id": "title",
+    "name": "title",
+    "label": "Title",
+    "help_text": "Mantener como Heading 1. El texto en negrita (strong) se muestra con el acento de color/gradiente.",
+    "required": true,
+    "locked": false,
+    "enabled_features": [ "standard_emphasis", "block" ],
+    "type": "richtext",
+    "display_width": null,
+    "default": "<h1>Connect With the Sales Team Powering <strong>Compugen’s Growth</strong></h1>"
+  },
+  {
+    "id": "description",
+    "name": "description",
+    "label": "Description",
+    "help_text": "Párrafo de apoyo bajo el título (color Onahau, estilo Body).",
+    "required": false,
+    "locked": false,
+    "enabled_features": [ "standard_emphasis", "block", "lists", "link" ],
+    "type": "richtext",
+    "display_width": null,
+    "default": "<p>Two days with the sellers, practice leads, and executives who bring your technology to organizations across Canada. Show up as a partner and leave with a pipeline.</p>"
+  },
+  {
+    "id": "pills",
+    "name": "pills",
+    "label": "Pills",
+    "help_text": "Datos clave del evento (fecha, lugar), máximo 4. Un pill no es un botón: si tiene enlace se muestra como link discreto con hover verde.",
+    "required": false,
+    "locked": false,
+    "occurrence": {
+      "min": 0,
+      "max": 4,
+      "sorting_label_field": "pills.text",
+      "default": 2
+    },
+    "children": [
+      {
+        "id": "pills.text",
+        "name": "text",
+        "label": "Text",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "show_emoji_picker": false,
+        "type": "text",
+        "display_width": null,
+        "default": ""
+      },
+      {
+        "id": "pills.link",
+        "name": "link",
+        "label": "Link (optional)",
+        "help_text": "Opcional. Déjalo vacío para un pill solo informativo. Las URLs externas abren en una pestaña nueva.",
+        "required": false,
+        "locked": false,
+        "supported_types": [ "EXTERNAL", "CONTENT", "FILE" ],
+        "type": "url",
+        "display_width": null,
+        "default": {
+          "content_id": null,
+          "href": "",
+          "type": "EXTERNAL"
+        }
+      }
+    ],
+    "tab": "CONTENT",
+    "expanded": true,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null,
+    "default": [
+      {
+        "text": "January 19–20, 2027",
+        "link": {
+          "content_id": null,
+          "href": "",
+          "type": "EXTERNAL"
+        }
+      },
+      {
+        "text": "Hilton Toronto/Markham Suites Conference Centre",
+        "link": {
+          "content_id": null,
+          "href": "https://www.google.com/maps/search/Hilton+Toronto+Markham+Suites+Conference+Centre",
+          "type": "EXTERNAL"
+        }
+      }
+    ]
+  },
+  {
+    "id": "cta",
+    "name": "cta",
+    "label": "CTA",
+    "help_text": "HubSpot CTA (se configura en Marketing > CTAs). Texto sugerido: \"Secure your sponsorship now\" (enlaza a #packages).",
+    "required": false,
+    "locked": false,
+    "type": "cta",
+    "display_width": null,
+    "default": null
+  },
+  {
+    "id": "cta_style",
+    "name": "cta_style",
+    "label": "CTA style",
+    "help_text": "Aplica a CTAs legacy. Los CTAs actuales conservan el diseño configurado en HubSpot.",
+    "required": true,
+    "locked": false,
+    "display": "select",
+    "choices": [ [ "btn-primary-green", "Green" ], [ "btn-primary-navy", "Navy" ] ],
+    "multiple": false,
+    "reordering_enabled": true,
+    "preset": null,
+    "type": "choice",
+    "display_width": null,
+    "default": "btn-primary-green"
+  },
+  {
+    "id": "image",
+    "name": "image",
+    "label": "Image",
+    "help_text": "Imagen de la columna derecha, recortada en forma de D (object-fit: cover, centrada). Si se deja vacía se usa toronto-skyline.png del theme. Recomendado: horizontal, mínimo 1000×500 px. Completa siempre el texto alternativo.",
+    "required": false,
+    "locked": false,
+    "responsive": false,
+    "resizable": false,
+    "show_loading": false,
+    "type": "image",
+    "display_width": null,
+    "default": {
+      "src": "",
+      "alt": "Toronto skyline",
+      "loading": "eager"
+    }
+  },
+  {
+    "id": "anchor_id",
+    "name": "anchor_id",
+    "label": "Anchor ID",
+    "help_text": "Opcional. ID de ancla de la sección (sin #) para enlazarla desde un CTA o menú.",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "show_emoji_picker": false,
+    "type": "text",
+    "display_width": null,
+    "default": ""
+  },
+  {
+    "id": "styles",
+    "name": "styles",
+    "label": "Styles",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "id": "styles.spacing_desktop",
+        "name": "spacing_desktop",
+        "label": "Desktop spacing",
+        "help_text": "Padding superior/inferior en desktop. Izquierda/derecha ocultos: el espaciado horizontal lo da .content-wrapper.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 92, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 92, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.spacing_mobile",
+        "name": "spacing_mobile",
+        "label": "Mobile spacing",
+        "help_text": "Padding superior/inferior en mobile (max-width: 767px), independiente del valor de desktop.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 40, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 48, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.show_decorations",
+        "name": "show_decorations",
+        "label": "Show decorations",
+        "help_text": "Franjas verdes superpuestas a la imagen y anillo degradado abajo a la izquierda de la sección.",
+        "required": false,
+        "locked": false,
+        "display": "checkbox",
+        "type": "boolean",
+        "display_width": null,
+        "default": true,
+        "tab": "STYLE"
+      }
+    ],
+    "tab": "STYLE",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  }
+]
