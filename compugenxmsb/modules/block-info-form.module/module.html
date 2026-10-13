@@ -1,0 +1,80 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .block-info-form {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .block-info-form {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+{% set has_form = module.form.form_id %}
+
+<section
+  class="block-info-form{% if not has_form and module.styles.show_decorations %} block-info-form--without-form{% endif %}"
+  {% if module.anchor_id %}id="{{ module.anchor_id|escape_attr }}"{% endif %}
+>
+
+  {% if module.styles.show_decorations %}
+    <img
+      class="block-info-form__shape"
+      src="https://compugen.com/hubfs/2023%20NEW%20Compugen%20Brand%20Graphic%20Elements/graphic-d-graident-bright%20blue%20to%20greenpurple.png"
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      width="1908"
+      height="1614"
+    >
+  {% endif %}
+
+  <div class="block-info-form__inner content-wrapper">
+    <div class="block-info-form__row">
+
+      <div class="block-info-form__content">
+
+        {% if module.eyebrow %}
+          <h6 class="block-info-form__eyebrow">{{ module.eyebrow|escape_html }}</h6>
+        {% endif %}
+
+        {% if module.title %}
+          <div class="block-info-form__title">
+            {{ module.title|sanitize_html }}
+          </div>
+        {% endif %}
+
+        {% if module.details %}
+          <div class="block-info-form__details">
+            {{ module.details|sanitize_html }}
+          </div>
+        {% endif %}
+
+      </div>
+
+      {% if has_form %}
+        <div class="block-info-form__form-card">
+          {% form
+            form_to_use="{{ module.form.form_id }}"
+            response_response_type="{{ module.form.response_type }}"
+            response_message="{{ module.form.message }}"
+            response_redirect_id="{{ module.form.redirect_id }}"
+            response_redirect_url="{{ module.form.redirect_url }}"
+            gotowebinar_webinar_key="{{ module.form.gotowebinar_webinar_key }}"
+          %}
+        </div>
+      {% elif is_in_editor %}
+        {# Editor-only placeholder: on the live page the card is not rendered until a form is selected. #}
+        <div class="block-info-form__form-card block-info-form__form-card--placeholder">
+          <p class="block-info-form__placeholder">Selecciona el formulario de HubSpot en el panel del módulo (lo conecta el equipo de Danielle Muench).</p>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+</section>

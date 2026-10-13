@@ -1,0 +1,584 @@
+/*
+  Block Info Form - "Register / Reserve Your Place in the 2027 Planning."
+  Partner Sponsorship 2027 landing, module 6.
+  Tokens come from css/templates/sponsorship-landing.css.
+*/
+
+/* Section ------------------------------------------------------------------ */
+
+.block-info-form {
+  background-color: var(--color-port-gore);
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Preserve the Figma composition while the form is still unselected. The
+   selected HubSpot form controls the section's natural height once connected. */
+.block-info-form--without-form {
+  min-height: 800px;
+}
+
+/* Decorative D artwork - the PNG has transparent canvas around the colored
+   shape, so offset the canvas to align the visible D to the lower-left edge. */
+.block-info-form__shape {
+  bottom: -105px;
+  height: auto;
+  left: -76px;
+  max-width: none;
+  opacity: 0.35;
+  pointer-events: none;
+  position: absolute;
+  width: 700px;
+  z-index: 0;
+}
+
+.block-info-form__inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* Layout: text ~45% / form card ~51% with a 64px gap (Figma desktop) */
+.block-info-form__row {
+  align-items: start;
+  display: grid;
+  gap: 64px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 51%);
+}
+
+.block-info-form__content {
+  min-width: 0;
+}
+
+/* Eyebrow (H6) --------------------------------------------------------------- */
+
+.block-info-form__eyebrow {
+  color: var(--color-caribbean-green);
+  font-family: var(--font-avenir);
+  font-size: var(--type-h6-size);
+  font-weight: var(--weight-heavy);
+  letter-spacing: normal;
+  line-height: var(--type-h6-lh);
+  margin: 0 0 20px;
+  text-transform: none;
+}
+
+/* Title (H2) ----------------------------------------------------------------- */
+
+.block-info-form__title {
+  margin-bottom: 20px;
+}
+
+.block-info-form__title h1,
+.block-info-form__title h2,
+.block-info-form__title h3,
+.block-info-form__title h4,
+.block-info-form__title h5,
+.block-info-form__title h6,
+.block-info-form__title p {
+  color: var(--color-neutral-white);
+  font-family: var(--font-avenir);
+  font-size: var(--type-h2-size);
+  font-weight: var(--weight-black);
+  letter-spacing: normal;
+  line-height: var(--type-h2-lh);
+  margin: 0;
+  text-transform: none;
+}
+
+/* Accent: bold text uses the light text gradient (dark background) */
+.block-info-form__title > * {
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: var(--gradient-text-light);
+  -webkit-text-fill-color: var(--color-neutral-white);
+}
+
+.block-info-form__title strong {
+  font-weight: inherit;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Details (body) ------------------------------------------------------------- */
+
+.block-info-form__details {
+  color: var(--color-onahau);
+}
+
+.block-info-form__details p,
+.block-info-form__details li {
+  color: inherit;
+  font-family: var(--font-avenir);
+  font-size: var(--type-body-size);
+  font-weight: var(--weight-regular);
+  line-height: var(--type-body-lh);
+}
+
+.block-info-form__details p,
+.block-info-form__details ul,
+.block-info-form__details ol {
+  margin: 0 0 28px;
+}
+
+.block-info-form__details > :last-child {
+  margin-bottom: 0;
+}
+
+.block-info-form__details strong {
+  color: var(--color-neutral-white);
+  font-weight: var(--weight-heavy);
+}
+
+.block-info-form__details a {
+  color: var(--color-caribbean-green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.block-info-form__details a:hover,
+.block-info-form__details a:focus {
+  color: var(--color-neutral-white);
+}
+
+/* Lists: the theme forces a blue ::marker, so markers are drawn by hand */
+.block-info-form__details ul,
+.block-info-form__details ol {
+  list-style: none;
+  padding: 0;
+}
+
+.block-info-form__details ol {
+  counter-reset: block-info-form-list;
+}
+
+.block-info-form__details li {
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.block-info-form__details li:last-child {
+  margin-bottom: 0;
+}
+
+.block-info-form__details ul > li::before {
+  background-color: var(--color-caribbean-green);
+  border-radius: 50%;
+  content: "";
+  height: 6px;
+  left: 0;
+  position: absolute;
+  top: calc(var(--type-body-lh) / 2 - 3px);
+  width: 6px;
+}
+
+.block-info-form__details ol > li {
+  counter-increment: block-info-form-list;
+  padding-left: 26px;
+}
+
+.block-info-form__details ol > li::before {
+  color: var(--color-caribbean-green);
+  content: counter(block-info-form-list) ".";
+  font-weight: var(--weight-heavy);
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+/* Form card ------------------------------------------------------------------ */
+
+.block-info-form__form-card {
+  background-color: var(--color-neutral-white);
+  border-radius: var(--radius-card-lg);
+  box-shadow: var(--shadow-float);
+  color: var(--color-port-gore);
+  min-width: 0;
+  padding: 42px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Editor-only placeholder (no form selected yet) */
+.block-info-form__form-card--placeholder {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 260px;
+  outline: 2px dashed var(--color-violet-lighter);
+  outline-offset: -16px;
+  text-align: center;
+}
+
+.block-info-form__placeholder {
+  color: var(--color-port-gore);
+  font-family: var(--font-avenir);
+  font-size: var(--type-caption-size);
+  font-weight: var(--weight-heavy);
+  line-height: 1.45;
+  margin: 0;
+  max-width: 380px;
+}
+
+/* HubSpot form (legacy v2 markup) inside the card -----------------------------
+   v4 forms render their own markup and are styled in HubSpot's form tool.
+   Scoped to the card so the theme's global form styles stay untouched
+   elsewhere. */
+
+/* Reset the theme's form container (background, border, padding settings) */
+.block-info-form__form-card form,
+.block-info-form__form-card .submitted-message {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  font-family: var(--font-avenir);
+  margin: 0;
+  padding: 0;
+}
+
+.block-info-form__form-card .submitted-message,
+.block-info-form__form-card .submitted-message p {
+  color: var(--color-port-gore);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-lh);
+}
+
+/* The form HubL tag prints an empty form title heading */
+.block-info-form__form-card .form-title:empty {
+  display: none;
+}
+
+.block-info-form__form-card .hs-form fieldset {
+  border: 0;
+  margin: 0;
+  max-width: 100%;
+  min-width: 0;
+  padding: 0;
+}
+
+/* Two/three-column rows (e.g. First name + Last name) */
+.block-info-form__form-card .hs-form fieldset.form-columns-2,
+.block-info-form__form-card .hs-form fieldset.form-columns-3 {
+  display: flex;
+  gap: 0 1rem;
+}
+
+.block-info-form__form-card .hs-form fieldset.form-columns-2 .hs-form-field,
+.block-info-form__form-card .hs-form fieldset.form-columns-3 .hs-form-field {
+  flex: 1 1 0;
+  float: none;
+  min-width: 0;
+  width: auto;
+}
+
+.block-info-form__form-card .hs-form fieldset[class*="form-columns"] .input {
+  margin-right: 0;
+}
+
+.block-info-form__form-card .hs-form-field {
+  margin: 0 0 18px;
+}
+
+/* Labels */
+.block-info-form__form-card .hs-form-field > label {
+  color: var(--color-port-gore);
+  display: block;
+  font-family: var(--font-avenir);
+  font-size: 15px;
+  font-weight: var(--weight-regular);
+  line-height: 1.3;
+  margin: 0 0 8px;
+}
+
+.block-info-form__form-card .hs-form-required {
+  color: inherit;
+  margin-left: 1px;
+}
+
+.block-info-form__form-card .hs-field-desc {
+  color: var(--color-neutral-gray);
+  font-size: 13px;
+  line-height: 1.4;
+  margin: -4px 0 8px;
+}
+
+/* Inputs */
+.block-info-form__form-card input[type="text"],
+.block-info-form__form-card input[type="email"],
+.block-info-form__form-card input[type="tel"],
+.block-info-form__form-card input[type="number"],
+.block-info-form__form-card input[type="url"],
+.block-info-form__form-card input[type="search"],
+.block-info-form__form-card input[type="password"],
+.block-info-form__form-card input[type="date"],
+.block-info-form__form-card select,
+.block-info-form__form-card textarea {
+  background-color: var(--color-neutral-white);
+  border: 1px solid var(--color-violet-lighter);
+  border-radius: 6px;
+  box-shadow: none;
+  box-sizing: border-box;
+  color: var(--color-neutral-dark);
+  display: block;
+  font-family: var(--font-avenir);
+  font-size: 17px;
+  font-weight: var(--weight-regular);
+  line-height: 1.4;
+  margin: 0;
+  max-width: 100%;
+  padding: 14px 16px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  /* !important beats HubSpot's legacy embed CSS (95% widths) when present */
+  width: 100% !important;
+}
+
+.block-info-form__form-card select:not([multiple]) {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23272559' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-position: right 16px center;
+  background-repeat: no-repeat;
+  background-size: 14px 9px;
+  cursor: pointer;
+  padding-right: 44px;
+  text-overflow: ellipsis;
+}
+
+.block-info-form__form-card textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.block-info-form__form-card input::placeholder,
+.block-info-form__form-card textarea::placeholder {
+  color: var(--color-neutral-light-gray);
+  opacity: 1;
+}
+
+.block-info-form__form-card input[type="text"]:focus,
+.block-info-form__form-card input[type="email"]:focus,
+.block-info-form__form-card input[type="tel"]:focus,
+.block-info-form__form-card input[type="number"]:focus,
+.block-info-form__form-card input[type="url"]:focus,
+.block-info-form__form-card input[type="search"]:focus,
+.block-info-form__form-card input[type="password"]:focus,
+.block-info-form__form-card input[type="date"]:focus,
+.block-info-form__form-card select:focus,
+.block-info-form__form-card textarea:focus {
+  border-color: var(--color-purple-brand);
+  box-shadow: 0 0 0 3px rgba(81, 3, 192, 0.12);
+  outline: none;
+}
+
+/* Checkboxes / radios (consent, multi-select) */
+.block-info-form__form-card .inputs-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.block-info-form__form-card .inputs-list label {
+  color: var(--color-port-gore);
+  font-size: 15px;
+  font-weight: var(--weight-regular);
+  line-height: 1.4;
+}
+
+.block-info-form__form-card input[type="checkbox"],
+.block-info-form__form-card input[type="radio"] {
+  accent-color: var(--color-purple-brand);
+}
+
+/* Rich text inside the form (consent / legal copy) */
+.block-info-form__form-card .hs-richtext,
+.block-info-form__form-card .hs-richtext p,
+.block-info-form__form-card .legal-consent-container p {
+  color: var(--color-neutral-gray);
+  font-size: 14px;
+  line-height: 1.45;
+  margin: 0 0 12px;
+}
+
+.block-info-form__form-card .hs-richtext a,
+.block-info-form__form-card .legal-consent-container a {
+  color: var(--color-purple-brand);
+}
+
+/* Validation (Figma "Error" color) */
+.block-info-form__form-card .hs-input.error,
+.block-info-form__form-card .hs-input.invalid {
+  border-color: #B21203;
+}
+
+.block-info-form__form-card .hs-error-msgs {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+}
+
+.block-info-form__form-card .hs-error-msgs label,
+.block-info-form__form-card .hs-error-msg,
+.block-info-form__form-card .hs_error_rollup label {
+  color: #B21203;
+  display: block;
+  font-size: 13px;
+  font-weight: var(--weight-regular);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.block-info-form__form-card .hs_error_rollup {
+  margin: 0 0 12px;
+}
+
+/* Submit */
+.block-info-form__form-card .hs_submit,
+.block-info-form__form-card .actions {
+  margin: 0;
+  padding: 0;
+}
+
+.block-info-form__form-card .hs_submit {
+  margin-top: 6px;
+}
+
+.block-info-form__form-card .hs-button,
+.block-info-form__form-card input[type="submit"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--color-port-gore);
+  border: 0;
+  border-radius: var(--radius-button);
+  box-shadow: none;
+  color: var(--color-neutral-white);
+  cursor: pointer;
+  display: block;
+  font-family: var(--font-avenir);
+  font-size: var(--type-button-size);
+  font-weight: var(--weight-heavy);
+  letter-spacing: normal;
+  line-height: var(--type-button-lh);
+  margin: 0;
+  padding: 17px 53px;
+  text-align: center;
+  text-transform: none;
+  transition: background-color 0.2s ease;
+  white-space: normal;
+  width: 100%;
+}
+
+.block-info-form__form-card .hs-button:hover,
+.block-info-form__form-card .hs-button:focus,
+.block-info-form__form-card .hs-button:active,
+.block-info-form__form-card input[type="submit"]:hover,
+.block-info-form__form-card input[type="submit"]:focus,
+.block-info-form__form-card input[type="submit"]:active {
+  background-color: var(--color-port-gore-hover);
+  border: 0;
+  color: var(--color-neutral-white);
+}
+
+.block-info-form__form-card .hs-button:focus-visible,
+.block-info-form__form-card input[type="submit"]:focus-visible {
+  outline: 2px solid var(--color-purple-brand);
+  outline-offset: 2px;
+}
+
+.block-info-form__form-card .hs_recaptcha {
+  margin: 0 0 18px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .block-info-form__form-card input,
+  .block-info-form__form-card select,
+  .block-info-form__form-card textarea,
+  .block-info-form__form-card .hs-button {
+    transition: none;
+  }
+}
+
+/* Tablet ---------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .block-info-form--without-form {
+    min-height: 760px;
+  }
+
+  .block-info-form__shape {
+    bottom: -75px;
+    left: -60px;
+    width: 560px;
+  }
+
+  .block-info-form__row {
+    gap: 48px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .block-info-form__content {
+    max-width: 640px;
+  }
+
+  .block-info-form__form-card {
+    max-width: 720px;
+    width: 100%;
+  }
+}
+
+/* Mobile ---------------------------------------------------------------------- */
+
+@media (max-width: 767px) {
+  .block-info-form--without-form {
+    min-height: 680px;
+  }
+
+  .block-info-form__shape {
+    bottom: -24px;
+    left: -35px;
+    width: 320px;
+  }
+
+  .block-info-form__row {
+    gap: 40px;
+  }
+
+  .block-info-form__content,
+  .block-info-form__form-card {
+    max-width: none;
+  }
+
+  .block-info-form__eyebrow {
+    margin-bottom: 16px;
+  }
+
+  .block-info-form__title {
+    margin-bottom: 16px;
+  }
+
+  .block-info-form__form-card {
+    padding: 24px;
+  }
+
+  .block-info-form__form-card--placeholder {
+    min-height: 200px;
+    outline-offset: -10px;
+  }
+
+  /* Multi-column form rows stack into one column */
+  .block-info-form__form-card .hs-form fieldset.form-columns-2,
+  .block-info-form__form-card .hs-form fieldset.form-columns-3 {
+    display: block;
+  }
+
+  .block-info-form__form-card .hs-form fieldset.form-columns-2 .hs-form-field,
+  .block-info-form__form-card .hs-form fieldset.form-columns-3 .hs-form-field {
+    width: 100%;
+  }
+
+  .block-info-form__form-card .hs-button,
+  .block-info-form__form-card input[type="submit"] {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
