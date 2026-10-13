@@ -1,0 +1,95 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .rich-text-testimonial {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .rich-text-testimonial {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+{#
+  The card only renders when the toggle is on and it has something to show,
+  so an emptied testimonial never leaves a blank navy box. Without the card
+  the text column takes the full width (--no-testimonial modifier).
+#}
+{% set show_testimonial = module.testimonial.show_testimonial and (module.testimonial.quote or module.testimonial.author_name or module.testimonial.role) %}
+
+<section
+  {% if module.anchor_id %}id="{{ module.anchor_id|escape_attr }}"{% endif %}
+  class="rich-text-testimonial{% if not show_testimonial %} rich-text-testimonial--no-testimonial{% endif %}"
+>
+  <div class="rich-text-testimonial__inner content-wrapper">
+    <div class="rich-text-testimonial__grid">
+
+      <div class="rich-text-testimonial__content">
+
+        {% if module.title %}
+          <div class="rich-text-testimonial__title">
+            {{ module.title|sanitize_html }}
+          </div>
+        {% endif %}
+
+        {% if module.body_text %}
+          <div class="rich-text-testimonial__body">
+            {{ module.body_text|sanitize_html|replace('<ul>', '<ul role="list">')|replace('<ol>', '<ol role="list">') }}
+          </div>
+        {% endif %}
+
+        {% if module.cta %}
+          {% set testimonial_cta_markup %}
+            {% cta guid="{{ module.cta }}" %}
+          {% endset %}
+          <div class="rich-text-testimonial__cta{% if not (testimonial_cta_markup is string_containing "hs-cta-embed") %} btn-custom {{ module.cta_style|escape_attr }}{% endif %}">
+            {{ testimonial_cta_markup }}
+          </div>
+        {% endif %}
+
+      </div>
+
+      {% if show_testimonial %}
+        <figure class="rich-text-testimonial__card">
+
+          {% if module.styles.show_decorations %}
+            <img
+              class="rich-text-testimonial__ring"
+              src="https://compugen.com/hubfs/2023%20NEW%20Compugen%20Brand%20Graphic%20Elements/graphic-o-green-full%20circle.png"
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              width="333"
+              height="321"
+            >
+          {% endif %}
+
+          <span class="rich-text-testimonial__mark" aria-hidden="true">&ldquo;</span>
+
+          {% if module.testimonial.quote %}
+            <blockquote class="rich-text-testimonial__quote">
+              {{ module.testimonial.quote|sanitize_html }}
+            </blockquote>
+          {% endif %}
+
+          {% if module.testimonial.author_name or module.testimonial.role %}
+            <figcaption class="rich-text-testimonial__caption">
+              {% if module.testimonial.author_name %}
+                <p class="rich-text-testimonial__name">{{ module.testimonial.author_name|escape_html }}</p>
+              {% endif %}
+              {% if module.testimonial.role %}
+                <p class="rich-text-testimonial__role">{{ module.testimonial.role|escape_html }}</p>
+              {% endif %}
+            </figcaption>
+          {% endif %}
+
+        </figure>
+      {% endif %}
+
+    </div>
+  </div>
+</section>

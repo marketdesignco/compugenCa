@@ -1,0 +1,301 @@
+/*
+  Custom Rich Text + Testimonial - Partner Sponsorship 2027 landing, module 2.
+  Tokens (colors, type scale, radii) come from
+  css/templates/sponsorship-landing.css; buttons from the theme's .btn-custom
+  system. Sizes/offsets measured on the Figma captures (image-4 / image-5).
+*/
+
+.rich-text-testimonial {
+  background-color: var(--color-neutral-white);
+  position: relative;
+}
+
+/* Layout: text ~55% / card ~38% (474px of the 1240px container, as in the
+   Figma), both starting at the top. The grid stretches the card to the text
+   column's height, as in the Figma (the name/role sits at the bottom of the
+   card). */
+
+.rich-text-testimonial__grid {
+  align-items: stretch;
+  column-gap: 5.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 38.2%);
+}
+
+.rich-text-testimonial--no-testimonial .rich-text-testimonial__grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Figma text frame is ~660px wide: keeps the title/body line breaks of the
+   design on desktop */
+.rich-text-testimonial__content {
+  max-width: 660px;
+  min-width: 0;
+}
+
+/* Title (H3) */
+
+.rich-text-testimonial__title {
+  margin-bottom: 1.5rem;
+}
+
+.rich-text-testimonial__title h1,
+.rich-text-testimonial__title h2,
+.rich-text-testimonial__title h3,
+.rich-text-testimonial__title h4,
+.rich-text-testimonial__title h5,
+.rich-text-testimonial__title h6,
+.rich-text-testimonial__title p {
+  color: var(--color-port-gore);
+  font-family: var(--font-avenir);
+  font-size: var(--type-h3-size);
+  font-weight: var(--weight-black);
+  line-height: var(--type-h3-lh);
+  margin: 0;
+}
+
+/* Accent: as in the Figma, the gradient spans the whole title box and each
+   <strong> shows its own slice of it. The heading paints the gradient as
+   clipped text under its navy fill; <strong> drops the fill. */
+.rich-text-testimonial__title > * {
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: var(--gradient-text);
+  -webkit-text-fill-color: var(--color-port-gore);
+}
+
+.rich-text-testimonial__title strong,
+.rich-text-testimonial__title b {
+  font-weight: inherit;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Body */
+
+.rich-text-testimonial__body p,
+.rich-text-testimonial__body li {
+  color: var(--color-neutral-gray);
+  font-size: var(--type-body-size);
+  font-weight: var(--weight-regular);
+  line-height: var(--type-body-lh);
+}
+
+.rich-text-testimonial__body p {
+  margin: 0 0 1.375rem;
+}
+
+.rich-text-testimonial__body ul {
+  list-style: none;
+  margin: 0 0 1.375rem;
+  padding: 0 0 0 1.5rem;
+}
+
+.rich-text-testimonial__body ul > li {
+  margin: 0;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.rich-text-testimonial__body ul > li::before {
+  background-color: var(--color-neutral-gray);
+  border-radius: 50%;
+  content: "";
+  height: 6px;
+  left: 0;
+  position: absolute;
+  top: calc((var(--type-body-lh) - 6px) / 2);
+  width: 6px;
+}
+
+.rich-text-testimonial__body > :last-child {
+  margin-bottom: 0;
+}
+
+.rich-text-testimonial__body strong,
+.rich-text-testimonial__body b {
+  color: var(--color-port-gore);
+  font-weight: var(--weight-heavy);
+}
+
+/* "January 19–20 in Toronto." reads heavier than "Join us" in the Figma */
+.rich-text-testimonial__body strong span,
+.rich-text-testimonial__body b span {
+  font-weight: var(--weight-black);
+}
+
+/* Closing line ("Help our sellers…") in the brand purple */
+.rich-text-testimonial__body p:last-child strong,
+.rich-text-testimonial__body p:last-child b {
+  color: var(--color-purple-brand);
+}
+
+.rich-text-testimonial__body a {
+  color: var(--color-purple-brand);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.rich-text-testimonial__body a:hover,
+.rich-text-testimonial__body a:focus {
+  color: var(--color-port-gore);
+}
+
+/* CTA - size, font and colors come from .btn-custom + the shared CSS */
+
+.rich-text-testimonial__cta {
+  margin-top: 2rem;
+}
+
+/* Testimonial card */
+
+.rich-text-testimonial__card {
+  --card-pad-x: 48px;
+  background-color: var(--color-port-gore);
+  border-radius: var(--radius-card-lg);
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  padding: 144px var(--card-pad-x) 44px;
+  position: relative;
+}
+
+.rich-text-testimonial__ring {
+  height: auto;
+  max-width: none;
+  opacity: 0.35;
+  pointer-events: none;
+  position: absolute;
+  right: -90px;
+  top: -90px;
+  width: 260px;
+  z-index: 0;
+}
+
+.rich-text-testimonial__mark {
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: var(--gradient-text);
+  color: transparent;
+  display: block;
+  font-family: var(--font-avenir);
+  font-size: 80px;
+  font-weight: var(--weight-black);
+  left: var(--card-pad-x);
+  line-height: 1;
+  pointer-events: none;
+  position: absolute;
+  top: 46px;
+  user-select: none;
+  -webkit-text-fill-color: transparent;
+  z-index: 1;
+}
+
+.rich-text-testimonial__quote {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.rich-text-testimonial__quote p {
+  color: var(--color-neutral-white);
+  font-size: var(--type-body-size);
+  font-weight: var(--weight-regular);
+  line-height: var(--type-body-lh);
+  margin: 0 0 1rem;
+}
+
+.rich-text-testimonial__quote > :last-child {
+  margin-bottom: 0;
+}
+
+/* Accent is color only - the Figma keeps the regular weight */
+.rich-text-testimonial__quote strong,
+.rich-text-testimonial__quote b {
+  color: var(--color-caribbean-green);
+  font-weight: inherit;
+}
+
+.rich-text-testimonial__caption {
+  margin-top: auto;
+  padding-top: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.rich-text-testimonial__name {
+  color: var(--color-neutral-white);
+  font-size: var(--type-body-size);
+  font-weight: var(--weight-heavy);
+  line-height: var(--type-body-lh);
+  margin: 0;
+}
+
+.rich-text-testimonial__role {
+  color: var(--color-onahau);
+  font-size: var(--type-caption-size);
+  font-weight: var(--weight-heavy);
+  line-height: var(--type-caption-lh);
+  margin: 0.25rem 0 0;
+}
+
+/* Tablet */
+
+@media (max-width: 1024px) {
+  .rich-text-testimonial__grid {
+    column-gap: 3rem;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+
+  .rich-text-testimonial__card {
+    --card-pad-x: 36px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+  .rich-text-testimonial__grid {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 2.5rem;
+  }
+
+  .rich-text-testimonial__title {
+    margin-bottom: 1.25rem;
+  }
+
+  .rich-text-testimonial__body ul {
+    padding-left: 1rem;
+  }
+
+  .rich-text-testimonial__body ul > li {
+    padding-left: 0.875rem;
+  }
+
+  /* Full-width CTA on mobile comes from the shared sponsorship-landing.css */
+  .rich-text-testimonial__cta {
+    margin-top: 1.75rem;
+  }
+
+  .rich-text-testimonial__card {
+    --card-pad-x: 28px;
+    padding: 136px var(--card-pad-x) 36px;
+  }
+
+  .rich-text-testimonial__mark {
+    top: 35px;
+  }
+
+  .rich-text-testimonial__ring {
+    right: -140px;
+    top: -130px;
+  }
+
+  .rich-text-testimonial__caption {
+    padding-top: 1.5rem;
+  }
+}

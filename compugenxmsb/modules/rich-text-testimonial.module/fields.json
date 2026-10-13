@@ -1,0 +1,225 @@
+[
+  {
+    "id": "title",
+    "name": "title",
+    "label": "Title",
+    "help_text": "Mantener como Heading 3. El texto en negrita (strong) se muestra con el acento de color/gradiente.",
+    "required": false,
+    "locked": false,
+    "enabled_features": [ "standard_emphasis", "block" ],
+    "type": "richtext",
+    "display_width": null,
+    "default": "<h3>Partner is a verb. Start 2027 with the teams who take your solutions to market.</h3>"
+  },
+  {
+    "id": "body_text",
+    "name": "body_text",
+    "label": "Body",
+    "help_text": "Texto en gris. La negrita (strong) se muestra en navy; la negrita del último párrafo se muestra en morado. Las viñetas usan un punto propio.",
+    "required": false,
+    "locked": false,
+    "enabled_features": [ "standard_emphasis", "block", "lists", "link" ],
+    "type": "richtext",
+    "display_width": null,
+    "default": "<p>The Compugen Customer Growth + Expand Conference brings our sales teams and leaders together for two focused days. As a sponsor, you get dedicated time to tout your solutions and build new connections to keep you in the conversation all year.</p><p><strong>Join us <span>January 19–20 in Toronto.</span></strong></p><p>You’ll hear directly from the people closest to our customers:</p><ul><li>what they’re asking for,</li><li>where budgets are moving, and</li><li>where our teams see the next opportunity.</li></ul><p>Bring your technology, your experts, and your ideas. <strong>Help our sellers know exactly when to call you, and leave as the partner they bring in first.</strong></p>"
+  },
+  {
+    "id": "cta",
+    "name": "cta",
+    "label": "CTA",
+    "help_text": "HubSpot CTA (se configura en Marketing > CTAs). Texto sugerido: \"Secure your sponsorship now\" (enlaza a #packages).",
+    "required": false,
+    "locked": false,
+    "type": "cta",
+    "display_width": null,
+    "default": null
+  },
+  {
+    "id": "cta_style",
+    "name": "cta_style",
+    "label": "CTA style",
+    "help_text": "Aplica a CTAs legacy. Los CTAs actuales conservan el diseño configurado en HubSpot.",
+    "required": true,
+    "locked": false,
+    "display": "select",
+    "choices": [ [ "btn-primary-green", "Green" ], [ "btn-primary-navy", "Navy" ] ],
+    "multiple": false,
+    "reordering_enabled": true,
+    "preset": null,
+    "type": "choice",
+    "display_width": null,
+    "default": "btn-primary-navy"
+  },
+  {
+    "id": "testimonial",
+    "name": "testimonial",
+    "label": "Testimonial",
+    "help_text": "Card navy a la derecha en desktop (debajo del texto en mobile).",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "id": "testimonial.show_testimonial",
+        "name": "show_testimonial",
+        "label": "Show testimonial",
+        "help_text": "Si se desactiva, el texto ocupa todo el ancho.",
+        "required": false,
+        "locked": false,
+        "display": "checkbox",
+        "type": "boolean",
+        "display_width": null,
+        "default": true
+      },
+      {
+        "id": "testimonial.quote",
+        "name": "quote",
+        "label": "Quote",
+        "help_text": "Texto de la cita en blanco. La negrita (strong) se muestra en verde.",
+        "required": false,
+        "locked": false,
+        "visibility": {
+          "controlling_field": "testimonial.show_testimonial",
+          "controlling_field_path": null,
+          "controlling_value_regex": "true",
+          "property": null,
+          "operator": "EQUAL",
+          "access": null
+        },
+        "enabled_features": [ "standard_emphasis" ],
+        "type": "richtext",
+        "display_width": null,
+        "default": "<p>We're entering 2027 with <strong>ambitious growth goals</strong>, and our partners will play a critical role in achieving them. This conference is your opportunity to connect directly with the teams shaping customer conversations and creating new opportunities every day. Show us what's next, help us understand where you can make the greatest impact, and make sure your organization is top of mind as we build plans for the year ahead. The stronger we align, the more we can accomplish together.</p>"
+      },
+      {
+        "id": "testimonial.author_name",
+        "name": "author_name",
+        "label": "Name",
+        "required": false,
+        "locked": false,
+        "visibility": {
+          "controlling_field": "testimonial.show_testimonial",
+          "controlling_field_path": null,
+          "controlling_value_regex": "true",
+          "property": null,
+          "operator": "EQUAL",
+          "access": null
+        },
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": "Jeremy Erlick"
+      },
+      {
+        "id": "testimonial.role",
+        "name": "role",
+        "label": "Role",
+        "required": false,
+        "locked": false,
+        "visibility": {
+          "controlling_field": "testimonial.show_testimonial",
+          "controlling_field_path": null,
+          "controlling_value_regex": "true",
+          "property": null,
+          "operator": "EQUAL",
+          "access": null
+        },
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": "Chief Revenue Officer"
+      }
+    ],
+    "tab": "CONTENT",
+    "expanded": true,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  },
+  {
+    "id": "anchor_id",
+    "name": "anchor_id",
+    "label": "Anchor ID",
+    "help_text": "Opcional. ID de la sección para enlaces internos (sin #). Dejar vacío si no se necesita.",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "type": "text",
+    "display_width": null,
+    "default": ""
+  },
+  {
+    "id": "styles",
+    "name": "styles",
+    "label": "Styles",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "id": "styles.spacing_desktop",
+        "name": "spacing_desktop",
+        "label": "Desktop spacing",
+        "help_text": "Padding superior/inferior en desktop. Izquierda/derecha ocultos: el espaciado horizontal lo da .content-wrapper.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 80, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 76, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.spacing_mobile",
+        "name": "spacing_mobile",
+        "label": "Mobile spacing",
+        "help_text": "Padding superior/inferior en mobile (max-width: 767px), independiente del valor de desktop.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 48, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 40, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.show_decorations",
+        "name": "show_decorations",
+        "label": "Show decorations",
+        "help_text": "Arco verde decorativo en la esquina superior derecha de la card de testimonio.",
+        "required": false,
+        "locked": false,
+        "display": "checkbox",
+        "type": "boolean",
+        "display_width": null,
+        "default": true,
+        "tab": "STYLE"
+      }
+    ],
+    "tab": "STYLE",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  }
+]
