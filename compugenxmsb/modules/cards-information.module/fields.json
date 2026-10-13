@@ -1,0 +1,239 @@
+[
+  {
+    "id": "title",
+    "name": "title",
+    "label": "Title",
+    "help_text": "Mantener como Heading 2. El texto en negrita (strong) se muestra con el acento de color/gradiente.",
+    "required": false,
+    "locked": false,
+    "enabled_features": [ "standard_emphasis", "block" ],
+    "type": "richtext",
+    "display_width": null,
+    "default": "<h2>Choose How You Partner</h2>"
+  },
+  {
+    "id": "intro",
+    "name": "intro",
+    "label": "Intro",
+    "help_text": "Párrafo introductorio bajo el título (color Onahau, ancho máximo 640px).",
+    "required": false,
+    "locked": false,
+    "enabled_features": [ "standard_emphasis", "block", "lists", "link" ],
+    "type": "richtext",
+    "display_width": null,
+    "default": "<p>Every package puts your brand in front of Compugen sellers and gives you a seat at the Partner Vision Session. Choose the level of presence that fits your goals.</p>"
+  },
+  {
+    "id": "cards",
+    "name": "cards",
+    "label": "Sponsorship cards",
+    "help_text": "Un paquete de patrocinio por card (máximo 3). Desktop: 2 columnas (3 columnas si hay 3 cards); mobile: 1 columna.",
+    "required": false,
+    "locked": false,
+    "occurrence": {
+      "min": 1,
+      "max": 3,
+      "sorting_label_field": "cards.package_name",
+      "default": 2
+    },
+    "children": [
+      {
+        "id": "cards.package_name",
+        "name": "package_name",
+        "label": "Package name",
+        "help_text": "Se muestra como Heading 4.",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": "Growth Sponsorship"
+      },
+      {
+        "id": "cards.subtitle",
+        "name": "subtitle",
+        "label": "Subtitle",
+        "help_text": "Frase corta bajo el nombre del paquete (verde, negrita).",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": "The most time and visibility with our sellers, with hands-on space to demo your solutions."
+      },
+      {
+        "id": "cards.features",
+        "name": "features",
+        "label": "Features",
+        "help_text": "Lista de lo que incluye el paquete. Usa el botón de lista con viñetas del editor.",
+        "required": false,
+        "locked": false,
+        "enabled_features": [ "standard_emphasis", "block", "lists", "link" ],
+        "type": "richtext",
+        "display_width": null,
+        "default": "<ul><li>2 all-access passes for your team</li><li>8 x 10 space in the Innovation Lounge to demo and connect</li><li>Your logo across conference assets</li><li>Co-branded commemorative apparel</li><li>A seat at the Compugen Partner Vision Session</li><li>Additional passes $1,000 each</li></ul>"
+      },
+      {
+        "id": "cards.price",
+        "name": "price",
+        "label": "Price",
+        "help_text": "Se muestra al pie de la card, sobre el CTA.",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": "$12,000"
+      },
+      {
+        "id": "cards.cta",
+        "name": "cta",
+        "label": "CTA",
+        "help_text": "HubSpot CTA (Marketing > CTAs). Texto sugerido: Register, enlazado a #register. Para CTAs actuales, configurar en HubSpot ancho responsive 100%, altura 57px (56px mobile) y radio 6px. Sin selección no se muestra CTA.",
+        "required": false,
+        "locked": false,
+        "type": "cta",
+        "display_width": null,
+        "default": null
+      },
+      {
+        "id": "cards.cta_style",
+        "name": "cta_style",
+        "label": "CTA style",
+        "help_text": "Aplica a CTAs legacy. Los CTAs actuales conservan el diseño configurado en HubSpot.",
+        "required": true,
+        "locked": false,
+        "display": "select",
+        "choices": [ [ "btn-primary-green", "Green" ], [ "btn-primary-navy", "Navy" ] ],
+        "multiple": false,
+        "reordering_enabled": true,
+        "preset": null,
+        "type": "choice",
+        "display_width": null,
+        "default": "btn-primary-green"
+      },
+      {
+        "id": "cards.featured",
+        "name": "featured",
+        "label": "Featured card",
+        "help_text": "Destaca la card con un borde en gradiente (morado → azul → verde). Desactivado: borde Onahau translúcido.",
+        "required": false,
+        "locked": false,
+        "display": "checkbox",
+        "type": "boolean",
+        "display_width": null,
+        "default": false
+      }
+    ],
+    "tab": "CONTENT",
+    "expanded": true,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null,
+    "default": [
+      {
+        "package_name": "Growth Sponsorship",
+        "subtitle": "The most time and visibility with our sellers, with hands-on space to demo your solutions.",
+        "features": "<ul><li>2 all-access passes for your team</li><li>8 x 10 space in the Innovation Lounge to demo and connect</li><li>Your logo across conference assets</li><li>Co-branded commemorative apparel</li><li>A seat at the Compugen Partner Vision Session</li><li>Additional passes $1,000 each</li></ul>",
+        "price": "$12,000",
+        "cta_style": "btn-primary-green",
+        "featured": true
+      },
+      {
+        "package_name": "Expand Sponsorship",
+        "subtitle": "Stay top of mind with the people selling your solutions, and hear first where Compugen is headed.",
+        "features": "<ul><li>1 all-access pass</li><li>Your logo across conference assets</li><li>A seat at the Compugen Partner Vision Session</li></ul>",
+        "price": "$5,000",
+        "cta_style": "btn-primary-green",
+        "featured": false
+      }
+    ]
+  },
+  {
+    "id": "anchor_id",
+    "name": "anchor_id",
+    "label": "Anchor ID",
+    "help_text": "ID de ancla de la sección, sin #. Los CTAs \"Secure your sponsorship now\" enlazan a #packages.",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "type": "text",
+    "display_width": null,
+    "default": "packages"
+  },
+  {
+    "id": "styles",
+    "name": "styles",
+    "label": "Styles",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "id": "styles.spacing_desktop",
+        "name": "spacing_desktop",
+        "label": "Desktop spacing",
+        "help_text": "Padding superior/inferior en desktop. Izquierda/derecha ocultos: el espaciado horizontal lo da .content-wrapper.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 96, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 100, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.spacing_mobile",
+        "name": "spacing_mobile",
+        "label": "Mobile spacing",
+        "help_text": "Padding superior/inferior en mobile (max-width: 767px), independiente del valor de desktop.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 48, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 40, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.show_decorations",
+        "name": "show_decorations",
+        "label": "Show decorations",
+        "help_text": "Franjas diagonales decorativas (slashes Onahau) en el borde derecho de la sección, siempre detrás del contenido.",
+        "required": false,
+        "locked": false,
+        "display": "checkbox",
+        "type": "boolean",
+        "display_width": null,
+        "default": true,
+        "tab": "STYLE"
+      }
+    ],
+    "tab": "STYLE",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  }
+]

@@ -1,0 +1,95 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .cards-information {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .cards-information {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<section
+  class="cards-information"
+  {% if module.anchor_id %}id="{{ module.anchor_id|escape_attr }}"{% endif %}
+>
+
+  {% if module.styles.show_decorations %}
+    <img
+      class="cards-information__decoration"
+      src="https://compugen.com/hubfs/2023%20NEW%20Compugen%20Brand%20Graphic%20Elements/graphic-e-green-%20opacity10.png"
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      width="573"
+      height="1261"
+    >
+  {% endif %}
+
+  <div class="cards-information__inner content-wrapper">
+
+    {% if module.title %}
+      <div class="cards-information__title">
+        {{ module.title|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.intro %}
+      <div class="cards-information__intro">
+        {{ module.intro|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.cards %}
+      <div class="cards-information__grid cards-information__grid--count-{{ module.cards|length }}">
+        {% for card in module.cards %}
+          <div class="cards-information__card{% if card.featured %} cards-information__card--featured{% endif %}">
+            <div class="cards-information__card-inner">
+
+              {% if card.package_name %}
+                <h4 class="cards-information__card-name">{{ card.package_name|escape_html }}</h4>
+              {% endif %}
+
+              {% if card.subtitle %}
+                <p class="cards-information__card-subtitle">{{ card.subtitle|escape_html }}</p>
+              {% endif %}
+
+              {% if card.features %}
+                <div class="cards-information__card-features">
+                  {{ card.features|sanitize_html }}
+                </div>
+              {% endif %}
+
+              {% if card.price or card.cta %}
+                <div class="cards-information__card-footer">
+
+                  {% if card.price %}
+                    <p class="cards-information__card-price">{{ card.price|escape_html }}</p>
+                  {% endif %}
+
+                  {% if card.cta %}
+                    {% set card_cta_markup %}
+                      {% cta guid="{{ card.cta }}" %}
+                    {% endset %}
+                    <div class="cards-information__card-cta{% if not (card_cta_markup is string_containing "hs-cta-embed") %} btn-custom {{ card.cta_style|escape_attr }}{% endif %}">
+                      {{ card_cta_markup }}
+                    </div>
+                  {% endif %}
+
+                </div>
+              {% endif %}
+
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+
+</section>

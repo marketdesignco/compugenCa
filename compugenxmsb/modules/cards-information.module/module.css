@@ -1,0 +1,304 @@
+/*
+  Cards Information + Sponsorship Card (Partner Sponsorship 2027 landing).
+  Tokens come from css/templates/sponsorship-landing.css (:root). Buttons
+  reuse the theme's .btn-custom system - only layout is set here.
+*/
+
+/* Section ----------------------------------------------------------------- */
+
+.cards-information {
+  background-color: var(--color-neutral-dark);
+  overflow: hidden;
+  position: relative;
+}
+
+.cards-information__decoration {
+  height: auto;
+  max-width: none;
+  opacity: 0.12;
+  pointer-events: none;
+  position: absolute;
+  right: -80px;
+  top: 60px;
+  width: 360px;
+  z-index: 0;
+}
+
+.cards-information__inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* Title + intro ----------------------------------------------------------- */
+
+.cards-information__title > * {
+  margin: 0;
+}
+
+.cards-information__title h2 {
+  color: var(--color-neutral-white);
+  font-size: var(--type-h2-size);
+  font-weight: var(--weight-black);
+  line-height: var(--type-h2-lh);
+}
+
+/* Accent: on the dark background the light gradient (Onahau -> green) keeps
+   contrast; the purple start of --gradient-text would disappear on #101014. */
+.cards-information__title > * {
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: var(--gradient-text-light);
+  -webkit-text-fill-color: var(--color-neutral-white);
+}
+
+.cards-information__title strong {
+  font-weight: inherit;
+  -webkit-text-fill-color: transparent;
+}
+
+.cards-information__intro {
+  margin-top: 1rem;
+  max-width: 640px;
+}
+
+.cards-information__intro p,
+.cards-information__intro li {
+  color: var(--color-onahau);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-lh);
+}
+
+.cards-information__intro p {
+  margin: 0 0 1rem;
+}
+
+.cards-information__intro > :last-child {
+  margin-bottom: 0;
+}
+
+.cards-information__intro a,
+.cards-information__card-features a {
+  color: var(--color-caribbean-green);
+  text-decoration: underline;
+}
+
+/* Grid -------------------------------------------------------------------- */
+
+.cards-information__grid {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 3rem;
+  max-width: 980px;
+}
+
+/* Card ---------------------------------------------------------------------
+   Outer box = 3px "border" painted with a background, inner box = navy
+   surface. Featured cards get the purple -> blue -> green gradient border. */
+
+.cards-information__card {
+  background: rgba(204, 232, 255, 0.25);
+  border-radius: var(--radius-card-lg);
+  display: flex;
+  min-width: 0;
+  padding: 3px;
+}
+
+.cards-information__card--featured {
+  background: linear-gradient(140deg, var(--color-purple-brand) 0%, var(--color-dark-blue) 45%, var(--color-caribbean-green) 100%);
+}
+
+/* The inner box fills the full card height as a stretched flex item of the
+   outer box (no height: 100%, so padding can never overflow the border). */
+.cards-information__card-inner {
+  background-color: var(--color-port-gore);
+  border-radius: calc(var(--radius-card-lg) - 3px);
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+  padding: 38px 32px;
+}
+
+.cards-information__card-name {
+  color: var(--color-neutral-white);
+  font-size: var(--type-h4-size);
+  font-weight: var(--weight-black);
+  line-height: var(--type-h4-lh);
+  margin: 0;
+}
+
+/* Supporting package copy uses the bold Body style, below the H4 package name. */
+.cards-information__card-subtitle {
+  color: var(--color-caribbean-green);
+  font-size: var(--type-body-size);
+  font-weight: var(--weight-heavy);
+  line-height: var(--type-body-lh);
+  margin: 0;
+}
+
+/* Features - separator above the list (= below the subtitle) */
+
+.cards-information__card-features {
+  border-top: 1px solid rgba(204, 232, 255, 0.18);
+  padding-top: 18px;
+}
+
+.cards-information__card-features ul,
+.cards-information__card-features ol {
+  margin: 0;
+  padding: 0;
+}
+
+.cards-information__card-features ul {
+  list-style: none;
+}
+
+.cards-information__card-features ol {
+  padding-left: 1.25rem;
+}
+
+/* Figma: Body style (23px line pitch), 10px between items */
+.cards-information__card-features li,
+.cards-information__card-features p {
+  color: var(--color-neutral-white);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-lh);
+  margin: 0;
+}
+
+.cards-information__card-features ul > li {
+  padding-left: 18px;
+  position: relative;
+}
+
+.cards-information__card-features ul > li::before {
+  background-color: var(--color-neutral-white);
+  border-radius: 50%;
+  content: '';
+  height: 6px;
+  left: 0;
+  position: absolute;
+  top: calc(var(--type-body-lh) / 2 - 3px);
+  width: 6px;
+}
+
+.cards-information__card-features li + li {
+  margin-top: 10px;
+}
+
+.cards-information__card-features p + p,
+.cards-information__card-features p + ul,
+.cards-information__card-features ul + p {
+  margin-top: 0.75rem;
+}
+
+.cards-information__card-features strong {
+  font-weight: var(--weight-heavy);
+}
+
+/* Footer - separator above the price, pushed to the bottom of the card so
+   prices and CTAs line up across cards of different lengths. */
+
+.cards-information__card-footer {
+  border-top: 1px solid rgba(204, 232, 255, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: auto;
+  padding-top: 18px;
+}
+
+/* Figma: 36px (measured on the capture; the reference HTML used 44px) */
+.cards-information__card-price {
+  color: var(--color-neutral-white);
+  font-size: 36px;
+  font-weight: var(--weight-black);
+  line-height: 1;
+  margin: 0;
+}
+
+/* CTA container at full card width; legacy buttons use .btn-custom + variant.
+   Current HubSpot embeds retain their own dimensions and native styling.
+   Prefixed with the block class so it outranks the theme's
+   `.btn-custom a` / `.btn-custom .hs-cta-*` inline-block rules regardless
+   of stylesheet order. */
+
+.cards-information .cards-information__card-cta,
+.cards-information .cards-information__card-cta.btn-custom .hs-cta-wrapper,
+.cards-information .cards-information__card-cta.btn-custom .hs-cta-node,
+.cards-information .cards-information__card-cta.btn-custom a {
+  display: block;
+  width: 100%;
+}
+
+.cards-information .cards-information__card-cta {
+  max-width: 409px;
+  min-height: 57px;
+}
+
+/* Flexible horizontal padding centers long labels without changing their
+   metrics on hover. Native embed contents keep their HubSpot-owned styles. */
+.cards-information .cards-information__card-cta.btn-custom a {
+  align-items: center;
+  border-radius: 6px;
+  border-width: 0;
+  display: flex;
+  justify-content: center;
+  min-height: 57px;
+  padding: 17px 24px 18px;
+}
+
+/* 3 cards: use the full container width on desktop */
+
+@media (min-width: 1025px) {
+  .cards-information__grid--count-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: none;
+  }
+}
+
+/* Tablet ------------------------------------------------------------------ */
+
+@media (max-width: 1024px) {
+  .cards-information__decoration {
+    right: -110px;
+    width: 280px;
+  }
+
+  .cards-information__card-inner {
+    padding: 32px 24px;
+  }
+}
+
+/* Mobile ------------------------------------------------------------------ */
+
+@media (max-width: 767px) {
+  .cards-information__decoration {
+    right: -90px;
+    top: 40px;
+    width: 200px;
+  }
+
+  .cards-information__grid {
+    gap: 20px;
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 2rem;
+    max-width: none;
+  }
+
+  .cards-information__card-inner {
+    padding: 28px 22px;
+  }
+
+  .cards-information .cards-information__card-cta,
+  .cards-information .cards-information__card-cta.btn-custom a {
+    min-height: 56px;
+  }
+
+  .cards-information .cards-information__card-cta.btn-custom a {
+    padding: 16px 24px;
+  }
+}
