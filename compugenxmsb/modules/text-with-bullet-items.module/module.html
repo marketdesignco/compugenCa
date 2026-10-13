@@ -1,0 +1,60 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .text-with-bullet-items {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .text-with-bullet-items {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<section class="text-with-bullet-items"{% if module.anchor_id %} id="{{ module.anchor_id|escape_attr }}"{% endif %}>
+  <div class="text-with-bullet-items__inner content-wrapper">
+
+    {% if module.title %}
+      <div class="text-with-bullet-items__title">
+        {{ module.title|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.items %}
+      {#
+        Ordered list: the visible number badge (01, 02...) repeats the list
+        position, so it is aria-hidden and screen readers get the order from
+        the <ol> itself. role="list" keeps list semantics in Safari, which
+        drops them when list-style is none.
+      #}
+      <ol class="text-with-bullet-items__list" role="list">
+        {% for item in module.items %}
+          <li class="text-with-bullet-items__item">
+
+            <div class="text-with-bullet-items__item-top">
+              <span class="text-with-bullet-items__number" aria-hidden="true">{% if loop.index < 10 %}0{% endif %}{{ loop.index }}</span>
+              {% if item.badge %}
+                <span class="text-with-bullet-items__badge">{{ item.badge|escape_html }}</span>
+              {% endif %}
+            </div>
+
+            {% if item.title %}
+              <p class="text-with-bullet-items__item-title">{{ item.title|escape_html }}</p>
+            {% endif %}
+
+            {% if item.description %}
+              <div class="text-with-bullet-items__item-description">
+                {{ item.description|sanitize_html|replace('<ul>', '<ul role="list">')|replace('<ol>', '<ol role="list">') }}
+              </div>
+            {% endif %}
+
+          </li>
+        {% endfor %}
+      </ol>
+    {% endif %}
+
+  </div>
+</section>

@@ -1,0 +1,166 @@
+[
+  {
+    "id": "title",
+    "name": "title",
+    "label": "Title",
+    "help_text": "Mantener como Heading 2. El texto en negrita (strong) se muestra con el acento de color/gradiente.",
+    "required": false,
+    "locked": false,
+    "enabled_features": [ "standard_emphasis", "block" ],
+    "type": "richtext",
+    "display_width": null,
+    "default": "<h2>What Partners <strong>Gain in 2027</strong></h2>"
+  },
+  {
+    "id": "items",
+    "name": "items",
+    "label": "Items",
+    "help_text": "Cards en grid de 2 columnas (1 columna en mobile). El número de cada card (01, 02…) se genera automáticamente según el orden.",
+    "required": false,
+    "locked": false,
+    "occurrence": {
+      "min": 1,
+      "max": 6,
+      "sorting_label_field": "items.title",
+      "default": 4
+    },
+    "children": [
+      {
+        "id": "items.title",
+        "name": "title",
+        "label": "Item title",
+        "help_text": "Texto en negrita de la card (no es un encabezado).",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": "Item title"
+      },
+      {
+        "id": "items.description",
+        "name": "description",
+        "label": "Item description",
+        "required": false,
+        "locked": false,
+        "enabled_features": [ "standard_emphasis", "block", "lists", "link" ],
+        "type": "richtext",
+        "display_width": null,
+        "default": "<p>Item description.</p>"
+      },
+      {
+        "id": "items.badge",
+        "name": "badge",
+        "label": "Badge",
+        "help_text": "Opcional. Pill junto al número (ej. \"Additional Cost\"). Déjalo vacío para ocultarlo.",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": ""
+      }
+    ],
+    "tab": "CONTENT",
+    "expanded": true,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null,
+    "default": [
+      {
+        "title": "New Venue. More Time Together.",
+        "description": "<p>Sessions and evening activities are all on-site at the Hilton Toronto Suites Conference Centre. Less travel means more time with Compugen teams and more chances to pick up a conversation where you left off.</p>",
+        "badge": ""
+      },
+      {
+        "title": "Innovation Lounge: Show What’s Possible",
+        "description": "<p>The Innovation Lounge is back. Demonstrate your solutions, show sellers exactly where they fit, and build the relationships that lead to joint wins. Early access lets you set up ahead of the evening so your time on sales and strategy.</p>",
+        "badge": ""
+      },
+      {
+        "title": "Partner Vision Session: What’s Next for Compugen",
+        "description": "<p>Get a first look at Compugen’s priorities and where we see opportunity. This dedicated panel of leadership insights helps you align your plans with ours, so we can grow faster, together.</p>",
+        "badge": ""
+      },
+      {
+        "title": "Stay Where It’s Happening",
+        "description": "<p>A block of discounted rooms is reserved for partners at the Hilton Toronto Suites Conference Centre, steps from every session and the evening event. Accommodation is an additional cost, paid directly by partners.</p>",
+        "badge": "Additional Cost"
+      }
+    ]
+  },
+  {
+    "id": "anchor_id",
+    "name": "anchor_id",
+    "label": "Anchor ID",
+    "help_text": "Opcional. ID de la sección para enlazar desde un CTA (sin #). Déjalo vacío si no hace falta.",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "type": "text",
+    "display_width": null,
+    "default": ""
+  },
+  {
+    "id": "styles",
+    "name": "styles",
+    "label": "Styles",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "id": "styles.spacing_desktop",
+        "name": "spacing_desktop",
+        "label": "Desktop spacing",
+        "help_text": "Padding superior/inferior en desktop. Izquierda/derecha ocultos: el espaciado horizontal lo da .content-wrapper.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 60, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 60, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.spacing_mobile",
+        "name": "spacing_mobile",
+        "label": "Mobile spacing",
+        "help_text": "Padding superior/inferior en mobile (max-width: 767px), independiente del valor de desktop.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 44, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 40, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      }
+    ],
+    "tab": "STYLE",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  }
+]

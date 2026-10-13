@@ -1,0 +1,12 @@
+{
+  "global": false,
+  "css_assets": [
+    { "path": "../../css/templates/sponsorship-landing.css" }
+  ],
+  "content_types": [ "LANDING_PAGE", "SITE_PAGE" ],
+  "categories": [ "body_content" ],
+  "host_template_types": [ "PAGE" ],
+  "label": "Text with Bullet Items",
+  "icon": "/compugenxmsb/images/module-icons/info-circle-solid.svg",
+  "is_available_for_new_content": true
+}

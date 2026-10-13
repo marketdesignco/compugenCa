@@ -1,0 +1,248 @@
+/*
+  Text with Bullet Items - "What Partners Gain in 2027" (Partner Sponsorship
+  2027 landing). Tokens come from css/templates/sponsorship-landing.css.
+  Values in px are measured from the Figma (desktop frame 1425px).
+*/
+
+.text-with-bullet-items {
+  background-color: var(--color-neutral-white);
+  position: relative;
+}
+
+.text-with-bullet-items__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 52px;
+}
+
+/* Title (H2) - navy, <strong> carries the purple -> green gradient */
+
+.text-with-bullet-items__title > * {
+  color: var(--color-port-gore);
+  font-family: var(--font-avenir);
+  letter-spacing: normal;
+  margin: 0;
+  text-transform: none;
+}
+
+.text-with-bullet-items__title h2 {
+  font-size: var(--type-h2-size);
+  font-weight: var(--weight-black);
+  line-height: var(--type-h2-lh);
+}
+
+/* Accent: as in the Figma, the gradient spans the whole title box, so
+   "Gain in 2027" goes from blue to teal instead of purple to green. The
+   heading paints the gradient as clipped text under its navy fill;
+   <strong> drops the fill so the gradient shows through. */
+.text-with-bullet-items__title > * {
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: var(--gradient-text);
+  -webkit-text-fill-color: var(--color-port-gore);
+}
+
+.text-with-bullet-items__title strong {
+  font-weight: inherit;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Grid of cards - 2 columns, 1 column on mobile */
+
+.text-with-bullet-items__list {
+  display: grid;
+  gap: 60px 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.text-with-bullet-items__item {
+  background-color: var(--color-neutral-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+  min-width: 0;
+  padding: 34px 30px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+@media (hover: hover) {
+  .text-with-bullet-items__item:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-with-bullet-items__item {
+    transition: none;
+  }
+
+  .text-with-bullet-items__item:hover {
+    transform: none;
+  }
+}
+
+/* Top row: number badge left, optional pill right */
+
+.text-with-bullet-items__item-top {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.text-with-bullet-items__number {
+  align-items: center;
+  background-image: var(--gradient-text);
+  border-radius: 0 26px 26px 0;
+  color: var(--color-neutral-white);
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-family: var(--font-avenir);
+  font-size: 18px;
+  font-weight: var(--weight-regular);
+  height: 52px;
+  justify-content: center;
+  line-height: 1;
+  width: 52px;
+}
+
+.text-with-bullet-items__badge {
+  background-color: var(--color-violet-light);
+  border-radius: 100px;
+  color: var(--color-port-gore);
+  display: inline-block;
+  font-family: var(--font-avenir);
+  font-size: var(--type-caption-size);
+  font-weight: var(--weight-heavy);
+  line-height: var(--type-caption-lh);
+  padding: 2px 10px;
+}
+
+/* Item title - bold body text, not a heading */
+
+.text-with-bullet-items__item-title {
+  color: var(--color-port-gore);
+  font-family: var(--font-avenir);
+  font-size: var(--type-body-size);
+  font-weight: var(--weight-heavy);
+  line-height: var(--type-body-lh);
+  margin: 0;
+}
+
+/* Item description - body, gray */
+
+.text-with-bullet-items__item-description,
+.text-with-bullet-items__item-description p,
+.text-with-bullet-items__item-description li {
+  color: var(--color-neutral-gray);
+  font-family: var(--font-avenir);
+  font-size: var(--type-body-size);
+  font-weight: var(--weight-regular);
+  line-height: var(--type-body-lh);
+}
+
+.text-with-bullet-items__item-description p,
+.text-with-bullet-items__item-description ul,
+.text-with-bullet-items__item-description ol {
+  margin: 0 0 10px;
+}
+
+.text-with-bullet-items__item-description > :last-child {
+  margin-bottom: 0;
+}
+
+.text-with-bullet-items__item-description strong {
+  color: var(--color-port-gore);
+}
+
+.text-with-bullet-items__item-description a {
+  color: var(--color-purple-brand);
+  text-decoration: underline;
+}
+
+.text-with-bullet-items__item-description a:hover,
+.text-with-bullet-items__item-description a:focus {
+  color: var(--color-port-gore);
+}
+
+/* Lists inside a description: custom markers avoid the theme's forced
+   *::marker color. Keep ordered lists visually ordered with their own counter. */
+
+.text-with-bullet-items__item-description ul,
+.text-with-bullet-items__item-description ol {
+  list-style: none;
+  padding: 0;
+}
+
+.text-with-bullet-items__item-description ol {
+  counter-reset: text-with-bullet-items-ordered-list;
+}
+
+.text-with-bullet-items__item-description li {
+  margin: 0;
+  padding-left: 16px;
+  position: relative;
+}
+
+.text-with-bullet-items__item-description ul > li::before {
+  background-color: var(--color-port-gore);
+  border-radius: 50%;
+  content: "";
+  height: 6px;
+  left: 0;
+  position: absolute;
+  top: calc(var(--type-body-lh) / 2 - 3px);
+  width: 6px;
+}
+
+.text-with-bullet-items__item-description ol > li {
+  counter-increment: text-with-bullet-items-ordered-list;
+}
+
+.text-with-bullet-items__item-description ol > li::before {
+  color: var(--color-port-gore);
+  content: counter(text-with-bullet-items-ordered-list) ".";
+  font-weight: var(--weight-heavy);
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 16px;
+}
+
+/* Tablet */
+
+@media (max-width: 1024px) {
+  .text-with-bullet-items__list {
+    row-gap: 40px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+  .text-with-bullet-items__inner {
+    gap: 32px;
+  }
+
+  .text-with-bullet-items__list {
+    gap: 20px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .text-with-bullet-items__item {
+    padding: 24px 20px;
+  }
+
+  /* Figma mobile: the pill sits right next to the number badge */
+  .text-with-bullet-items__item-top {
+    justify-content: flex-start;
+  }
+}
