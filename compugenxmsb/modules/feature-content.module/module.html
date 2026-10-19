@@ -1,0 +1,242 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .feature-content {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .feature-content {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+{#
+  Featured resource for the Resource Center (built for
+  planning/resource-center-prompt.md). Selection rule - kept identical to
+  blog-listing.module so the grid can exclude this post by ID without any
+  cross-module data: the most recent post, among the blog's 200 most recent
+  (blog_recent_posts() platform cap), that carries the Featured tag; if no
+  post carries it, the most recent post of the blog. The listing applies
+  the same rule when its "Exclude the Feature Content post" is on, so both
+  modules always agree. Manual content is the last resort (empty blog).
+
+  Blog source: Blog field, else the blog this listing template renders
+  (group), else the portal's default blog - same order as blog-listing.
+#}
+
+{% set blog_field = module.post_source.blog_select %}
+{% if blog_field %}
+  {% set blog_id = blog_field.id if blog_field.id else blog_field %}
+{% elif group and group.id %}
+  {% set blog_id = group.id %}
+{% else %}
+  {% set blog_id = "default" %}
+{% endif %}
+
+{# Tag fields use tag_value SLUG; .slug is read first in case the portal
+   hands back a tag object instead of the plain slug string. #}
+{% set featured_tag = module.post_source.featured_tag %}
+{% set featured_slug = ((featured_tag.slug if featured_tag.slug else featured_tag)|string|trim) if featured_tag else "" %}
+
+{% set type_slugs = [] %}
+{% for t in module.post_source.type_tags %}
+  {% if t %}
+    {% do type_slugs.append((t.slug if t.slug else t)|string|trim) %}
+  {% endif %}
+{% endfor %}
+
+{% set date_format = module.date_format if module.date_format is within ["%B %Y", "%b %Y"] else "%b %Y" %}
+
+{# A plain {% set %} inside a for loop does not leave it, so the match is
+   collected by appending to a list (same pattern as blog-listing). #}
+{% set recent_posts = blog_recent_posts(blog_id, 200) %}
+{% set matches = [] %}
+{% if featured_slug %}
+  {% for candidate in recent_posts %}
+    {% if not matches and candidate.tag_list|selectattr("slug", "equalto", featured_slug)|list %}
+      {% do matches.append(candidate) %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+{% set is_fallback = not matches and recent_posts %}
+{% if matches %}
+  {% set post = matches[0] %}
+{% elif recent_posts %}
+  {% set post = recent_posts[0] %}
+{% else %}
+  {% set post = none %}
+{% endif %}
+
+{% if post %}
+  {% set post_types = [] %}
+  {% set post_topics = [] %}
+  {% for t in post.tag_list %}
+    {% if t.slug == featured_slug %}
+    {% elif type_slugs is containing t.slug %}
+      {% do post_types.append(t.name) %}
+    {% else %}
+      {% do post_topics.append(t.name) %}
+    {% endif %}
+  {% endfor %}
+  {% set meta_type = post_types[0] if post_types else "" %}
+  {% set meta_topic = post_topics[0] if post_topics else "" %}
+  {% set meta_date = post.publish_date|datetimeformat(date_format) if post.publish_date else "" %}
+  {% set cover = module.post_overrides.cover_image %}
+  {% set image_src = cover.src if cover.src else post.featured_image %}
+  {% set image_alt = cover.alt if cover.src else post.featured_image_alt_text %}
+{% else %}
+  {% set meta_type = module.manual.type_label %}
+  {% set meta_topic = module.manual.topic_label %}
+  {% set meta_date = module.manual.date|datetimeformat(date_format) if module.manual.date else "" %}
+  {% set image_src = module.manual.image.src %}
+  {% set image_alt = module.manual.image.alt %}
+{% endif %}
+
+<section
+  class="
+    feature-content
+    feature-content--bg-{{ module.styles.background_color|escape_attr }}
+    feature-content--fit-{{ module.styles.image_fit|escape_attr }}
+  "
+>
+
+  <div class="feature-content__inner content-wrapper">
+
+    {% if is_in_editor and (is_fallback or not post) %}
+      {# Editor-only: explains which source is being shown. #}
+      <p class="feature-content__editor-note">
+        {% if not post %}
+          The blog has no published posts - showing the Manual content.
+        {% elif featured_slug %}
+          No post tagged "{{ featured_slug|escape_html }}" was found among the blog's 200 most recent posts - showing the most recent post instead.
+        {% else %}
+          No Featured tag selected - showing the most recent post.
+        {% endif %}
+        Turn on "Exclude the Feature Content post" in the Blog Listing module so it is not repeated in the grid.
+      </p>
+    {% endif %}
+
+    <div class="feature-content__row">
+
+      {% if image_src %}
+        <div class="feature-content__media">
+          <img
+            class="feature-content__image"
+            src="{{ image_src|escape_url }}"
+            alt="{{ image_alt|escape_attr }}"
+            loading="lazy"
+          >
+          {% if module.styles.vector_visible and module.styles.vector.src %}
+            <img
+              class="feature-content__vector"
+              src="{{ module.styles.vector.src|escape_url }}"
+              alt=""
+              loading="lazy"
+            >
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <div class="feature-content__content">
+
+        {% if meta_type or meta_topic or meta_date %}
+          {% set meta_items = [] %}
+          <div class="feature-content__meta">
+            {% if meta_type %}
+              <span class="feature-content__type">{{ meta_type|escape_html }}</span>
+              {% do meta_items.append("type") %}
+            {% endif %}
+            {% if meta_topic %}
+              {% if meta_items %}<span class="feature-content__meta-divider" aria-hidden="true">&middot;</span>{% endif %}
+              <span class="feature-content__topic">{{ meta_topic|escape_html }}</span>
+              {% do meta_items.append("topic") %}
+            {% endif %}
+            {% if meta_date %}
+              {% if meta_items %}<span class="feature-content__meta-divider" aria-hidden="true">&middot;</span>{% endif %}
+              <span class="feature-content__date">{{ meta_date|escape_html }}</span>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if post %}
+          {# Same accent technique as blog-post.html's title. #}
+          {% set title_html = post.name|escape_html %}
+          {% set accent_html = module.post_overrides.title_accent|default("", true)|trim|escape_html %}
+          {% if accent_html and title_html is string_containing accent_html %}
+            {% set title_html = title_html|replace(accent_html, "<strong>" ~ accent_html ~ "</strong>") %}
+          {% endif %}
+          <h2 class="feature-content__title">{{ title_html }}</h2>
+
+          {% if post.post_summary %}
+            <div class="feature-content__summary">
+              <p>{{ post.post_summary|striptags|truncate(220)|escape_html }}</p>
+            </div>
+          {% endif %}
+
+          {% if post.absolute_url %}
+            <div class="feature-content__ctas">
+              <div class="btn-custom btn-tertiary-purple">
+                <a href="{{ post.absolute_url|escape_url }}">{{ module.post_overrides.cta_text|default("Learn More", true)|escape_html }}<span class="show-for-sr">: {{ post.name|escape_html }}</span></a>
+              </div>
+            </div>
+          {% endif %}
+        {% else %}
+          {% if module.manual.title %}
+            <div class="feature-content__title">
+              {{ module.manual.title|sanitize_html }}
+            </div>
+          {% endif %}
+
+          {% if module.manual.summary %}
+            <div class="feature-content__summary">
+              {{ module.manual.summary|sanitize_html }}
+            </div>
+          {% endif %}
+
+          {% set cta_item = module.manual.cta %}
+          {% if cta_item.link_type == "cta" %}
+            {% if cta_item.cta %}
+              <div class="feature-content__ctas">
+                <div class="btn-custom {{ cta_item.variant|escape_attr }}">
+                  {% cta guid=cta_item.cta %}
+                </div>
+              </div>
+            {% endif %}
+          {% else %}
+            {% set href = cta_item.link.url.href %}
+            {% if href and cta_item.text %}
+              {% if cta_item.link.url.type == "EMAIL_ADDRESS" %}
+                {% set href = "mailto:" + href %}
+              {% endif %}
+              {% set rel = [] %}
+              {% if cta_item.link.no_follow %}
+                {% do rel.append("nofollow") %}
+              {% endif %}
+              {% if cta_item.link.open_in_new_tab %}
+                {% do rel.append("noopener") %}
+              {% endif %}
+              <div class="feature-content__ctas">
+                <div class="btn-custom {{ cta_item.variant|escape_attr }}">
+                  <a
+                    href="{{ href|escape_url }}"
+                    {% if cta_item.link.open_in_new_tab %}target="_blank"{% endif %}
+                    {% if rel %}rel="{{ rel|join(" ")|escape_attr }}"{% endif %}
+                  >
+                    {{ cta_item.text|escape_html }}
+                  </a>
+                </div>
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endif %}
+
+      </div>
+
+    </div>
+  </div>
+
+</section>

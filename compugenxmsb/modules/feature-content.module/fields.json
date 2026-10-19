@@ -1,0 +1,426 @@
+[
+  {
+    "id": "post_source",
+    "name": "post_source",
+    "label": "Featured post",
+    "help_text": "Shows the most recent post carrying the Featured tag; if no post carries it, the most recent post of the blog. To change the featured resource, move that tag to another post. Turn on \"Exclude the Feature Content post\" in the Blog Listing module so it is not repeated in the grid.",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "id": "post_source.blog_select",
+        "name": "blog_select",
+        "label": "Blog",
+        "help_text": "Optional. Leave empty to use the blog this listing page belongs to (or the portal's default blog outside a blog). Must match the Blog Listing module's Blog setting.",
+        "required": false,
+        "locked": false,
+        "type": "blog",
+        "display_width": null
+      },
+      {
+        "id": "post_source.featured_tag",
+        "name": "featured_tag",
+        "label": "Featured tag",
+        "help_text": "Marker tag, e.g. Featured. The Blog Listing module must use the same tag so this post is not repeated in the grid. The 200 most recent posts are checked (HubSpot limit).",
+        "required": false,
+        "locked": false,
+        "tag_value": "SLUG",
+        "type": "tag",
+        "display_width": null
+      },
+      {
+        "id": "post_source.type_tags",
+        "name": "type_tags",
+        "label": "Type tags",
+        "help_text": "Tags that describe a resource format (e.g. Guide, White paper). The first one found on the post is shown as its Type; the first other tag is shown as its Topic. Must match the Blog Listing module's Type tags.",
+        "required": false,
+        "locked": false,
+        "occurrence": {
+          "min": 0,
+          "max": 30,
+          "default": 0
+        },
+        "tag_value": "SLUG",
+        "type": "tag",
+        "display_width": null
+      }
+    ],
+    "tab": "CONTENT",
+    "expanded": true,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  },
+  {
+    "id": "post_overrides",
+    "name": "post_overrides",
+    "label": "Featured post display",
+    "help_text": "Optional adjustments applied when a featured post is found. Title, summary, date, Type/Topic and link always come from the post.",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "id": "post_overrides.cover_image",
+        "name": "cover_image",
+        "label": "Cover image",
+        "help_text": "Optional. Replaces the post's featured image here only, e.g. a guide cover. Leave empty to use the featured image.",
+        "required": false,
+        "locked": false,
+        "responsive": true,
+        "resizable": false,
+        "show_loading": false,
+        "type": "image",
+        "display_width": null,
+        "default": {
+          "src": "",
+          "alt": "",
+          "loading": "lazy"
+        }
+      },
+      {
+        "id": "post_overrides.title_accent",
+        "name": "title_accent",
+        "label": "Title accent text",
+        "help_text": "Optional. Words of the post title to highlight in light blue, e.g. Your Copilot Journey. Must match the title text exactly; leave empty for no accent.",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": ""
+      },
+      {
+        "id": "post_overrides.cta_text",
+        "name": "cta_text",
+        "label": "Link text",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": "Learn More"
+      }
+    ],
+    "tab": "CONTENT",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  },
+  {
+    "id": "manual",
+    "name": "manual",
+    "label": "Manual content",
+    "help_text": "Last resort: used only when the blog has no published posts.",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "id": "manual.image",
+        "name": "image",
+        "label": "Image",
+        "required": false,
+        "locked": false,
+        "responsive": true,
+        "resizable": false,
+        "show_loading": false,
+        "type": "image",
+        "display_width": null,
+        "default": {
+          "src": "",
+          "alt": "",
+          "loading": "lazy"
+        }
+      },
+      {
+        "id": "manual.type_label",
+        "name": "type_label",
+        "label": "Type",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": "Guide"
+      },
+      {
+        "id": "manual.topic_label",
+        "name": "topic_label",
+        "label": "Topic",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": "Modern Work"
+      },
+      {
+        "id": "manual.date",
+        "name": "date",
+        "label": "Date",
+        "help_text": "Optional.",
+        "required": false,
+        "locked": false,
+        "type": "date",
+        "display_width": null
+      },
+      {
+        "id": "manual.title",
+        "name": "title",
+        "label": "Title",
+        "help_text": "Keep it an H2. Bold/strong text renders in light blue.",
+        "required": false,
+        "locked": false,
+        "enabled_features": [ "standard_emphasis", "block" ],
+        "type": "richtext",
+        "display_width": null,
+        "default": "<h2>From Vision to Value: <strong>Your Copilot Journey</strong></h2>"
+      },
+      {
+        "id": "manual.summary",
+        "name": "summary",
+        "label": "Summary",
+        "required": false,
+        "locked": false,
+        "enabled_features": [ "standard_emphasis" ],
+        "type": "richtext",
+        "display_width": null,
+        "default": "<p>Short summary of the featured resource.</p>"
+      },
+      {
+        "id": "manual.cta",
+        "name": "cta",
+        "label": "Link",
+        "required": false,
+        "locked": false,
+        "children": [
+          {
+            "id": "manual.cta.link_type",
+            "name": "link_type",
+            "label": "Link type",
+            "required": true,
+            "locked": false,
+            "display": "radio",
+            "choices": [ [ "link", "Regular link" ], [ "cta", "HubSpot CTA" ] ],
+            "type": "choice",
+            "display_width": null,
+            "default": "link"
+          },
+          {
+            "id": "manual.cta.text",
+            "name": "text",
+            "label": "Link text",
+            "required": false,
+            "locked": false,
+            "visibility": {
+              "controlling_field": "manual.cta.link_type",
+              "controlling_value_regex": "link",
+              "operator": "EQUAL"
+            },
+            "allow_new_line": false,
+            "type": "text",
+            "display_width": null,
+            "default": "Learn More"
+          },
+          {
+            "id": "manual.cta.link",
+            "name": "link",
+            "label": "Link URL",
+            "required": false,
+            "locked": false,
+            "visibility": {
+              "controlling_field": "manual.cta.link_type",
+              "controlling_value_regex": "link",
+              "operator": "EQUAL"
+            },
+            "supported_types": [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS" ],
+            "show_advanced_rel_options": true,
+            "type": "link",
+            "display_width": null,
+            "default": {
+              "url": {
+                "href": "",
+                "type": "EXTERNAL"
+              },
+              "no_follow": false,
+              "open_in_new_tab": false
+            }
+          },
+          {
+            "id": "manual.cta.cta",
+            "name": "cta",
+            "label": "HubSpot CTA",
+            "required": false,
+            "locked": false,
+            "visibility": {
+              "controlling_field": "manual.cta.link_type",
+              "controlling_value_regex": "cta",
+              "operator": "EQUAL"
+            },
+            "type": "cta",
+            "display_width": null
+          },
+          {
+            "id": "manual.cta.variant",
+            "name": "variant",
+            "label": "Link style",
+            "required": true,
+            "locked": false,
+            "display": "select",
+            "choices": [ [ "btn-tertiary-purple", "Tertiary - Purple" ], [ "btn-primary-purple", "Primary - Purple" ], [ "btn-primary-green", "Primary - Green" ], [ "btn-secondary-purple", "Secondary - Purple" ] ],
+            "type": "choice",
+            "display_width": null,
+            "default": "btn-tertiary-purple"
+          }
+        ],
+        "tab": "CONTENT",
+        "expanded": false,
+        "group_occurrence_meta": null,
+        "type": "group",
+        "display_width": null
+      }
+    ],
+    "tab": "CONTENT",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  },
+  {
+    "id": "date_format",
+    "name": "date_format",
+    "label": "Date format",
+    "required": true,
+    "locked": false,
+    "display": "select",
+    "choices": [ [ "%b %Y", "Short month (Aug 2026)" ], [ "%B %Y", "Full month (August 2026)" ] ],
+    "type": "choice",
+    "display_width": null,
+    "default": "%b %Y"
+  },
+  {
+    "id": "styles",
+    "name": "styles",
+    "label": "Styles",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "id": "styles.image_fit",
+        "name": "image_fit",
+        "label": "Image fit",
+        "help_text": "Fill crops the image to the frame (photos). Fit shows the whole image inside the frame (guide covers, documents).",
+        "required": true,
+        "locked": false,
+        "display": "radio",
+        "choices": [ [ "cover", "Fill" ], [ "contain", "Fit" ] ],
+        "type": "choice",
+        "display_width": null,
+        "default": "cover",
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.vector_visible",
+        "name": "vector_visible",
+        "label": "Show decorative vector",
+        "required": false,
+        "locked": false,
+        "display": "checkbox",
+        "type": "boolean",
+        "display_width": null,
+        "default": true,
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.vector",
+        "name": "vector",
+        "label": "Decorative vector",
+        "help_text": "Decorative only (no alt text). Sits on the bottom-right corner of the image.",
+        "required": false,
+        "locked": false,
+        "visibility": {
+          "controlling_field": "styles.vector_visible",
+          "controlling_value_regex": "true",
+          "operator": "EQUAL"
+        },
+        "responsive": false,
+        "resizable": false,
+        "show_loading": false,
+        "type": "image",
+        "display_width": null,
+        "default": {
+          "src": "https://www.compugen.com/hubfs/compugenMSB-2026/vector-image.svg",
+          "alt": "",
+          "loading": "lazy"
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.background_color",
+        "name": "background_color",
+        "label": "Background color",
+        "required": true,
+        "locked": false,
+        "display": "select",
+        "choices": [ [ "white", "White" ], [ "purple_bg", "Purple BG (#FAF9FD)" ] ],
+        "type": "choice",
+        "display_width": null,
+        "default": "white",
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.spacing_desktop",
+        "name": "spacing_desktop",
+        "label": "Desktop spacing",
+        "help_text": "Top/bottom padding on desktop. Left/right are hidden - horizontal spacing comes from .content-wrapper.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 80, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 80, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.spacing_mobile",
+        "name": "spacing_mobile",
+        "label": "Mobile spacing",
+        "help_text": "Top/bottom padding at the theme's mobile breakpoint (max-width: 767px), independent of the desktop value above.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 40, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 40, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      }
+    ],
+    "tab": "STYLE",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  }
+]

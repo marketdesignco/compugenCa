@@ -1,0 +1,175 @@
+/*
+  Feature Content - featured resource block of the Resource Center:
+  image/cover on the left, meta (Type · Topic · date), H2 title with a
+  light-blue accent, summary and a tertiary "Learn More" link. Meta colors
+  and sizes match blog-listing.module's card meta so the featured resource
+  reads the same as the cards below it.
+*/
+
+.feature-content {
+  overflow: hidden;
+  position: relative;
+}
+
+.feature-content--bg-white {
+  --feature-media-bg: var(--color-purple-bg);
+  background-color: var(--color-white);
+}
+
+.feature-content--bg-purple_bg {
+  --feature-media-bg: var(--color-white);
+  background-color: var(--color-purple-bg);
+}
+
+.feature-content__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.feature-content__editor-note {
+  border: 1px dashed var(--color-purple);
+  font-size: 13px;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1rem;
+}
+
+.feature-content__row {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+/* Media ---------------------------------------------------------------------- */
+
+.feature-content__media {
+  aspect-ratio: 4 / 3;
+  background-color: var(--feature-media-bg);
+  border: 1.5px solid var(--color-purple-lines);
+  box-shadow: 0px 4px 20px 0px #5103C014;
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+}
+
+.feature-content__image {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.feature-content--fit-cover .feature-content__image {
+  object-fit: cover;
+}
+
+.feature-content--fit-contain .feature-content__media {
+  padding: 2rem;
+}
+
+.feature-content--fit-contain .feature-content__image {
+  object-fit: contain;
+}
+
+.feature-content__vector {
+  bottom: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  width: 28%;
+}
+
+/* Content -------------------------------------------------------------------- */
+
+.feature-content__meta {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
+  margin-bottom: 0.75rem;
+}
+
+.feature-content__type {
+  color: var(--color-black);
+  font-weight: 700;
+}
+
+.feature-content__topic {
+  color: var(--color-purple);
+  font-weight: 700;
+}
+
+.feature-content__meta-divider {
+  color: var(--color-gray);
+  margin: 0 0.35em;
+}
+
+.feature-content__date {
+  color: var(--color-gray);
+}
+
+/* The title is an H2 for the outline (H1 is the banner) but is sized like
+   an H3, as in Figma. Covers both the post title (<h2> itself) and any
+   heading produced by the Manual Rich Text title. */
+.feature-content__title,
+.feature-content__title h1,
+.feature-content__title h2,
+.feature-content__title h3 {
+  color: var(--color-purple);
+  font-size: var(--h3-size);
+}
+
+.feature-content__title strong,
+.feature-content__title b {
+  color: var(--color-blue-accent);
+}
+
+.feature-content__title {
+  margin-bottom: 1rem;
+}
+
+.feature-content__title > :last-child {
+  margin-bottom: 0;
+}
+
+.feature-content__summary {
+  color: var(--color-black);
+  margin-bottom: 1.5rem;
+}
+
+.feature-content__summary > :last-child {
+  margin-bottom: 0;
+}
+
+.feature-content__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+@media (max-width: 767px) {
+  .feature-content__title,
+  .feature-content__title h1,
+  .feature-content__title h2,
+  .feature-content__title h3 {
+    font-size: var(--h3-size-mobile);
+  }
+
+  .feature-content--fit-contain .feature-content__media {
+    padding: 1.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .feature-content__row {
+    flex-direction: row;
+    gap: 4rem;
+  }
+
+  .feature-content__media {
+    flex: 1 1 50%;
+  }
+
+  .feature-content__content {
+    flex: 1 1 45%;
+  }
+}
