@@ -1,0 +1,131 @@
+[
+  {
+    "id": "title",
+    "name": "title",
+    "label": "Title",
+    "help_text": "Bold/strong text automatically renders in the design system's accent color.",
+    "required": false,
+    "locked": false,
+    "enabled_features": [ "standard_emphasis", "block" ],
+    "type": "richtext",
+    "display_width": null,
+    "default": "<h2>Want more content like this?</h2>"
+  },
+  {
+    "id": "paragraph",
+    "name": "paragraph",
+    "label": "Paragraph",
+    "required": false,
+    "locked": false,
+    "enabled_features": [ "standard_emphasis", "block" ],
+    "type": "richtext",
+    "display_width": null,
+    "default": "<p>Subscribe to get our latest articles delivered straight to your inbox.</p>"
+  },
+  {
+    "id": "form",
+    "name": "form",
+    "label": "Form",
+    "help_text": "Select the HubSpot form to render in the card. Card styles apply to legacy (v2) forms; v4 forms are styled from HubSpot's form tool.",
+    "required": false,
+    "locked": false,
+    "embed_versions": [ "v2", "v4" ],
+    "type": "form",
+    "display_width": null,
+    "default": {
+      "response_type": "inline",
+      "message": "Thanks for subscribing."
+    }
+  },
+  {
+    "id": "vector_visible",
+    "name": "vector_visible",
+    "label": "Show decorative vector",
+    "help_text": "Optional decorative graphic in the bottom-left corner of the section. Purely a background accent - never covers the content. On by default.",
+    "required": false,
+    "locked": false,
+    "display": "checkbox",
+    "type": "boolean",
+    "display_width": null,
+    "default": true
+  },
+  {
+    "id": "vector",
+    "name": "vector",
+    "label": "Decorative vector",
+    "required": false,
+    "locked": false,
+    "responsive": false,
+    "resizable": false,
+    "show_loading": false,
+    "type": "image",
+    "display_width": null,
+    "default": {
+      "src": "https://www.compugen.com/hubfs/compugenMSB-2026/vector-back.svg",
+      "alt": "",
+      "loading": "lazy"
+    }
+  },
+  {
+    "id": "styles",
+    "name": "styles",
+    "label": "Styles",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "id": "styles.spacing_desktop",
+        "name": "spacing_desktop",
+        "label": "Desktop spacing",
+        "help_text": "Top/bottom padding on desktop. Left/right are hidden - horizontal spacing comes from .content-wrapper.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 64, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 64, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.spacing_mobile",
+        "name": "spacing_mobile",
+        "label": "Mobile spacing",
+        "help_text": "Top/bottom padding at the theme's mobile breakpoint (max-width: 767px), independent of the desktop value above.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 32, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 32, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      }
+    ],
+    "tab": "STYLE",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  }
+]

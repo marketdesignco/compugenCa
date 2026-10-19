@@ -1,0 +1,253 @@
+/*
+  Blog Subscribe - purple band + real HubSpot form, for the bottom of the
+  blog listing page. Band pattern (fixed purple, quad accent bar, white
+  text @ 85% opacity) is copied from cta-bar.module's own band. Form-card
+  rendering (the {% form %} tag + legacy v2 field styling) follows the
+  same pattern as hero-lp.module/block-info-form.module, but uses only the
+  theme's GLOBAL tokens (theme-overrides.css) - not block-info-form's
+  sponsorship-landing.css tokens, which do not load on the blog template.
+*/
+
+.blog-subscribe {
+  --quad-orange: #F25022;
+  --quad-green: var(--color-green);
+  --quad-blue: #00A4EF;
+  --quad-yellow: #FDB813;
+  background-color: var(--color-purple);
+  overflow: hidden;
+  position: relative;
+}
+
+.blog-subscribe__vector {
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 22%;
+  z-index: 0;
+}
+
+.blog-subscribe__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.blog-subscribe__body {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.blog-subscribe__content {
+  flex: 1 1 auto;
+}
+
+.blog-subscribe__accent {
+  background: linear-gradient(
+    to right,
+    var(--quad-orange) 0 25%,
+    var(--quad-green) 25% 50%,
+    var(--quad-blue) 50% 75%,
+    var(--quad-yellow) 75% 100%
+  );
+  height: 4px;
+  margin-bottom: 1.25rem;
+  width: 44px;
+}
+
+.blog-subscribe__title,
+.blog-subscribe__title :not(strong) {
+  color: var(--color-white);
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-weight: 900;
+}
+
+.blog-subscribe__title strong {
+  color: var(--color-green);
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-weight: 900;
+}
+
+.blog-subscribe__title > :last-child {
+  margin-bottom: 0;
+}
+
+.blog-subscribe__paragraph,
+.blog-subscribe__paragraph :not(strong) {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.blog-subscribe__paragraph > :last-child {
+  margin-bottom: 0;
+}
+
+/* Form card ------------------------------------------------------------------ */
+
+.blog-subscribe__form-card {
+  background-color: var(--color-white);
+  border-radius: 12px;
+  flex: 1 1 auto;
+  padding: 1.5rem;
+  position: relative;
+}
+
+.blog-subscribe__form-card--placeholder {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 140px;
+  outline: 2px dashed var(--color-purple-lines);
+  outline-offset: -12px;
+  text-align: center;
+}
+
+.blog-subscribe__placeholder {
+  color: var(--color-black);
+  font-size: 14px;
+  margin: 0;
+}
+
+/* HubSpot form (legacy v2 markup) inside the card. v4 forms render their
+   own markup and are styled in HubSpot's form tool. */
+
+.blog-subscribe__form-card form,
+.blog-subscribe__form-card .submitted-message {
+  background: transparent;
+  border: 0;
+  font-family: var(--font-body);
+  margin: 0;
+  padding: 0;
+}
+
+.blog-subscribe__form-card .form-title:empty {
+  display: none;
+}
+
+.blog-subscribe__form-card .hs-form fieldset {
+  border: 0;
+  margin: 0;
+  max-width: 100%;
+  min-width: 0;
+  padding: 0;
+}
+
+/* The form card is narrow by design (see the 380px desktop flex-basis
+   below) - unlike block-info-form's wide card, multi-column rows are
+   always stacked to one column here, at every breakpoint. */
+.blog-subscribe__form-card .hs-form fieldset.form-columns-2,
+.blog-subscribe__form-card .hs-form fieldset.form-columns-3 {
+  display: block;
+}
+
+.blog-subscribe__form-card .hs-form fieldset[class*="form-columns"] .hs-form-field {
+  float: none;
+  width: 100%;
+}
+
+.blog-subscribe__form-card .hs-form-field {
+  margin: 0 0 1rem;
+}
+
+.blog-subscribe__form-card .hs-form-field > label {
+  color: var(--color-black);
+  display: block;
+  font-size: 14px;
+  margin: 0 0 0.4rem;
+}
+
+.blog-subscribe__form-card .hs-form-required {
+  color: inherit;
+  margin-left: 1px;
+}
+
+.blog-subscribe__form-card input[type="text"],
+.blog-subscribe__form-card input[type="email"],
+.blog-subscribe__form-card input[type="tel"],
+.blog-subscribe__form-card select,
+.blog-subscribe__form-card textarea {
+  background-color: var(--color-white);
+  border: 1.5px solid var(--color-purple-lines);
+  border-radius: 6px;
+  box-sizing: border-box;
+  color: var(--color-black);
+  display: block;
+  font-family: var(--font-body);
+  font-size: 16px;
+  margin: 0;
+  max-width: 100%;
+  padding: 0.65rem 0.85rem;
+  width: 100% !important;
+}
+
+.blog-subscribe__form-card input:focus,
+.blog-subscribe__form-card select:focus,
+.blog-subscribe__form-card textarea:focus {
+  border-color: var(--color-purple);
+  outline: none;
+}
+
+.blog-subscribe__form-card .hs-error-msgs {
+  list-style: none;
+  margin: 0.4rem 0 0;
+  padding: 0;
+}
+
+.blog-subscribe__form-card .hs-error-msgs label {
+  color: #B21203;
+  font-size: 13px;
+  margin: 0;
+}
+
+.blog-subscribe__form-card .hs_submit {
+  margin-top: 0.25rem;
+}
+
+.blog-subscribe__form-card .hs-button,
+.blog-subscribe__form-card input[type="submit"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--color-purple);
+  border: 0;
+  border-radius: 6px;
+  color: var(--color-white);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  width: 100%;
+}
+
+.blog-subscribe__form-card .hs-button:hover,
+.blog-subscribe__form-card input[type="submit"]:hover {
+  background-color: var(--color-green);
+}
+
+@media (min-width: 768px) {
+  .blog-subscribe__body {
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .blog-subscribe__content {
+    flex: 1 1 55%;
+  }
+
+  .blog-subscribe__form-card {
+    flex: 0 1 380px;
+  }
+
+  /* Figma: the band is 1440 x 500 on desktop. min-height (not height) so it
+     still grows if the form is taller; content is centered vertically. */
+  .blog-subscribe {
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    min-height: 500px;
+  }
+
+  .blog-subscribe__inner {
+    width: 100%;
+  }
+}

@@ -1,0 +1,71 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .blog-subscribe {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .blog-subscribe {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+{% set has_form = module.form.form_id %}
+
+<section class="blog-subscribe">
+
+  {% if module.vector_visible and module.vector.src %}
+    <img
+      class="blog-subscribe__vector"
+      src="{{ module.vector.src|escape_url }}"
+      alt=""
+      loading="lazy"
+    >
+  {% endif %}
+
+  <div class="blog-subscribe__inner content-wrapper">
+    <div class="blog-subscribe__body">
+
+      <div class="blog-subscribe__content">
+
+        {% if module.title %}
+          <div class="blog-subscribe__accent" aria-hidden="true"></div>
+          <div class="blog-subscribe__title">
+            {{ module.title|sanitize_html }}
+          </div>
+        {% endif %}
+
+        {% if module.paragraph %}
+          <div class="blog-subscribe__paragraph">
+            {{ module.paragraph|sanitize_html }}
+          </div>
+        {% endif %}
+
+      </div>
+
+      {% if has_form %}
+        <div class="blog-subscribe__form-card">
+       {% form
+	form_to_use="{{ module.form.form_id }}"
+	response_response_type="{{ module.form.response_type }}"
+	response_message="{{ module.form.message }}"
+	response_redirect_id="{{ module.form.redirect_id }}"
+	response_redirect_url="{{module.form.redirect_url}}"
+	gotowebinar_webinar_key="{{ module.form.gotowebinar_webinar_key }}"
+%}
+        </div>
+      {% elif is_in_editor %}
+        {# Editor-only placeholder: on the live page the card is not rendered until a form is selected. #}
+        <div class="blog-subscribe__form-card blog-subscribe__form-card--placeholder">
+          <p class="blog-subscribe__placeholder">Select the HubSpot form to render here.</p>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+</section>

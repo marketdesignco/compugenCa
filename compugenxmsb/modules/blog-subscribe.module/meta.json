@@ -1,0 +1,9 @@
+{
+  "global": false,
+  "content_types": [ "BLOG_LISTING", "BLOG_POST" ],
+  "categories": [ "body_content" ],
+  "host_template_types": [ "BLOG_LISTING", "BLOG_POST" ],
+  "label": "Blog Subscribe",
+  "icon": "/compugenxmsb/images/module-icons/cta.svg",
+  "is_available_for_new_content": true
+}
