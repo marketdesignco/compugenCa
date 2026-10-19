@@ -1,0 +1,320 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .global-megamenu__bar {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      .global-megamenu {
+        --global-megamenu-bridge: {{ module.styles.spacing_desktop.padding.bottom.value|default(28) }}{{ module.styles.spacing_desktop.padding.bottom.units|default("px") }};
+      }
+
+      @media (max-width: 1099.98px) {
+        .global-megamenu__bar {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+{% set show_lang = module.show_language and (content.translated_content.values()|selectattr("published")|length or is_listing_view and group.translations) %}
+{% set mm_id = "global-megamenu-" ~ name|lower|replace("_", "-") %}
+
+{#
+  Link attributes for every editable link field in this module (cards, list
+  items, plain nav links). Same mailto/rel handling as header.module's buttons.
+#}
+{% macro link_attrs(link) %}
+  {%- set href = link.url.href -%}
+  {%- if link.url.type == "EMAIL_ADDRESS" -%}
+    {%- set href = "mailto:" ~ href -%}
+  {%- endif -%}
+  {%- set rel = [] -%}
+  {%- if link.no_follow -%}
+    {%- do rel.append("nofollow") -%}
+  {%- endif -%}
+  {%- if link.open_in_new_tab -%}
+    {%- do rel.append("noopener") -%}
+  {%- endif -%}
+  href="{{ href|escape_url }}"{% if link.open_in_new_tab %} target="_blank"{% endif %}{% if rel %} rel="{{ rel|join(" ")|escape_attr }}"{% endif %}
+{%- endmacro %}
+
+{#
+  CTA - Regular link or HubSpot CTA, wrapped in the Global Button System
+  (.btn-custom + variant). Same field pattern as text-and-image.module.
+#}
+{% macro render_cta(btn, wrapper_class) %}
+  {% if btn.link_type == "cta" %}
+    {% if btn.cta %}
+      <div class="btn-custom {{ btn.variant|escape_attr }} {{ wrapper_class }}">
+        {% cta guid=btn.cta %}
+      </div>
+    {% endif %}
+  {% elif btn.link.url.href and btn.text %}
+    <div class="btn-custom {{ btn.variant|escape_attr }} {{ wrapper_class }}">
+      <a {{ link_attrs(btn.link) }}>{{ btn.text|escape_html }}</a>
+    </div>
+  {% endif %}
+{% endmacro %}
+
+{% macro render_cards(cards) %}
+  {% if cards %}
+    <ul class="global-megamenu__cards no-list">
+      {% for card in cards %}
+        <li class="global-megamenu__cards-item">
+          {% set card_tag = "a" if card.link.url.href else "div" %}
+          <{{ card_tag }} class="global-megamenu__card" {% if card.link.url.href %}{{ link_attrs(card.link) }}{% endif %}>
+            <span class="global-megamenu__card-head">
+              <span class="global-megamenu__card-title">{{ card.title|escape_html }}</span>
+              <svg class="global-megamenu__card-chevron" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M10.5 8.5l3.5 3.5-3.5 3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            {% if card.description %}
+              <span class="global-megamenu__card-text">{{ card.description|escape_html }}</span>
+            {% endif %}
+          </{{ card_tag }}>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}
+
+{% macro render_list(list_items) %}
+  {% if list_items %}
+    <ul class="global-megamenu__list no-list">
+      {% for list_item in list_items %}
+        <li class="global-megamenu__list-item">
+          {% set item_tag = "a" if list_item.link.url.href else "div" %}
+          <{{ item_tag }} class="global-megamenu__link" {% if list_item.link.url.href %}{{ link_attrs(list_item.link) }}{% endif %}>
+            <span class="global-megamenu__link-head">
+              {% if list_item.show_icon and list_item.icon.name %}
+                <span class="global-megamenu__link-icon" aria-hidden="true">
+                  {% icon
+                    extra_classes="global-megamenu__link-icon-svg",
+                    icon_set="fontawesome-6.4.2",
+                    name="{{ list_item.icon.name }}",
+                    purpose="decorative",
+                    style="{{ list_item.icon.type }}",
+                    unicode="{{ list_item.icon.unicode }}"
+                  %}
+                </span>
+              {% endif %}
+              <span class="global-megamenu__link-title">{{ list_item.title|escape_html }}</span>
+            </span>
+            {% if list_item.description %}
+              <span class="global-megamenu__link-text">{{ list_item.description|escape_html }}</span>
+            {% endif %}
+          </{{ item_tag }}>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}
+
+{% macro render_featured(featured) %}
+  <div class="global-megamenu__featured">
+    {% if featured.eyebrow_text %}
+      <p class="global-megamenu__eyebrow">{{ featured.eyebrow_text|escape_html }}</p>
+    {% endif %}
+    <div class="global-megamenu__feature-card">
+      {% if featured.image.src %}
+        <div class="global-megamenu__feature-image">
+          <img
+            src="{{ featured.image.src|escape_url }}"
+            alt="{{ featured.image.alt|escape_attr }}"
+            loading="lazy"
+          >
+        </div>
+      {% endif %}
+      <div class="global-megamenu__feature-body">
+        {% if featured.resource_type or featured.resource_category or featured.publish_date %}
+          <p class="global-megamenu__feature-meta">
+            {% if featured.resource_type %}<span class="global-megamenu__feature-type">{{ featured.resource_type|escape_html }}</span>{% endif %}
+            {% if featured.resource_category %}<span class="global-megamenu__feature-category">{{ featured.resource_category|escape_html }}</span>{% endif %}
+            {% if featured.publish_date %}<span class="global-megamenu__feature-date">{{ featured.publish_date|escape_html }}</span>{% endif %}
+          </p>
+        {% endif %}
+        {% if featured.title %}
+          <p class="global-megamenu__feature-title">{{ featured.title|escape_html }}</p>
+        {% endif %}
+        {% set featured_cta = {
+          "link_type": featured.cta_link_type,
+          "text": featured.cta_text,
+          "link": featured.cta_link,
+          "variant": featured.cta_variant,
+          "cta": featured.cta
+        } %}
+        {{ render_cta(featured_cta, "global-megamenu__feature-cta") }}
+      </div>
+    </div>
+  </div>
+{% endmacro %}
+
+<header
+  class="
+    global-megamenu
+    {{ "global-megamenu--sticky" if module.styles.sticky }}
+    global-megamenu--bg-{{ module.styles.background_color|escape_attr }}
+    {{ "global-megamenu--no-lang" if not show_lang }}
+  "
+  data-global-megamenu
+  data-label-open="{{ module.a11y_text.open_text|default("Open menu")|escape_attr }}"
+  data-label-close="{{ module.a11y_text.close_text|default("Close menu")|escape_attr }}"
+>
+  <a href="#main-content" class="global-megamenu__skip">{{ module.a11y_text.skip_text|default("Skip to content")|escape_html }}</a>
+
+  <div class="global-megamenu__inner">
+    <div class="global-megamenu__bar">
+
+      {% if module.logo.src %}
+        <a {{ link_attrs(module.logo_link) }} class="global-megamenu__logo" aria-label="{{ module.logo.alt|escape_attr }}">
+          <img
+            src="{{ module.logo.src|escape_url }}"
+            alt="{{ module.logo.alt|escape_attr }}"
+            loading="eager"
+          >
+        </a>
+      {% endif %}
+
+      {% if show_lang %}
+        <ul class="global-megamenu__lang no-list">
+          <li class="global-megamenu__lang-item global-megamenu__lang-item--current">
+            <span aria-current="true">{{ (content.language.languageTag|split("-"))[0]|upper }}</span>
+          </li>
+          {% for translation in content.translated_content.values() %}
+            {% if translation.published %}
+              <li class="global-megamenu__lang-item">
+                <a href="{{ translation.absoluteUrl|escape_url }}" hreflang="{{ translation.language|escape_attr }}">{{ (translation.language|split("-"))[0]|upper }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <button
+        class="global-megamenu__toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="{{ mm_id }}-drawer"
+        aria-label="{{ module.a11y_text.open_text|default("Open menu")|escape_attr }}"
+      >
+        <span class="global-megamenu__toggle-bar"></span>
+        <span class="global-megamenu__toggle-bar"></span>
+        <span class="global-megamenu__toggle-bar"></span>
+      </button>
+
+      {# After the toggle in source so Tab goes toggle -> menu on mobile; CSS order rebuilds logo | nav | lang | CTA on desktop #}
+      <div class="global-megamenu__drawer" id="{{ mm_id }}-drawer">
+
+        {% if module.nav_items %}
+          <nav class="global-megamenu__nav" aria-label="{{ module.a11y_text.nav_text|default("Main menu")|escape_attr }}">
+            <ul class="global-megamenu__menu no-list">
+              {% for item in module.nav_items %}
+                {% set has_panel = item.panel_type != "none" %}
+                {% set decorated = item.show_decoration and (item.panel_type == "cards_list" or item.panel_type == "list") %}
+                {% set panel_id = mm_id ~ "-panel-" ~ loop.index %}
+                <li
+                  class="
+                    global-megamenu__item
+                    {{ "global-megamenu__item--has-panel" if has_panel }}
+                    {{ ("global-megamenu__item--align-" ~ item.panel_align)|escape_attr if has_panel }}
+                  "
+                >
+                  {% if has_panel %}
+                    <button
+                      class="global-megamenu__trigger"
+                      type="button"
+                      aria-expanded="false"
+                      aria-controls="{{ panel_id }}"
+                    >
+                      <span class="global-megamenu__trigger-label">{{ item.item_label|escape_html }}</span>
+                      <svg class="global-megamenu__chevron" width="8" height="5" viewBox="0 0 8 5" aria-hidden="true" focusable="false">
+                        <path d="M1 1l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </button>
+
+                    <div
+                      class="
+                        global-megamenu__panel
+                        global-megamenu__panel--{{ item.panel_type|escape_attr }}
+                        {{ "global-megamenu__panel--decorated" if decorated }}
+                      "
+                      id="{{ panel_id }}"
+                    >
+                      <div class="global-megamenu__panel-inner">
+
+                        {% if item.panel_type == "cards" %}
+                          <div class="global-megamenu__section global-megamenu__section--cards">
+                            {% if item.panel_eyebrow %}
+                              <p class="global-megamenu__eyebrow">{{ item.panel_eyebrow|escape_html }}</p>
+                            {% endif %}
+                            {{ render_cards(item.cards) }}
+                          </div>
+
+                        {% elif item.panel_type == "cards_list" %}
+                          <div class="global-megamenu__section global-megamenu__section--cards">
+                            {% if item.panel_eyebrow %}
+                              <p class="global-megamenu__eyebrow">{{ item.panel_eyebrow|escape_html }}</p>
+                            {% endif %}
+                            {{ render_cards(item.cards) }}
+                          </div>
+                          {% if item.list_items %}
+                            <span class="global-megamenu__divider" aria-hidden="true"></span>
+                            <div class="global-megamenu__section global-megamenu__section--list global-megamenu__section--offset">
+                              {{ render_list(item.list_items) }}
+                            </div>
+                          {% endif %}
+
+                        {% else %}
+                          <div class="global-megamenu__section global-megamenu__section--list">
+                            {% if item.panel_eyebrow %}
+                              <p class="global-megamenu__eyebrow global-megamenu__eyebrow--block">{{ item.panel_eyebrow|escape_html }}</p>
+                            {% endif %}
+                            {{ render_list(item.list_items) }}
+                          </div>
+                          {% if item.panel_type == "list_featured" %}
+                            <span class="global-megamenu__divider" aria-hidden="true"></span>
+                            {{ render_featured(item.featured) }}
+                          {% endif %}
+                        {% endif %}
+
+                      </div>
+
+                      {% if decorated %}
+                        {% if item.decoration_image.src %}
+                          <img
+                            class="global-megamenu__decoration"
+                            src="{{ item.decoration_image.src|escape_url }}"
+                            alt=""
+                            loading="lazy"
+                          >
+                        {% else %}
+                          {# Compugen X mark - same path as hubfs/compugenMSB-2026/vector-back.svg, tinted Purple @ 6% #}
+                          <svg class="global-megamenu__decoration" width="364" height="225" viewBox="0 0 364 225" aria-hidden="true" focusable="false">
+                            <path d="M80.4082 300.886L-62.8691 437H-156L41.0068 243.575H80.4082V300.886ZM363.381 437H270.25L126.973 300.886V243.575H166.374L363.381 437ZM-56.6875 1.25586L84.7422 139.29L83.9688 196.596L44.5713 196.064L-149.81 0L-56.6875 1.25586ZM168.979 196.064L129.581 196.596L128.809 139.29L270.237 1.25586L363.359 0L168.979 196.064Z"/>
+                          </svg>
+                        {% endif %}
+                      {% endif %}
+                    </div>
+
+                  {% else %}
+                    {% set item_tag = "a" if item.link.url.href else "span" %}
+                    <{{ item_tag }} class="global-megamenu__trigger global-megamenu__trigger--link" {% if item.link.url.href %}{{ link_attrs(item.link) }}{% endif %}>
+                      <span class="global-megamenu__trigger-label">{{ item.item_label|escape_html }}</span>
+                    </{{ item_tag }}>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          </nav>
+        {% endif %}
+
+        {{ render_cta(module.cta, "global-megamenu__cta") }}
+
+      </div>
+
+    </div>
+  </div>
+</header>

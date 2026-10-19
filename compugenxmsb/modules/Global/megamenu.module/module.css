@@ -1,0 +1,868 @@
+/* Global Megamenu - measurements from the Figma MM frames (planning/image-8,
+   image-9, image-10): desktop frame 1440px, mobile frame 320px. Colors,
+   type families and the button system come from theme-overrides.css tokens. */
+
+.global-megamenu {
+  --global-megamenu-eyebrow-space: 51px; /* eyebrow line (21px) + its 30px margin */
+  --global-megamenu-shadow: 0 4px 20px 0 rgba(81, 3, 192, 0.08); /* DS Shadow 1 */
+  font-family: var(--font-body);
+  position: relative;
+  width: 100%;
+  z-index: 1000;
+}
+
+.global-megamenu--sticky {
+  position: sticky;
+  top: 0;
+}
+
+/* HubSpot wraps the module (hs_cos_wrapper) and the global partial
+   (data-global-resource-path) in boxes exactly as tall as the header, which
+   would pin the sticky header inside them - the outermost wrapper sticks instead */
+.body-wrapper > :has(.global-megamenu--sticky) {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.global-megamenu--bg-white {
+  background-color: var(--color-white);
+}
+
+.global-megamenu--bg-purple_bg {
+  background-color: var(--color-purple-bg);
+}
+
+.global-megamenu--bg-transparent {
+  background-color: transparent;
+}
+
+.global-megamenu p {
+  margin: 0;
+}
+
+.global-megamenu__skip {
+  height: 1px;
+  left: -1000px;
+  overflow: hidden;
+  position: absolute;
+  top: -1000px;
+  width: 1px;
+}
+
+.global-megamenu__skip:hover,
+.global-megamenu__skip:focus,
+.global-megamenu__skip:active {
+  background-color: var(--color-white);
+  color: var(--color-purple);
+  height: auto;
+  padding: 0.5rem 1rem;
+  left: 1rem;
+  overflow: visible;
+  top: 1rem;
+  width: auto;
+  z-index: 1001;
+}
+
+.global-megamenu__inner {
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 1440px;
+}
+
+.global-megamenu__bar {
+  align-items: center;
+  display: flex;
+}
+
+.global-megamenu__logo {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+}
+
+.global-megamenu__logo img {
+  display: block;
+  width: auto;
+}
+
+/* Triggers - top-level buttons and plain links. Root-prefixed so the reset
+   beats the theme's global button / button:hover rules. */
+
+.global-megamenu .global-megamenu__trigger,
+.global-megamenu .global-megamenu__trigger:hover,
+.global-megamenu .global-megamenu__trigger:focus,
+.global-megamenu .global-megamenu__trigger:active {
+  align-items: center;
+  appearance: none;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--color-black);
+  cursor: pointer;
+  display: flex;
+  font-family: var(--font-body);
+  font-size: var(--body-font-size);
+  font-weight: 400;
+  gap: 6px;
+  line-height: var(--body-line-height);
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  text-decoration: none;
+  text-transform: none;
+  transition: color 0.2s ease;
+}
+
+.global-megamenu .global-megamenu__trigger:hover,
+.global-megamenu .global-megamenu__item.is-open > .global-megamenu__trigger {
+  color: var(--color-purple);
+}
+
+.global-megamenu__chevron {
+  display: block;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.global-megamenu__item.is-open > .global-megamenu__trigger .global-megamenu__chevron {
+  transform: rotate(180deg);
+}
+
+.global-megamenu .global-megamenu__trigger:focus-visible,
+.global-megamenu__card:focus-visible,
+.global-megamenu__link:focus-visible,
+.global-megamenu__toggle:focus-visible,
+.global-megamenu__lang a:focus-visible,
+.global-megamenu__logo:focus-visible {
+  outline: 2px solid var(--color-focus-marker);
+  outline-offset: 2px;
+}
+
+/* Panels */
+
+.global-megamenu__panel {
+  display: none;
+}
+
+.global-megamenu__item.is-open > .global-megamenu__panel {
+  display: block;
+}
+
+.global-megamenu__eyebrow {
+  color: var(--color-gray);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.global-megamenu .global-megamenu__eyebrow {
+  margin-bottom: 30px;
+}
+
+.global-megamenu__cards {
+  display: flex;
+  gap: 20px;
+}
+
+.global-megamenu__card {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-purple-lines);
+  box-sizing: border-box;
+  color: inherit;
+  display: block;
+  height: 100%;
+  padding: 20px;
+  text-decoration: none;
+}
+
+.global-megamenu__card:hover,
+.global-megamenu__card:focus {
+  color: inherit;
+  text-decoration: none;
+}
+
+.global-megamenu__card-head {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.global-megamenu__card-title,
+.global-megamenu__link-title {
+  color: var(--color-purple);
+  font-size: var(--button-font-size);
+  font-weight: 700;
+  line-height: var(--button-line-height);
+}
+
+/* Hover follows the DS Tertiary button: Green underline under Purple text */
+
+a.global-megamenu__card:hover .global-megamenu__card-title,
+a.global-megamenu__link:hover .global-megamenu__link-title {
+  text-decoration: underline;
+  text-decoration-color: var(--color-green);
+}
+
+.global-megamenu__card-chevron {
+  color: var(--color-green);
+  display: block;
+  flex-shrink: 0;
+  margin: -2px -2px -2px 0;
+}
+
+.global-megamenu__card-text,
+.global-megamenu__link-text {
+  color: var(--color-gray);
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+.global-megamenu__list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.global-megamenu__link {
+  color: inherit;
+  display: block;
+  text-decoration: none;
+}
+
+.global-megamenu__link:hover,
+.global-megamenu__link:focus {
+  color: inherit;
+  text-decoration: none;
+}
+
+.global-megamenu__link-head {
+  align-items: center;
+  display: flex;
+  gap: 6px;
+}
+
+.global-megamenu__link-icon {
+  color: var(--color-purple);
+  display: inline-flex;
+  flex-shrink: 0;
+  height: 14px;
+  width: 14px;
+}
+
+.global-megamenu__link-icon svg {
+  fill: currentColor;
+  height: 100%;
+  width: 100%;
+}
+
+.global-megamenu__divider {
+  background-color: var(--color-purple-lines);
+  display: block;
+  flex-shrink: 0;
+  width: 1px;
+}
+
+/* Featured card (Resources) */
+
+.global-megamenu__feature-card {
+  background-color: var(--color-white);
+  box-shadow: var(--global-megamenu-shadow);
+}
+
+.global-megamenu__feature-image {
+  height: 148px;
+  overflow: hidden;
+}
+
+.global-megamenu__feature-image img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.global-megamenu__feature-body {
+  padding: 24px 20px 20px;
+}
+
+.global-megamenu .global-megamenu__feature-meta {
+  color: var(--color-gray);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.global-megamenu__feature-type {
+  color: var(--color-black);
+  font-weight: 700;
+}
+
+.global-megamenu__feature-category {
+  color: var(--color-purple);
+  font-weight: 700;
+}
+
+.global-megamenu__feature-meta span + span::before {
+  color: var(--color-gray);
+  content: '\00B7';
+  font-weight: 400;
+  margin: 0 4px;
+}
+
+/* Tertiary link keeps its inline width - the theme stretches every .btn-custom a below 768px */
+.global-megamenu .global-megamenu__feature-cta a {
+  width: auto;
+}
+
+.global-megamenu .global-megamenu__feature-title {
+  color: var(--color-black);
+  font-family: var(--font-heading);
+  font-size: var(--h5-size);
+  font-weight: 900;
+  line-height: var(--heading-line-height);
+  margin-bottom: 20px;
+}
+
+/* X watermark (Modern Work) - DS "Purple @ 6%" tint */
+
+.global-megamenu__decoration {
+  fill: rgba(81, 3, 192, 0.06);
+  overflow: visible;
+  pointer-events: none;
+  position: absolute;
+}
+
+/* Language switcher */
+
+.global-megamenu__lang {
+  align-items: center;
+  color: var(--color-gray);
+  display: flex;
+  flex-shrink: 0;
+  font-size: var(--body-font-size);
+  line-height: var(--body-line-height);
+}
+
+.global-megamenu__lang-item + .global-megamenu__lang-item::before {
+  content: '|';
+  margin: 0 0.3em;
+}
+
+.global-megamenu__lang a {
+  color: var(--color-gray);
+  text-decoration: none;
+}
+
+.global-megamenu__lang a:hover,
+.global-megamenu__lang a:focus {
+  color: var(--color-purple);
+}
+
+/* Mobile toggle - hamburger that turns into a Purple X (16px bars = 11px X, as in Figma) */
+
+.global-megamenu .global-megamenu__toggle,
+.global-megamenu .global-megamenu__toggle:hover,
+.global-megamenu .global-megamenu__toggle:focus,
+.global-megamenu .global-megamenu__toggle:active {
+  align-items: center;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 4px;
+  height: 22px;
+  justify-content: center;
+  margin: 0 0 0 24px;
+  padding: 0;
+  transition: none;
+  width: 22px;
+}
+
+.global-megamenu__toggle-bar {
+  background-color: var(--color-purple);
+  display: block;
+  height: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  width: 16px;
+}
+
+.global-megamenu__toggle[aria-expanded="true"] .global-megamenu__toggle-bar:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.global-megamenu__toggle[aria-expanded="true"] .global-megamenu__toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.global-megamenu__toggle[aria-expanded="true"] .global-megamenu__toggle-bar:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Visibility kept out of the state reset above, so :active/:focus can never
+   hide the button mid-tap on mobile */
+.global-megamenu .global-megamenu__toggle {
+  display: none;
+}
+
+body.global-megamenu-scroll-locked {
+  overflow: hidden;
+}
+
+/* ===================== Desktop (1100px and up) ===================== */
+
+@media (min-width: 1100px) {
+  .global-megamenu {
+    /* 1440px frame values, eased down to 1366px. Maximums leave room for a
+       ~15px classic scrollbar, which 100vw includes but the layout does not */
+    --global-megamenu-gutter: clamp(40px, calc((100vw - 1366px) * 0.216 + 40px), 56px);
+    --global-megamenu-logo: clamp(50px, calc((100vw - 1366px) * 0.081 + 50px), 56px);
+    --global-megamenu-gap: clamp(18px, calc((100vw - 1366px) * 0.054 + 18px), 22px);
+  }
+
+  .global-megamenu__inner {
+    padding: 0 var(--global-megamenu-gutter);
+  }
+
+  .global-megamenu__bar {
+    align-items: stretch;
+  }
+
+  .global-megamenu__logo img {
+    height: var(--global-megamenu-logo);
+  }
+
+  /* Drawer wrapper dissolves so nav, language and CTA sit in one row:
+     logo | nav | EN | FR | CTA */
+  .global-megamenu__drawer {
+    display: contents;
+  }
+
+  .global-megamenu__logo,
+  .global-megamenu__nav {
+    flex-shrink: 0;
+  }
+
+  .global-megamenu__nav {
+    display: flex;
+    margin-left: clamp(32px, calc((100vw - 1366px) * 0.108 + 32px), 40px);
+    order: 2;
+  }
+
+  .global-megamenu__menu {
+    align-items: stretch;
+    display: flex;
+    gap: var(--global-megamenu-gap);
+  }
+
+  .global-megamenu__item {
+    display: flex;
+  }
+
+  .global-megamenu__item--align-item {
+    position: relative;
+  }
+
+  /* Trigger fills the bar's full content height; ::after bridges the bar's
+     bottom padding so moving the pointer down to the panel never drops hover */
+  .global-megamenu .global-megamenu__trigger {
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .global-megamenu__item--has-panel > .global-megamenu__trigger::after {
+    content: '';
+    height: var(--global-megamenu-bridge);
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 100%;
+  }
+
+  .global-megamenu .global-megamenu__lang {
+    align-self: center;
+    margin-left: auto;
+    order: 3;
+    padding-left: 24px;
+  }
+
+  .global-megamenu__cta {
+    align-self: center;
+    flex-shrink: 0;
+    margin-left: clamp(24px, calc((100vw - 1366px) * 0.054 + 24px), 28px);
+    order: 4;
+  }
+
+  /* No published translations - the CTA takes over the auto margin */
+  .global-megamenu--no-lang .global-megamenu__cta {
+    margin-left: auto;
+  }
+
+  .global-megamenu__panel {
+    background-color: var(--color-purple-bg);
+    box-shadow: var(--global-megamenu-shadow);
+    box-sizing: border-box;
+    max-width: 100vw;
+    overflow: hidden;
+    position: absolute;
+    top: 100%;
+    width: max-content;
+    z-index: 1;
+  }
+
+  .global-megamenu__item--align-right > .global-megamenu__panel {
+    right: 0;
+  }
+
+  .global-megamenu__item--align-center > .global-megamenu__panel {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Centered under its own trigger; module.js nudges it back inside the
+     viewport through --global-megamenu-shift */
+  .global-megamenu__item--align-item > .global-megamenu__panel {
+    left: 50%;
+    top: calc(100% + var(--global-megamenu-bridge));
+    transform: translateX(calc(-50% + var(--global-megamenu-shift, 0px)));
+  }
+
+  .global-megamenu__panel-inner {
+    display: flex;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Hybrid Cloud - cards in a row */
+  .global-megamenu__panel--cards {
+    padding: 60px;
+  }
+
+  .global-megamenu__panel--cards .global-megamenu__cards-item {
+    width: 340px;
+  }
+
+  /* Modern Work - stacked cards | divider | list, X watermark on the right */
+  .global-megamenu__panel--cards_list {
+    padding: 40px 44px 44px;
+  }
+
+  .global-megamenu__panel--cards_list.global-megamenu__panel--decorated {
+    padding-right: 290px;
+  }
+
+  .global-megamenu__panel--cards_list .global-megamenu__section--cards {
+    width: 340px;
+  }
+
+  .global-megamenu__panel--cards_list .global-megamenu__cards {
+    flex-direction: column;
+  }
+
+  .global-megamenu__panel--cards_list .global-megamenu__divider {
+    margin: var(--global-megamenu-eyebrow-space) 48px 0 64px;
+  }
+
+  .global-megamenu__section--offset {
+    align-items: center;
+    display: flex;
+    margin-top: var(--global-megamenu-eyebrow-space);
+  }
+
+  .global-megamenu__section--list {
+    width: 330px;
+  }
+
+  /* X mark at 0.765 scale of the 364x225 source, placed as in the Figma panel -
+     the panel clips it so only its left half shows */
+  .global-megamenu__panel--cards_list .global-megamenu__decoration {
+    height: 172px;
+    right: -153px;
+    top: 102px;
+    width: 278px;
+  }
+
+  /* Resources - list | divider | featured card */
+  .global-megamenu__panel--list_featured,
+  .global-megamenu__panel--list {
+    padding: 60px;
+  }
+
+  .global-megamenu__panel--list_featured .global-megamenu__divider {
+    margin: var(--global-megamenu-eyebrow-space) 52px 0 44px;
+  }
+
+  .global-megamenu__featured {
+    width: 420px;
+  }
+
+  /* About - Union.png X (133x112) centered on the left edge, so only its right
+     half shows; content moves over as in the Figma (113px) */
+  .global-megamenu__panel--list.global-megamenu__panel--decorated {
+    padding-left: 113px;
+  }
+
+  .global-megamenu__panel--list .global-megamenu__decoration {
+    height: 112px;
+    left: -67px;
+    top: 225px;
+    width: 133px;
+  }
+}
+
+/* Compact desktop (1100-1365px, landscape tablets / small laptops): same bar,
+   tighter type and spacing so logo | 5 items | EN | FR | CTA still fit */
+
+@media (min-width: 1100px) and (max-width: 1365.98px) {
+  .global-megamenu {
+    --global-megamenu-gutter: clamp(24px, calc((100vw - 1100px) * 0.06 + 24px), 40px);
+    --global-megamenu-logo: clamp(32px, calc((100vw - 1100px) * 0.045 + 32px), 44px);
+    --global-megamenu-gap: 14px;
+  }
+
+  .global-megamenu__nav {
+    margin-left: 20px;
+  }
+
+  .global-megamenu .global-megamenu__lang {
+    padding-left: 20px;
+  }
+
+  .global-megamenu__cta {
+    margin-left: 20px;
+  }
+
+  .global-megamenu__panel--cards {
+    padding: 40px;
+  }
+
+  .global-megamenu__panel--cards .global-megamenu__cards-item {
+    width: 300px;
+  }
+
+  .global-megamenu__panel--cards_list.global-megamenu__panel--decorated {
+    padding-right: 160px;
+  }
+}
+
+/* Narrowest desktop range (1100-1279px): 14px nav and a compact CTA too */
+
+@media (min-width: 1100px) and (max-width: 1279.98px) {
+  .global-megamenu .global-megamenu__trigger,
+  .global-megamenu .global-megamenu__trigger:hover,
+  .global-megamenu .global-megamenu__trigger:focus,
+  .global-megamenu .global-megamenu__trigger:active {
+    font-size: var(--body-font-size-mobile);
+    gap: 4px;
+  }
+
+  .global-megamenu .global-megamenu__lang {
+    font-size: var(--body-font-size-mobile);
+  }
+
+  .global-megamenu__cta.btn-custom a {
+    font-size: var(--button-font-size-mobile);
+    padding: 10px 20px;
+  }
+}
+
+/* ================= Drawer (below 1100px - mobile + tablet) ================= */
+
+@media (max-width: 1099.98px) {
+  .global-megamenu {
+    border-bottom: 1px solid var(--color-purple-lines);
+  }
+
+  .global-megamenu__inner {
+    padding: 0 20px;
+  }
+
+  .global-megamenu__logo {
+    margin-right: auto;
+  }
+
+  .global-megamenu__logo img {
+    height: 22px;
+  }
+
+  .global-megamenu .global-megamenu__toggle {
+    display: flex;
+  }
+
+  .global-megamenu__lang {
+    font-size: var(--body-font-size-mobile);
+  }
+
+  .global-megamenu__drawer {
+    background-color: var(--color-purple-bg);
+    display: none;
+    left: 0;
+    max-height: calc(100vh - 100%);
+    max-height: calc(100dvh - 100%);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    position: absolute;
+    right: 0;
+    top: 100%;
+  }
+
+  .global-megamenu--drawer-open .global-megamenu__drawer {
+    display: block;
+  }
+
+  .global-megamenu .global-megamenu__trigger,
+  .global-megamenu .global-megamenu__trigger:hover,
+  .global-megamenu .global-megamenu__trigger:focus,
+  .global-megamenu .global-megamenu__trigger:active {
+    border-bottom: 1px solid var(--color-purple-lines);
+    box-sizing: border-box;
+    font-size: var(--body-font-size-mobile);
+    justify-content: space-between;
+    padding: 14px 20px;
+    width: 100%;
+  }
+
+  /* Chevron points right when closed, up when open */
+  .global-megamenu__chevron {
+    transform: rotate(-90deg);
+  }
+
+  .global-megamenu__eyebrow,
+  .global-megamenu .global-megamenu__eyebrow {
+    font-size: 12px;
+    margin-bottom: 24px;
+  }
+
+  .global-megamenu .global-megamenu__eyebrow--block {
+    border-bottom: 1px solid var(--color-purple-lines);
+    margin-bottom: 0;
+    padding: 13px 20px;
+  }
+
+  .global-megamenu__section--cards {
+    border-bottom: 1px solid var(--color-purple-lines);
+    padding: 20px 20px 40px;
+  }
+
+  .global-megamenu__cards {
+    flex-direction: column;
+  }
+
+  .global-megamenu__card {
+    padding: 16px 20px;
+  }
+
+  .global-megamenu__card-title,
+  .global-megamenu__link-title {
+    font-size: var(--button-font-size-mobile);
+  }
+
+  .global-megamenu__card-text,
+  .global-megamenu__link-text {
+    font-size: 12px;
+  }
+
+  .global-megamenu__divider,
+  .global-megamenu__decoration {
+    display: none;
+  }
+
+  .global-megamenu__list {
+    gap: 0;
+  }
+
+  .global-megamenu__list-item {
+    border-bottom: 1px solid var(--color-purple-lines);
+  }
+
+  .global-megamenu__link {
+    padding: 20px;
+  }
+
+  .global-megamenu__featured {
+    border-bottom: 1px solid var(--color-purple-lines);
+    padding: 36px 20px 24px;
+  }
+
+  /* Figma mobile card image is 280x116 - keep that ratio at any drawer width
+     instead of a fixed height that turns panoramic on wider phones */
+  .global-megamenu__feature-card {
+    max-width: 420px;
+  }
+
+  .global-megamenu__feature-image {
+    aspect-ratio: 280 / 116;
+    height: auto;
+  }
+
+  .global-megamenu .global-megamenu__feature-meta {
+    font-size: 12px;
+  }
+
+  .global-megamenu .global-megamenu__feature-title {
+    font-size: var(--h5-size-mobile);
+  }
+
+  /* Full-bleed Green bar closing the drawer (Figma: 50px tall, edge to edge).
+     Only the box changes - colors/states stay in the Global Button System. */
+  .global-megamenu__cta.btn-custom,
+  .global-megamenu__cta .hs-cta-wrapper,
+  .global-megamenu__cta .hs-cta-node {
+    display: block;
+  }
+
+  /* The drawer scrolls (overflow clips sideways) - keep focus rings inside it */
+  .global-megamenu__drawer :focus-visible {
+    outline-offset: -2px;
+  }
+
+  .global-megamenu__cta.btn-custom a {
+    display: block;
+    font-size: var(--button-font-size-mobile);
+    padding: 12px 20px;
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1099.98px) {
+  .global-megamenu__inner {
+    padding: 0 40px;
+  }
+
+  .global-megamenu__logo img {
+    height: 32px;
+  }
+
+  /* Drawer content follows the tablet gutter */
+  .global-megamenu .global-megamenu__trigger,
+  .global-megamenu .global-megamenu__trigger:hover,
+  .global-megamenu .global-megamenu__trigger:focus,
+  .global-megamenu .global-megamenu__trigger:active {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .global-megamenu .global-megamenu__eyebrow--block,
+  .global-megamenu__section--cards,
+  .global-megamenu__link,
+  .global-megamenu__featured {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .global-megamenu__chevron,
+  .global-megamenu__toggle-bar {
+    transition: none;
+  }
+}

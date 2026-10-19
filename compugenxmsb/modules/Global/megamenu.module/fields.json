@@ -1,0 +1,1424 @@
+[
+  {
+    "id" : "logo",
+    "name" : "logo",
+    "label" : "Logo",
+    "required" : true,
+    "locked" : false,
+    "responsive" : true,
+    "resizable" : false,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/logo-MSB.svg",
+      "alt" : "Compugen x MSB - Compugen Integrated Microsoft Solutions Business",
+      "loading" : "eager"
+    }
+  },
+  {
+    "id" : "logo_link",
+    "name" : "logo_link",
+    "label" : "Logo link",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [
+      "EXTERNAL",
+      "CONTENT"
+    ],
+    "show_advanced_rel_options" : true,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "href" : "/",
+        "type" : "EXTERNAL"
+      },
+      "no_follow" : false,
+      "open_in_new_tab" : false
+    }
+  },
+  {
+    "id" : "nav_items",
+    "name" : "nav_items",
+    "label" : "Navigation items",
+    "help_text" : "Top-level menu items. Each one is either a plain link or opens a megamenu panel.",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : 1,
+      "max" : 6,
+      "sorting_label_field" : "nav_items.item_label",
+      "default" : 5
+    },
+    "children" : [
+      {
+        "id" : "nav_items.item_label",
+        "name" : "item_label",
+        "label" : "Label",
+        "required" : true,
+        "locked" : false,
+        "allow_new_line" : false,
+        "type" : "text",
+        "display_width" : null,
+        "default" : "Menu item"
+      },
+      {
+        "id" : "nav_items.panel_type",
+        "name" : "panel_type",
+        "label" : "Panel type",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [
+          [
+            "none",
+            "No panel - plain link"
+          ],
+          [
+            "cards",
+            "Cards in a row"
+          ],
+          [
+            "cards_list",
+            "Stacked cards + list"
+          ],
+          [
+            "list_featured",
+            "List + featured card"
+          ],
+          [
+            "list",
+            "List only"
+          ]
+        ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "cards",
+        "help_text" : "Cards in a row = Hybrid Cloud layout. Stacked cards + list = Modern Work layout. List + featured card = Resources layout. List only = About layout."
+      },
+      {
+        "id" : "nav_items.link",
+        "name" : "link",
+        "label" : "Link",
+        "required" : false,
+        "locked" : false,
+        "supported_types" : [
+          "EXTERNAL",
+          "CONTENT",
+          "FILE",
+          "EMAIL_ADDRESS",
+          "BLOG"
+        ],
+        "show_advanced_rel_options" : true,
+        "type" : "link",
+        "display_width" : null,
+        "default" : {
+          "url" : {
+            "href" : "#",
+            "type" : "EXTERNAL"
+          },
+          "no_follow" : false,
+          "open_in_new_tab" : false
+        },
+        "visibility" : {
+          "controlling_field" : "nav_items.panel_type",
+          "controlling_field_path" : "nav_items.panel_type",
+          "controlling_value_regex" : "none",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        }
+      },
+      {
+        "id" : "nav_items.panel_eyebrow",
+        "name" : "panel_eyebrow",
+        "label" : "Panel eyebrow",
+        "required" : false,
+        "locked" : false,
+        "allow_new_line" : false,
+        "type" : "text",
+        "display_width" : null,
+        "default" : "Overview",
+        "help_text" : "Small uppercase label at the top of the panel",
+        "visibility" : {
+          "controlling_field" : "nav_items.panel_type",
+          "controlling_field_path" : "nav_items.panel_type",
+          "controlling_value_regex" : "^(cards|cards_list|list_featured|list)$",
+          "property" : null,
+          "operator" : "MATCHES_REGEX",
+          "access" : null
+        }
+      },
+      {
+        "id" : "nav_items.panel_align",
+        "name" : "panel_align",
+        "label" : "Panel position (desktop)",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [
+          [
+            "right",
+            "Flush to the right edge of the screen"
+          ],
+          [
+            "center",
+            "Centered on the screen"
+          ],
+          [
+            "item",
+            "Centered under this menu item"
+          ]
+        ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "right",
+        "visibility" : {
+          "controlling_field" : "nav_items.panel_type",
+          "controlling_field_path" : "nav_items.panel_type",
+          "controlling_value_regex" : "^(cards|cards_list|list_featured|list)$",
+          "property" : null,
+          "operator" : "MATCHES_REGEX",
+          "access" : null
+        }
+      },
+      {
+        "id" : "nav_items.cards",
+        "name" : "cards",
+        "label" : "Cards",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "nav_items.panel_type",
+          "controlling_field_path" : "nav_items.panel_type",
+          "controlling_value_regex" : "^(cards|cards_list)$",
+          "property" : null,
+          "operator" : "MATCHES_REGEX",
+          "access" : null
+        },
+        "occurrence" : {
+          "min" : 0,
+          "max" : 4,
+          "sorting_label_field" : "nav_items.cards.title",
+          "default" : 0
+        },
+        "children" : [
+          {
+            "id" : "nav_items.cards.title",
+            "name" : "title",
+            "label" : "Title",
+            "required" : true,
+            "locked" : false,
+            "allow_new_line" : false,
+            "type" : "text",
+            "display_width" : null,
+            "default" : "Card title"
+          },
+          {
+            "id" : "nav_items.cards.description",
+            "name" : "description",
+            "label" : "Description",
+            "required" : false,
+            "locked" : false,
+            "allow_new_line" : false,
+            "type" : "text",
+            "display_width" : null,
+            "default" : "Short description of this page."
+          },
+          {
+            "id" : "nav_items.cards.link",
+            "name" : "link",
+            "label" : "Link",
+            "required" : false,
+            "locked" : false,
+            "supported_types" : [
+              "EXTERNAL",
+              "CONTENT",
+              "FILE",
+              "EMAIL_ADDRESS",
+              "BLOG"
+            ],
+            "show_advanced_rel_options" : true,
+            "type" : "link",
+            "display_width" : null,
+            "default" : {
+              "url" : {
+                "href" : "#",
+                "type" : "EXTERNAL"
+              },
+              "no_follow" : false,
+              "open_in_new_tab" : false
+            }
+          }
+        ],
+        "type" : "group",
+        "display_width" : null,
+        "default" : []
+      },
+      {
+        "id" : "nav_items.list_items",
+        "name" : "list_items",
+        "label" : "List items",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "nav_items.panel_type",
+          "controlling_field_path" : "nav_items.panel_type",
+          "controlling_value_regex" : "^(cards_list|list_featured|list)$",
+          "property" : null,
+          "operator" : "MATCHES_REGEX",
+          "access" : null
+        },
+        "occurrence" : {
+          "min" : 0,
+          "max" : 6,
+          "sorting_label_field" : "nav_items.list_items.title",
+          "default" : 0
+        },
+        "children" : [
+          {
+            "id" : "nav_items.list_items.show_icon",
+            "name" : "show_icon",
+            "label" : "Show icon",
+            "required" : false,
+            "locked" : false,
+            "display" : "checkbox",
+            "type" : "boolean",
+            "display_width" : null,
+            "default" : false
+          },
+          {
+            "id" : "nav_items.list_items.icon",
+            "name" : "icon",
+            "label" : "Icon",
+            "required" : false,
+            "locked" : false,
+            "visibility" : {
+              "controlling_field" : "nav_items.list_items.show_icon",
+              "controlling_field_path" : "nav_items.list_items.show_icon",
+              "controlling_value_regex" : "true",
+              "property" : null,
+              "operator" : "EQUAL",
+              "access" : null
+            },
+            "icon_set" : "fontawesome-6.4.2",
+            "type" : "icon",
+            "display_width" : null,
+            "default" : {
+              "name" : "circle",
+              "type" : "REGULAR",
+              "unicode" : "f111"
+            }
+          },
+          {
+            "id" : "nav_items.list_items.title",
+            "name" : "title",
+            "label" : "Title",
+            "required" : true,
+            "locked" : false,
+            "allow_new_line" : false,
+            "type" : "text",
+            "display_width" : null,
+            "default" : "List item"
+          },
+          {
+            "id" : "nav_items.list_items.description",
+            "name" : "description",
+            "label" : "Description",
+            "required" : false,
+            "locked" : false,
+            "allow_new_line" : false,
+            "type" : "text",
+            "display_width" : null,
+            "default" : "Short description of this page."
+          },
+          {
+            "id" : "nav_items.list_items.link",
+            "name" : "link",
+            "label" : "Link",
+            "required" : false,
+            "locked" : false,
+            "supported_types" : [
+              "EXTERNAL",
+              "CONTENT",
+              "FILE",
+              "EMAIL_ADDRESS",
+              "BLOG"
+            ],
+            "show_advanced_rel_options" : true,
+            "type" : "link",
+            "display_width" : null,
+            "default" : {
+              "url" : {
+                "href" : "#",
+                "type" : "EXTERNAL"
+              },
+              "no_follow" : false,
+              "open_in_new_tab" : false
+            }
+          }
+        ],
+        "type" : "group",
+        "display_width" : null,
+        "default" : []
+      },
+      {
+        "id" : "nav_items.featured",
+        "name" : "featured",
+        "label" : "Featured card",
+        "required" : false,
+        "locked" : false,
+        "help_text" : "Set manually - pick the case study, post or resource to promote",
+        "visibility" : {
+          "controlling_field" : "nav_items.panel_type",
+          "controlling_field_path" : "nav_items.panel_type",
+          "controlling_value_regex" : "list_featured",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "children" : [
+          {
+            "id" : "nav_items.featured.eyebrow_text",
+            "name" : "eyebrow_text",
+            "label" : "Eyebrow",
+            "required" : false,
+            "locked" : false,
+            "allow_new_line" : false,
+            "type" : "text",
+            "display_width" : null,
+            "default" : "Featured"
+          },
+          {
+            "id" : "nav_items.featured.image",
+            "name" : "image",
+            "label" : "Image",
+            "required" : false,
+            "locked" : false,
+            "responsive" : true,
+            "resizable" : false,
+            "show_loading" : false,
+            "type" : "image",
+            "display_width" : null,
+            "default" : {
+              "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/image-ej.png",
+              "alt" : "Team collaborating in a modern workplace",
+              "loading" : "lazy"
+            }
+          },
+          {
+            "id" : "nav_items.featured.resource_type",
+            "name" : "resource_type",
+            "label" : "Type",
+            "required" : false,
+            "locked" : false,
+            "allow_new_line" : false,
+            "type" : "text",
+            "display_width" : null,
+            "default" : "Case Study"
+          },
+          {
+            "id" : "nav_items.featured.resource_category",
+            "name" : "resource_category",
+            "label" : "Category",
+            "required" : false,
+            "locked" : false,
+            "allow_new_line" : false,
+            "type" : "text",
+            "display_width" : null,
+            "default" : "Modern Work"
+          },
+          {
+            "id" : "nav_items.featured.publish_date",
+            "name" : "publish_date",
+            "label" : "Date",
+            "required" : false,
+            "locked" : false,
+            "allow_new_line" : false,
+            "type" : "text",
+            "display_width" : null,
+            "default" : "Aug 2026"
+          },
+          {
+            "id" : "nav_items.featured.title",
+            "name" : "title",
+            "label" : "Title",
+            "required" : false,
+            "locked" : false,
+            "allow_new_line" : false,
+            "type" : "text",
+            "display_width" : null,
+            "default" : "Boosting Productivity and Retaining Talent"
+          },
+          {
+            "id" : "nav_items.featured.cta_link_type",
+            "name" : "cta_link_type",
+            "label" : "CTA type",
+            "required" : true,
+            "locked" : false,
+            "display" : "radio",
+            "choices" : [
+              [
+                "link",
+                "Regular link"
+              ],
+              [
+                "cta",
+                "HubSpot CTA"
+              ]
+            ],
+            "multiple" : false,
+            "reordering_enabled" : true,
+            "preset" : null,
+            "type" : "choice",
+            "display_width" : null,
+            "default" : "link",
+            "help_text" : "Choose whether this button links to a HubSpot CTA or a regular link"
+          },
+          {
+            "id" : "nav_items.featured.cta_text",
+            "name" : "cta_text",
+            "label" : "Button text",
+            "required" : false,
+            "locked" : false,
+            "allow_new_line" : false,
+            "type" : "text",
+            "display_width" : null,
+            "default" : "Learn More",
+            "help_text" : "Only used for the Regular link type - a HubSpot CTA carries its own text",
+            "visibility" : {
+              "controlling_field" : "nav_items.featured.cta_link_type",
+              "controlling_field_path" : "nav_items.featured.cta_link_type",
+              "controlling_value_regex" : "link",
+              "property" : null,
+              "operator" : "EQUAL",
+              "access" : null
+            }
+          },
+          {
+            "id" : "nav_items.featured.cta_link",
+            "name" : "cta_link",
+            "label" : "Button link",
+            "required" : false,
+            "locked" : false,
+            "supported_types" : [
+              "EXTERNAL",
+              "CONTENT",
+              "FILE",
+              "EMAIL_ADDRESS"
+            ],
+            "show_advanced_rel_options" : true,
+            "type" : "link",
+            "display_width" : null,
+            "default" : {
+              "url" : {
+                "href" : "#",
+                "type" : "EXTERNAL"
+              },
+              "no_follow" : false,
+              "open_in_new_tab" : false
+            },
+            "visibility" : {
+              "controlling_field" : "nav_items.featured.cta_link_type",
+              "controlling_field_path" : "nav_items.featured.cta_link_type",
+              "controlling_value_regex" : "link",
+              "property" : null,
+              "operator" : "EQUAL",
+              "access" : null
+            }
+          },
+          {
+            "id" : "nav_items.featured.cta_variant",
+            "name" : "cta_variant",
+            "label" : "Button style",
+            "required" : true,
+            "locked" : false,
+            "display" : "select",
+            "choices" : [
+              [
+                "btn-primary-purple",
+                "Primary - Purple"
+              ],
+              [
+                "btn-primary-green",
+                "Primary - Green"
+              ],
+              [
+                "btn-secondary-purple",
+                "Secondary - Purple"
+              ],
+              [
+                "btn-secondary-green",
+                "Secondary - Green"
+              ],
+              [
+                "btn-secondary-white",
+                "Secondary - White outline"
+              ],
+              [
+                "btn-tertiary-purple",
+                "Tertiary - Purple"
+              ],
+              [
+                "btn-tertiary-green",
+                "Tertiary - Green"
+              ]
+            ],
+            "multiple" : false,
+            "reordering_enabled" : true,
+            "preset" : null,
+            "type" : "choice",
+            "display_width" : null,
+            "default" : "btn-tertiary-purple",
+            "help_text" : "Applies to both a regular link and a HubSpot CTA"
+          },
+          {
+            "id" : "nav_items.featured.cta",
+            "name" : "cta",
+            "label" : "HubSpot CTA",
+            "required" : false,
+            "locked" : false,
+            "visibility" : {
+              "controlling_field" : "nav_items.featured.cta_link_type",
+              "controlling_field_path" : "nav_items.featured.cta_link_type",
+              "controlling_value_regex" : "cta",
+              "property" : null,
+              "operator" : "EQUAL",
+              "access" : null
+            },
+            "type" : "cta",
+            "display_width" : null
+          }
+        ],
+        "type" : "group",
+        "display_width" : null
+      },
+      {
+        "id" : "nav_items.show_decoration",
+        "name" : "show_decoration",
+        "label" : "Show X watermark",
+        "required" : false,
+        "locked" : false,
+        "display" : "checkbox",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false,
+        "help_text" : "Stacked cards + list: left half of the X on the right edge. List only: right half of the X on the left edge.",
+        "visibility" : {
+          "controlling_field" : "nav_items.panel_type",
+          "controlling_field_path" : "nav_items.panel_type",
+          "controlling_value_regex" : "^(cards_list|list)$",
+          "property" : null,
+          "operator" : "MATCHES_REGEX",
+          "access" : null
+        }
+      },
+      {
+        "id" : "nav_items.decoration_image",
+        "name" : "decoration_image",
+        "label" : "Watermark image (optional)",
+        "required" : false,
+        "locked" : false,
+        "responsive" : true,
+        "resizable" : false,
+        "show_loading" : false,
+        "type" : "image",
+        "display_width" : null,
+        "help_text" : "Leave empty to use the built-in Compugen X mark",
+        "visibility" : {
+          "controlling_field" : "nav_items.show_decoration",
+          "controlling_field_path" : "nav_items.show_decoration",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        }
+      }
+    ],
+    "tab" : "CONTENT",
+    "expanded" : true,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : [
+      {
+        "item_label" : "Modern Work",
+        "panel_type" : "cards_list",
+        "link" : {
+          "url" : {
+            "href" : "#",
+            "type" : "EXTERNAL"
+          },
+          "no_follow" : false,
+          "open_in_new_tab" : false
+        },
+        "panel_eyebrow" : "Modern Work Overview",
+        "panel_align" : "right",
+        "cards" : [
+          {
+            "title" : "Microsoft 365",
+            "description" : "Empower your team with connected tools for productivity, communication, and collaboration.",
+            "link" : {
+              "url" : {
+                "href" : "#",
+                "type" : "EXTERNAL"
+              },
+              "no_follow" : false,
+              "open_in_new_tab" : false
+            }
+          },
+          {
+            "title" : "SharePoint",
+            "description" : "Build secure, organized spaces to manage content, knowledge, and team collaboration.",
+            "link" : {
+              "url" : {
+                "href" : "#",
+                "type" : "EXTERNAL"
+              },
+              "no_follow" : false,
+              "open_in_new_tab" : false
+            }
+          },
+          {
+            "title" : "AI + Copilot",
+            "description" : "Seamlessly move your organization to Microsoft 365 with a secure, strategic approach.",
+            "link" : {
+              "url" : {
+                "href" : "#",
+                "type" : "EXTERNAL"
+              },
+              "no_follow" : false,
+              "open_in_new_tab" : false
+            }
+          }
+        ],
+        "list_items" : [
+          {
+            "show_icon" : false,
+            "title" : "AI Strategy",
+            "description" : "Build a clear roadmap to integrate AI into your organization and drive meaningful business impact.",
+            "link" : {
+              "url" : {
+                "href" : "#",
+                "type" : "EXTERNAL"
+              },
+              "no_follow" : false,
+              "open_in_new_tab" : false
+            }
+          },
+          {
+            "show_icon" : false,
+            "title" : "AI Adoption",
+            "description" : "Empower your teams to confidently adopt AI tools and turn new capabilities into everyday productivity.",
+            "link" : {
+              "url" : {
+                "href" : "#",
+                "type" : "EXTERNAL"
+              },
+              "no_follow" : false,
+              "open_in_new_tab" : false
+            }
+          },
+          {
+            "show_icon" : false,
+            "title" : "Device Strategy",
+            "description" : "Create a smarter device strategy that supports secure, productive, and flexible work.",
+            "link" : {
+              "url" : {
+                "href" : "#",
+                "type" : "EXTERNAL"
+              },
+              "no_follow" : false,
+              "open_in_new_tab" : false
+            }
+          }
+        ],
+        "featured" : {
+          "eyebrow_text" : "Featured",
+          "image" : {
+            "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/image-ej.png",
+            "alt" : "Team collaborating in a modern workplace",
+            "loading" : "lazy"
+          },
+          "resource_type" : "Case Study",
+          "resource_category" : "Modern Work",
+          "publish_date" : "Aug 2026",
+          "title" : "Boosting Productivity and Retaining Talent",
+          "cta_link_type" : "link",
+          "cta_text" : "Learn More",
+          "cta_link" : {
+            "url" : {
+              "href" : "#",
+              "type" : "EXTERNAL"
+            },
+            "no_follow" : false,
+            "open_in_new_tab" : false
+          },
+          "cta_variant" : "btn-tertiary-purple"
+        },
+        "show_decoration" : true
+      },
+      {
+        "item_label" : "Hybrid Cloud",
+        "panel_type" : "cards",
+        "link" : {
+          "url" : {
+            "href" : "#",
+            "type" : "EXTERNAL"
+          },
+          "no_follow" : false,
+          "open_in_new_tab" : false
+        },
+        "panel_eyebrow" : "Hybrid Cloud Overview",
+        "panel_align" : "center",
+        "cards" : [
+          {
+            "title" : "Cloud & Infrastructure",
+            "description" : "Modernize your infrastructure with flexible, secure, and scalable cloud solutions.",
+            "link" : {
+              "url" : {
+                "href" : "#",
+                "type" : "EXTERNAL"
+              },
+              "no_follow" : false,
+              "open_in_new_tab" : false
+            }
+          },
+          {
+            "title" : "Data & Analytics",
+            "description" : "Turn your data into actionable insights that support smarter business decisions.",
+            "link" : {
+              "url" : {
+                "href" : "#",
+                "type" : "EXTERNAL"
+              },
+              "no_follow" : false,
+              "open_in_new_tab" : false
+            }
+          },
+          {
+            "title" : "Optimization",
+            "description" : "Improve performance, efficiency, and costs across your technology environment.",
+            "link" : {
+              "url" : {
+                "href" : "#",
+                "type" : "EXTERNAL"
+              },
+              "no_follow" : false,
+              "open_in_new_tab" : false
+            }
+          }
+        ],
+        "list_items" : [],
+        "featured" : {
+          "eyebrow_text" : "Featured",
+          "image" : {
+            "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/image-ej.png",
+            "alt" : "Team collaborating in a modern workplace",
+            "loading" : "lazy"
+          },
+          "resource_type" : "Case Study",
+          "resource_category" : "Modern Work",
+          "publish_date" : "Aug 2026",
+          "title" : "Boosting Productivity and Retaining Talent",
+          "cta_link_type" : "link",
+          "cta_text" : "Learn More",
+          "cta_link" : {
+            "url" : {
+              "href" : "#",
+              "type" : "EXTERNAL"
+            },
+            "no_follow" : false,
+            "open_in_new_tab" : false
+          },
+          "cta_variant" : "btn-tertiary-purple"
+        },
+        "show_decoration" : false
+      },
+      {
+        "item_label" : "Connected + Secured",
+        "panel_type" : "none",
+        "link" : {
+          "url" : {
+            "href" : "#",
+            "type" : "EXTERNAL"
+          },
+          "no_follow" : false,
+          "open_in_new_tab" : false
+        },
+        "panel_eyebrow" : "",
+        "panel_align" : "right",
+        "cards" : [],
+        "list_items" : [],
+        "featured" : {
+          "eyebrow_text" : "Featured",
+          "image" : {
+            "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/image-ej.png",
+            "alt" : "Team collaborating in a modern workplace",
+            "loading" : "lazy"
+          },
+          "resource_type" : "Case Study",
+          "resource_category" : "Modern Work",
+          "publish_date" : "Aug 2026",
+          "title" : "Boosting Productivity and Retaining Talent",
+          "cta_link_type" : "link",
+          "cta_text" : "Learn More",
+          "cta_link" : {
+            "url" : {
+              "href" : "#",
+              "type" : "EXTERNAL"
+            },
+            "no_follow" : false,
+            "open_in_new_tab" : false
+          },
+          "cta_variant" : "btn-tertiary-purple"
+        },
+        "show_decoration" : false
+      },
+      {
+        "item_label" : "Resources",
+        "panel_type" : "list_featured",
+        "link" : {
+          "url" : {
+            "href" : "#",
+            "type" : "EXTERNAL"
+          },
+          "no_follow" : false,
+          "open_in_new_tab" : false
+        },
+        "panel_eyebrow" : "Resources",
+        "panel_align" : "right",
+        "cards" : [],
+        "list_items" : [
+          {
+            "show_icon" : true,
+            "title" : "Resource Center",
+            "description" : "Explore expert insights, guides, and resources to help you navigate technology and business transformation.",
+            "link" : {
+              "url" : {
+                "href" : "#",
+                "type" : "EXTERNAL"
+              },
+              "no_follow" : false,
+              "open_in_new_tab" : false
+            },
+            "icon" : {
+              "name" : "folder",
+              "type" : "REGULAR",
+              "unicode" : "f07b"
+            }
+          },
+          {
+            "show_icon" : true,
+            "title" : "Blog",
+            "description" : "Stay up to date with the latest technology trends, ideas, and insights from our experts.",
+            "link" : {
+              "url" : {
+                "href" : "#",
+                "type" : "EXTERNAL"
+              },
+              "no_follow" : false,
+              "open_in_new_tab" : false
+            },
+            "icon" : {
+              "name" : "book-open",
+              "type" : "SOLID",
+              "unicode" : "f518"
+            }
+          },
+          {
+            "show_icon" : true,
+            "title" : "Case Studies",
+            "description" : "See how organizations use technology to solve challenges, improve performance, and achieve their goals.",
+            "link" : {
+              "url" : {
+                "href" : "#",
+                "type" : "EXTERNAL"
+              },
+              "no_follow" : false,
+              "open_in_new_tab" : false
+            },
+            "icon" : {
+              "name" : "file-lines",
+              "type" : "REGULAR",
+              "unicode" : "f15c"
+            }
+          }
+        ],
+        "featured" : {
+          "eyebrow_text" : "Featured",
+          "image" : {
+            "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/image-ej.png",
+            "alt" : "Team collaborating in a modern workplace",
+            "loading" : "lazy"
+          },
+          "resource_type" : "Case Study",
+          "resource_category" : "Modern Work",
+          "publish_date" : "Aug 2026",
+          "title" : "Boosting Productivity and Retaining Talent",
+          "cta_link_type" : "link",
+          "cta_text" : "Learn More",
+          "cta_link" : {
+            "url" : {
+              "href" : "#",
+              "type" : "EXTERNAL"
+            },
+            "no_follow" : false,
+            "open_in_new_tab" : false
+          },
+          "cta_variant" : "btn-tertiary-purple"
+        },
+        "show_decoration" : false
+      },
+      {
+        "item_label" : "About",
+        "panel_type" : "list",
+        "link" : {
+          "url" : {
+            "href" : "#",
+            "type" : "EXTERNAL"
+          },
+          "no_follow" : false,
+          "open_in_new_tab" : false
+        },
+        "panel_eyebrow" : "About Compugen X MSB",
+        "panel_align" : "item",
+        "cards" : [],
+        "list_items" : [
+          {
+            "show_icon" : true,
+            "title" : "Who We Are",
+            "description" : "Discover who we are, what we stand for, and how we help businesses transform through technology.",
+            "link" : {
+              "url" : {
+                "href" : "#",
+                "type" : "EXTERNAL"
+              },
+              "no_follow" : false,
+              "open_in_new_tab" : false
+            },
+            "icon" : {
+              "name" : "heart",
+              "type" : "REGULAR",
+              "unicode" : "f004"
+            }
+          },
+          {
+            "show_icon" : true,
+            "title" : "Partnership",
+            "description" : "Leverage our Microsoft partnership to unlock innovative solutions and drive business growth.",
+            "link" : {
+              "url" : {
+                "href" : "#",
+                "type" : "EXTERNAL"
+              },
+              "no_follow" : false,
+              "open_in_new_tab" : false
+            },
+            "icon" : {
+              "name" : "user-group",
+              "type" : "SOLID",
+              "unicode" : "f500"
+            }
+          }
+        ],
+        "featured" : {
+          "eyebrow_text" : "Featured",
+          "image" : {
+            "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/image-ej.png",
+            "alt" : "Team collaborating in a modern workplace",
+            "loading" : "lazy"
+          },
+          "resource_type" : "Case Study",
+          "resource_category" : "Modern Work",
+          "publish_date" : "Aug 2026",
+          "title" : "Boosting Productivity and Retaining Talent",
+          "cta_link_type" : "link",
+          "cta_text" : "Learn More",
+          "cta_link" : {
+            "url" : {
+              "href" : "#",
+              "type" : "EXTERNAL"
+            },
+            "no_follow" : false,
+            "open_in_new_tab" : false
+          },
+          "cta_variant" : "btn-tertiary-purple"
+        },
+        "show_decoration" : true,
+        "decoration_image" : {
+          "src" : "https://22217181.fs1.hubspotusercontent-na1.net/hubfs/22217181/Union.png",
+          "alt" : "",
+          "loading" : "lazy"
+        }
+      }
+    ]
+  },
+  {
+    "id" : "show_language",
+    "name" : "show_language",
+    "label" : "Show language switcher",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true,
+    "help_text" : "Only renders when the page has published translations"
+  },
+  {
+    "id" : "cta",
+    "name" : "cta",
+    "label" : "Header CTA",
+    "required" : false,
+    "locked" : false,
+    "children" : [
+      {
+        "id" : "cta.link_type",
+        "name" : "link_type",
+        "label" : "CTA type",
+        "required" : true,
+        "locked" : false,
+        "display" : "radio",
+        "choices" : [
+          [
+            "link",
+            "Regular link"
+          ],
+          [
+            "cta",
+            "HubSpot CTA"
+          ]
+        ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "link",
+        "help_text" : "Choose whether this button links to a HubSpot CTA or a regular link"
+      },
+      {
+        "id" : "cta.text",
+        "name" : "text",
+        "label" : "Button text",
+        "required" : false,
+        "locked" : false,
+        "allow_new_line" : false,
+        "type" : "text",
+        "display_width" : null,
+        "default" : "Book a Readiness Session",
+        "help_text" : "Only used for the Regular link type - a HubSpot CTA carries its own text",
+        "visibility" : {
+          "controlling_field" : "cta.link_type",
+          "controlling_field_path" : "cta.link_type",
+          "controlling_value_regex" : "link",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        }
+      },
+      {
+        "id" : "cta.link",
+        "name" : "link",
+        "label" : "Button link",
+        "required" : false,
+        "locked" : false,
+        "supported_types" : [
+          "EXTERNAL",
+          "CONTENT",
+          "FILE",
+          "EMAIL_ADDRESS"
+        ],
+        "show_advanced_rel_options" : true,
+        "type" : "link",
+        "display_width" : null,
+        "default" : {
+          "url" : {
+            "href" : "#",
+            "type" : "EXTERNAL"
+          },
+          "no_follow" : false,
+          "open_in_new_tab" : false
+        },
+        "visibility" : {
+          "controlling_field" : "cta.link_type",
+          "controlling_field_path" : "cta.link_type",
+          "controlling_value_regex" : "link",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        }
+      },
+      {
+        "id" : "cta.variant",
+        "name" : "variant",
+        "label" : "Button style",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [
+          [
+            "btn-primary-purple",
+            "Primary - Purple"
+          ],
+          [
+            "btn-primary-green",
+            "Primary - Green"
+          ],
+          [
+            "btn-secondary-purple",
+            "Secondary - Purple"
+          ],
+          [
+            "btn-secondary-green",
+            "Secondary - Green"
+          ],
+          [
+            "btn-secondary-white",
+            "Secondary - White outline"
+          ],
+          [
+            "btn-tertiary-purple",
+            "Tertiary - Purple"
+          ],
+          [
+            "btn-tertiary-green",
+            "Tertiary - Green"
+          ]
+        ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "btn-primary-green",
+        "help_text" : "Applies to both a regular link and a HubSpot CTA"
+      },
+      {
+        "id" : "cta.cta",
+        "name" : "cta",
+        "label" : "HubSpot CTA",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "cta.link_type",
+          "controlling_field_path" : "cta.link_type",
+          "controlling_value_regex" : "cta",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "cta",
+        "display_width" : null
+      }
+    ],
+    "tab" : "CONTENT",
+    "expanded" : true,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null
+  },
+  {
+    "id" : "a11y_text",
+    "name" : "a11y_text",
+    "label" : "Accessibility labels",
+    "required" : false,
+    "locked" : false,
+    "help_text" : "Screen-reader text - translate on the FR page",
+    "children" : [
+      {
+        "id" : "a11y_text.skip_text",
+        "name" : "skip_text",
+        "label" : "Skip link",
+        "required" : false,
+        "locked" : false,
+        "allow_new_line" : false,
+        "type" : "text",
+        "display_width" : null,
+        "default" : "Skip to content"
+      },
+      {
+        "id" : "a11y_text.nav_text",
+        "name" : "nav_text",
+        "label" : "Navigation name",
+        "required" : false,
+        "locked" : false,
+        "allow_new_line" : false,
+        "type" : "text",
+        "display_width" : null,
+        "default" : "Main menu"
+      },
+      {
+        "id" : "a11y_text.open_text",
+        "name" : "open_text",
+        "label" : "Open menu button",
+        "required" : false,
+        "locked" : false,
+        "allow_new_line" : false,
+        "type" : "text",
+        "display_width" : null,
+        "default" : "Open menu"
+      },
+      {
+        "id" : "a11y_text.close_text",
+        "name" : "close_text",
+        "label" : "Close menu button",
+        "required" : false,
+        "locked" : false,
+        "allow_new_line" : false,
+        "type" : "text",
+        "display_width" : null,
+        "default" : "Close menu"
+      }
+    ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null
+  },
+  {
+    "id" : "styles",
+    "name" : "styles",
+    "label" : "Styles",
+    "required" : false,
+    "locked" : false,
+    "children" : [
+      {
+        "id" : "styles.spacing_desktop",
+        "name" : "spacing_desktop",
+        "label" : "Desktop spacing",
+        "help_text" : "Top/bottom padding of the header bar on desktop (1100px and up).",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : null,
+          "controlling_value_regex" : null,
+          "property" : null,
+          "operator" : null,
+          "access" : null,
+          "hidden_subfields" : {
+            "margin" : true
+          }
+        },
+        "type" : "spacing",
+        "display_width" : null,
+        "default" : {
+          "padding" : {
+            "top" : {
+              "value" : 28,
+              "units" : "px"
+            },
+            "right" : {
+              "value" : 0,
+              "units" : "px"
+            },
+            "bottom" : {
+              "value" : 28,
+              "units" : "px"
+            },
+            "left" : {
+              "value" : 0,
+              "units" : "px"
+            }
+          }
+        }
+      },
+      {
+        "id" : "styles.spacing_mobile",
+        "name" : "spacing_mobile",
+        "label" : "Mobile spacing",
+        "help_text" : "Top/bottom padding of the header bar below 1100px, independent of the desktop value above.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : null,
+          "controlling_value_regex" : null,
+          "property" : null,
+          "operator" : null,
+          "access" : null,
+          "hidden_subfields" : {
+            "margin" : true
+          }
+        },
+        "type" : "spacing",
+        "display_width" : null,
+        "default" : {
+          "padding" : {
+            "top" : {
+              "value" : 14,
+              "units" : "px"
+            },
+            "right" : {
+              "value" : 0,
+              "units" : "px"
+            },
+            "bottom" : {
+              "value" : 14,
+              "units" : "px"
+            },
+            "left" : {
+              "value" : 0,
+              "units" : "px"
+            }
+          }
+        }
+      },
+      {
+        "id" : "styles.sticky",
+        "name" : "sticky",
+        "label" : "Sticky header",
+        "required" : false,
+        "locked" : false,
+        "display" : "checkbox",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : true,
+        "help_text" : "Keep the header pinned to the top of the viewport while scrolling"
+      },
+      {
+        "id" : "styles.background_color",
+        "name" : "background_color",
+        "label" : "Background color",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [
+          [
+            "white",
+            "White"
+          ],
+          [
+            "purple_bg",
+            "Purple BG (#FAF9FD)"
+          ],
+          [
+            "transparent",
+            "Transparent"
+          ]
+        ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "white"
+      }
+    ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null
+  }
+]

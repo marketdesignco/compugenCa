@@ -1,0 +1,9 @@
+{
+  "global" : false,
+  "content_types" : [ "SITE_PAGE", "BLOG_LISTING", "BLOG_POST" ],
+  "categories" : [ "functionality" ],
+  "host_template_types" : [ "PAGE", "BLOG_POST", "BLOG_LISTING" ],
+  "label" : "Global Megamenu",
+  "icon" : "../../../images/module-icons/menu.svg",
+  "is_available_for_new_content" : true
+}
