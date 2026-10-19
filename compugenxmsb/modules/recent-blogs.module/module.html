@@ -16,16 +16,20 @@
 
 {% set post_limit = 3 %}
 {% set fetch_limit = 100 %}
-{% set blog_id = module.blog_select.id if module.blog_select else "all" %}
+{# On a blog post: default to the current blog and leave the current post out of the list.
+   Inside a post the documented two-argument form blog_recent_posts(blog, limit) is used;
+   everywhere else the original call is kept untouched. #}
+{% set current_post_id = content.id if (group and not contents and (content.post_body or content.blog_post_author)) else 0 %}
+{% set blog_id = module.blog_select.id if module.blog_select else (group.id if current_post_id else "all") %}
 
 {% if module.tag_filter %}
   {% set tag_name = module.tag_filter.name|default(module.tag_filter) %}
   {% set tag_slug = module.tag_filter.slug|default(module.tag_filter) %}
   {% set tag_id = module.tag_filter.id|default(module.tag_filter) %}
-  {% set candidate_posts = blog_recent_posts(blog_id, true, fetch_limit) %}
+  {% set candidate_posts = blog_recent_posts(blog_id, fetch_limit) if current_post_id else blog_recent_posts(blog_id, true, fetch_limit) %}
   {% set posts = [] %}
   {% for candidate in candidate_posts %}
-    {% if candidate.tag_list and (
+    {% if candidate.id != current_post_id and candidate.tag_list and (
         candidate.tag_list|selectattr('name', 'equalto', tag_name)|list
         or candidate.tag_list|selectattr('slug', 'equalto', tag_slug)|list
         or candidate.tag_list|selectattr('id', 'equalto', tag_id)|list
@@ -34,7 +38,13 @@
     {% endif %}
   {% endfor %}
 {% else %}
-  {% set posts = blog_recent_posts(blog_id, true, post_limit) %}
+  {% set candidate_posts = blog_recent_posts(blog_id, post_limit + 1) if current_post_id else blog_recent_posts(blog_id, true, post_limit) %}
+  {% set posts = [] %}
+  {% for candidate in candidate_posts %}
+    {% if candidate.id != current_post_id %}
+      {% do posts.append(candidate) %}
+    {% endif %}
+  {% endfor %}
 {% endif %}
 
 {% set posts = posts[:post_limit] %}
