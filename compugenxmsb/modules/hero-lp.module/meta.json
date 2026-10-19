@@ -1,8 +1,8 @@
 {
   "global" : false,
-  "content_types" : [ "LANDING_PAGE", "SITE_PAGE" ],
+  "content_types" : [ "LANDING_PAGE", "SITE_PAGE", "BLOG_POST", "BLOG_LISTING" ],
   "categories" : [ "body_content" ],
-  "host_template_types" : [ "PAGE" ],
+  "host_template_types" : [ "PAGE", "BLOG_POST", "BLOG_LISTING" ],
   "module_id" : 222213143081,
   "label" : "Hero LP",
   "icon" : "../../images/module-icons/info-circle-solid.svg",

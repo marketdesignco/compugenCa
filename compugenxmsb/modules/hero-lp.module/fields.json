@@ -1,4 +1,15 @@
 [ {
+  "id" : "logo_visible",
+  "name" : "logo_visible",
+  "label" : "Show logo",
+  "help_text" : "On by default. Turn off to hide the logo (e.g. inside blog posts, where the global header already shows it).",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
   "id" : "logo",
   "name" : "logo",
   "label" : "Logo",
@@ -27,6 +38,17 @@
   "display_width" : null,
   "default" : "<h1>Gated Offer Headline in Title Case</h1>"
 }, {
+  "id" : "title_from_page",
+  "name" : "title_from_page",
+  "label" : "Use page title as H1",
+  "help_text" : "Off by default. When on, the H1 is the current page or post title (dynamic) and the Title field above is ignored.",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
   "id" : "description",
   "name" : "description",
   "label" : "Description",
@@ -49,6 +71,16 @@
     "response_type" : "inline",
     "message" : "Thanks for submitting the form."
   }
+}, {
+  "id" : "form_heading",
+  "name" : "form_heading",
+  "label" : "Form heading",
+  "help_text" : "Optional short text shown above the form (e.g. Enter Your Details). Empty by default. When set, the form card also uses the compact form styling (two-column name row, full-width green submit button).",
+  "required" : false,
+  "locked" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : ""
 }, {
   "id" : "buttons",
   "name" : "buttons",
@@ -160,6 +192,84 @@
   "type" : "group",
   "display_width" : null,
   "default" : [ ]
+}, {
+  "id" : "breadcrumbs_visible",
+  "name" : "breadcrumbs_visible",
+  "label" : "Show breadcrumbs",
+  "help_text" : "Off by default. When on, a Home > Blog > Page path is generated automatically from the current page.",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "breadcrumbs_home_label",
+  "name" : "breadcrumbs_home_label",
+  "label" : "Breadcrumbs - home label",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : "breadcrumbs_visible",
+    "controlling_value_regex" : "true",
+    "operator" : "EQUAL"
+  },
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Home"
+}, {
+  "id" : "breadcrumbs_blog_label",
+  "name" : "breadcrumbs_blog_label",
+  "label" : "Breadcrumbs - blog label",
+  "help_text" : "Label for the blog level on blog posts. Leave empty to use the blog's public title.",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : "breadcrumbs_visible",
+    "controlling_value_regex" : "true",
+    "operator" : "EQUAL"
+  },
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Our Blog"
+}, {
+  "id" : "accents_visible",
+  "name" : "accents_visible",
+  "label" : "Show accent bars",
+  "help_text" : "Adds the small multi-color bar above the title and the full-width bar at the bottom, like the Hero module.",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "decoration_visible",
+  "name" : "decoration_visible",
+  "label" : "Show decorative vector (bottom-right)",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "decoration",
+  "name" : "decoration",
+  "label" : "Decorative vector",
+  "help_text" : "Decorative graphic anchored to the bottom-right corner when the toggle above is on",
+  "required" : false,
+  "locked" : false,
+  "responsive" : false,
+  "resizable" : false,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "src" : "https://www.compugen.com/hubfs/compugenMSB-2026/vector-image.svg",
+    "alt" : "",
+    "loading" : "lazy"
+  }
 }, {
   "id" : "styles",
   "name" : "styles",

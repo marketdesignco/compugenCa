@@ -31,12 +31,21 @@
     >
   {% endif %}
 
+  {% if module.decoration_visible and module.decoration.src %}
+    <img
+      class="hero-lp__decoration"
+      src="{{ module.decoration.src|escape_url }}"
+      alt=""
+      loading="lazy"
+    >
+  {% endif %}
+
   <div class="hero-lp__inner content-wrapper">
     <div class="hero-lp__row">
 
       <div class="hero-lp__content">
 
-        {% if module.logo.src %}
+        {% if module.logo_visible and module.logo.src %}
           <img
             class="hero-lp__logo"
             src="{{ module.logo.src|escape_url }}"
@@ -47,7 +56,44 @@
 
         <div class="hero-lp__text">
 
-          {% if module.title %}
+          {% if module.breadcrumbs_visible or module.accents_visible %}
+            <div class="hero-lp__eyebrow">
+              {% if module.accents_visible %}
+                <div class="hero-lp__accent hero-lp__accent--top"></div>
+              {% endif %}
+              {% if module.breadcrumbs_visible %}
+                {# `contents` is only defined on blog listing pages (HubL variables reference), so a listing is never treated as a post. #}
+                {% set bc_is_post = group and not contents and (content.post_body or content.blog_post_author) %}
+                {% set bc_crumbs = [] %}
+                {% do bc_crumbs.append({"label": module.breadcrumbs_home_label or "Home", "url": "/"}) %}
+                {% if group %}
+                  {% do bc_crumbs.append({"label": module.breadcrumbs_blog_label or group.public_title or group.name, "url": (group.absolute_url if bc_is_post else "")}) %}
+                {% endif %}
+                {% if bc_is_post or not group %}
+                  {% do bc_crumbs.append({"label": content.name or page_meta.html_title, "url": ""}) %}
+                {% endif %}
+                <nav class="hero-lp__breadcrumbs" aria-label="Breadcrumb">
+                  <ol class="hero-lp__breadcrumbs-list">
+                    {% for crumb in bc_crumbs %}
+                      <li class="hero-lp__breadcrumbs-item">
+                        {% if crumb.url and not loop.last %}
+                          <a class="hero-lp__breadcrumbs-link" href="{{ crumb.url|escape_url }}">{{ crumb.label|striptags|escape_html }}</a>
+                        {% else %}
+                          <span class="hero-lp__breadcrumbs-current"{% if loop.last %} aria-current="page"{% endif %}>{{ crumb.label|striptags|escape_html }}</span>
+                        {% endif %}
+                      </li>
+                    {% endfor %}
+                  </ol>
+                </nav>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          {% if module.title_from_page and content.name %}
+            <div class="hero-lp__title">
+              <h1>{{ content.name|striptags|escape_html }}</h1>
+            </div>
+          {% elif module.title %}
             <div class="hero-lp__title">
               {{ module.title|sanitize_html }}
             </div>
@@ -101,7 +147,10 @@
       </div>
 
       {% if module.form.form_id %}
-        <div class="hero-lp__form-card">
+        <div class="hero-lp__form-card{% if module.form_heading %} hero-lp__form-card--compact{% endif %}">
+          {% if module.form_heading %}
+            <p class="hero-lp__form-heading">{{ module.form_heading|escape_html }}</p>
+          {% endif %}
        {% form
 	form_to_use="{{ module.form.form_id }}"
 	response_response_type="{{ module.form.response_type }}"
@@ -111,9 +160,18 @@
 	gotowebinar_webinar_key="{{ module.form.gotowebinar_webinar_key }}"
 %}
         </div>
+      {% elif is_in_editor %}
+        {# Editor-only placeholder: on the live page the card is not rendered until a form is selected. #}
+        <div class="hero-lp__form-card hero-lp__form-card--placeholder">
+          <p>Select the HubSpot form to render here.</p>
+        </div>
       {% endif %}
 
     </div>
   </div>
+
+  {% if module.accents_visible %}
+    <div class="hero-lp__accent hero-lp__accent--bottom"></div>
+  {% endif %}
 
 </section>
