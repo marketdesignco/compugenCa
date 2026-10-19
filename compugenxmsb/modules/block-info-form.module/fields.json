@@ -15,10 +15,8 @@
     "id": "title",
     "name": "title",
     "label": "Title",
-    "help_text": "Mantener como Heading 2. El texto en negrita (strong) se muestra con el acento de color/gradiente.",
     "required": false,
     "locked": false,
-    "enabled_features": [ "standard_emphasis", "block" ],
     "type": "richtext",
     "display_width": null,
     "default": "<h2>Reserve Your Place in the 2027 Planning.</h2>"
