@@ -1,0 +1,326 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .blog-listing {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (min-width: 768px) {
+        .blog-listing__grid {
+          grid-template-columns: repeat({{ module.columns }}, 1fr);
+        }
+      }
+
+      @media (max-width: 767px) {
+        .blog-listing {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+{#
+  Custom topic/type filters + search + grid + pagination, replacing
+  @hubspot/blog_posts and @hubspot/pagination.
+
+  How it works: HubL reads the blog's posts once with blog_recent_posts()
+  and renders EVERY card (minus the excluded ones). Each card carries
+  data-* attributes (its tag slugs and a lowercase search string). module.js
+  filters, searches and paginates those cards in the browser, so nothing here
+  depends on the server reading the URL query string (an earlier version used
+  request.query_dict and the filter did nothing on the live page). The URL is
+  still kept in sync (?topic=&type=&q=&page=) so filtered views can be shared:
+  module.js reads those params on load.
+
+  Without JavaScript every card is visible and the filters do nothing.
+
+  Blog source: the Blog field if set, otherwise the blog this listing
+  template is rendering (group), otherwise the portal's default blog.
+  blog_recent_posts()'s selected_blog param only documents a numeric blog
+  ID or the literal "default" - there is no "all blogs" sentinel.
+
+  Taxonomy (used by the Resource Center, off by default for the blog):
+    - Type  = the tags picked in Type filter > Type tags.
+    - Topic = every other tag of the blog, except the Featured tag.
+    - Featured tag = marker tag, never shown in filters or cards.
+    - "Exclude the Feature Content post" (off by default): excludes by post
+      ID the post feature-content.module shows - the most recent post with
+      the Featured tag, else the most recent post of the blog (same rule,
+      same 200-post window).
+
+  Known HubSpot platform limit: blog_recent_posts() returns at most ~200
+  posts per call (enforced since Nov 2024). Filters, search, and pagination
+  here are accurate for any blog with up to ~200 published posts; posts
+  beyond that (oldest first) are not reachable through this module. When
+  the cap is hit, the editor sees a warning and visitors see the Cap notice
+  text, so results are never presented as exhaustive. A blog that grows
+  past ~200 posts would need a server-side/API-backed search instead.
+  Search matches title, meta description and tag names only (not the post
+  summary or body).
+#}
+
+{% set blog_field = module.blog_select %}
+{% if blog_field %}
+  {% set blog_id = blog_field.id if blog_field.id else blog_field %}
+{% elif group and group.id %}
+  {% set blog_id = group.id %}
+{% else %}
+  {% set blog_id = "default" %}
+{% endif %}
+
+{% set type_enabled = module.type_filter.enabled %}
+{% set exclude_id = module.exclude_post_id|default("", true)|trim %}
+
+{# Tag fields use tag_value SLUG; .slug is read first in case the portal
+   hands back a tag object instead of the plain slug string. #}
+{% set featured_tag = module.featured_tag %}
+{% set featured_slug = ((featured_tag.slug if featured_tag.slug else featured_tag)|string|trim) if featured_tag else "" %}
+
+{% set type_slugs = [] %}
+{% if type_enabled %}
+  {% for t in module.type_filter.type_tags %}
+    {% if t %}
+      {% do type_slugs.append((t.slug if t.slug else t)|string|trim) %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% set heading_tag = module.card_heading_level if module.card_heading_level is within ["h3", "h4", "h5"] else "h5" %}
+{% set date_format = module.date_format if module.date_format is within ["%B %Y", "%b %Y"] else "%B %Y" %}
+
+{% set per_page = module.posts_per_page|default(12, true)|int(12) %}
+{% if per_page < 1 %}
+  {% set per_page = 12 %}
+{% endif %}
+
+{#
+  Only HubL constructs documented in the HubL filters / operators / tests
+  pages are used below. Values found inside loops are collected by appending
+  to a list (a plain set inside a for loop does not leave it).
+#}
+
+{# blog_recent_posts() documents 2 params (selected_blog, limit) #}
+{% set post_cap = 200 %}
+{% set all_posts = blog_recent_posts(blog_id, post_cap) %}
+{% set cap_reached = all_posts|length >= post_cap %}
+{% set topics = blog_tags(blog_id, 250) %}
+
+{# Same rule as feature-content.module: the most recent post with the
+   Featured tag, else the most recent post of the blog. #}
+{% set featured_ids = [] %}
+{% set featured_by_tag = false %}
+{% if module.exclude_featured %}
+  {% if featured_slug %}
+    {% for post in all_posts %}
+      {% if not featured_ids %}
+        {% for t in post.tag_list %}
+          {% if t.slug == featured_slug and not featured_ids %}
+            {% do featured_ids.append(post.id|string) %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+    {% set featured_by_tag = featured_ids|length > 0 %}
+  {% endif %}
+  {% if not featured_ids and all_posts %}
+    {% do featured_ids.append(all_posts[0].id|string) %}
+  {% endif %}
+{% endif %}
+{% set featured_id = featured_ids[0] if featured_ids else "" %}
+
+{# Posts that get a card (everything except the excluded ones) #}
+{% set list_posts = [] %}
+{% for post in all_posts %}
+  {% set post_id = post.id|string %}
+  {% if (exclude_id and post_id == exclude_id) or (featured_id and post_id == featured_id) %}
+  {% else %}
+    {% do list_posts.append(post) %}
+  {% endif %}
+{% endfor %}
+
+<section
+  class="blog-listing blog-listing--bg-{{ module.styles.background_color|escape_attr }}"
+  aria-label="{{ module.section_label|default('Blog articles', true)|escape_attr }}"
+  data-blog-listing
+  data-per-page="{{ per_page }}"
+>
+
+  <div class="blog-listing__inner content-wrapper">
+
+    {% if is_in_editor %}
+      {# Editor-only taxonomy check: lists every tag of the selected blog, how
+         many of the posts read here carry it, and how this module classifies
+         it - so Type tags can be verified against real data. #}
+      <div class="blog-listing__editor-panel">
+        <p class="blog-listing__editor-title">
+          Taxonomy check (editor only) - {{ all_posts|length }} posts read{% if cap_reached %}, platform cap of {{ post_cap }} reached: older posts are not filtered or searched{% endif %}.
+        </p>
+        {% if featured_id %}
+          <p>Excluding the Feature Content post, ID {{ featured_id|escape_html }} - {% if featured_by_tag %}most recent post tagged "{{ featured_slug|escape_html }}"{% else %}most recent post of the blog (no post carries the Featured tag){% endif %}.</p>
+        {% endif %}
+        <ul class="blog-listing__editor-list">
+          {% for tag in topics %}
+            {% set tag_posts = [] %}
+            {% for post in all_posts %}
+              {% for t in post.tag_list %}
+                {% if t.slug == tag.slug %}
+                  {% do tag_posts.append(post.id) %}
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+            <li>
+              <strong>{{ tag.name|escape_html }}</strong> ({{ tag.slug|escape_html }}) - {{ tag_posts|length }} posts -
+              {% if featured_slug and tag.slug == featured_slug %}Featured{% elif type_slugs is containing tag.slug %}Type{% else %}Topic{% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <form class="blog-listing__filters{% if type_enabled %} blog-listing__filters--with-type{% endif %}" method="get" role="search" data-blog-listing-filters>
+
+      <div class="blog-listing__field blog-listing__field--topic">
+        <label class="blog-listing__field-label" for="blog-listing-topic">
+          {{ module.topic_placeholder|escape_html }}
+        </label>
+        <select id="blog-listing-topic" name="topic" class="blog-listing__select">
+          <option value="">{{ module.topic_placeholder|escape_html }}</option>
+          {% for tag in topics %}
+            {% if (featured_slug and tag.slug == featured_slug) or (type_slugs is containing tag.slug) %}
+            {% else %}
+              <option value="{{ tag.slug|escape_attr }}">{{ tag.name|escape_html }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+
+      {% if type_enabled %}
+        <div class="blog-listing__field blog-listing__field--type">
+          <label class="blog-listing__field-label" for="blog-listing-type">
+            {{ module.type_filter.placeholder|escape_html }}
+          </label>
+          <select id="blog-listing-type" name="type" class="blog-listing__select">
+            <option value="">{{ module.type_filter.placeholder|escape_html }}</option>
+            {% for tag in topics %}
+              {% if type_slugs is containing tag.slug %}
+                <option value="{{ tag.slug|escape_attr }}">{{ tag.name|escape_html }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+      {% endif %}
+
+      <div class="blog-listing__field blog-listing__field--search">
+        <label class="blog-listing__field-label" for="blog-listing-search">
+          {{ module.search_placeholder|escape_html }}
+        </label>
+        <input
+          type="search"
+          id="blog-listing-search"
+          name="q"
+          class="blog-listing__search-input"
+          placeholder="{{ module.search_placeholder|escape_attr }}"
+          value=""
+          autocomplete="off"
+        >
+        <button type="submit" class="blog-listing__search-submit" aria-label="Search">
+          <svg viewBox="0 0 20 20" width="16" height="16" fill="none" aria-hidden="true">
+            <circle cx="8.5" cy="8.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="13.4" y1="13.4" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+    </form>
+
+    {% if cap_reached and module.cap_notice %}
+      <p class="blog-listing__cap-notice">{{ module.cap_notice|escape_html }}</p>
+    {% endif %}
+
+    <p class="show-for-sr" role="status" aria-live="polite" data-blog-listing-status></p>
+
+    {% if list_posts %}
+      <div class="blog-listing__grid" data-blog-listing-grid>
+        {% for post in list_posts %}
+          {% set card_types = [] %}
+          {% set card_topics = [] %}
+          {% set card_slugs = [] %}
+          {% set tag_names = [] %}
+          {% for t in post.tag_list %}
+            {% set t_slug = t.slug if t.slug else (t.name|lower|replace(" ", "-")) %}
+            {% do card_slugs.append(t_slug) %}
+            {% do tag_names.append(t.name) %}
+            {% if featured_slug and t_slug == featured_slug %}
+            {% elif type_slugs is containing t_slug %}
+              {% do card_types.append(t.name) %}
+            {% else %}
+              {% do card_topics.append(t.name) %}
+            {% endif %}
+          {% endfor %}
+          {# Search text uses meta_description, never post_summary: HubSpot evaluates post_summary as HubL on save, and a summary containing a HubL tag blocks the upload. #}
+          {% set search_text = (post.name|default("") ~ " " ~ post.meta_description|default("") ~ " " ~ tag_names|join(" "))|lower %}
+
+          <div
+            class="blog-listing__card"
+            data-blog-listing-card
+            data-tags="{{ card_slugs|join(' ')|escape_attr }}"
+            data-search="{{ search_text|escape_attr }}"
+          >
+
+            {% if post.featured_image %}
+              <div class="blog-listing__image-wrap">
+                <img
+                  src="{{ post.featured_image|escape_url }}"
+                  alt="{{ post.featured_image_alt_text|escape_attr }}"
+                  loading="lazy"
+                >
+              </div>
+            {% endif %}
+
+            <div class="blog-listing__content">
+
+              <div class="blog-listing__meta">
+                {% set meta_items = [] %}
+                {% if card_types %}
+                  <span class="blog-listing__type">{{ card_types[0]|escape_html }}</span>
+                  {% do meta_items.append("type") %}
+                {% endif %}
+                {% if card_topics %}
+                  {% if meta_items %}<span class="blog-listing__meta-divider" aria-hidden="true">&middot;</span>{% endif %}
+                  <span class="blog-listing__tag">{{ card_topics[0]|escape_html }}</span>
+                  {% do meta_items.append("topic") %}
+                {% endif %}
+                {% if post.publish_date %}
+                  {% if meta_items %}<span class="blog-listing__meta-divider" aria-hidden="true">&middot;</span>{% endif %}
+                  <span class="blog-listing__date">{{ post.publish_date|datetimeformat(date_format) }}</span>
+                {% endif %}
+              </div>
+
+              {% if post.name %}
+                <{{ heading_tag }} class="blog-listing__title h5">{{ post.name|escape_html }}</{{ heading_tag }}>
+              {% endif %}
+
+              {% if post.absolute_url %}
+                <div class="btn-custom btn-tertiary-purple blog-listing__link">
+                  <a href="{{ post.absolute_url|escape_url }}">Learn More<span class="show-for-sr">: {{ post.name|escape_html }}</span></a>
+                </div>
+              {% endif %}
+
+            </div>
+
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {# Shown by module.js when filters/search match nothing; shown by default
+       only when the blog has no posts to list. #}
+    <p class="blog-listing__empty" data-blog-listing-empty{% if list_posts %} hidden{% endif %}>{{ module.no_results_message|escape_html }}</p>
+
+    {# Built by module.js (compact window of page numbers, like the Figma). #}
+    <nav class="blog-listing__pagination" aria-label="Pagination" data-blog-listing-pagination hidden></nav>
+
+  </div>
+
+</section>

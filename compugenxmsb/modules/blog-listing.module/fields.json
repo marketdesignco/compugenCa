@@ -1,0 +1,297 @@
+[
+  {
+    "id": "blog_select",
+    "name": "blog_select",
+    "label": "Blog",
+    "help_text": "Optional. Pull posts from this specific blog. Leave empty to use the blog this listing page belongs to (or the portal's default blog outside a blog). HubL has no \"all blogs\" lookup, so an empty value never means every blog in the portal.",
+    "required": false,
+    "locked": false,
+    "type": "blog",
+    "display_width": null
+  },
+  {
+    "id": "exclude_post_id",
+    "name": "exclude_post_id",
+    "label": "Exclude post (ID)",
+    "help_text": "Optional. Paste the ID of the post already shown as the Featured Article above this module (visible in that post's settings/URL in the HubSpot editor), so it isn't repeated here.",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "type": "text",
+    "display_width": null
+  },
+  {
+    "id": "featured_tag",
+    "name": "featured_tag",
+    "label": "Featured tag",
+    "help_text": "Optional. Marker tag used by the Feature Content module; it is hidden from the filters and cards. Must be the same tag selected in Feature Content.",
+    "required": false,
+    "locked": false,
+    "tag_value": "SLUG",
+    "type": "tag",
+    "display_width": null
+  },
+  {
+    "id": "exclude_featured",
+    "name": "exclude_featured",
+    "label": "Exclude the Feature Content post",
+    "help_text": "Turn on when a Feature Content module sits above this grid. Excludes (by post ID) the post it shows: the most recent post with the Featured tag, or, if none has it, the most recent post of the blog.",
+    "required": false,
+    "locked": false,
+    "display": "checkbox",
+    "type": "boolean",
+    "display_width": null,
+    "default": false
+  },
+  {
+    "id": "type_filter",
+    "name": "type_filter",
+    "label": "Type filter",
+    "help_text": "Optional second dropdown (used by the Resource Center). Off by default.",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "id": "type_filter.enabled",
+        "name": "enabled",
+        "label": "Show Types dropdown",
+        "help_text": "When on, the tags listed below become Types: they move out of the Topics dropdown into a Types dropdown, and each card shows its Type before its Topic.",
+        "required": false,
+        "locked": false,
+        "display": "checkbox",
+        "type": "boolean",
+        "display_width": null,
+        "default": false
+      },
+      {
+        "id": "type_filter.type_tags",
+        "name": "type_tags",
+        "label": "Type tags",
+        "help_text": "Pick the existing blog tags that describe a resource format (e.g. Guide, White paper). Every other tag stays a Topic. Use the editor-only Taxonomy check above the grid to review all tags and their post counts. Must match the Type tags in Feature Content.",
+        "required": false,
+        "locked": false,
+        "visibility": {
+          "controlling_field": "type_filter.enabled",
+          "controlling_value_regex": "true",
+          "operator": "EQUAL"
+        },
+        "occurrence": {
+          "min": 0,
+          "max": 30,
+          "default": 0
+        },
+        "tag_value": "SLUG",
+        "type": "tag",
+        "display_width": null
+      },
+      {
+        "id": "type_filter.placeholder",
+        "name": "placeholder",
+        "label": "Types placeholder text",
+        "help_text": "Shown as the first, unselected option in the Types dropdown.",
+        "required": false,
+        "locked": false,
+        "visibility": {
+          "controlling_field": "type_filter.enabled",
+          "controlling_value_regex": "true",
+          "operator": "EQUAL"
+        },
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": "Types"
+      }
+    ],
+    "tab": "CONTENT",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  },
+  {
+    "id": "posts_per_page",
+    "name": "posts_per_page",
+    "label": "Posts per page",
+    "help_text": "How many article cards to show per page of results.",
+    "required": true,
+    "locked": false,
+    "display": "text",
+    "min": 3,
+    "max": 24,
+    "step": 1,
+    "type": "number",
+    "display_width": null,
+    "default": 12
+  },
+  {
+    "id": "columns",
+    "name": "columns",
+    "label": "Columns (desktop)",
+    "help_text": "Controls the card grid's column count on desktop (>= 768px). Always 1 column below that.",
+    "required": true,
+    "locked": false,
+    "display": "select",
+    "choices": [ [ "2", "2" ], [ "3", "3" ], [ "4", "4" ] ],
+    "type": "choice",
+    "display_width": null,
+    "default": "3"
+  },
+  {
+    "id": "topic_placeholder",
+    "name": "topic_placeholder",
+    "label": "Topics placeholder text",
+    "help_text": "Shown as the first, unselected option in the Topics dropdown. The dropdown's actual options are generated automatically from the selected blog's tags - there is nothing else to configure here.",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "type": "text",
+    "display_width": null,
+    "default": "Topics"
+  },
+  {
+    "id": "search_placeholder",
+    "name": "search_placeholder",
+    "label": "Search placeholder text",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "type": "text",
+    "display_width": null,
+    "default": "Search"
+  },
+  {
+    "id": "no_results_message",
+    "name": "no_results_message",
+    "label": "No results message",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "type": "text",
+    "display_width": null,
+    "default": "No articles match your search."
+  },
+  {
+    "id": "cap_notice",
+    "name": "cap_notice",
+    "label": "Cap notice",
+    "help_text": "Shown above the grid only when the blog has reached HubSpot's ~200-post limit for this module, so visitors know older posts are not included in the filters/search. Leave empty to hide.",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "type": "text",
+    "display_width": null,
+    "default": "Filters and search cover the 200 most recent articles."
+  },
+  {
+    "id": "card_heading_level",
+    "name": "card_heading_level",
+    "label": "Card title heading level",
+    "help_text": "Semantic level only - the card title always looks like an H5. Pick the level that follows the headings above this module on the page.",
+    "required": true,
+    "locked": false,
+    "display": "select",
+    "choices": [ [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ] ],
+    "type": "choice",
+    "display_width": null,
+    "default": "h5"
+  },
+  {
+    "id": "date_format",
+    "name": "date_format",
+    "label": "Card date format",
+    "required": true,
+    "locked": false,
+    "display": "select",
+    "choices": [ [ "%B %Y", "Full month (August 2026)" ], [ "%b %Y", "Short month (Aug 2026)" ] ],
+    "type": "choice",
+    "display_width": null,
+    "default": "%B %Y"
+  },
+  {
+    "id": "section_label",
+    "name": "section_label",
+    "label": "Section name (screen readers)",
+    "help_text": "Accessible name of this section, e.g. Blog articles or Resources.",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "type": "text",
+    "display_width": null,
+    "default": "Blog articles"
+  },
+  {
+    "id": "styles",
+    "name": "styles",
+    "label": "Styles",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "id": "styles.spacing_desktop",
+        "name": "spacing_desktop",
+        "label": "Desktop spacing",
+        "help_text": "Top/bottom padding on desktop. Left/right are hidden - horizontal spacing comes from .content-wrapper.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 80, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 80, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.spacing_mobile",
+        "name": "spacing_mobile",
+        "label": "Mobile spacing",
+        "help_text": "Top/bottom padding at the theme's mobile breakpoint (max-width: 767px), independent of the desktop value above.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 40, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 40, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.background_color",
+        "name": "background_color",
+        "label": "Background color",
+        "required": true,
+        "locked": false,
+        "display": "select",
+        "choices": [ [ "purple_bg", "Purple BG (#FAF9FD)" ], [ "white", "White" ], [ "transparent", "Transparent" ] ],
+        "type": "choice",
+        "display_width": null,
+        "default": "purple_bg",
+        "tab": "STYLE"
+      }
+    ],
+    "tab": "STYLE",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  }
+]

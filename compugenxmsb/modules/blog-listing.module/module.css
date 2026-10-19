@@ -1,0 +1,345 @@
+/*
+  Blog Listing - Topics (+ optional Types) filters, search, card grid and
+  pagination in one module, replacing @hubspot/blog_posts and
+  @hubspot/pagination on the blog-index and resource-center templates.
+  Card recipe (border/shadow/meta/title/link) is copied from
+  recent-blogs.module's own card, just renamed under this module's
+  namespace, so a post looks the same whether it appears there or here.
+*/
+
+.blog-listing {
+  position: relative;
+}
+
+.blog-listing--bg-purple_bg {
+  background-color: var(--color-purple-bg);
+}
+
+.blog-listing--bg-white {
+  background-color: var(--color-white);
+}
+
+.blog-listing--bg-transparent {
+  background-color: transparent;
+}
+
+/* Filters (Topics + Search) -------------------------------------------------
+   Two pill-style fields side by side, each a bordered white box with its
+   own transparent select/input inside - matches the Figma reference
+   (rounded box, uppercase placeholder-style label, trailing chevron/icon),
+   not the theme's usual bordered-input-on-page pattern. */
+
+.blog-listing__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0 auto 3rem;
+  max-width: 640px;
+}
+
+/* Topics + Types + Search (Resource Center): full content width, the two
+   dropdowns side by side and the search box taking the remaining space. */
+.blog-listing__filters--with-type {
+  max-width: none;
+}
+
+.blog-listing__filters--with-type .blog-listing__field--topic,
+.blog-listing__filters--with-type .blog-listing__field--type {
+  flex: 0 1 240px;
+}
+
+.blog-listing__filters--with-type .blog-listing__field--search {
+  flex: 1 1 320px;
+}
+
+/* Visually hidden but still announced by screen readers - the trailing
+   placeholder-style text inside each field is not a substitute for a real
+   <label>. */
+.blog-listing__field-label {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.blog-listing__field {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-purple-lines);
+  border-radius: 8px;
+  flex: 1 1 240px;
+  position: relative;
+}
+
+.blog-listing__field:focus-within {
+  border-color: var(--color-purple);
+}
+
+.blog-listing__select {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23606060' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 1.25rem center;
+  border: 0;
+  border-radius: inherit;
+  box-sizing: border-box;
+  color: var(--color-black);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  padding: 0.9rem 2.75rem 0.9rem 1.25rem;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.blog-listing__search-input {
+  background: transparent;
+  border: 0;
+  border-radius: inherit;
+  box-sizing: border-box;
+  color: var(--color-black);
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  padding: 0.9rem 2.75rem 0.9rem 1.25rem;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.blog-listing__search-input::placeholder {
+  color: var(--color-gray);
+  text-transform: uppercase;
+}
+
+.blog-listing__select:focus,
+.blog-listing__search-input:focus {
+  outline: none;
+}
+
+.blog-listing__search-submit {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--color-gray);
+  cursor: pointer;
+  display: flex;
+  padding: 0;
+  position: absolute;
+  right: 1.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.blog-listing__search-submit:hover,
+.blog-listing__search-submit:focus {
+  color: var(--color-purple);
+}
+
+/* Grid - mobile-first 1 column; desktop column count is set in module.html
+   via the require_css/scope_css block (module.columns), same mechanism as
+   custom-cards.module's own Columns setting. */
+
+.blog-listing__grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
+}
+
+/* Card - same recipe as .recent-blogs__card (border color, shadow value,
+   and image/meta/title/link treatment are intentionally identical so a
+   post reads the same in both modules). */
+
+.blog-listing__card {
+  background-color: var(--color-white);
+  border: 1.5px solid var(--color-purple-lines);
+  box-shadow: 0px 4px 20px 0px #5103C014;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.blog-listing__image-wrap {
+  height: 145px;
+  width: 100%;
+}
+
+.blog-listing__image-wrap img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.blog-listing__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.blog-listing__meta {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.blog-listing__type {
+  color: var(--color-black);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.blog-listing__tag {
+  color: var(--color-purple);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.blog-listing__meta-divider {
+  color: var(--color-gray);
+  font-size: 14px;
+  margin: 0 0.35em;
+}
+
+.blog-listing__date {
+  color: var(--color-gray);
+  font-size: 14px;
+}
+
+.blog-listing__title {
+  color: var(--color-black);
+  margin-bottom: 0.75rem;
+}
+
+.blog-listing__link {
+  margin-top: auto;
+}
+
+/* Empty state / cap notice ---------------------------------------------------- */
+
+.blog-listing__empty {
+  color: var(--color-gray);
+  text-align: center;
+}
+
+.blog-listing__cap-notice {
+  color: var(--color-gray);
+  font-size: 14px;
+  margin: -2rem 0 2rem;
+  text-align: center;
+}
+
+/* Pagination ------------------------------------------------------------------
+   Compact Figma pattern: small square boxes, "1 2 3 4 5 ... 20 >", current
+   page outlined in purple, prev/next as chevron-only boxes (named through
+   aria-label in module.html). */
+
+.blog-listing__pagination {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.blog-listing__page-numbers {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.blog-listing__page-number,
+.blog-listing__page-link {
+  align-items: center;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-purple-lines);
+  border-radius: 2px;
+  box-sizing: border-box;
+  color: var(--color-black);
+  display: inline-flex;
+  font-size: 12px;
+  height: 1.75rem;
+  justify-content: center;
+  min-width: 1.75rem;
+  padding: 0 0.4rem;
+  text-decoration: none;
+}
+
+.blog-listing__page-ellipsis {
+  color: var(--color-gray);
+  font-size: 12px;
+  padding: 0 0.15rem;
+}
+
+a.blog-listing__page-number:hover,
+a.blog-listing__page-number:focus,
+.blog-listing__page-link:hover,
+.blog-listing__page-link:focus {
+  border-color: var(--color-purple);
+  color: var(--color-purple);
+}
+
+a.blog-listing__page-number:focus-visible,
+.blog-listing__page-link:focus-visible {
+  outline: 2px solid var(--color-focus-marker);
+  outline-offset: 2px;
+}
+
+.blog-listing__page-number.is-current {
+  border-color: var(--color-purple);
+  color: var(--color-purple);
+  font-weight: 700;
+}
+
+/* Editor-only taxonomy check (rendered only when is_in_editor) ------------- */
+
+.blog-listing__editor-panel {
+  background-color: var(--color-white);
+  border: 1px dashed var(--color-purple);
+  font-size: 13px;
+  margin-bottom: 2rem;
+  max-height: 320px;
+  overflow: auto;
+  padding: 1rem 1.25rem;
+}
+
+.blog-listing__editor-title {
+  font-weight: 700;
+}
+
+.blog-listing__editor-list {
+  columns: 2 280px;
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+@media (max-width: 767px) {
+  .blog-listing__filters {
+    max-width: none;
+  }
+
+  .blog-listing__field,
+  .blog-listing__filters--with-type .blog-listing__field--topic,
+  .blog-listing__filters--with-type .blog-listing__field--type,
+  .blog-listing__filters--with-type .blog-listing__field--search {
+    flex: 1 1 100%;
+  }
+}
+
+/* Desktop column count (module.columns) is set in module.html's own
+   require_css/scope_css block - same mechanism as custom-cards.module's
+   Columns setting - not duplicated here. */
+
+/* Cards, grid, empty message and pager are shown/hidden by module.js with [hidden];
+   explicit display values on those classes would otherwise override it. */
+[data-blog-listing] [hidden] {
+  display: none !important;
+}
