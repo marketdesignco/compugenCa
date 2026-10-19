@@ -36,9 +36,42 @@
 
       <div class="hero__text">
 
-        <div class="hero__accent hero__accent--top"></div>
+        {% if module.breadcrumbs_visible %}
+          <div class="hero__eyebrow">
+            <div class="hero__accent hero__accent--top"></div>
+            {# `contents` is only defined on blog listing pages (HubL variables reference), so a listing is never treated as a post. #}
+            {% set bc_is_post = group and not contents and (content.post_body or content.blog_post_author) %}
+            {% set bc_crumbs = [] %}
+            {% do bc_crumbs.append({"label": module.breadcrumbs_home_label or "Home", "url": "/"}) %}
+            {% if group %}
+              {% do bc_crumbs.append({"label": module.breadcrumbs_blog_label or group.public_title or group.name, "url": (group.absolute_url if bc_is_post else "")}) %}
+            {% endif %}
+            {% if bc_is_post or not group %}
+              {% do bc_crumbs.append({"label": content.name or page_meta.html_title, "url": ""}) %}
+            {% endif %}
+            <nav class="hero__breadcrumbs" aria-label="Breadcrumb">
+              <ol class="hero__breadcrumbs-list">
+                {% for crumb in bc_crumbs %}
+                  <li class="hero__breadcrumbs-item">
+                    {% if crumb.url and not loop.last %}
+                      <a class="hero__breadcrumbs-link" href="{{ crumb.url|escape_url }}">{{ crumb.label|striptags|escape_html }}</a>
+                    {% else %}
+                      <span class="hero__breadcrumbs-current"{% if loop.last %} aria-current="page"{% endif %}>{{ crumb.label|striptags|escape_html }}</span>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ol>
+            </nav>
+          </div>
+        {% else %}
+          <div class="hero__accent hero__accent--top"></div>
+        {% endif %}
 
-        {% if module.title %}
+        {% if module.title_from_page and content.name %}
+          <div class="hero__title">
+            <h1>{{ content.name|striptags|escape_html }}</h1>
+          </div>
+        {% elif module.title %}
           <div class="hero__title">
             {{ module.title|sanitize_html }}
           </div>

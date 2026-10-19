@@ -10,6 +10,17 @@
   "display_width" : null,
   "default" : "<h1>The H1 Poses the Challenge.<br><strong>The Turn Promises the Win.</strong></h1>"
 }, {
+  "id" : "title_from_page",
+  "name" : "title_from_page",
+  "label" : "Use page title as H1",
+  "help_text" : "Off by default. When on, the H1 is the current page or post title (dynamic) and the Title field above is ignored.",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
   "id" : "description",
   "name" : "description",
   "label" : "Description",
@@ -196,6 +207,46 @@
     "alt" : "",
     "loading" : "lazy"
   }
+}, {
+  "id" : "breadcrumbs_visible",
+  "name" : "breadcrumbs_visible",
+  "label" : "Show breadcrumbs",
+  "help_text" : "Off by default. When on, a Home > Blog > Page path is generated automatically from the current page.",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "breadcrumbs_home_label",
+  "name" : "breadcrumbs_home_label",
+  "label" : "Breadcrumbs - home label",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : "breadcrumbs_visible",
+    "controlling_value_regex" : "true",
+    "operator" : "EQUAL"
+  },
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Home"
+}, {
+  "id" : "breadcrumbs_blog_label",
+  "name" : "breadcrumbs_blog_label",
+  "label" : "Breadcrumbs - blog label",
+  "help_text" : "Label for the blog level on blog posts. Leave empty to use the blog's public title.",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : "breadcrumbs_visible",
+    "controlling_value_regex" : "true",
+    "operator" : "EQUAL"
+  },
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Our Blog"
 }, {
   "id" : "styles",
   "name" : "styles",
