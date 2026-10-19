@@ -21,6 +21,64 @@
   "display_width" : null,
   "default" : "<p>Framing paragraph, then the list. Photos sit beside text, never behind it.</p><ul><li>Verb-Led Bullet Fragment</li><li>Measurable Results and ROI Language</li><li>One Partner from Strategy to Support</li></ul>"
 }, {
+  "id" : "blog_post_source",
+  "name" : "blog_post_source",
+  "label" : "Blog post source",
+  "help_text" : "Optional. Lets this module pull a real blog post's title, excerpt, image, and link instead of the manual fields above - used for a blog listing page's featured article. Off by default, so existing uses of this module are unaffected.",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "blog_post_source.use_blog_post",
+    "name" : "use_blog_post",
+    "label" : "Use a blog post",
+    "help_text" : "When on, Title/Description above and the Image are ignored - this card renders a real post's name, excerpt, featured image, and link instead. The CTAs below are also ignored in favor of a single \"Read more\" link to that post.",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "blog_post_source.blog_select",
+    "name" : "blog_select",
+    "label" : "Blog",
+    "help_text" : "Optional. Pull the post from this specific blog. Leave empty to pull from every blog in the portal.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "blog_post_source.use_blog_post",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "blog",
+    "display_width" : null
+  }, {
+    "id" : "blog_post_source.featured_tag",
+    "name" : "featured_tag",
+    "label" : "Featured tag",
+    "help_text" : "Optional. If set, uses the first post tagged with this (checked against the blog's most recent 100 posts). Leave empty to use the blog's single most recent post.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "blog_post_source.use_blog_post",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "tag",
+    "display_width" : null
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : true,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+}, {
   "id" : "style",
   "name" : "style",
   "label" : "Layout style",

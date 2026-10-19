@@ -14,6 +14,42 @@
   </style>
 {% end_require_css %}
 
+{#
+  Optional dynamic mode: pulls a real blog post's name/excerpt/image/link
+  instead of the manual fields below - same blog_recent_posts() + tag-match
+  logic already used by recent-blogs.module. Off by default (post stays
+  undefined), so manual-content instances of this module are unaffected.
+#}
+{% set use_blog_post = module.blog_post_source.use_blog_post %}
+{% set post = none %}
+{% if use_blog_post %}
+  {# blog_recent_posts() only documents a numeric blog ID or the literal
+     "default" for its selected_blog param - there is no "all blogs"
+     sentinel, so an empty Blog field here resolves to the portal's
+     default blog, not every blog. #}
+  {% set blog_id = module.blog_post_source.blog_select.id if module.blog_post_source.blog_select else "default" %}
+  {% if module.blog_post_source.featured_tag %}
+    {% set tag_name = module.blog_post_source.featured_tag.name|default(module.blog_post_source.featured_tag) %}
+    {% set tag_slug = module.blog_post_source.featured_tag.slug|default(module.blog_post_source.featured_tag) %}
+    {% set tag_id = module.blog_post_source.featured_tag.id|default(module.blog_post_source.featured_tag) %}
+    {# blog_recent_posts() only documents 2 params (selected_blog, limit) -
+       no middle "use_or_filters" boolean. #}
+    {% set candidate_posts = blog_recent_posts(blog_id, 100) %}
+    {% for candidate in candidate_posts %}
+      {% if not post and candidate.tag_list and (
+          candidate.tag_list|selectattr('name', 'equalto', tag_name)|list
+          or candidate.tag_list|selectattr('slug', 'equalto', tag_slug)|list
+          or candidate.tag_list|selectattr('id', 'equalto', tag_id)|list
+        ) %}
+        {% set post = candidate %}
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    {% set recent = blog_recent_posts(blog_id, 1) %}
+    {% set post = recent[0] if recent else none %}
+  {% endif %}
+{% endif %}
+
 <section
   class="
     text-image
@@ -32,21 +68,38 @@
 
         <div class="text-image__text">
 
-          {% if module.title %}
-            <div class="text-image__title">
-              {{ module.title|sanitize_html }}
-            </div>
-          {% endif %}
+          {% if use_blog_post %}
+            {% if post %}
+              <h3 class="text-image__title">{{ post.name|escape_html }}</h3>
+              <div class="text-image__description">
+                <p>{{ post.post_summary|striptags|truncatehtml(160) }}</p>
+              </div>
+            {% endif %}
+          {% else %}
+            {% if module.title %}
+              <div class="text-image__title">
+                {{ module.title|sanitize_html }}
+              </div>
+            {% endif %}
 
-          {% if module.description %}
-            <div class="text-image__description">
-              {{ module.description|sanitize_html }}
-            </div>
+            {% if module.description %}
+              <div class="text-image__description">
+                {{ module.description|sanitize_html }}
+              </div>
+            {% endif %}
           {% endif %}
 
         </div>
 
-        {% if module.ctas %}
+        {% if use_blog_post %}
+          {% if post and post.absolute_url %}
+            <div class="text-image__ctas">
+              <div class="btn-custom btn-tertiary-purple">
+                <a href="{{ post.absolute_url|escape_url }}">Read more</a>
+              </div>
+            </div>
+          {% endif %}
+        {% elif module.ctas %}
           <div class="text-image__ctas">
             {% for cta_item in module.ctas %}
               {% if cta_item.link_type == "cta" %}
@@ -85,13 +138,14 @@
 
       </div>
 
-      {% if module.image.src %}
+      {% set image_src = post.featured_image if use_blog_post and post else module.image.src %}
+      {% if image_src %}
         <div class="text-image__image-wrap">
           <div class="text-image__image">
             <img
-              src="{{ module.image.src|escape_url }}"
-              alt="{{ module.image.alt|escape_attr }}"
-              loading="{{ module.image.loading|escape_attr }}"
+              src="{{ image_src|escape_url }}"
+              alt="{{ (post.featured_image_alt_text if use_blog_post and post else module.image.alt)|escape_attr }}"
+              loading="lazy"
             >
           </div>
           {% if module.style == "style_2" %}
