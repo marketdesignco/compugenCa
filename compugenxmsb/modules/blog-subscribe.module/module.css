@@ -132,9 +132,8 @@
   padding: 0;
 }
 
-/* The form card is narrow by design (see the 380px desktop flex-basis
-   below) - unlike block-info-form's wide card, multi-column rows are
-   always stacked to one column here, at every breakpoint. */
+/* Below 768px every field stacks in one column. From 768px the form is a
+   two-column grid (see the media queries at the end of this file). */
 .blog-subscribe__form-card .hs-form fieldset.form-columns-2,
 .blog-subscribe__form-card .hs-form fieldset.form-columns-3 {
   display: block;
@@ -224,18 +223,52 @@
 }
 
 @media (min-width: 768px) {
+  /* Title and card stack at tablet widths so the card is wide enough for two
+     columns; they sit side by side from 1100px (same breakpoint as the megamenu). */
   .blog-subscribe__body {
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-between;
+    align-items: stretch;
+    flex-direction: column;
   }
 
-  .blog-subscribe__content {
-    flex: 1 1 55%;
-  }
-
+  .blog-subscribe__content,
   .blog-subscribe__form-card {
-    flex: 0 1 380px;
+    flex: 1 1 auto;
+  }
+
+  /* Two-column form. HubSpot v2 markup puts each field in its own fieldset, so
+     the fieldsets are flattened (display: contents) and every field becomes a
+     grid item: First | Last, Title | Email, Phone | Company... */
+  .blog-subscribe__form-card .hs-form {
+    display: grid;
+    gap: 0 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .blog-subscribe__form-card .hs-form fieldset {
+    display: contents;
+  }
+
+  .blog-subscribe__form-card .hs-form fieldset[class*="form-columns"] .hs-form-field {
+    min-width: 0;
+    width: auto;
+  }
+
+  /* Bottom-align the controls of a row: a long label that wraps to two lines
+     must not push its input below its neighbour's. */
+  .blog-subscribe__form-card .hs-form fieldset .hs-form-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  /* Always full width: submit, consent, captcha, messages, long-form fields */
+  .blog-subscribe__form-card .hs-form > :not(fieldset),
+  .blog-subscribe__form-card .hs-form .hs-fieldtype-textarea,
+  .blog-subscribe__form-card .hs-form .hs-fieldtype-booleancheckbox,
+  .blog-subscribe__form-card .hs-form .hs-fieldtype-checkbox,
+  .blog-subscribe__form-card .hs-form .hs-fieldtype-radio,
+  .blog-subscribe__form-card .hs-form .hs-richtext {
+    grid-column: 1 / -1;
   }
 
   /* Figma: the band is 1440 x 500 on desktop. min-height (not height) so it
@@ -249,5 +282,22 @@
 
   .blog-subscribe__inner {
     width: 100%;
+  }
+}
+
+@media (min-width: 1100px) {
+  .blog-subscribe__body {
+    align-items: center;
+    flex-direction: row;
+    gap: 3rem;
+    justify-content: space-between;
+  }
+
+  .blog-subscribe__content {
+    flex: 1 1 36%;
+  }
+
+  .blog-subscribe__form-card {
+    flex: 0 1 640px;
   }
 }
