@@ -1,0 +1,315 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .resource-listing {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (min-width: 768px) {
+        .resource-listing__grid {
+          grid-template-columns: repeat({{ module.columns }}, 1fr);
+        }
+      }
+
+      @media (max-width: 767px) {
+        .resource-listing {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+{#
+  Resource Center listing: posts from SEVERAL blogs in one grid, with
+  Topics + Types + Search filters and pagination, all custom (no @hubspot/*).
+
+  Taxonomy:
+    - Type  = the blog a post lives in (Blog, Resources, Events, Customer
+              Stories, News + Awards, Videos...). One "Resource types" item
+              per blog; its Type name is the dropdown option and the card label.
+    - Topic = the tags of those posts. Every blog has its own tags, so the
+              Topics dropdown is the union of the tags actually used by the
+              posts read here (same tag slug in two blogs = one option).
+    - Featured tag = marker tag, never shown in Topics or on cards.
+
+  How it works: HubL reads each blog once with blog_recent_posts() and renders
+  EVERY card. Cards carry data-type (blog), data-tags (tag slugs),
+  data-search and data-date; module.js sorts them newest first, filters,
+  searches and paginates in the browser, and keeps the URL in sync
+  (?topic=&type=&q=&page=). Without JavaScript every card is visible.
+
+  HubSpot documents no "all blogs" lookup: blog_recent_posts(selected_blog,
+  limit) takes ONE blog id (or "default") and returns at most 200 posts, and
+  it is limited to 10 calls per page - hence at most 8 Resource types here.
+  Filters/search are exact for up to 200 posts per blog; the Cap notice is
+  shown when any blog hits that limit. Topics come from the posts' own tags
+  (no blog_tags() calls), so they never list a tag nobody can match.
+  Search matches title, meta description, tag names and type name only (not
+  the post summary, which HubSpot evaluates as HubL when a module is saved).
+#}
+
+{% set exclude_id = module.exclude_post_id|default("", true)|trim %}
+
+{# Tag fields use tag_value SLUG; .slug is read first in case the portal
+   hands back a tag object instead of the plain slug string. #}
+{% set featured_tag = module.featured_tag %}
+{% set featured_slug = ((featured_tag.slug if featured_tag.slug else featured_tag)|string|trim) if featured_tag else "" %}
+
+{% set heading_tag = module.card_heading_level if module.card_heading_level is within ["h3", "h4", "h5"] else "h3" %}
+{% set date_format = module.date_format if module.date_format is within ["%B %Y", "%b %Y"] else "%b %Y" %}
+
+{% set per_page = module.posts_per_page|default(12, true)|int(12) %}
+{% if per_page < 1 %}
+  {% set per_page = 12 %}
+{% endif %}
+
+{# Sources: parallel lists (blog id, Type name, Type slug). A blog left empty
+   means the blog this listing template renders, else the default blog. #}
+{% set src_ids = [] %}
+{% set src_labels = [] %}
+{% set src_slugs = [] %}
+{% for s in module.sources %}
+  {% set b = s.blog_select %}
+  {% if b %}
+    {% set sid = b.id if b.id else b %}
+  {% elif group and group.id %}
+    {% set sid = group.id %}
+  {% else %}
+    {% set sid = "default" %}
+  {% endif %}
+  {% set lbl = s.type_name|default("Resources", true)|trim %}
+  {% do src_ids.append(sid) %}
+  {% do src_labels.append(lbl) %}
+  {% do src_slugs.append(lbl|lower|replace(" + ", "-")|replace(" ", "-")|replace("&", "and")) %}
+{% endfor %}
+{% if not src_ids %}
+  {% do src_ids.append(group.id if (group and group.id) else "default") %}
+  {% do src_labels.append("Resources") %}
+  {% do src_slugs.append("resources") %}
+{% endif %}
+
+{# One call per blog (documented limit: 10 calls per page) #}
+{% set post_cap = 200 %}
+{% set source_posts = [] %}
+{% set capped_labels = [] %}
+{% for sid in src_ids %}
+  {% set fetched = blog_recent_posts(sid, post_cap) %}
+  {% do source_posts.append(fetched) %}
+  {% if fetched|length >= post_cap %}
+    {% do capped_labels.append(src_labels[loop.index0]) %}
+  {% endif %}
+{% endfor %}
+
+{# Same rule as feature-content.module, applied to the FIRST source: the most
+   recent post with the Featured tag, else its most recent post. #}
+{% set featured_ids = [] %}
+{% set featured_by_tag = false %}
+{% if module.exclude_featured %}
+  {% set first_posts = source_posts[0] %}
+  {% if featured_slug %}
+    {% for post in first_posts %}
+      {% if not featured_ids %}
+        {% for t in post.tag_list %}
+          {% if t.slug == featured_slug and not featured_ids %}
+            {% do featured_ids.append(post.id|string) %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+    {% set featured_by_tag = featured_ids|length > 0 %}
+  {% endif %}
+  {% if not featured_ids and first_posts %}
+    {% do featured_ids.append(first_posts[0].id|string) %}
+  {% endif %}
+{% endif %}
+{% set featured_id = featured_ids[0] if featured_ids else "" %}
+
+{# Topics = union of the tags used by the posts read (a plain set inside a
+   loop does not leave it, so values are collected by appending). #}
+{% set topic_slugs = [] %}
+{% set topic_names = [] %}
+{% for posts in source_posts %}
+  {% for post in posts %}
+    {% for t in post.tag_list %}
+      {% set t_slug = t.slug if t.slug else (t.name|lower|replace(" ", "-")) %}
+      {% if featured_slug and t_slug == featured_slug %}
+      {% elif topic_slugs is containing t_slug %}
+      {% else %}
+        {% do topic_slugs.append(t_slug) %}
+        {% do topic_names.append(t.name) %}
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+{% endfor %}
+
+{% set total_cards = [] %}
+
+<section
+  class="resource-listing resource-listing--bg-{{ module.styles.background_color|escape_attr }}"
+  aria-label="{{ module.section_label|default('Resources', true)|escape_attr }}"
+  data-resource-listing
+  data-per-page="{{ per_page }}"
+>
+
+  <div class="resource-listing__inner content-wrapper">
+
+    {% if is_in_editor %}
+      {# Editor-only check: posts read per Type and how many distinct Topics were found. #}
+      <div class="resource-listing__editor-panel">
+        <p class="resource-listing__editor-title">Sources check (editor only)</p>
+        <ul class="resource-listing__editor-list">
+          {% for sid in src_ids %}
+            <li>
+              <strong>{{ src_labels[loop.index0]|escape_html }}</strong> (blog {{ sid|escape_html }}) - {{ source_posts[loop.index0]|length }} posts read{% if source_posts[loop.index0]|length >= post_cap %} - 200 limit reached, older posts are not included{% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+        <p>{{ topic_slugs|length }} distinct Topics across all blogs.</p>
+        {% if featured_id %}
+          <p>Excluding the Feature Content post, ID {{ featured_id|escape_html }} - {% if featured_by_tag %}most recent post tagged "{{ featured_slug|escape_html }}"{% else %}most recent post of the first blog (no post carries the Featured tag){% endif %}.</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <form class="resource-listing__filters" method="get" role="search" data-resource-listing-filters>
+
+      <div class="resource-listing__field resource-listing__field--topic">
+        <label class="resource-listing__field-label" for="resource-listing-topic">
+          {{ module.topic_placeholder|escape_html }}
+        </label>
+        <select id="resource-listing-topic" name="topic" class="resource-listing__select">
+          <option value="">{{ module.topic_placeholder|escape_html }}</option>
+          {% for slug in topic_slugs %}
+            <option value="{{ slug|escape_attr }}">{{ topic_names[loop.index0]|escape_html }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="resource-listing__field resource-listing__field--type">
+        <label class="resource-listing__field-label" for="resource-listing-type">
+          {{ module.type_placeholder|escape_html }}
+        </label>
+        <select id="resource-listing-type" name="type" class="resource-listing__select">
+          <option value="">{{ module.type_placeholder|escape_html }}</option>
+          {% for slug in src_slugs %}
+            <option value="{{ slug|escape_attr }}">{{ src_labels[loop.index0]|escape_html }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="resource-listing__field resource-listing__field--search">
+        <label class="resource-listing__field-label" for="resource-listing-search">
+          {{ module.search_placeholder|escape_html }}
+        </label>
+        <input
+          type="search"
+          id="resource-listing-search"
+          name="q"
+          class="resource-listing__search-input"
+          placeholder="{{ module.search_placeholder|escape_attr }}"
+          value=""
+          autocomplete="off"
+        >
+        <button type="submit" class="resource-listing__search-submit" aria-label="Search">
+          <svg viewBox="0 0 20 20" width="16" height="16" fill="none" aria-hidden="true">
+            <circle cx="8.5" cy="8.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="13.4" y1="13.4" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+    </form>
+
+    {% if capped_labels and module.cap_notice %}
+      <p class="resource-listing__cap-notice">{{ module.cap_notice|escape_html }}</p>
+    {% endif %}
+
+    <p class="show-for-sr" role="status" aria-live="polite" data-resource-listing-status></p>
+
+    <div class="resource-listing__grid" data-resource-listing-grid>
+      {% for posts in source_posts %}
+        {% set si = loop.index0 %}
+        {% set type_label = src_labels[si] %}
+        {% set type_slug = src_slugs[si] %}
+        {% for post in posts %}
+          {% set post_id = post.id|string %}
+          {% if (exclude_id and post_id == exclude_id) or (featured_id and post_id == featured_id) %}
+          {% else %}
+            {% do total_cards.append(post_id) %}
+            {% set card_slugs = [] %}
+            {% set tag_names = [] %}
+            {% set card_topics = [] %}
+            {% for t in post.tag_list %}
+              {% set t_slug = t.slug if t.slug else (t.name|lower|replace(" ", "-")) %}
+              {% if featured_slug and t_slug == featured_slug %}
+              {% else %}
+                {% do card_slugs.append(t_slug) %}
+                {% do tag_names.append(t.name) %}
+                {% do card_topics.append(t.name) %}
+              {% endif %}
+            {% endfor %}
+            {# Search text uses meta_description, never post_summary: HubSpot evaluates post_summary as HubL on save, and a summary containing a HubL tag blocks the upload. #}
+            {% set search_text = (post.name|default("") ~ " " ~ post.meta_description|default("") ~ " " ~ tag_names|join(" ") ~ " " ~ type_label)|lower %}
+
+            <div
+              class="resource-listing__card"
+              data-resource-listing-card
+              data-type="{{ type_slug|escape_attr }}"
+              data-tags="{{ card_slugs|join(' ')|escape_attr }}"
+              data-search="{{ search_text|escape_attr }}"
+              data-date="{{ post.publish_date|unixtimestamp if post.publish_date else 0 }}"
+            >
+
+              {% if post.featured_image %}
+                <div class="resource-listing__image-wrap">
+                  <img
+                    src="{{ post.featured_image|escape_url }}"
+                    alt="{{ post.featured_image_alt_text|escape_attr }}"
+                    loading="lazy"
+                  >
+                </div>
+              {% endif %}
+
+              <div class="resource-listing__content">
+
+                <div class="resource-listing__meta">
+                  <span class="resource-listing__type">{{ type_label|escape_html }}</span>
+                  {% if card_topics %}
+                    <span class="resource-listing__meta-divider" aria-hidden="true">&middot;</span>
+                    <span class="resource-listing__tag">{{ card_topics[0]|escape_html }}</span>
+                  {% endif %}
+                  {% if post.publish_date %}
+                    <span class="resource-listing__meta-divider" aria-hidden="true">&middot;</span>
+                    <span class="resource-listing__date">{{ post.publish_date|datetimeformat(date_format) }}</span>
+                  {% endif %}
+                </div>
+
+                {% if post.name %}
+                  <{{ heading_tag }} class="resource-listing__title h5">{{ post.name|escape_html }}</{{ heading_tag }}>
+                {% endif %}
+
+                {% if post.absolute_url %}
+                  <div class="btn-custom btn-tertiary-purple resource-listing__link">
+                    <a href="{{ post.absolute_url|escape_url }}">Learn More<span class="show-for-sr">: {{ post.name|escape_html }}</span></a>
+                  </div>
+                {% endif %}
+
+              </div>
+
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+
+    {# Shown by module.js when filters/search match nothing; shown by default
+       only when there is nothing to list. #}
+    <p class="resource-listing__empty" data-resource-listing-empty{% if total_cards %} hidden{% endif %}>{{ module.no_results_message|escape_html }}</p>
+
+    {# Built by module.js (compact window of page numbers, like the Figma). #}
+    <nav class="resource-listing__pagination" aria-label="Pagination" data-resource-listing-pagination hidden></nav>
+
+  </div>
+
+</section>

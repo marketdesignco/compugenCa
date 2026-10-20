@@ -1,0 +1,265 @@
+[
+  {
+    "id": "sources",
+    "name": "sources",
+    "label": "Resource types (blogs)",
+    "help_text": "One item per blog. Each blog becomes one option in the Types dropdown.",
+    "required": false,
+    "locked": false,
+    "occurrence": {
+      "min": 1,
+      "max": 8,
+      "sorting_label_field": "sources.type_name",
+      "default": 1
+    },
+    "children": [
+      {
+        "id": "sources.blog_select",
+        "name": "blog_select",
+        "label": "Blog",
+        "help_text": "Leave empty to use the blog this page belongs to.",
+        "required": false,
+        "locked": false,
+        "type": "blog",
+        "display_width": null
+      },
+      {
+        "id": "sources.type_name",
+        "name": "type_name",
+        "label": "Type name",
+        "help_text": "Shown in the Types dropdown and on each card, e.g. Events.",
+        "required": true,
+        "locked": false,
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": "Resources"
+      }
+    ],
+    "tab": "CONTENT",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  },
+  {
+    "id": "featured_tag",
+    "name": "featured_tag",
+    "label": "Featured tag",
+    "help_text": "Optional. Marker tag used by Feature Content. Hidden from Topics and cards.",
+    "required": false,
+    "locked": false,
+    "tag_value": "SLUG",
+    "type": "tag",
+    "display_width": null
+  },
+  {
+    "id": "exclude_featured",
+    "name": "exclude_featured",
+    "label": "Exclude the Feature Content post",
+    "help_text": "Turn on when Feature Content sits above. Its blog must be the first item above.",
+    "required": false,
+    "locked": false,
+    "display": "checkbox",
+    "type": "boolean",
+    "display_width": null,
+    "default": false
+  },
+  {
+    "id": "exclude_post_id",
+    "name": "exclude_post_id",
+    "label": "Exclude post (ID)",
+    "help_text": "Optional. ID of a post to leave out of the grid.",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "type": "text",
+    "display_width": null
+  },
+  {
+    "id": "posts_per_page",
+    "name": "posts_per_page",
+    "label": "Posts per page",
+    "required": true,
+    "locked": false,
+    "display": "text",
+    "min": 3,
+    "max": 24,
+    "step": 1,
+    "type": "number",
+    "display_width": null,
+    "default": 12
+  },
+  {
+    "id": "columns",
+    "name": "columns",
+    "label": "Columns (desktop)",
+    "help_text": "Always 1 column below 768px.",
+    "required": true,
+    "locked": false,
+    "display": "select",
+    "choices": [ [ "2", "2" ], [ "3", "3" ], [ "4", "4" ] ],
+    "type": "choice",
+    "display_width": null,
+    "default": "3"
+  },
+  {
+    "id": "topic_placeholder",
+    "name": "topic_placeholder",
+    "label": "Topics placeholder text",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "type": "text",
+    "display_width": null,
+    "default": "Topics"
+  },
+  {
+    "id": "type_placeholder",
+    "name": "type_placeholder",
+    "label": "Types placeholder text",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "type": "text",
+    "display_width": null,
+    "default": "Types"
+  },
+  {
+    "id": "search_placeholder",
+    "name": "search_placeholder",
+    "label": "Search placeholder text",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "type": "text",
+    "display_width": null,
+    "default": "Search"
+  },
+  {
+    "id": "no_results_message",
+    "name": "no_results_message",
+    "label": "No results message",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "type": "text",
+    "display_width": null,
+    "default": "No resources match your filters."
+  },
+  {
+    "id": "cap_notice",
+    "name": "cap_notice",
+    "label": "Cap notice",
+    "help_text": "Shown only when a blog reaches the 200-post limit. Leave empty to hide.",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "type": "text",
+    "display_width": null,
+    "default": "Filters and search cover the 200 most recent items of each type."
+  },
+  {
+    "id": "card_heading_level",
+    "name": "card_heading_level",
+    "label": "Card title heading level",
+    "help_text": "Semantic level only. The title always looks like an H5.",
+    "required": true,
+    "locked": false,
+    "display": "select",
+    "choices": [ [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ] ],
+    "type": "choice",
+    "display_width": null,
+    "default": "h3"
+  },
+  {
+    "id": "date_format",
+    "name": "date_format",
+    "label": "Card date format",
+    "required": true,
+    "locked": false,
+    "display": "select",
+    "choices": [ [ "%B %Y", "Full month (August 2026)" ], [ "%b %Y", "Short month (Aug 2026)" ] ],
+    "type": "choice",
+    "display_width": null,
+    "default": "%b %Y"
+  },
+  {
+    "id": "section_label",
+    "name": "section_label",
+    "label": "Section name (screen readers)",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "type": "text",
+    "display_width": null,
+    "default": "Resources"
+  },
+  {
+    "id": "styles",
+    "name": "styles",
+    "label": "Styles",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "id": "styles.spacing_desktop",
+        "name": "spacing_desktop",
+        "label": "Desktop spacing",
+        "help_text": "Top/bottom padding on desktop.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": { "hidden_subfields": { "margin": true } },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 80, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 80, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.spacing_mobile",
+        "name": "spacing_mobile",
+        "label": "Mobile spacing",
+        "help_text": "Top/bottom padding below 768px.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": { "hidden_subfields": { "margin": true } },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 40, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 40, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.background_color",
+        "name": "background_color",
+        "label": "Background color",
+        "required": true,
+        "locked": false,
+        "display": "select",
+        "choices": [ [ "purple_bg", "Purple BG (#FAF9FD)" ], [ "white", "White" ], [ "transparent", "Transparent" ] ],
+        "type": "choice",
+        "display_width": null,
+        "default": "purple_bg",
+        "tab": "STYLE"
+      }
+    ],
+    "tab": "STYLE",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  }
+]
