@@ -26,7 +26,20 @@
 
   Blog source: Blog field, else the blog this listing template renders
   (group), else the portal's default blog - same order as blog-listing.
+
+  show_feature off: nothing renders on the live page (and no posts are
+  queried); the editor gets a note so the hidden module can still be found.
 #}
+
+{% if not module.show_feature %}
+  {% if is_in_editor %}
+    <div class="feature-content__inner content-wrapper">
+      <p class="feature-content__editor-note">
+        Featured item is hidden. Turn off "Exclude the Feature Content post" in the listing module so this post still appears in the grid.
+      </p>
+    </div>
+  {% endif %}
+{% else %}
 
 {% set blog_field = module.post_source.blog_select %}
 {% if blog_field %}
@@ -240,3 +253,5 @@
   </div>
 
 </section>
+
+{% endif %}

@@ -1,5 +1,17 @@
 [
   {
+    "id": "show_feature",
+    "name": "show_feature",
+    "label": "Show featured item",
+    "help_text": "If hidden, turn off \"Exclude the Feature Content post\" in the listing.",
+    "required": false,
+    "locked": false,
+    "display": "checkbox",
+    "type": "boolean",
+    "display_width": null,
+    "default": true
+  },
+  {
     "id": "post_source",
     "name": "post_source",
     "label": "Featured post",
@@ -171,7 +183,6 @@
         "help_text": "Keep it an H2. Bold/strong text renders in light blue.",
         "required": false,
         "locked": false,
-        "enabled_features": [ "standard_emphasis", "block" ],
         "type": "richtext",
         "display_width": null,
         "default": "<h2>From Vision to Value: <strong>Your Copilot Journey</strong></h2>"
@@ -182,7 +193,6 @@
         "label": "Summary",
         "required": false,
         "locked": false,
-        "enabled_features": [ "standard_emphasis" ],
         "type": "richtext",
         "display_width": null,
         "default": "<p>Short summary of the featured resource.</p>"
