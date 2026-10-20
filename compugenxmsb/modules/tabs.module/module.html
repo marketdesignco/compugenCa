@@ -18,10 +18,27 @@
   class="
     tabs
     tabs--bg-{{ module.styles.background_color|escape_attr }}
+    tabs--heading-{{ module.styles.heading_color|default("black", true)|escape_attr }}
+    {% if module.styles.mobile_layout == "inline" %}tabs--mobile-inline{% endif %}
   "
 >
 
   <div class="tabs__inner content-wrapper">
+
+    {# Optional section heading/paragraph - both off by default, so pages
+       that already use this module render exactly as before. #}
+    {% if module.show_heading and module.section_heading %}
+      <div class="tabs__heading">
+        {{ module.section_heading|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.show_paragraph and module.section_paragraph %}
+      <div class="tabs__paragraph">
+        {{ module.section_paragraph|sanitize_html }}
+      </div>
+    {% endif %}
+
     <div class="tabs__body">
 
       <div class="tabs__nav" role="tablist" aria-label="Tabs">

@@ -1,4 +1,61 @@
 [ {
+  "id" : "show_heading",
+  "name" : "show_heading",
+  "label" : "Show section heading",
+  "help_text" : "Optional heading above the tabs.",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "section_heading",
+  "name" : "section_heading",
+  "label" : "Section heading",
+  "help_text" : "Keep it an H2. Bold text is the blue accent.",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : "show_heading",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "true",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<h2>Section <strong>Heading Poses a</strong> Challenge or a Promise</h2>"
+}, {
+  "id" : "show_paragraph",
+  "name" : "show_paragraph",
+  "label" : "Show section paragraph",
+  "help_text" : "Optional paragraph under the heading.",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "section_paragraph",
+  "name" : "section_paragraph",
+  "label" : "Section paragraph",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : "show_paragraph",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "true",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<p>Intro paragraph that sets up the tabs below.</p>"
+}, {
   "id" : "tabs",
   "name" : "tabs",
   "label" : "Tabs",
@@ -373,6 +430,36 @@
     "type" : "choice",
     "display_width" : null,
     "default" : "white"
+  }, {
+    "id" : "styles.heading_color",
+    "name" : "heading_color",
+    "label" : "Section heading color",
+    "help_text" : "Section heading color.",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "black", "Black" ], [ "purple", "Purple" ], [ "white", "White" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "black"
+  }, {
+    "id" : "styles.mobile_layout",
+    "name" : "mobile_layout",
+    "label" : "Mobile layout",
+    "help_text" : "Layout below 768px.",
+    "required" : false,
+    "locked" : false,
+    "display" : "radio",
+    "choices" : [ [ "stacked", "Stacked (tabs above panel)" ], [ "inline", "Panel under its tab" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "stacked"
   } ],
   "tab" : "STYLE",
   "expanded" : false,

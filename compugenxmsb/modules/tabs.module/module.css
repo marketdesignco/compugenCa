@@ -170,3 +170,119 @@
     flex: 1 1 45%;
   }
 }
+
+/* Optional section heading/paragraph (show_heading / show_paragraph, off
+   by default). Heading color applies to the heading only; <strong> keeps
+   its bold weight in the light blue accent, as in the Tier 2 design. */
+
+.tabs__heading > :last-child,
+.tabs__paragraph > :last-child {
+  margin-bottom: 0;
+}
+
+.tabs__heading,
+.tabs__paragraph {
+  max-width: 40rem;
+}
+
+.tabs__heading {
+  margin-bottom: 1rem;
+}
+
+.tabs__paragraph {
+  margin-bottom: 2.5rem;
+}
+
+.tabs__heading + .tabs__body {
+  margin-top: 2.5rem;
+}
+
+.tabs--heading-black .tabs__heading,
+.tabs--heading-black .tabs__heading :not(strong),
+.tabs--heading-black .tabs__heading h2,
+.tabs--heading-black .tabs__heading h3,
+.tabs--heading-black .tabs__heading p {
+  color: var(--color-black);
+}
+
+.tabs--heading-purple .tabs__heading,
+.tabs--heading-purple .tabs__heading :not(strong),
+.tabs--heading-purple .tabs__heading h2,
+.tabs--heading-purple .tabs__heading h3,
+.tabs--heading-purple .tabs__heading p {
+  color: var(--color-purple);
+}
+
+.tabs--heading-white .tabs__heading,
+.tabs--heading-white .tabs__heading :not(strong),
+.tabs--heading-white .tabs__heading h2,
+.tabs--heading-white .tabs__heading h3,
+.tabs--heading-white .tabs__heading p,
+.tabs--heading-white .tabs__paragraph,
+.tabs--heading-white .tabs__paragraph :not(strong) {
+  color: var(--color-white);
+}
+
+.tabs__heading strong {
+  color: var(--color-blue-accent);
+}
+
+/* Mobile layout "Panel under its tab" (styles.mobile_layout = inline,
+   opt-in). Nav and panels both become subgrids of one 16-row grid (8 tabs
+   max): tab N sits on row 2N-1 and its panel on row 2N, so the open panel
+   shows right under its own tab and empty rows of hidden panels collapse.
+   Subgrid (not display: contents) keeps the tablist element - and its
+   role - in the accessibility tree; DOM and focus order are unchanged.
+   Both containers span every row, so they pass clicks through to their
+   own children. Browsers without subgrid keep the stacked layout. */
+
+@media (max-width: 767px) {
+  @supports (grid-template-rows: subgrid) {
+    .tabs--mobile-inline .tabs__body {
+      display: grid;
+      gap: 0;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: repeat(16, auto);
+    }
+
+    .tabs--mobile-inline .tabs__nav,
+    .tabs--mobile-inline .tabs__panels {
+      display: grid;
+      gap: 0;
+      grid-column: 1;
+      grid-row: 1 / -1;
+      grid-template-rows: subgrid;
+      pointer-events: none;
+    }
+
+    .tabs--mobile-inline .tabs__nav-item,
+    .tabs--mobile-inline .tabs__panel {
+      pointer-events: auto;
+    }
+
+    .tabs--mobile-inline .tabs__nav-item {
+      margin-bottom: 1rem;
+    }
+
+    .tabs--mobile-inline .tabs__panel {
+      margin-bottom: 2rem;
+    }
+
+    .tabs--mobile-inline .tabs__nav-item:nth-child(1) { grid-row: 1; }
+    .tabs--mobile-inline .tabs__panel:nth-child(1) { grid-row: 2; }
+    .tabs--mobile-inline .tabs__nav-item:nth-child(2) { grid-row: 3; }
+    .tabs--mobile-inline .tabs__panel:nth-child(2) { grid-row: 4; }
+    .tabs--mobile-inline .tabs__nav-item:nth-child(3) { grid-row: 5; }
+    .tabs--mobile-inline .tabs__panel:nth-child(3) { grid-row: 6; }
+    .tabs--mobile-inline .tabs__nav-item:nth-child(4) { grid-row: 7; }
+    .tabs--mobile-inline .tabs__panel:nth-child(4) { grid-row: 8; }
+    .tabs--mobile-inline .tabs__nav-item:nth-child(5) { grid-row: 9; }
+    .tabs--mobile-inline .tabs__panel:nth-child(5) { grid-row: 10; }
+    .tabs--mobile-inline .tabs__nav-item:nth-child(6) { grid-row: 11; }
+    .tabs--mobile-inline .tabs__panel:nth-child(6) { grid-row: 12; }
+    .tabs--mobile-inline .tabs__nav-item:nth-child(7) { grid-row: 13; }
+    .tabs--mobile-inline .tabs__panel:nth-child(7) { grid-row: 14; }
+    .tabs--mobile-inline .tabs__nav-item:nth-child(8) { grid-row: 15; }
+    .tabs--mobile-inline .tabs__panel:nth-child(8) { grid-row: 16; }
+  }
+}
