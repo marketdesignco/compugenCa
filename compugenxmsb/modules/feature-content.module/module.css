@@ -109,12 +109,13 @@
 
 /* The title is an H2 for the outline (H1 is the banner) but is sized like
    an H3, as in Figma. Covers both the post title (<h2> itself) and any
-   heading produced by the Manual Rich Text title. */
+   heading produced by the Manual Rich Text title. Black with the light
+   blue accent, per the Resource Center design (planning/image-14.png). */
 .feature-content__title,
 .feature-content__title h1,
 .feature-content__title h2,
 .feature-content__title h3 {
-  color: var(--color-purple);
+  color: var(--color-black);
   font-size: var(--h3-size);
 }
 
