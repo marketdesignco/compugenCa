@@ -82,11 +82,11 @@
   "id" : "style",
   "name" : "style",
   "label" : "Layout style",
-  "help_text" : "Style 1 = single-corner diagonal cut with one decorative vector. Style 2 = parallelogram photo with two decorative vectors.",
+  "help_text" : "Style 1 = single-corner diagonal cut with one decorative vector. Style 2 = parallelogram photo with two decorative vectors. Style 3 = full-width image below the text.",
   "required" : true,
   "locked" : false,
   "display" : "radio",
-  "choices" : [ [ "style_1", "Style 1" ], [ "style_2", "Style 2" ] ],
+  "choices" : [ [ "style_1", "Style 1" ], [ "style_2", "Style 2" ], [ "style_3", "Style 3" ] ],
   "multiple" : false,
   "reordering_enabled" : true,
   "preset" : null,
@@ -116,6 +116,14 @@
   "help_text" : "Also controls which corner the diagonal cut and decorative vector appear on",
   "required" : true,
   "locked" : false,
+  "visibility" : {
+    "controlling_field" : "style",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "style_3",
+    "property" : null,
+    "operator" : "NOT_EQUAL",
+    "access" : null
+  },
   "display" : "radio",
   "choices" : [ [ "right", "Right" ], [ "left", "Left" ] ],
   "multiple" : false,
@@ -130,6 +138,14 @@
   "label" : "Show decorative vector",
   "required" : false,
   "locked" : false,
+  "visibility" : {
+    "controlling_field" : "style",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "style_3",
+    "property" : null,
+    "operator" : "NOT_EQUAL",
+    "access" : null
+  },
   "display" : "checkbox",
   "type" : "boolean",
   "display_width" : null,
@@ -141,6 +157,14 @@
   "help_text" : "Renders on the same corner as the diagonal cut - follows the image position setting",
   "required" : false,
   "locked" : false,
+  "visibility" : {
+    "controlling_field" : "style",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "style_3",
+    "property" : null,
+    "operator" : "NOT_EQUAL",
+    "access" : null
+  },
   "responsive" : false,
   "resizable" : false,
   "show_loading" : false,
@@ -294,6 +318,61 @@
     "group_occurrence_meta" : null,
     "type" : "group",
     "display_width" : null
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : true,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+}, {
+  "id" : "style3",
+  "name" : "style3",
+  "label" : "Style 3 overlay",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : "style",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "style_3",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "children" : [ {
+    "id" : "style3.overlay_visible",
+    "name" : "overlay_visible",
+    "label" : "Show overlay icon",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "style3.overlay",
+    "name" : "overlay",
+    "label" : "Overlay icon",
+    "help_text" : "Sits over the image's right edge.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "style3.overlay_visible",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "responsive" : false,
+    "resizable" : false,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "src" : "https://22217181.fs1.hubspotusercontent-na1.net/hubfs/22217181/Group%2051.png",
+      "alt" : "",
+      "loading" : "lazy"
+    }
   } ],
   "tab" : "CONTENT",
   "expanded" : true,

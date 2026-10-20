@@ -212,6 +212,48 @@
   left: 4%;
 }
 
+/* Style 3 - text (CTAs top-right on desktop) over a full-width image, with
+   a faint brand icon across the image's right edge. Proportions from the
+   Tier 2 Figma at 1317px content width: image 1205 x 499 (91.5%), icon
+   406px wide (30.85%), vertically centred; mobile image 280 x 134. The
+   icon PNG carries its own 15% opacity, so no opacity is set here. Style 3
+   has no image position class, so Style 1/2 rules above never reach it. */
+
+.text-image--style-3 .text-image__row {
+  align-items: stretch;
+}
+
+.text-image--style-3 .text-image__image {
+  aspect-ratio: 280 / 134;
+  width: 91.5%;
+}
+
+.text-image--style-3 .text-image__image img {
+  margin: 0;
+  width: 100%;
+}
+
+.text-image__overlay {
+  height: auto;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30.85%;
+  z-index: 1;
+}
+
+@media (max-width: 767px) {
+  .text-image--style-3 .text-image__ctas .btn-custom,
+  .text-image--style-3 .text-image__ctas .hs-cta-wrapper,
+  .text-image--style-3 .text-image__ctas .hs-cta-node,
+  .text-image--style-3 .text-image__ctas a {
+    display: block;
+    width: 100%;
+  }
+}
+
 @media (min-width: 768px) {
   .text-image__row {
     flex-direction: row;
@@ -231,5 +273,34 @@
 
   .text-image--pos-left .text-image__image-wrap {
     order: -1;
+  }
+
+  .text-image--style-3 .text-image__row {
+    flex-direction: column;
+  }
+
+  .text-image--style-3 .text-image__content {
+    align-items: flex-start;
+    display: flex;
+    flex: none;
+    gap: 2rem;
+    justify-content: space-between;
+  }
+
+  .text-image--style-3 .text-image__text {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .text-image--style-3 .text-image__ctas {
+    flex: 0 0 auto;
+  }
+
+  .text-image--style-3 .text-image__image-wrap {
+    flex: none;
+  }
+
+  .text-image--style-3 .text-image__image {
+    aspect-ratio: 1205 / 499;
   }
 }
