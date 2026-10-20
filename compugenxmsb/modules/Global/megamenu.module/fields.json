@@ -1114,7 +1114,7 @@
         "allow_new_line" : false,
         "type" : "text",
         "display_width" : null,
-        "default" : "Book a Readiness Session",
+        "default" : "Contact Us",
         "help_text" : "Only used for the Regular link type - a HubSpot CTA carries its own text",
         "visibility" : {
           "controlling_field" : "cta.link_type",
