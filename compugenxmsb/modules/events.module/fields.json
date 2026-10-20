@@ -6,7 +6,6 @@
     "help_text": "Optional - leave empty to hide. Same fixed treatment as the Table module's own heading: normal text is fixed Blue, Arial Regular; wrap text in Bold to render it Purple, Arial Black - regardless of any other setting. No separate color/typography choice exists for this field.",
     "required": false,
     "locked": false,
-    "enabled_features": [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
     "type": "richtext",
     "display_width": null,
     "default": "<h2><strong>Webinars, Workshops</strong> + Roundtables</h2>"
@@ -18,7 +17,6 @@
     "help_text": "Optional - leave empty to hide. Renders using the theme's global typography.",
     "required": false,
     "locked": false,
-    "enabled_features": [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
     "type": "richtext",
     "display_width": null,
     "default": "<p>Body copy slot. Each row: date, type, time, location, title, description, CTA &mdash; all repeatable fields.</p>"
@@ -91,7 +89,6 @@
         "help_text": "Renders as Heading 5, in Arial Black. Fixed Black text color - not tied to a module-level color choice.",
         "required": false,
         "locked": false,
-        "enabled_features": [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
         "type": "richtext",
         "display_width": null,
         "default": "<h5>The Pre-Audit Self-Check, Live: 10 Settings in 45 Minutes</h5>"
@@ -103,7 +100,6 @@
         "help_text": "Renders using the theme's global typography.",
         "required": false,
         "locked": false,
-        "enabled_features": [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
         "type": "richtext",
         "display_width": null,
         "default": "<p>Walk the checklist on a demo tenant with a CxMSB specialist.</p>"
