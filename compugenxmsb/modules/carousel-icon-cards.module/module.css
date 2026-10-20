@@ -1,0 +1,347 @@
+.carousel-icon-cards {
+  overflow: hidden;
+  position: relative;
+}
+
+/* Backgrounds - each one also sets the accent used by <strong> in the
+   section heading (green on purple, purple on light backgrounds). */
+
+.carousel-icon-cards--bg-purple {
+  --strong-accent: var(--color-green);
+  background-color: var(--color-purple);
+}
+
+.carousel-icon-cards--bg-purple_bg {
+  --strong-accent: var(--color-purple);
+  background-color: var(--color-purple-bg);
+}
+
+.carousel-icon-cards--bg-white {
+  --strong-accent: var(--color-purple);
+  background-color: var(--color-white);
+}
+
+/* Section heading color - explicit h1-h6/p selectors alongside
+   :not(strong), same pattern as Stats/Features Cards, so the rule reaches
+   whatever tag the Rich Text field outputs. */
+
+.carousel-icon-cards--heading-white .carousel-icon-cards__heading,
+.carousel-icon-cards--heading-white .carousel-icon-cards__heading :not(strong),
+.carousel-icon-cards--heading-white .carousel-icon-cards__heading h1,
+.carousel-icon-cards--heading-white .carousel-icon-cards__heading h2,
+.carousel-icon-cards--heading-white .carousel-icon-cards__heading h3,
+.carousel-icon-cards--heading-white .carousel-icon-cards__heading p {
+  color: var(--color-white);
+}
+
+.carousel-icon-cards--heading-purple .carousel-icon-cards__heading,
+.carousel-icon-cards--heading-purple .carousel-icon-cards__heading :not(strong),
+.carousel-icon-cards--heading-purple .carousel-icon-cards__heading h1,
+.carousel-icon-cards--heading-purple .carousel-icon-cards__heading h2,
+.carousel-icon-cards--heading-purple .carousel-icon-cards__heading h3,
+.carousel-icon-cards--heading-purple .carousel-icon-cards__heading p {
+  color: var(--color-purple);
+}
+
+.carousel-icon-cards--heading-black .carousel-icon-cards__heading,
+.carousel-icon-cards--heading-black .carousel-icon-cards__heading :not(strong),
+.carousel-icon-cards--heading-black .carousel-icon-cards__heading h1,
+.carousel-icon-cards--heading-black .carousel-icon-cards__heading h2,
+.carousel-icon-cards--heading-black .carousel-icon-cards__heading h3,
+.carousel-icon-cards--heading-black .carousel-icon-cards__heading p {
+  color: var(--color-black);
+}
+
+.carousel-icon-cards__heading strong {
+  color: var(--strong-accent, inherit);
+}
+
+/* Section paragraph color - never reaches the cards. */
+
+.carousel-icon-cards--content-white .carousel-icon-cards__paragraph,
+.carousel-icon-cards--content-white .carousel-icon-cards__paragraph :not(strong) {
+  color: var(--color-white);
+}
+
+.carousel-icon-cards--content-black .carousel-icon-cards__paragraph,
+.carousel-icon-cards--content-black .carousel-icon-cards__paragraph :not(strong) {
+  color: var(--color-black);
+}
+
+/* Rich Text fields carry the global heading/paragraph bottom margin - reset
+   the last child so this module's own margins are the single source of
+   spacing. */
+
+.carousel-icon-cards__heading > :last-child,
+.carousel-icon-cards__paragraph > :last-child,
+.carousel-icon-cards__description > :last-child {
+  margin-bottom: 0;
+}
+
+.carousel-icon-cards__heading,
+.carousel-icon-cards__paragraph {
+  max-width: 31rem;
+}
+
+.carousel-icon-cards__heading {
+  margin-bottom: 1rem;
+}
+
+.carousel-icon-cards__paragraph {
+  margin-bottom: 2.5rem;
+}
+
+.carousel-icon-cards__heading + .carousel-icon-cards__carousel {
+  margin-top: 2.5rem;
+}
+
+/* Carousel - before Slick initializes (or if it never does) the cards
+   are a plain stacked list. Slick's own core CSS (slick.min.css) handles
+   the sliding track; the rules below only add equal-height slides and the
+   gutter between cards. */
+
+.carousel-icon-cards__list:not(.slick-initialized) {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.carousel-icon-cards .slick-list {
+  margin: 0 -0.75rem;
+}
+
+.carousel-icon-cards .slick-track {
+  display: flex;
+}
+
+.carousel-icon-cards .slick-slide {
+  height: auto;
+  padding: 0 0.75rem;
+}
+
+/* Safety net in case Slick still wraps the slide in its row divs. */
+.carousel-icon-cards .slick-slide > div {
+  height: 100%;
+}
+
+.carousel-icon-cards__slide {
+  height: 100%;
+}
+
+/* Card - Figma box: 423 x 300 at the 1440 design width (green header
+   110px + body). Height is a minimum so longer copy can still grow; the
+   width follows the grid (cards share the row, 24px apart). */
+
+.carousel-icon-cards__card {
+  background-color: var(--color-white);
+  box-shadow: 0px 4px 20px 0px #5103C014;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 300px;
+  overflow: hidden;
+}
+
+/* Green header - icon right-aligned and vertically centered, the X
+   pattern just behind/left of it. */
+
+.carousel-icon-cards__media {
+  align-items: center;
+  background-color: var(--color-green);
+  display: flex;
+  flex: 0 0 auto;
+  height: 110px;
+  justify-content: flex-end;
+  overflow: hidden;
+  padding: 0 2rem 0 1.5rem;
+  position: relative;
+}
+
+.carousel-icon-cards__vector {
+  height: 100%;
+  pointer-events: none;
+  position: absolute;
+  right: 2.25rem;
+  top: 0;
+  width: auto;
+  z-index: 0;
+}
+
+/* Built-in X-marks (measured on the 423 x 300 Figma card): a small mark
+   ~141px from the right edge and a large one centred behind the icon.
+   Both vertically centred; white at 14%, like the brand vector-back.svg. */
+
+.carousel-icon-cards__xmark {
+  fill: var(--color-white);
+  fill-opacity: 0.14;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+.carousel-icon-cards__xmark--sm {
+  height: 54px;
+  right: 109px;
+  width: 64px;
+}
+
+.carousel-icon-cards__xmark--lg {
+  height: 90px;
+  right: 8px;
+  width: 107px;
+}
+
+.carousel-icon-cards__icon {
+  display: flex;
+  height: 58px;
+  position: relative;
+  width: 58px;
+  z-index: 1;
+}
+
+.carousel-icon-cards__icon-svg,
+.carousel-icon-cards__icon-svg svg {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.carousel-icon-cards--icon-purple .carousel-icon-cards__icon-svg svg {
+  fill: var(--color-purple);
+}
+
+.carousel-icon-cards--icon-white .carousel-icon-cards__icon-svg svg {
+  fill: var(--color-white);
+}
+
+.carousel-icon-cards--icon-black .carousel-icon-cards__icon-svg svg {
+  fill: var(--color-black);
+}
+
+/* Body */
+
+.carousel-icon-cards__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  padding: 2rem 1.5rem 1.5rem;
+}
+
+/* Title always looks like an H5 (the .h5 class), in black - its tag is
+   the semantic level picked in the module settings. */
+
+.carousel-icon-cards .carousel-icon-cards__title {
+  color: var(--color-black);
+  margin: 0 0 0.5rem;
+}
+
+.carousel-icon-cards__description,
+.carousel-icon-cards__description :not(strong):not(a) {
+  color: var(--color-black);
+}
+
+.carousel-icon-cards__cta {
+  margin-top: auto;
+  padding-top: 1.25rem;
+  text-align: right;
+}
+
+/* Pagination dashes - a custom dotsClass, so slick-theme.css's round
+   glyph dots (loaded globally by base.html) never apply. The theme styles
+   every <button> like a CTA (theme-overrides.css, "4. Buttons"), so each
+   dash resets those properties explicitly. */
+
+.carousel-icon-cards__dots {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  list-style: none;
+  margin: 2.5rem 0 0;
+  padding: 0;
+}
+
+.carousel-icon-cards__dots li {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.carousel-icon-cards__dots li::marker {
+  content: none;
+}
+
+.carousel-icon-cards .carousel-icon-cards__dash {
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  cursor: pointer;
+  display: block;
+  font-size: 0;
+  height: 24px;
+  line-height: 0;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+  position: relative;
+  text-transform: none;
+  width: 32px;
+}
+
+/* The visible dash is 3px tall; the button keeps a 24px tall hit area. */
+
+.carousel-icon-cards .carousel-icon-cards__dash::before {
+  background-color: currentColor;
+  content: '';
+  height: 3px;
+  left: 0;
+  opacity: 0.4;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.carousel-icon-cards .carousel-icon-cards__dash:hover,
+.carousel-icon-cards .carousel-icon-cards__dash:focus {
+  background-color: transparent;
+  border: 0;
+}
+
+.carousel-icon-cards .carousel-icon-cards__dash:hover::before,
+.carousel-icon-cards__dots .slick-active .carousel-icon-cards__dash::before {
+  opacity: 1;
+}
+
+.carousel-icon-cards .carousel-icon-cards__dash:focus-visible {
+  outline: 2px solid var(--color-focus-marker);
+  outline-offset: 2px;
+}
+
+.carousel-icon-cards--bg-purple .carousel-icon-cards__dash {
+  color: var(--color-white);
+}
+
+.carousel-icon-cards--bg-purple_bg .carousel-icon-cards__dash,
+.carousel-icon-cards--bg-white .carousel-icon-cards__dash {
+  color: var(--color-purple);
+}
+
+.carousel-icon-cards .slick-dotted.slick-slider {
+  margin-bottom: 0;
+}
+
+@media (max-width: 767px) {
+  .carousel-icon-cards__media {
+    padding-right: 1.5rem;
+  }
+
+  .carousel-icon-cards__vector {
+    right: 1.75rem;
+  }
+
+  .carousel-icon-cards__dots {
+    margin-top: 1.5rem;
+  }
+}

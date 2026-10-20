@@ -1,0 +1,174 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .carousel-icon-cards {
+        {{ module.styles.spacing_desktop.css }}
+      }
+
+      @media (max-width: 767px) {
+        .carousel-icon-cards {
+          {{ module.styles.spacing_mobile.css }}
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+{#
+  Slick + jQuery from the exact cdnjs URLs Carousel Cards uses, so a page
+  holding both modules requests identical files. The theme never loads
+  jQuery itself, which Slick needs; module.js waits for both (polling, same
+  as Carousel Cards) and leaves the cards as a plain stacked list if they
+  never arrive.
+#}
+
+{% require_css %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+{% end_require_css %}
+
+{% require_js position="footer" %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+{% end_require_js %}
+
+{% require_js position="footer" %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+{% end_require_js %}
+
+{% set heading_tag = module.card_heading_level if module.card_heading_level is within ["h3", "h4"] else "h3" %}
+{% set slides_desktop = module.carousel.slides_per_view if module.carousel.slides_per_view is within ["2", "3", "4"] else "3" %}
+{% set has_heading = module.show_heading and module.section_heading %}
+{% set heading_id = "carousel-icon-cards-heading-" ~ (name|default("module")) %}
+
+{# Built-in card header pattern: the brand X-mark - the same path as
+   hubfs/compugenMSB-2026/vector-back.svg (white, 14% opacity), but with a
+   viewBox framing the whole mark instead of its cropped centre. Rendered
+   twice per card (small + large behind the icon), as in the Figma card.
+   An image picked in Styles > Card header pattern replaces it. #}
+{% set xmark_path = "M80.4082 300.886L-62.8691 437H-156L41.0068 243.575H80.4082V300.886ZM363.381 437H270.25L126.973 300.886V243.575H166.374L363.381 437ZM-56.6875 1.25586L84.7422 139.29L83.9688 196.596L44.5713 196.064L-149.81 0L-56.6875 1.25586ZM168.979 196.064L129.581 196.596L128.809 139.29L270.237 1.25586L363.359 0L168.979 196.064Z" %}
+
+<section
+  class="
+    carousel-icon-cards
+    carousel-icon-cards--bg-{{ module.styles.background_color|escape_attr }}
+    carousel-icon-cards--heading-{{ module.styles.heading_color|escape_attr }}
+    carousel-icon-cards--content-{{ module.styles.content_color|escape_attr }}
+    carousel-icon-cards--icon-{{ module.styles.icon_color|escape_attr }}
+  "
+>
+
+  <div class="carousel-icon-cards__inner content-wrapper">
+
+    {% if has_heading %}
+      <div class="carousel-icon-cards__heading" id="{{ heading_id|escape_attr }}">
+        {{ module.section_heading|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.show_paragraph and module.section_paragraph %}
+      <div class="carousel-icon-cards__paragraph">
+        {{ module.section_paragraph|sanitize_html }}
+      </div>
+    {% endif %}
+
+    {% if module.cards %}
+      <div
+        class="carousel-icon-cards__carousel"
+        data-carousel-icon-cards
+        data-slides-desktop="{{ slides_desktop|escape_attr }}"
+        data-pagination="{{ 'true' if module.carousel.show_pagination else 'false' }}"
+        {% if has_heading %}role="region" aria-labelledby="{{ heading_id|escape_attr }}"{% endif %}
+      >
+        <div class="carousel-icon-cards__list" data-carousel-track>
+          {% for card in module.cards %}
+            <div class="carousel-icon-cards__slide">
+              <div class="carousel-icon-cards__card">
+
+                {# Green header - decorative only (pattern + system icon). #}
+                <div class="carousel-icon-cards__media" aria-hidden="true">
+                  {% if module.styles.vector_visible %}
+                    {% if module.styles.vector.src %}
+                      <img
+                        class="carousel-icon-cards__vector"
+                        src="{{ module.styles.vector.src|escape_url }}"
+                        alt=""
+                        loading="lazy"
+                      >
+                    {% else %}
+                      <svg class="carousel-icon-cards__xmark carousel-icon-cards__xmark--sm" viewBox="-156 0 519.4 437" focusable="false"><path d="{{ xmark_path }}"/></svg>
+                      <svg class="carousel-icon-cards__xmark carousel-icon-cards__xmark--lg" viewBox="-156 0 519.4 437" focusable="false"><path d="{{ xmark_path }}"/></svg>
+                    {% endif %}
+                  {% endif %}
+                  {% if card.show_icon and card.icon.name %}
+                    <span class="carousel-icon-cards__icon">
+                      {% icon
+                        extra_classes="carousel-icon-cards__icon-svg",
+                        icon_set="fontawesome-6.4.2",
+                        name="{{ card.icon.name }}",
+                        purpose="decorative",
+                        style="{{ card.icon.type }}",
+                        unicode="{{ card.icon.unicode }}"
+                      %}
+                    </span>
+                  {% endif %}
+                </div>
+
+                <div class="carousel-icon-cards__content">
+
+                  {% if card.title %}
+                    <{{ heading_tag }} class="carousel-icon-cards__title h5">{{ card.title|escape_html }}</{{ heading_tag }}>
+                  {% endif %}
+
+                  {% if card.description %}
+                    <div class="carousel-icon-cards__description">
+                      {{ card.description|sanitize_html }}
+                    </div>
+                  {% endif %}
+
+                  {% if card.show_cta %}
+                    {% set cta_item = card.cta_settings %}
+                    {% if cta_item.link_type == "cta" %}
+                      {% if cta_item.cta %}
+                        <div class="carousel-icon-cards__cta">
+                          <div class="btn-custom {{ cta_item.variant|escape_attr }}">
+                            {% cta guid=cta_item.cta %}
+                          </div>
+                        </div>
+                      {% endif %}
+                    {% else %}
+                      {% set href = cta_item.link.url.href %}
+                      {% if href and cta_item.text %}
+                        {% if cta_item.link.url.type == "EMAIL_ADDRESS" %}
+                          {% set href = "mailto:" + href %}
+                        {% endif %}
+                        {% set rel = [] %}
+                        {% if cta_item.link.no_follow %}
+                          {% do rel.append("nofollow") %}
+                        {% endif %}
+                        {% if cta_item.link.open_in_new_tab %}
+                          {% do rel.append("noopener") %}
+                        {% endif %}
+                        <div class="carousel-icon-cards__cta">
+                          <div class="btn-custom {{ cta_item.variant|escape_attr }}">
+                            <a
+                              href="{{ href|escape_url }}"
+                              {% if cta_item.link.open_in_new_tab %}target="_blank"{% endif %}
+                              {% if rel %}rel="{{ rel|join(" ")|escape_attr }}"{% endif %}
+                            >{{ cta_item.text|escape_html }}{% if card.title %}<span class="show-for-sr">: {{ card.title|escape_html }}</span>{% endif %}</a>
+                          </div>
+                        </div>
+                      {% endif %}
+                    {% endif %}
+                  {% endif %}
+
+                </div>
+
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+  </div>
+
+</section>

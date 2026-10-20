@@ -1,0 +1,482 @@
+[
+  {
+    "id": "show_heading",
+    "name": "show_heading",
+    "label": "Show section heading",
+    "required": false,
+    "locked": false,
+    "display": "checkbox",
+    "type": "boolean",
+    "display_width": null,
+    "default": true
+  },
+  {
+    "id": "section_heading",
+    "name": "section_heading",
+    "label": "Section heading",
+    "help_text": "Keep it an H2. Bold text uses the accent color.",
+    "required": false,
+    "locked": false,
+    "visibility": {
+      "controlling_field": "show_heading",
+      "controlling_value_regex": "true",
+      "operator": "EQUAL"
+    },
+    "type": "richtext",
+    "display_width": null,
+    "default": "<h2>Technology That Moves Your Industry Forward</h2>"
+  },
+  {
+    "id": "show_paragraph",
+    "name": "show_paragraph",
+    "label": "Show section paragraph",
+    "required": false,
+    "locked": false,
+    "display": "checkbox",
+    "type": "boolean",
+    "display_width": null,
+    "default": true
+  },
+  {
+    "id": "section_paragraph",
+    "name": "section_paragraph",
+    "label": "Section paragraph",
+    "required": false,
+    "locked": false,
+    "visibility": {
+      "controlling_field": "show_paragraph",
+      "controlling_value_regex": "true",
+      "operator": "EQUAL"
+    },
+    "type": "richtext",
+    "display_width": null,
+    "default": "<p>Discover tailored solutions designed to address your industry's unique challenges and opportunities.</p>"
+  },
+  {
+    "id": "cards",
+    "name": "cards",
+    "label": "Cards",
+    "help_text": "System icon, title, short description and link per card.",
+    "required": false,
+    "locked": false,
+    "occurrence": {
+      "min": 1,
+      "max": 12,
+      "sorting_label_field": "cards.title",
+      "default": 3
+    },
+    "children": [
+      {
+        "id": "cards.show_icon",
+        "name": "show_icon",
+        "label": "Show icon",
+        "help_text": "Hides the icon only.",
+        "required": false,
+        "locked": false,
+        "display": "checkbox",
+        "type": "boolean",
+        "display_width": null,
+        "default": true
+      },
+      {
+        "id": "cards.icon",
+        "name": "icon",
+        "label": "Icon",
+        "required": false,
+        "locked": false,
+        "visibility": {
+          "controlling_field": "cards.show_icon",
+          "controlling_value_regex": "true",
+          "operator": "EQUAL"
+        },
+        "icon_set": "fontawesome-6.4.2",
+        "type": "icon",
+        "display_width": null,
+        "default": {
+          "name": "table-cells-large",
+          "type": "SOLID",
+          "unicode": "f009"
+        }
+      },
+      {
+        "id": "cards.title",
+        "name": "title",
+        "label": "Title",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": "Card Title"
+      },
+      {
+        "id": "cards.description",
+        "name": "description",
+        "label": "Description",
+        "required": false,
+        "locked": false,
+        "type": "richtext",
+        "display_width": null,
+        "default": "<p>One or two sentences about this solution.</p>"
+      },
+      {
+        "id": "cards.show_cta",
+        "name": "show_cta",
+        "label": "Show link",
+        "required": false,
+        "locked": false,
+        "display": "checkbox",
+        "type": "boolean",
+        "display_width": null,
+        "default": true
+      },
+      {
+        "id": "cards.cta_settings",
+        "name": "cta_settings",
+        "label": "Link settings",
+        "help_text": "Regular link or HubSpot CTA. Replace the # URL.",
+        "required": false,
+        "locked": false,
+        "visibility": {
+          "controlling_field": "cards.show_cta",
+          "controlling_value_regex": "true",
+          "operator": "EQUAL"
+        },
+        "children": [
+          {
+            "id": "cards.cta_settings.link_type",
+            "name": "link_type",
+            "label": "Link type",
+            "required": false,
+            "locked": false,
+            "display": "radio",
+            "choices": [ [ "link", "Regular link" ], [ "cta", "HubSpot CTA" ] ],
+            "type": "choice",
+            "display_width": null,
+            "default": "link"
+          },
+          {
+            "id": "cards.cta_settings.text",
+            "name": "text",
+            "label": "Link text",
+            "required": false,
+            "locked": false,
+            "visibility": {
+              "controlling_field": "cards.cta_settings.link_type",
+              "controlling_value_regex": "link",
+              "operator": "EQUAL"
+            },
+            "allow_new_line": false,
+            "type": "text",
+            "display_width": null,
+            "default": "Learn More"
+          },
+          {
+            "id": "cards.cta_settings.link",
+            "name": "link",
+            "label": "Link URL",
+            "required": false,
+            "locked": false,
+            "visibility": {
+              "controlling_field": "cards.cta_settings.link_type",
+              "controlling_value_regex": "link",
+              "operator": "EQUAL"
+            },
+            "supported_types": [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS" ],
+            "show_advanced_rel_options": true,
+            "type": "link",
+            "display_width": null,
+            "default": {
+              "url": {
+                "href": "#",
+                "type": "EXTERNAL"
+              },
+              "no_follow": false,
+              "open_in_new_tab": false
+            }
+          },
+          {
+            "id": "cards.cta_settings.variant",
+            "name": "variant",
+            "label": "Link style",
+            "required": false,
+            "locked": false,
+            "display": "select",
+            "choices": [ [ "btn-primary-purple", "Primary - Purple" ], [ "btn-primary-green", "Primary - Green" ], [ "btn-secondary-purple", "Secondary - Purple" ], [ "btn-secondary-green", "Secondary - Green" ], [ "btn-secondary-white", "Secondary - White outline" ], [ "btn-tertiary-purple", "Tertiary - Purple" ], [ "btn-tertiary-green", "Tertiary - Green" ] ],
+            "type": "choice",
+            "display_width": null,
+            "default": "btn-tertiary-purple"
+          },
+          {
+            "id": "cards.cta_settings.cta",
+            "name": "cta",
+            "label": "HubSpot CTA",
+            "required": false,
+            "locked": false,
+            "visibility": {
+              "controlling_field": "cards.cta_settings.link_type",
+              "controlling_value_regex": "cta",
+              "operator": "EQUAL"
+            },
+            "type": "cta",
+            "display_width": null
+          }
+        ],
+        "tab": "CONTENT",
+        "expanded": false,
+        "group_occurrence_meta": null,
+        "type": "group",
+        "display_width": null
+      }
+    ],
+    "tab": "CONTENT",
+    "expanded": true,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null,
+    "default": [
+      {
+        "show_icon": true,
+        "icon": { "name": "table-cells-large", "type": "SOLID", "unicode": "f009" },
+        "title": "Cloud & Infrastructure",
+        "description": "<p>Modernize your infrastructure with flexible, secure, and scalable cloud solutions.</p>",
+        "show_cta": true,
+        "cta_settings": {
+          "link_type": "link",
+          "text": "Learn More",
+          "link": { "url": { "href": "#", "type": "EXTERNAL" }, "no_follow": false, "open_in_new_tab": false },
+          "variant": "btn-tertiary-purple"
+        }
+      },
+      {
+        "show_icon": true,
+        "icon": { "name": "building", "type": "SOLID", "unicode": "f1ad" },
+        "title": "Data & Analytics",
+        "description": "<p>Turn your data into actionable insights that support smarter business decisions.</p>",
+        "show_cta": true,
+        "cta_settings": {
+          "link_type": "link",
+          "text": "Learn More",
+          "link": { "url": { "href": "#", "type": "EXTERNAL" }, "no_follow": false, "open_in_new_tab": false },
+          "variant": "btn-tertiary-purple"
+        }
+      },
+      {
+        "show_icon": true,
+        "icon": { "name": "repeat", "type": "SOLID", "unicode": "f363" },
+        "title": "Optimization",
+        "description": "<p>Improve performance, efficiency, and costs across your technology environment.</p>",
+        "show_cta": true,
+        "cta_settings": {
+          "link_type": "link",
+          "text": "Learn More",
+          "link": { "url": { "href": "#", "type": "EXTERNAL" }, "no_follow": false, "open_in_new_tab": false },
+          "variant": "btn-tertiary-purple"
+        }
+      }
+    ]
+  },
+  {
+    "id": "card_heading_level",
+    "name": "card_heading_level",
+    "label": "Card title heading level",
+    "help_text": "Titles always look like an H5.",
+    "required": true,
+    "locked": false,
+    "display": "select",
+    "choices": [ [ "h3", "H3" ], [ "h4", "H4" ] ],
+    "type": "choice",
+    "display_width": null,
+    "default": "h3"
+  },
+  {
+    "id": "carousel",
+    "name": "carousel",
+    "label": "Carousel",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "id": "carousel.slides_per_view",
+        "name": "slides_per_view",
+        "label": "Cards visible (desktop)",
+        "help_text": "Fewer cards show on smaller screens.",
+        "required": true,
+        "locked": false,
+        "display": "select",
+        "choices": [ [ "2", "2" ], [ "3", "3" ], [ "4", "4" ] ],
+        "type": "choice",
+        "display_width": null,
+        "default": "3"
+      },
+      {
+        "id": "carousel.show_pagination",
+        "name": "show_pagination",
+        "label": "Show pagination dashes",
+        "help_text": "Shown only when cards overflow.",
+        "required": false,
+        "locked": false,
+        "display": "checkbox",
+        "type": "boolean",
+        "display_width": null,
+        "default": true
+      }
+    ],
+    "tab": "CONTENT",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  },
+  {
+    "id": "styles",
+    "name": "styles",
+    "label": "Styles",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "id": "styles.background_color",
+        "name": "background_color",
+        "label": "Background color",
+        "required": true,
+        "locked": false,
+        "display": "select",
+        "choices": [ [ "purple", "Purple" ], [ "purple_bg", "Purple BG (#FAF9FD)" ], [ "white", "White" ] ],
+        "type": "choice",
+        "display_width": null,
+        "default": "purple",
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.heading_color",
+        "name": "heading_color",
+        "label": "Heading color",
+        "required": true,
+        "locked": false,
+        "display": "select",
+        "choices": [ [ "white", "White" ], [ "purple", "Purple" ], [ "black", "Black" ] ],
+        "type": "choice",
+        "display_width": null,
+        "default": "white",
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.content_color",
+        "name": "content_color",
+        "label": "Paragraph color",
+        "help_text": "Section paragraph only.",
+        "required": true,
+        "locked": false,
+        "display": "select",
+        "choices": [ [ "white", "White" ], [ "black", "Black" ] ],
+        "type": "choice",
+        "display_width": null,
+        "default": "white",
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.icon_color",
+        "name": "icon_color",
+        "label": "Icon color",
+        "required": true,
+        "locked": false,
+        "display": "select",
+        "choices": [ [ "purple", "Purple" ], [ "white", "White" ], [ "black", "Black" ] ],
+        "type": "choice",
+        "display_width": null,
+        "default": "purple",
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.vector_visible",
+        "name": "vector_visible",
+        "label": "Show card header pattern",
+        "required": false,
+        "locked": false,
+        "display": "checkbox",
+        "type": "boolean",
+        "display_width": null,
+        "default": true,
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.vector",
+        "name": "vector",
+        "label": "Card header pattern (optional image)",
+        "help_text": "Leave empty for the default X pattern.",
+        "required": false,
+        "locked": false,
+        "visibility": {
+          "controlling_field": "styles.vector_visible",
+          "controlling_value_regex": "true",
+          "operator": "EQUAL"
+        },
+        "responsive": false,
+        "resizable": false,
+        "show_loading": false,
+        "type": "image",
+        "display_width": null,
+        "default": {
+          "src": "",
+          "alt": "",
+          "loading": "lazy"
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.spacing_desktop",
+        "name": "spacing_desktop",
+        "label": "Desktop spacing",
+        "help_text": "Top/bottom padding.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 80, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 80, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      },
+      {
+        "id": "styles.spacing_mobile",
+        "name": "spacing_mobile",
+        "label": "Mobile spacing",
+        "help_text": "Top/bottom padding below 768px.",
+        "required": false,
+        "locked": false,
+        "type": "spacing",
+        "visibility": {
+          "hidden_subfields": {
+            "margin": true
+          }
+        },
+        "display_width": null,
+        "default": {
+          "padding": {
+            "top": { "value": 40, "units": "px" },
+            "right": { "value": 0, "units": "px" },
+            "bottom": { "value": 40, "units": "px" },
+            "left": { "value": 0, "units": "px" }
+          }
+        },
+        "tab": "STYLE"
+      }
+    ],
+    "tab": "STYLE",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null
+  }
+]
