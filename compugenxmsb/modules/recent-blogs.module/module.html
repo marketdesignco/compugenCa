@@ -14,6 +14,9 @@
   </style>
 {% end_require_css %}
 
+{# `!= false` so instances saved before this switch existed (value not stored) stay visible. #}
+{% if module.show_section != false %}
+
 {% set post_limit = 3 %}
 {% set fetch_limit = 100 %}
 {# On a blog post: default to the current blog and leave the current post out of the list.
@@ -108,3 +111,8 @@
   </div>
 
 </section>
+
+{% elif is_in_editor %}
+  {# Editor-only note so a hidden module does not look empty; nothing is printed on the live page. #}
+  <p class="recent-blogs__hidden-note">Recent articles are hidden (Show this section is off).</p>
+{% endif %}

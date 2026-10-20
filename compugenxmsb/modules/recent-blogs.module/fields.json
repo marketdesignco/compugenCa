@@ -1,5 +1,17 @@
 [
   {
+    "id": "show_section",
+    "name": "show_section",
+    "label": "Show this section",
+    "help_text": "On by default. Turn off to hide the whole recent articles section on this page or post.",
+    "required": false,
+    "locked": false,
+    "display": "checkbox",
+    "type": "boolean",
+    "display_width": null,
+    "default": true
+  },
+  {
     "id": "section_heading",
     "name": "section_heading",
     "label": "Heading",

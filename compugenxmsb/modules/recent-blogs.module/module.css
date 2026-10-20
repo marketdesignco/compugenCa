@@ -145,3 +145,13 @@
 .recent-blogs__link {
   margin-top: auto;
 }
+
+/* Editor-only note shown when the section is switched off */
+
+.recent-blogs__hidden-note {
+  color: var(--color-gray, #6D6E6E);
+  font-size: 13px;
+  margin: 0;
+  padding: 1rem;
+  text-align: center;
+}
