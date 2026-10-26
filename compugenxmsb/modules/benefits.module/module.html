@@ -49,7 +49,20 @@
                   <p class="benefits__item-title">{{ item.title|escape_html }}</p>
                 {% endif %}
                 {% if module.styles.show_icons %}
-                  <span class="benefits__item-icon" aria-hidden="true"></span>
+                  {% if item.icon_type == "icon" and item.icon_library.name %}
+                    <span class="benefits__item-icon benefits__item-icon--library" aria-hidden="true">
+                      {% icon
+                        extra_classes="benefits__item-icon-svg",
+                        icon_set="fontawesome-6.4.2",
+                        name="{{ item.icon_library.name }}",
+                        purpose="decorative",
+                        style="{{ item.icon_library.type }}",
+                        unicode="{{ item.icon_library.unicode }}"
+                      %}
+                    </span>
+                  {% else %}
+                    <span class="benefits__item-icon benefits__item-icon--plus" aria-hidden="true"></span>
+                  {% endif %}
                 {% endif %}
               </div>
             {% endif %}

@@ -130,19 +130,22 @@
   min-width: 0;
 }
 
-/* Decorative "+" in an Onahau circle, drawn in CSS (aria-hidden in markup) */
+/* Default + in an Onahau circle, drawn in CSS when selected. */
 .benefits__item-icon {
+  align-items: center;
   background-color: var(--color-onahau);
   border-radius: 50%;
+  display: flex;
   flex: 0 0 36px;
   height: 36px;
+  justify-content: center;
   margin-left: auto;
   position: relative;
   width: 36px;
 }
 
-.benefits__item-icon::before,
-.benefits__item-icon::after {
+.benefits__item-icon--plus::before,
+.benefits__item-icon--plus::after {
   background-color: var(--color-port-gore);
   border-radius: 1px;
   content: "";
@@ -154,8 +157,20 @@
   width: 14px;
 }
 
-.benefits__item-icon::after {
+.benefits__item-icon--plus::after {
   transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.benefits__item-icon-svg {
+  display: block;
+  line-height: 0;
+}
+
+.benefits__item-icon-svg svg {
+  display: block;
+  fill: var(--color-port-gore);
+  height: 16px;
+  width: 16px;
 }
 
 /* Figma uses auto spacing: the description sits centered between the title

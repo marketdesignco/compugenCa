@@ -50,6 +50,45 @@
         "default": ""
       },
       {
+        "id": "items.icon_type",
+        "name": "icon_type",
+        "label": "Icon source",
+        "help_text": "Choose the built-in + or a decorative icon from HubSpot's library for this card.",
+        "required": false,
+        "locked": false,
+        "display": "radio",
+        "choices": [ [ "plus", "Default +" ], [ "icon", "HubSpot Icon Library" ] ],
+        "multiple": false,
+        "reordering_enabled": false,
+        "preset": null,
+        "type": "choice",
+        "display_width": null,
+        "default": "plus"
+      },
+      {
+        "id": "items.icon_library",
+        "name": "icon_library",
+        "label": "Icon (HubSpot Icon Library)",
+        "required": false,
+        "locked": false,
+        "visibility": {
+          "controlling_field": "items.icon_type",
+          "controlling_field_path": null,
+          "controlling_value_regex": "icon",
+          "property": null,
+          "operator": "EQUAL",
+          "access": null
+        },
+        "icon_set": "fontawesome-6.4.2",
+        "type": "icon",
+        "display_width": null,
+        "default": {
+          "name": "plus",
+          "type": "SOLID",
+          "unicode": "f067"
+        }
+      },
+      {
         "id": "items.description",
         "name": "description",
         "label": "Description",
@@ -108,36 +147,72 @@
     "default": [
       {
         "title": "Lounge Bar Sponsor",
+        "icon_type": "plus",
+        "icon_library": {
+          "name": "plus",
+          "type": "SOLID",
+          "unicode": "f067"
+        },
         "description": "Host the bar where the best evening conversations happen, with your logo on signage.",
         "price": "$3,000 Investment",
         "cta_style": "btn-primary-navy"
       },
       {
         "title": "Tote Sponsor",
+        "icon_type": "plus",
+        "icon_library": {
+          "name": "plus",
+          "type": "SOLID",
+          "unicode": "f067"
+        },
         "description": "Your logo on the tote every attendee receives at check-in and keeps to carry well beyond the event.",
         "price": "$3,000 Investment",
         "cta_style": "btn-primary-navy"
       },
       {
         "title": "First Sip Sponsor",
+        "icon_type": "plus",
+        "icon_library": {
+          "name": "plus",
+          "type": "SOLID",
+          "unicode": "f067"
+        },
         "description": "Fuel the morning. Your brand is the first thing sellers see as each day begins at coffee stations.",
         "price": "$1,500 Investment",
         "cta_style": "btn-primary-navy"
       },
       {
         "title": "Food Station Sponsor",
+        "icon_type": "plus",
+        "icon_library": {
+          "name": "plus",
+          "type": "SOLID",
+          "unicode": "f067"
+        },
         "description": "Branded signage where attendees naturally gather, an easy place to start a conversation.",
         "price": "$1,000 Investment per station",
         "cta_style": "btn-primary-navy"
       },
       {
         "title": "Lanyards",
+        "icon_type": "plus",
+        "icon_library": {
+          "name": "plus",
+          "type": "SOLID",
+          "unicode": "f067"
+        },
         "description": "Your logo on every name badge lanyard, present in every session, photo, and conversation.",
         "price": "$1,000 Investment",
         "cta_style": "btn-primary-navy"
       },
       {
         "title": "Charging Station",
+        "icon_type": "plus",
+        "icon_library": {
+          "name": "plus",
+          "type": "SOLID",
+          "unicode": "f067"
+        },
         "description": "Keep everyone powered up. Attendees return all day, giving your team built-in time to engage and start a new conversation.",
         "price": "$4,000 Investment",
         "cta_style": "btn-primary-navy"
@@ -214,8 +289,8 @@
       {
         "id": "styles.show_icons",
         "name": "show_icons",
-        "label": "Show \"+\" icons",
-        "help_text": "Muestra el círculo decorativo con el signo + arriba a la derecha de cada card.",
+        "label": "Show icons",
+        "help_text": "Shows each card's selected + or HubSpot icon in the upper-right corner.",
         "required": false,
         "locked": false,
         "display": "checkbox",
