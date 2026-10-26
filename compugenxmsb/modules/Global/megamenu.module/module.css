@@ -351,9 +351,17 @@ a.global-megamenu__link:hover .global-megamenu__link-title {
   line-height: var(--body-line-height);
 }
 
+/* Separator drawn as a cap-height bar on the baseline, as in Figma - Arial's
+   "|" glyph is taller and drops below the baseline. 0.4em = the old 0.3em
+   margin plus the glyph's side bearings, so the spacing is unchanged. */
 .global-megamenu__lang-item + .global-megamenu__lang-item::before {
-  content: '|';
-  margin: 0 0.3em;
+  background-color: currentColor;
+  content: '';
+  display: inline-block;
+  height: 0.72em;
+  height: 1cap;
+  margin: 0 0.4em;
+  width: 1px;
 }
 
 .global-megamenu__lang a {
@@ -498,11 +506,11 @@ body.global-megamenu-scroll-locked {
   .global-megamenu__cta {
     align-self: center;
     flex-shrink: 0;
-    margin-left: clamp(24px, calc((100vw - 1366px) * 0.054 + 24px), 28px);
+    margin-left: clamp(24px, calc((100vw - 1366px) * 0.162 + 24px), 36px);
     order: 4;
   }
 
-  /* No published translations - the CTA takes over the auto margin */
+  /* Language switcher turned off - the CTA takes over the auto margin */
   .global-megamenu--no-lang .global-megamenu__cta {
     margin-left: auto;
   }

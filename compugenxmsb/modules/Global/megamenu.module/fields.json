@@ -1071,7 +1071,7 @@
     "type" : "boolean",
     "display_width" : null,
     "default" : true,
-    "help_text" : "Only renders when the page has published translations"
+    "help_text" : "Other language shows as plain text until its translation is published"
   },
   {
     "id" : "cta",

@@ -18,7 +18,9 @@
   </style>
 {% end_require_css %}
 
-{% set show_lang = module.show_language and (content.translated_content.values()|selectattr("published")|length or is_listing_view and group.translations) %}
+{% set show_lang = module.show_language %}
+{% set has_translation = content.translated_content.values()|selectattr("published")|length %}
+{% set current_lang = (content.language.languageTag|default("en")|split("-"))[0]|upper %}
 {% set mm_id = "global-megamenu-" ~ name|lower|replace("_", "-") %}
 
 {#
@@ -181,7 +183,7 @@
       {% if show_lang %}
         <ul class="global-megamenu__lang no-list">
           <li class="global-megamenu__lang-item global-megamenu__lang-item--current">
-            <span aria-current="true">{{ (content.language.languageTag|split("-"))[0]|upper }}</span>
+            <span aria-current="true">{{ current_lang }}</span>
           </li>
           {% for translation in content.translated_content.values() %}
             {% if translation.published %}
@@ -190,6 +192,12 @@
               </li>
             {% endif %}
           {% endfor %}
+          {# No published translation yet - other language as plain text so EN | FR still shows; becomes a link once the translation is published #}
+          {% if not has_translation %}
+            <li class="global-megamenu__lang-item">
+              <span>{{ "FR" if current_lang == "EN" else "EN" }}</span>
+            </li>
+          {% endif %}
         </ul>
       {% endif %}
 
